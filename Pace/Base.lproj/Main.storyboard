@@ -18,20 +18,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello World" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JN1-F4-dCt">
-                                <rect key="frame" x="143" y="323" width="89" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNo-F3-kQC" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="177" width="375" height="333.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="JN1-F4-dCt" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="E0t-Ik-p4Y"/>
-                            <constraint firstItem="JN1-F4-dCt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gBM-QP-niJ"/>
+                            <constraint firstItem="XNo-F3-kQC" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7dC-e6-O7o"/>
+                            <constraint firstItem="XNo-F3-kQC" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="HPm-b0-PqT"/>
+                            <constraint firstItem="XNo-F3-kQC" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="UdB-XJ-FAb"/>
+                            <constraint firstItem="XNo-F3-kQC" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="ZsV-oi-xR0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="XNo-F3-kQC" id="dnI-zG-B1P"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
