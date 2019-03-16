@@ -79,4 +79,5 @@ scripts/secrets.py
 *.realm.management
 
 **/UserInterfaceState.xcuserstate
-Secrets.swift
+**/Secrets.swift
+
