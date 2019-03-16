@@ -12,7 +12,7 @@ import GooglePlaces
 
 class ViewController: UIViewController {
 
-    @IBOutlet var mapView: GMSMapView!
+    @IBOutlet private var mapView: GMSMapView!
     private let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
@@ -48,5 +48,3 @@ extension ViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
     }
 }
-
-
