@@ -12,5 +12,12 @@ struct CheckPoint {
     private let location: Location
     private let time: Double
     private let actualDistance: Double
-    private let RouteDistance: Double?
+    private let routeDistance: Double?
+
+    init(location: Location, time: Double, actualDistance: Double, routeDistance: Double) {
+        self.location = location
+        self.time = time
+        self.actualDistance = actualDistance
+        self.routeDistance = routeDistance
+    }
 }

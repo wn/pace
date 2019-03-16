@@ -11,4 +11,9 @@ import Foundation
 class Pace {
     private let runner: User
     private var checkPoints: [CheckPoint]
+
+    init(runner: User, checkPoints: [CheckPoint]) {
+        self.runner = runner
+        self.checkPoints = checkPoints
+    }
 }
