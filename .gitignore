@@ -77,3 +77,6 @@ scripts/secrets.py
 # Ignore realm related files
 *.realm.lock
 *.realm.management
+
+**/UserInterfaceState.xcuserstate
+Secrets.swift
