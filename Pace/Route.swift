@@ -11,4 +11,9 @@ import Foundation
 class Route {
     private let creator: User
     private var paces: [Pace]
+
+    init(creator: User, paces: [Pace]) {
+        self.creator = creator
+        self.paces = paces
+    }
 }
