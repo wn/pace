@@ -78,6 +78,6 @@ scripts/secrets.py
 *.realm.lock
 *.realm.management
 
-**/UserInterfaceState.xcuserstate
-**/Secrets.swift
+*.xcuserstate
+*/Secrets.swift
 
