@@ -17,6 +17,11 @@ struct Location {
         self.latitude = latitude
     }
 
+    func isSameAs(other: Location) -> Bool {
+        let distance = distanceTo(other: other)
+        return distance <= Constants.sameLocationThreshold
+    }
+
     func distanceTo(other: Location) -> Double {
         let xDistance = self.latitude - other.latitude
         let yDistance = self.longitude - other.longitude
