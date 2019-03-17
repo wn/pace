@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad11_0rounded" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,25 +15,62 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNo-F3-kQC" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="177" width="375" height="333.5"/>
+                                <rect key="frame" x="0.0" y="300.5" width="834" height="597"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xMa-gt-39O">
+                                <rect key="frame" x="0.0" y="124" width="834" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="NAG-gL-Z5W">
+                                        <rect key="frame" x="0.0" y="0.0" width="834" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cD3-sf-3pA">
+                                                <rect key="frame" x="0.0" y="0.0" width="417" height="30"/>
+                                                <color key="backgroundColor" red="0.12941176469999999" green="0.80784313730000001" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="PING LOCATION"/>
+                                                <connections>
+                                                    <action selector="testbutton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QQf-2f-jcM"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Te-2U-xS1">
+                                                <rect key="frame" x="417" y="0.0" width="417" height="30"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="CLEAR"/>
+                                                <connections>
+                                                    <action selector="clearMapDrawing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jBR-sL-q5e"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.12941176469999999" green="0.80784313730000001" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxS-GE-U70">
+                                        <rect key="frame" x="0.0" y="30" width="834" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="xMa-gt-39O" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="0Jp-2T-VyN"/>
                             <constraint firstItem="XNo-F3-kQC" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7dC-e6-O7o"/>
                             <constraint firstItem="XNo-F3-kQC" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="HPm-b0-PqT"/>
                             <constraint firstItem="XNo-F3-kQC" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="UdB-XJ-FAb"/>
                             <constraint firstItem="XNo-F3-kQC" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="ZsV-oi-xR0"/>
+                            <constraint firstItem="xMa-gt-39O" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="kRh-Jb-oeA"/>
+                            <constraint firstItem="xMa-gt-39O" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="n5C-LM-bOB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="XNo-F3-kQC" id="dnI-zG-B1P"/>
+                        <outlet property="position" destination="FxS-GE-U70" id="3pk-qH-JMy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
