@@ -5,7 +5,7 @@ env:
     global:
         - WORKSPACE=Pace.xcworkspace
         - SCHEME=Pace
-        - SDK=iphonesimulator10.3
+        - SDK=iphonesimulator12.1
         - DESTINATION="platform=iOS Simulator,OS=latest,name=iPhone 7"
 
 script:
