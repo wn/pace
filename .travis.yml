@@ -1,2 +1,4 @@
+install:
+  - ./install_swiftlint.sh
 script:
   - swiftlint
