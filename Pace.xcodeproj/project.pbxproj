@@ -17,7 +17,7 @@
 		6445D550064D1B2689B8B8F8 /* Pods_PaceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CC74146F089ECCAF13B46B /* Pods_PaceUITests.framework */; };
 		ACCED92F64C8D19C5646D635 /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC06DA1E905BCD8ACE259AF /* Pods_PaceTests.framework */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
-		EB931BC52238066500AFF868 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC42238066500AFF868 /* ViewController.swift */; };
+		EB931BC52238066500AFF868 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC42238066500AFF868 /* MapsViewController.swift */; };
 		EB931BC82238066500AFF868 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BC62238066500AFF868 /* Main.storyboard */; };
 		EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC92238066500AFF868 /* Pace.xcdatamodeld */; };
 		EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB931BCC2238066800AFF868 /* Assets.xcassets */; };
@@ -63,7 +63,7 @@
 		DD90D41F42753C4B0F69FBD8 /* Pods-PaceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PaceUITests/Pods-PaceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BC22238066500AFF868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EB931BC42238066500AFF868 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EB931BC42238066500AFF868 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		EB931BC72238066500AFF868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EB931BCA2238066500AFF868 /* Pace.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pace.xcdatamodel; sourceTree = "<group>"; };
 		EB931BCC2238066800AFF868 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 				5C8E42D3223CC84800DEC2F4 /* Pace.swift */,
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
 				5C8E42D7223CC95500DEC2F4 /* Location.swift */,
-				5C751F0D223CD7650082BC93 /* Constants.swift */,
+				EBC1644F223F9BAB00745F91 /* VoiceAssistant.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -159,11 +159,9 @@
 			isa = PBXGroup;
 			children = (
 				5C8E42D0223CC7E900DEC2F4 /* Models */,
+				EBC16451223FE8AB00745F91 /* Controllers */,
+				EBC16452223FE8C100745F91 /* Views */,
 				EBC1644A223C9EE900745F91 /* Supporting Files */,
-				EB931BC42238066500AFF868 /* ViewController.swift */,
-				EB931BC62238066500AFF868 /* Main.storyboard */,
-				EB931BC92238066500AFF868 /* Pace.xcdatamodeld */,
-				EBC1644F223F9BAB00745F91 /* VoiceAssistant.swift */,
 			);
 			path = Pace;
 			sourceTree = "<group>";
@@ -202,10 +200,28 @@
 				EB931BC22238066500AFF868 /* AppDelegate.swift */,
 				EB931BCC2238066800AFF868 /* Assets.xcassets */,
 				EB931BCE2238066800AFF868 /* LaunchScreen.storyboard */,
+				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				EB931BD12238066800AFF868 /* Info.plist */,
 				EBC1644B223CA01100745F91 /* Secrets.swift */,
+				EB931BC92238066500AFF868 /* Pace.xcdatamodeld */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EBC16451223FE8AB00745F91 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EB931BC42238066500AFF868 /* MapsViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		EBC16452223FE8C100745F91 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EB931BC62238066500AFF868 /* Main.storyboard */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,7 +452,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB931BC52238066500AFF868 /* ViewController.swift in Sources */,
+				EB931BC52238066500AFF868 /* MapsViewController.swift in Sources */,
 				EBC16450223F9BAB00745F91 /* VoiceAssistant.swift in Sources */,
 				EBC1644C223CA01100745F91 /* Secrets.swift in Sources */,
 				5C8E42D8223CC95500DEC2F4 /* Location.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import AVFoundation
 
+/// Voice assistant to convert text to speech.
 class VoiceAssistant {
     static let voice = AVSpeechSynthesisVoice(language: "en-US")
     static let synth = AVSpeechSynthesizer()
