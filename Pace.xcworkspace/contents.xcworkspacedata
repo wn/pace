@@ -5,9 +5,6 @@
       location = "container:Pace.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Pace.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
