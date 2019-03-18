@@ -19,6 +19,7 @@
 		EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BDA2238066800AFF868 /* PaceTests.swift */; };
 		EB931BE62238066800AFF868 /* PaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BE52238066800AFF868 /* PaceUITests.swift */; };
 		EBC1644C223CA01100745F91 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC1644B223CA01100745F91 /* Secrets.swift */; };
+		EBC16450223F9BAB00745F91 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC1644F223F9BAB00745F91 /* VoiceAssistant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		EB931BE52238066800AFF868 /* PaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceUITests.swift; sourceTree = "<group>"; };
 		EB931BE72238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBC1644B223CA01100745F91 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		EBC1644F223F9BAB00745F91 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				EB931BC42238066500AFF868 /* ViewController.swift */,
 				EB931BC62238066500AFF868 /* Main.storyboard */,
 				EB931BC92238066500AFF868 /* Pace.xcdatamodeld */,
+				EBC1644F223F9BAB00745F91 /* VoiceAssistant.swift */,
 			);
 			path = Pace;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB931BC52238066500AFF868 /* ViewController.swift in Sources */,
+				EBC16450223F9BAB00745F91 /* VoiceAssistant.swift in Sources */,
 				EBC1644C223CA01100745F91 /* Secrets.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,

@@ -12,7 +12,19 @@ import GooglePlaces
 import AVFoundation
 
 class ViewController: UIViewController {
+
+    var debugMaxDistance: CLLocationDistance = 0
     @IBOutlet var position: UILabel!
+
+    @IBAction func start_ping(_ sender: UIButton) {
+        VoiceAssistant.say("CONNECTED")
+        print("CONNECTED")
+        locationManager.startUpdatingLocation()
+    }
+
+    @IBAction func stop_ping(_ sender: UIButton) {
+        locationManager.stopUpdatingHeading()
+    }
 
     @IBAction func clearMapDrawing(_ sender: UIButton) {
         mapView.clear()
@@ -31,6 +43,27 @@ class ViewController: UIViewController {
     @IBOutlet private var mapView: GMSMapView!
     private let locationManager = CLLocationManager()
     var path = GMSMutablePath()
+    var lastPosition: CLLocation?
+
+    private var _isConnected = true
+    var isConnected: Bool {
+        get {
+            return _isConnected
+        }
+        set (value) {
+            let connected = _isConnected == false && value == true
+            let disconnected = _isConnected == true && value == false
+
+            if connected {
+                VoiceAssistant.say("Reconnected to GPS!")
+                print("CONNECTED")
+            } else if disconnected {
+                VoiceAssistant.say("GPS signal lost!")
+                print("DISCONNECTED")
+            }
+            _isConnected = value
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +73,7 @@ class ViewController: UIViewController {
 
     /// Set up mapView view.
     private func setupMapView() {
-        mapView.animate(toZoom: 15)
+        mapView.animate(toZoom: 18)
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
     }
@@ -53,6 +86,8 @@ class ViewController: UIViewController {
         // Can we alternate between lower battery usage and high battery usage?
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.requestLocation()
     }
 }
 
@@ -83,7 +118,17 @@ extension ViewController: CLLocationManagerDelegate {
             print("WTF?")
             return
         }
-        print("LOL \(locations)")
+        isConnected = true
+
+        // TODO: 10 is a constant to be removed
+        if let lastPosition = lastPosition {
+            print("Distance =  \(location.distance(from: lastPosition))")
+            debugMaxDistance = max(debugMaxDistance, location.distance(from: lastPosition))
+            if location.distance(from: lastPosition) < 10 {
+                return
+            }
+        }
+        lastPosition = location
 
         let coordinate = location.coordinate
         path.add(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
@@ -102,11 +147,11 @@ extension ViewController: CLLocationManagerDelegate {
         let mapBearing = mapView.camera.bearing
         let mapViewAngle = mapView.camera.viewingAngle
 
-        mapView.camera = GMSCameraPosition(target: coordinate, zoom: mapZoom, bearing: mapBearing, viewingAngle: mapViewAngle)
+        // TODO: The camera will show current position. Do we want this, or just remove?
+        // mapView.camera = GMSCameraPosition(target: coordinate, zoom: mapZoom, bearing: mapBearing, viewingAngle: mapViewAngle)
 
         position.text = "lat: \(coordinate.latitude), long: \(coordinate.longitude)"
     }
-
 
     /// Drop a marker on the specified location.
     ///
@@ -126,10 +171,7 @@ extension ViewController: CLLocationManagerDelegate {
     ///   - error: Error message.
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
-        print("FAILED GETTING LOCATION \(error)")
-        // TODO: ADD VOICE: "GPS SIGNAL LOST"
-        // Add a flag to indicate that GPS signal is lost
-        // so that when reconnected, a new voice indicator can be
-        // executed to let user know that they have reconnected.
+        print("FAILED TO GET LOCATION \(error)")
+        isConnected = false
     }
 }

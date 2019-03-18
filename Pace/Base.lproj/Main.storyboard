@@ -29,19 +29,33 @@
                                         <rect key="frame" x="0.0" y="0.0" width="834" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cD3-sf-3pA">
-                                                <rect key="frame" x="0.0" y="0.0" width="417" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="208.5" height="30"/>
                                                 <color key="backgroundColor" red="0.12941176469999999" green="0.80784313730000001" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="PING LOCATION"/>
+                                                <state key="normal" title="Onetime ping LOCATION"/>
                                                 <connections>
                                                     <action selector="testbutton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QQf-2f-jcM"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Te-2U-xS1">
-                                                <rect key="frame" x="417" y="0.0" width="417" height="30"/>
+                                                <rect key="frame" x="208.5" y="0.0" width="208.5" height="30"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="CLEAR"/>
                                                 <connections>
                                                     <action selector="clearMapDrawing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jBR-sL-q5e"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gOO-gC-MXz" userLabel="start_ping">
+                                                <rect key="frame" x="417" y="0.0" width="208.5" height="30"/>
+                                                <state key="normal" title="start ping"/>
+                                                <connections>
+                                                    <action selector="start_ping:" destination="BYZ-38-t0r" eventType="touchUpInside" id="niN-PF-4C2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eaf-Yz-she" userLabel="stop_ping">
+                                                <rect key="frame" x="625.5" y="0.0" width="208.5" height="30"/>
+                                                <state key="normal" title="stop ping"/>
+                                                <connections>
+                                                    <action selector="stop_ping:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L6x-dp-Yg8"/>
                                                 </connections>
                                             </button>
                                         </subviews>
