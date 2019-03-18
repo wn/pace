@@ -33,39 +33,50 @@ class ViewController: UIViewController, LoginButtonDelegate {
         case .failed(let err):
             print(err.localizedDescription)
         case .cancelled:
-            print("cancelled")
+            print("cancelled by user")
         }
     }
     
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
-        print("logged out")
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        updateIndicator()
     }
 
-    private var indicator = UITextView(frame: CGRect(x: 0.0, y: 0.0, width: 100, height: 100))
+    private var indicator: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 300, height: 50))
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        return label
+    }()
 
     private func updateIndicator() {
         guard let user = Auth.auth().currentUser else {
-            print("no user")
+            indicator.text = "Please log in"
             return
         }
-        print("name: \(user.displayName)")
-        indicator.text = user.displayName ?? "ass"
+        indicator.text = "Welcome back \(user.displayName ?? "")"
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         // Facebook login button setup
         let loginButton = LoginButton(readPermissions: [ .publicProfile ])
         loginButton.center = view.center
         loginButton.delegate = self
         
-        super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let map = generateMap(width: view.frame.width, height: view.frame.height / 2)
+        // let map = generateMap(width: view.frame.width, height: view.frame.height / 2)
 
-        view.addSubview(map)
+        // view.addSubview(map)
         view.addSubview(loginButton)
         
-        indicator.center = view.center
+        indicator.center = view.center.applying(CGAffineTransform(translationX: 0, y: -100))
+        updateIndicator()
         
         view.addSubview(indicator)
     }
