@@ -7,13 +7,30 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 class Pace {
     private let runner: User
-    private var checkPoints: [CheckPoint]
+    private var checkpoints: [CheckPoint]
 
-    init(runner: User, checkPoints: [CheckPoint]) {
+    init(runner: User, checkpoints: [CheckPoint]) {
         self.runner = runner
-        self.checkPoints = checkPoints
+        self.checkpoints = checkpoints
+    }
+    
+    /// Adds this pace to Firestore.
+    func add(to firestore: Firestore, callback: @escaping (Error?) -> Void) {
+        let paces = firestore.collection("paces")
+        paces.addDocument(data: toFirestoreDoc()) { callback($0) }
+    }
+
+    /// Converts to a firestore-compatible data structure
+    private func toFirestoreDoc() -> Dictionary<String, Any> {
+        return [
+            "user_id": String(runner.id),
+            "checkpoints": checkpoints.map {
+                Timestamp(date: $0.time)
+            }
+        ]
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 class User: Hashable {
 
-    private let id: Int
+    let id: Int
 
     init(id: Int) {
         self.id = id
