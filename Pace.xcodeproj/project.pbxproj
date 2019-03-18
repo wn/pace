@@ -232,6 +232,7 @@
 				EB931BBD2238066500AFF868 /* Resources */,
 				02F28FFC0156DA2E9091E066 /* [CP] Copy Pods Resources */,
 				E6D026315B476BA323763466 /* [CP] Embed Pods Frameworks */,
+				5C77FC68223FF7DC008DCC16 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -375,6 +376,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pace/Pods-Pace-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		5C77FC68223FF7DC008DCC16 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		857E0C24EC102BBE1A2404C6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

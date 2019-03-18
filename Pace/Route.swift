@@ -83,7 +83,8 @@ class Route {
             }
             if currentDistance >= leftPoint.routeDistance && currentDistance <= rightPoint.routeDistance {
                 // current distance falls inside the current interval
-                let normalizedPoint = CheckPoint.interpolate(with: currentDistance, between: leftPoint, and: rightPoint, on: nil)
+                let normalizedPoint = CheckPoint.interpolate(with: currentDistance, between: leftPoint,
+                                                             and: rightPoint, on: nil)
                 normalizedCheckPoints.append(normalizedPoint)
                 currentDistance += Constants.checkPointDistanceInterval
             }

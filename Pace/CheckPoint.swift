@@ -51,12 +51,14 @@ struct CheckPoint {
         let newTime = left.time + (right.time - left.time) * interpolateFraction
         let newActualDistance = left.actualDistance + (right.actualDistance - left.actualDistance) * interpolateFraction
         if let newLocation = location {
-            return CheckPoint(location: newLocation, time: newTime, actualDistance: newActualDistance, routeDistance: currentDistance)
+            return CheckPoint(location: newLocation, time: newTime,
+                              actualDistance: newActualDistance, routeDistance: currentDistance)
         } else {
             // location is not known, calculate it from interpolation
             let distanceFromLeft = currentDistance - left.routeDistance
             let newLocation = Location.interpolate(with: distanceFromLeft, between: left.location, and: right.location)
-            return CheckPoint(location: newLocation, time: newTime, actualDistance: newActualDistance, routeDistance: currentDistance)
+            return CheckPoint(location: newLocation, time: newTime,
+                              actualDistance: newActualDistance, routeDistance: currentDistance)
         }
     }
 

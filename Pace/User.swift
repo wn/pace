@@ -17,7 +17,7 @@ class User: Hashable {
         self.id = id
     }
 
-    // Mark: - Hashable
+    // MARK: - Hashable
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.id == rhs.id
     }
