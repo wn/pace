@@ -8,5 +8,8 @@ env:
         - SDK=iphonesimulator12.1
         - DESTINATION="platform=iOS Simulator,OS=latest,name=iPhone 7"
 
+install:
+  - brew update && brew upgrade swiftlint
 script:
-    - xcodebuild test -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -parallelizeTargets -enableCodeCoverage YES -quiet ONLY_ACTIVE_ARCH=YES
+  - swiftlint
+  #    - xcodebuild test -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -parallelizeTargets -enableCodeCoverage YES -quiet ONLY_ACTIVE_ARCH=YES
