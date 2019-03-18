@@ -8,6 +8,10 @@ target 'Pace' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare' 
   
   target 'PaceTests' do
     inherit! :search_paths

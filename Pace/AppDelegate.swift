@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import FacebookCore
+import Firebase
 import GoogleMaps
 import GooglePlaces
 
@@ -18,11 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         GMSServices.provideAPIKey(Secrets.mapsToken)
         GMSPlacesClient.provideAPIKey(Secrets.mapsToken)
-
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        UserProfile.updatesOnAccessTokenChange = true
+        FirebaseApp.configure()
         return true
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

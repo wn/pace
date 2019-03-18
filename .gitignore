@@ -80,4 +80,6 @@ scripts/secrets.py
 *.realm.management
 
 *.xcuserstate
+# API Keys
 */Secrets.swift
+Pace/GoogleService-Info.plist
