@@ -6,9 +6,11 @@ env:
         - WORKSPACE=Pace.xcworkspace
         - SCHEME=Pace
         - SDK=iphonesimulator12.1
-        - DESTINATION="platform=iOS Simulator,OS=latest,name=iPhone 7"
+        - DESTINATION="platform=iOS Simulator,OS=latest,name=iPhone X"
 
 install:
+  - pod deintegrate
+  - pod install
   - brew install swiftlint
 script:
   - swiftlint

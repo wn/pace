@@ -7,7 +7,6 @@ target 'Pace' do
 
   pod 'GoogleMaps'
   pod 'GooglePlaces'
-  pod 'SwiftLint'
 
   target 'PaceTests' do
     inherit! :search_paths
