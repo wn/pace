@@ -9,6 +9,7 @@ target 'Pace' do
   pod 'GooglePlaces'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare' 
