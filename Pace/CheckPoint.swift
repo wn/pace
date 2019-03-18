@@ -9,12 +9,14 @@
 import Foundation
 
 struct CheckPoint {
+
     private let location: Location
     let time: Double
     private let actualDistance: Double
-    // TODO: decide whether to use optional here
+    // TODO: decide whether to make routeDistance as Optional
     let routeDistance: Double
 
+    /// Constructs a CheckPoint with the given Location, time, actualDistance and routeDistance.
     init(location: Location, time: Double, actualDistance: Double, routeDistance: Double) {
         self.location = location
         self.time = time
@@ -22,8 +24,10 @@ struct CheckPoint {
         self.routeDistance = routeDistance
     }
 
-    /// From the given array of sample CheckPoints, extract a normalized CheckPoint which shares the same
-    /// routeDistance and location of the current CheckPoint
+    /// Extracts a normalized CheckPoint from the given array of sample CheckPoints.
+    /// The extracted CheckPoint shares the same routeDistance and location as this CheckPoint.
+    /// - Parameter samplePoints: the array of CheckPoints to extract from.
+    /// - Returns: a normalized CheckPoint based on this CheckPoint.
     func extractNormalizedPoint(from samplePoints: [CheckPoint]) -> CheckPoint {
         let boundaryPoints = findAdjacentPoints(from: samplePoints)
         guard let leftCp = boundaryPoints.0,
@@ -33,9 +37,14 @@ struct CheckPoint {
         return CheckPoint.interpolate(with: self.routeDistance, between: leftCp, and: rightCp, on: self.location)
     }
 
-    /// Interpolate a CheckPoint between two CheckPoints, with the given accumulative distance.
-    /// The location provided should be the location of the newly interpolated point;
-    /// nil indicates that the location of the new point is unknown.
+    /// Interpolates a new CheckPoint between two CheckPoints, with the given accumulative distance.
+    /// - Parameters:
+    ///     - currentDistance: the accumulative distance so far.
+    ///     - left: the left CheckPoint.
+    ///     - right: the right CheckPoint.
+    ///     - location: the location of the newly interpolated point; nil if the location of the new
+    ///                 point is unknown.
+    /// - Returns: the newly interpolated CheckPoint.
     static func interpolate(with currentDistance: Double, between left: CheckPoint,
                             and right: CheckPoint, on location: Location?) -> CheckPoint {
         let interpolateFraction = (currentDistance - left.routeDistance) / (right.routeDistance - left.routeDistance)
@@ -51,9 +60,10 @@ struct CheckPoint {
         }
     }
 
-    /// Find the point with the largest distance which is nearer than this point,
-    /// and the point with smallest distance which is further than this point.
-    /// Return nil for one bound if one of the bound cannot be found.
+    /// Finds the smaller CheckPoint (by route distance) with largest distance, and the larger CheckPoint
+    /// (by route distance) with smallest distance from the given array of CheckPoints.
+    /// - Parameter checkPoints: the array of CheckPoints to choose from.
+    /// - Returns: a tuple of two Optional CheckPoints. A CheckPoint in the tuple is nil if that bound cannot be found.
     private func findAdjacentPoints(from checkPoints: [CheckPoint]) -> (CheckPoint?, CheckPoint?) {
         var lowerBound = 0
         var upperBound = checkPoints.count - 1

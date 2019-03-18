@@ -10,11 +10,13 @@ import Foundation
 import FirebaseFirestore
 
 class Route {
+
     private let creator: User
     let name: String
     private var paces: [Pace]
     private var checkpoints: [GeoPoint]
 
+    /// Constructs a Route with the given creator and array of Paces.
     init(creator: User, name: String, paces: [Pace], locations: [GeoPoint]) {
         self.creator = creator
         self.name = name
@@ -49,15 +51,18 @@ class Route {
         }
     }
 
-    /// Constructs a Route for the first time, when a runner just finished the
-    /// first pace for this route.
+    /// Constructs a Route with the given runner and an array of unnormalized CheckPoints representing
+    /// the running record from the runner.
+    /// To be used for creating Route for the first time when a runner just finished the first Pace for a Route.
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
         let initialPace = Pace(runner: runner, checkPoints: Route.initialNormalize(runnerRecords))
         self.init(creator: runner, paces: [initialPace])
     }
 
-    /// Normalize an array of CheckPoints based on the pre-defined distance interval
-    /// pre-condition: the runner records are arranged with increasing routeDistance
+    /// Normalizes an array of CheckPoints based on the pre-defined distance interval.
+    /// - Precondition: The runner records are arranged by increasing routeDistance.
+    /// - Parameter runnerRecords: the array of CheckPoints to be normalized.
+    /// - Returns: an array of normalized CheckPoints.
     static private func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
         guard runnerRecords.count >= 2 else {
             // empty or only has one point recorded

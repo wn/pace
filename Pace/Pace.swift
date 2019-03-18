@@ -10,9 +10,11 @@ import Foundation
 import FirebaseFirestore
 
 class Pace {
+
     private let runner: User
     private var checkpoints: [CheckPoint]
 
+    /// Constructs a Pace with the given runner and an array of normalized CheckPoints.
     init(runner: User, checkpoints: [CheckPoint]) {
         self.runner = runner
         self.checkpoints = checkpoints
@@ -32,8 +34,10 @@ class Pace {
         ]
     }
 
-    /// Normalize an array of CheckPoints based on this pace information.
-    /// pre-condition: the runner record does not deviate from this pace.
+    /// Normalizes an array of CheckPoints based on the checkPoints array of this Pace.
+    /// - Precondition: the given runner record does not deviate from this Pace.
+    /// - Parameter runnerRecords: the array of CheckPoints to be normalized.
+    /// - Returns: an array of normalized CheckPoints.
     func normalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
         var normalizedCheckPoints = [CheckPoint]()
         for basePoint in self.checkPoints {

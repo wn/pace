@@ -9,6 +9,10 @@
 import Foundation
 
 struct Constants {
+
+    // Threshold distance value to determine whether two locations should be considered as same
     static let sameLocationThreshold = 5.0
+
+    // The default distance interval between two Checkpoints
     static let checkPointDistanceInterval = 20.0
 }

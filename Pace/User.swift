@@ -12,10 +12,12 @@ class User: Hashable {
 
     let id: Int
 
+    /// Constructs a User with given id.
     init(id: Int) {
         self.id = id
     }
 
+    // Mark: - Hashable
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.id == rhs.id
     }
