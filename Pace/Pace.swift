@@ -31,4 +31,15 @@ class Pace {
             "checkpoints": checkpoints.map { $0.time }
         ]
     }
+
+    /// Normalize an array of CheckPoints based on this pace information.
+    /// pre-condition: the runner record does not deviate from this pace.
+    func normalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
+        var normalizedCheckPoints = [CheckPoint]()
+        for basePoint in self.checkPoints {
+            let normalizedPoint = basePoint.extractNormalizedPoint(from: runnerRecords)
+            normalizedCheckPoints.append(normalizedPoint)
+        }
+        return normalizedCheckPoints
+    }
 }

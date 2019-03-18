@@ -27,4 +27,13 @@ struct Location {
         let yDistance = self.longitude - other.longitude
         return (xDistance * xDistance - yDistance * yDistance).squareRoot()
     }
+
+    /// Interpolate a new location between left location and right location,
+    /// with the given distance away from the left location.
+    static func interpolate(with distance: Double, between left: Location, and right: Location) -> Location {
+        let interpolationFraction = distance / left.distanceTo(other: right)
+        let newLongitude = left.longitude + (right.longitude - left.longitude) * interpolationFraction
+        let newLatitude = left.latitude + (right.latitude - left.latitude) * interpolationFraction
+        return Location(longitude: newLongitude, latitude: newLatitude)
+    }
 }
