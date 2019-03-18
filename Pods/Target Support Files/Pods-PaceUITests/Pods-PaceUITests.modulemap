@@ -1,6 +1,0 @@
-framework module Pods_PaceUITests {
-  umbrella header "Pods-PaceUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
