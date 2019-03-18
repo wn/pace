@@ -78,5 +78,5 @@ scripts/secrets.py
 *.realm.lock
 *.realm.management
 
-**/Secrets.swift
 *.xcuserstate
+*/Secrets.swift
