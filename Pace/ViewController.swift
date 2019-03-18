@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         path = GMSMutablePath()
         position.text = "CLEARED DRAWING"
     }
+
     @IBAction func testbutton(_ sender: UIButton) {
         print("PINGED BUTTON")
 
@@ -107,9 +108,9 @@ extension ViewController: CLLocationManagerDelegate {
     }
 
 
-    /// Drop a marker on the specified location
+    /// Drop a marker on the specified location.
     ///
-    /// - Parameter position: location to drop marker
+    /// - Parameter position: location to drop marker.
     private func dropMarker(_ position: CLLocationCoordinate2D) {
         let posMarker = GMSMarker(position: position)
         posMarker.isFlat = true
