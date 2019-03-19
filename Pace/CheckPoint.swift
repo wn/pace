@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct CheckPoint {
 
-    private let location: Location
+    let location: CLLocation
     let time: Double
     private let actualDistance: Double
     // TODO: decide whether to make routeDistance as Optional
     let routeDistance: Double
 
     /// Constructs a CheckPoint with the given Location, time, actualDistance and routeDistance.
-    init(location: Location, time: Double, actualDistance: Double, routeDistance: Double) {
+    init(location: CLLocation, time: Double, actualDistance: Double, routeDistance: Double) {
         self.location = location
         self.time = time
         self.actualDistance = actualDistance
@@ -46,7 +47,7 @@ struct CheckPoint {
     ///                 point is unknown.
     /// - Returns: the newly interpolated CheckPoint.
     static func interpolate(with currentDistance: Double, between left: CheckPoint,
-                            and right: CheckPoint, on location: Location?) -> CheckPoint {
+                            and right: CheckPoint, on location: CLLocation?) -> CheckPoint {
         let interpolateFraction = (currentDistance - left.routeDistance) / (right.routeDistance - left.routeDistance)
         let newTime = left.time + (right.time - left.time) * interpolateFraction
         let newActualDistance = left.actualDistance + (right.actualDistance - left.actualDistance) * interpolateFraction
@@ -56,7 +57,9 @@ struct CheckPoint {
         } else {
             // location is not known, calculate it from interpolation
             let distanceFromLeft = currentDistance - left.routeDistance
-            let newLocation = Location.interpolate(with: distanceFromLeft, between: left.location, and: right.location)
+            let newLocation = CLLocation.interpolate(with: distanceFromLeft,
+                                                     between: left.location,
+                                                     and: right.location)
             return CheckPoint(location: newLocation, time: newTime,
                               actualDistance: newActualDistance, routeDistance: currentDistance)
         }
