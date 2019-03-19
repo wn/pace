@@ -38,7 +38,7 @@ class Route {
     /// Retrieves all `Route`s from the Firestore database.
     static func all(firestore: Firestore, callback: @escaping ([Route]?) -> Void) {
         let routesRef = firestore.collection("routes")
-        routesRef.getDocuments { (querySnapshot, err) in
+        routesRef.getDocuments { querySnapshot, err in
             guard err == nil else {
                 print("Error acquiring documents")
                 return

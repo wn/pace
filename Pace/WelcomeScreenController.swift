@@ -21,17 +21,17 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
         let loginButton = LoginButton(readPermissions: [ .publicProfile ])
         loginButton.center = view.center
         loginButton.delegate = self
-        
+
         // Do any additional setup after loading the view, typically from a nib.
         // let map = generateMap(width: view.frame.width, height: view.frame.height / 2)
 
         // view.addSubview(map)
         view.addSubview(loginButton)
-        
+
         indicator.center = view.center.applying(CGAffineTransform(translationX: 0, y: -100))
         routeInfo.center = view.center.applying(CGAffineTransform(translationX: 0, y: 100))
         updateIndicator()
-        
+
         // Setup fire store and display routes available
         let settings = FirestoreSettings()
         Firestore.firestore().settings = settings
@@ -55,7 +55,7 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
     /// Refreshes the routes displayed in view.
     func refreshRoutes() {
         Route.all(firestore: firestore) { routes in
-            self.routeInfo.text = routes.flatMap { $0.map{ $0.name }.joined(separator: "\n") }
+            self.routeInfo.text = routes.flatMap { $0.map { $0.name }.joined(separator: "\n") }
         }
     }
 
@@ -76,7 +76,7 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
 
         return mapView
     }
-    
+
     // MARK: - Login & Firestore methods
 
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
@@ -88,7 +88,7 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
                 return
             }
             let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-            Auth.auth().signInAndRetrieveData(with: credential) { (_, err) in
+            Auth.auth().signInAndRetrieveData(with: credential) { _, err in
                 guard err == nil else {
                     print("error: \( err.debugDescription)")
                     return
@@ -102,7 +102,7 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
             print("cancelled by user")
         }
     }
-    
+
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
         do {
             try Auth.auth().signOut()
@@ -111,7 +111,7 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
         }
         updateIndicator()
     }
-    
+
     /// An indicator for whether the user is logged in.
     private var indicator: UILabel = {
         let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 300, height: 50))
@@ -132,7 +132,7 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
     // (Should store an instance in each controller I think?)
     /// Firestore to retrieve information from.
     private var firestore: Firestore!
-    
+
     /// Updates the log in indicator.
     private func updateIndicator() {
         guard let user = Auth.auth().currentUser else {
@@ -141,7 +141,5 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
         }
         indicator.text = "Welcome back \(user.displayName ?? "")"
     }
-    
 
 }
-

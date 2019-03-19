@@ -17,7 +17,7 @@ class Pace {
         self.runner = runner
         self.checkpoints = checkpoints
     }
-    
+
     /// Adds this pace to Firestore.
     func add(to firestore: Firestore, callback: @escaping (Error?) -> Void) {
         let paces = firestore.collection("paces")
