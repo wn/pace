@@ -39,3 +39,7 @@ line_length:
   # just because of style problems
   error: 300
   ignores_urls: true
+
+excluded:
+  - Pace/AppDelegate.swift
+  - PaceUITests/*

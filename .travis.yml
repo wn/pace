@@ -1,0 +1,17 @@
+language: objective-c
+osx_image: xcode10.1
+
+env:
+    global:
+        - WORKSPACE=Pace.xcworkspace
+        - SCHEME=Pace
+        - SDK=iphonesimulator12.1
+        - DESTINATION="platform=iOS Simulator,OS=latest,name=iPhone X"
+
+install:
+  - pod deintegrate
+  - pod install
+  - brew install swiftlint
+script:
+  - swiftlint
+    #  - xcodebuild test -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -parallelizeTargets -enableCodeCoverage YES -quiet ONLY_ACTIVE_ARCH=YES -UseModernBuildSystem=NO
