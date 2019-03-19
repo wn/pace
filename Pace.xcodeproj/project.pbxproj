@@ -16,9 +16,9 @@
 		8B044D32223F7BB000AA8449 /* WelcomeScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D31223F7BB000AA8449 /* WelcomeScreenController.swift */; };
 		8B044D35223F7C0600AA8449 /* Pace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D33223F7C0600AA8449 /* Pace.swift */; };
 		8B044D36223F7C0600AA8449 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D34223F7C0600AA8449 /* Route.swift */; };
-		8B59BE57223CD7C300C2E9E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8B59BE56223CD7C300C2E9E7 /* GoogleService-Info.plist */; };
 		8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B59BE58223CD81100C2E9E7 /* Secrets.swift */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
+		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		ACCED92F64C8D19C5646D635 /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC06DA1E905BCD8ACE259AF /* Pods_PaceTests.framework */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
 		EB931BC82238066500AFF868 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BC62238066500AFF868 /* Main.storyboard */; };
@@ -60,9 +60,9 @@
 		8B044D31223F7BB000AA8449 /* WelcomeScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenController.swift; sourceTree = "<group>"; };
 		8B044D33223F7C0600AA8449 /* Pace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pace.swift; sourceTree = "<group>"; };
 		8B044D34223F7C0600AA8449 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
-		8B59BE56223CD7C300C2E9E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
+		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B77AB8B861453F60121624B7 /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBC06DA1E905BCD8ACE259AF /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD90D41F42753C4B0F69FBD8 /* Pods-PaceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PaceUITests/Pods-PaceUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -209,11 +209,11 @@
 		EBC1644A223C9EE900745F91 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */,
 				EB931BC22238066500AFF868 /* AppDelegate.swift */,
 				EB931BCC2238066800AFF868 /* Assets.xcassets */,
 				EB931BCE2238066800AFF868 /* LaunchScreen.storyboard */,
 				EB931BD12238066800AFF868 /* Info.plist */,
-				8B59BE56223CD7C300C2E9E7 /* GoogleService-Info.plist */,
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
 			);
 			name = "Supporting Files";
@@ -329,7 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB931BD02238066800AFF868 /* LaunchScreen.storyboard in Resources */,
-				8B59BE57223CD7C300C2E9E7 /* GoogleService-Info.plist in Resources */,
+				8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */,
 				EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */,
 				EB931BC82238066500AFF868 /* Main.storyboard in Resources */,
 			);

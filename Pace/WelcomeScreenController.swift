@@ -39,7 +39,7 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
         refreshRoutes()
         let refreshButton = UIButton(type: .system)
         refreshButton.setTitle("Refresh", for: .normal)
-        refreshButton.center = view.center.applying(CGAffineTransform(translationX: 0, y: 200))
+        refreshButton.center = view.center.applying(CGAffineTransform(translationX: 0, y: 300))
         refreshButton.addTarget(self, action: #selector(refresh), for: .touchUpInside)
 
         view.addSubview(indicator)
@@ -122,7 +122,7 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
 
     /// Information about routes (show how the api is working)
     private var routeInfo: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 300, height: 10))
+        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 300, height: 50))
         label.backgroundColor = .clear
         label.textAlignment = .center
         label.font = UIFont(name: "System", size: 10.0)

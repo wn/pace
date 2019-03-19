@@ -28,9 +28,7 @@ class Pace {
     private func toFirestoreDoc() -> Dictionary<String, Any> {
         return [
             "user_id": String(runner.id),
-            "checkpoints": checkpoints.map {
-                Timestamp(date: $0.time)
-            }
+            "checkpoints": checkpoints.map { $0.time }
         ]
     }
 }

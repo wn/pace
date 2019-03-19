@@ -10,11 +10,11 @@ import Foundation
 
 struct CheckPoint {
     private let location: Location
-    let time: Date
+    let time: Double
     private let actualDistance: Double
     private let routeDistance: Double?
 
-    init(location: Location, time: Date, actualDistance: Double, routeDistance: Double) {
+    init(location: Location, time: Double, actualDistance: Double, routeDistance: Double) {
         self.location = location
         self.time = time
         self.actualDistance = actualDistance
