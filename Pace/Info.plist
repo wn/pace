@@ -25,6 +25,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location to let you follow a pace always.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to let you follow a pace.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
