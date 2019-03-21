@@ -10,19 +10,23 @@ import Foundation
 
 class User: Hashable {
 
-    let id: Int
+    let userId: String
 
     /// Constructs a User with given id.
-    init(id: Int) {
-        self.id = id
+    init(userId: String) {
+        self.userId = userId
+    }
+
+    init?(docId: String, document: [String: Any]) {
+        self.userId = docId
     }
 
     // MARK: - Hashable
     static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.userId == rhs.userId
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine(userId)
     }
 }

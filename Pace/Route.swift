@@ -7,56 +7,46 @@
 //
 
 import Foundation
-import FirebaseFirestore
+import CoreLocation
+import Firebase
 
 class Route {
 
-    private let creator: User
+    let docId: String?
+    let creator: User
     let name: String
-    private var paces: [Pace]
-    private var checkpoints: [GeoPoint]
+    var locations: [CLLocation]
+    var paces: [Pace]
 
     /// Constructs a Route with the given creator and array of Paces.
-    init(creator: User, name: String, paces: [Pace], locations: [GeoPoint]) {
+    init(docId: String?, creator: User, name: String, paces: [Pace]) {
+        self.docId = docId
         self.creator = creator
         self.name = name
+        self.locations = []
         self.paces = paces
-        self.checkpoints = locations
     }
 
-    init?(dictionary: Dictionary<String, Any>) {
+    init?(docId: String, document: [String: Any]) {
         guard
-            let name = dictionary["name"],
-            let locations = dictionary["checkpoints"] else {
+            let name = document[FireDB.Route.name] as? String,
+            let creatorId = document[FireDB.Route.creatorId] as? String,
+            let locations = document[FireDB.Route.checkpoints] as? [GeoPoint] else {
                 return nil
         }
-        print("constructing: \(name), \(locations)")
-        self.creator = User(id: 0)
-        self.name = name as! String
+        self.docId = docId
+        self.creator = User(userId: creatorId)
+        self.name = name
         self.paces = []
-        self.checkpoints = locations as! [GeoPoint]
-    }
-
-    /// Retrieves all `Route`s from the Firestore database.
-    static func all(firestore: Firestore, callback: @escaping ([Route]?) -> Void) {
-        let routesRef = firestore.collection("routes")
-        routesRef.getDocuments { querySnapshot, err in
-            guard err == nil else {
-                print("Error acquiring documents")
-                return
-            }
-            let routes = querySnapshot?.documents
-                .compactMap { Route(dictionary: $0.data()) }
-            callback(routes)
-        }
+        self.locations = locations.map { CLLocation(latitude: $0.latitude, longitude: $0.longitude) }
     }
 
     /// Constructs a Route with the given runner and an array of unnormalized CheckPoints representing
     /// the running record from the runner.
     /// To be used for creating Route for the first time when a runner just finished the first Pace for a Route.
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
-        let initialPace = Pace(runner: runner, checkPoints: Route.initialNormalize(runnerRecords))
-        self.init(creator: runner, paces: [initialPace])
+        let initialPace = Pace(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
+        self.init(docId: nil, creator: runner, name: "blabla", paces: [initialPace])
     }
 
     /// Normalizes an array of CheckPoints based on the pre-defined distance interval.

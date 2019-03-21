@@ -7,31 +7,48 @@
 //
 
 import Foundation
-import FirebaseFirestore
 
 class Pace {
 
-    private let runner: User
-    private var checkpoints: [CheckPoint]
+    var route: Route
+    let runner: User
+    var checkpoints: [CheckPoint]
 
-    /// Constructs a Pace with the given runner and an array of normalized CheckPoints.
-    init(runner: User, checkpoints: [CheckPoint]) {
+    init(route: Route, runner: User) {
+        self.route = route
         self.runner = runner
-        self.checkpoints = checkpoints
+        self.checkpoints = []
     }
 
-    /// Adds this pace to Firestore.
-    func add(to firestore: Firestore, callback: @escaping (Error?) -> Void) {
-        let paces = firestore.collection("paces")
-        paces.addDocument(data: toFirestoreDoc()) { callback($0) }
+    // Only load the metadata (without the timings)
+    init?(route: Route, docId: String, document: [String: Any]) {
+        guard let runnerId = document[FireDB.Pace.userId] as? String else {
+            return nil
+        }
+        self.route = route
+        self.runner = User(userId: runnerId)
+        self.checkpoints = []
+        
     }
 
-    /// Converts to a firestore-compatible data structure
-    private func toFirestoreDoc() -> Dictionary<String, Any> {
-        return [
-            "user_id": String(runner.id),
-            "checkpoints": checkpoints.map { $0.time }
-        ]
+    // Checkpoints are loaded into the Pace separately from instantiation
+    func loadCheckpoints(with route: Route, timings: [Double]) {
+        guard route.locations.count == timings.count else {
+            // Stored timings should have a one-to-one mapping to each location
+            return
+        }
+        for (index, location) in route.locations.enumerated() {
+            let checkpoint = CheckPoint(location: location,
+                                       time: timings[index],
+                                       actualDistance: 0,
+                                       routeDistance: 0)
+            self.checkpoints.append(checkpoint)
+        }
+    }
+    
+    /// Adds the next checkpoint to the pace
+    func addNextCheckpoint(_ checkpoint: CheckPoint) {
+        checkpoints.append(checkpoint)
     }
 
     /// Normalizes an array of CheckPoints based on the checkPoints array of this Pace.
@@ -40,7 +57,7 @@ class Pace {
     /// - Returns: an array of normalized CheckPoints.
     func normalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
         var normalizedCheckPoints = [CheckPoint]()
-        for basePoint in self.checkPoints {
+        for basePoint in checkpoints {
             let normalizedPoint = basePoint.extractNormalizedPoint(from: runnerRecords)
             normalizedCheckPoints.append(normalizedPoint)
         }
