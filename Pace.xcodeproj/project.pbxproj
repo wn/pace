@@ -25,7 +25,7 @@
 		EB00C5392243748B005B2C0E /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C5382243748B005B2C0E /* ActivityViewController.swift */; };
 		EB00C53B224374A5005B2C0E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53A224374A5005B2C0E /* ProfileViewController.swift */; };
 		EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */; };
-		EB00C5412243968B005B2C0E /* FriendsFeedHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C5402243968B005B2C0E /* FriendsFeedHeaderView.swift */; };
+		EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
 		EB931BC82238066500AFF868 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BC62238066500AFF868 /* Main.storyboard */; };
 		EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC92238066500AFF868 /* Pace.xcdatamodeld */; };
@@ -77,7 +77,7 @@
 		EB00C5382243748B005B2C0E /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EB00C53A224374A5005B2C0E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
-		EB00C5402243968B005B2C0E /* FriendsFeedHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedHeaderView.swift; sourceTree = "<group>"; };
+		EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRoutesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BC22238066500AFF868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB931BC72238066500AFF868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -178,6 +178,7 @@
 		EB00C53C22438291005B2C0E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EB408D372243F95D00F9C561 /* Favourites */,
 				EB00C53F2243966D005B2C0E /* FriendsFeed */,
 			);
 			name = Views;
@@ -187,9 +188,16 @@
 			isa = PBXGroup;
 			children = (
 				EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */,
-				EB00C5402243968B005B2C0E /* FriendsFeedHeaderView.swift */,
 			);
 			name = FriendsFeed;
+			sourceTree = "<group>";
+		};
+		EB408D372243F95D00F9C561 /* Favourites */ = {
+			isa = PBXGroup;
+			children = (
+				EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */,
+			);
+			name = Favourites;
 			sourceTree = "<group>";
 		};
 		EB931BB62238066500AFF868 = {
@@ -543,7 +551,6 @@
 			files = (
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
 				5C8E42D8223CC95500DEC2F4 /* Location.swift in Sources */,
-				EB00C5412243968B005B2C0E /* FriendsFeedHeaderView.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
 				EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */,
@@ -554,6 +561,7 @@
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				8B044D32223F7BB000AA8449 /* WelcomeScreenController.swift in Sources */,
 				EB00C53722437472005B2C0E /* FriendsFeedViewController.swift in Sources */,
+				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
 				EB00C5392243748B005B2C0E /* ActivityViewController.swift in Sources */,
 				EB00C53B224374A5005B2C0E /* ProfileViewController.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,

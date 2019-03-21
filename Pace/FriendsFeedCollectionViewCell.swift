@@ -12,7 +12,4 @@ class FriendsFeedCollectionViewCell: UICollectionViewCell {
     let distance = 100
     let friend = "WEINENG"
     let numOfRunners = 100
-
-    
-
 }
