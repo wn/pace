@@ -20,7 +20,7 @@ struct CheckPoint {
         self.actualDistance = actualDistance
         self.routeDistance = routeDistance
     }
-    
+
     // TODO: remove/reimplement once we figure out the final shape of the data.
     init(time: Double, routeDistance: Double) {
         self.location = Location(longitude: 0.0, latitude: 0.0)

@@ -17,7 +17,7 @@ class User: Hashable, FirestoreCodable {
         self.name = name
     }
 
-    required convenience init?(dictionary: [String : Any]) {
+    required convenience init?(dictionary: [String: Any]) {
         guard
             let id = dictionary["id"] as? Int,
             let name = dictionary["name"] as? String
@@ -39,7 +39,7 @@ class User: Hashable, FirestoreCodable {
 extension User {
     static let collectionID = CollectionNames.users
 
-    func toFirestoreDoc() -> [String : Any] {
+    func toFirestoreDoc() -> [String: Any] {
         return [
             "id": id,
             "name": name

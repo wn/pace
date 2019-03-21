@@ -22,7 +22,7 @@ class Route: FirestoreCodable {
         self.checkpoints = locations
     }
 
-    required convenience init?(dictionary: Dictionary<String, Any>) {
+    required convenience init?(dictionary: [String: Any]) {
         guard
             let name = dictionary["name"] as? String,
             let locations = dictionary["checkpoints"] as? [GeoPoint] else {
@@ -35,7 +35,7 @@ class Route: FirestoreCodable {
 extension Route {
     static let collectionID = CollectionNames.routes
 
-    func toFirestoreDoc() -> [String : Any] {
+    func toFirestoreDoc() -> [String: Any] {
         return [
             "name": name,
             "location": checkpoints,

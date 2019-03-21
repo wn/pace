@@ -18,7 +18,7 @@ class Pace: FirestoreCodable {
         self.checkpoints = checkpoints
     }
 
-    required convenience init?(dictionary: [String : Any]) {
+    required convenience init?(dictionary: [String: Any]) {
         guard
             let runnerId = dictionary["user_id"] as? Int,
             let times = dictionary["checkpoint_times"] as? [Double],
@@ -26,7 +26,7 @@ class Pace: FirestoreCodable {
             else {
                 return nil
         }
-        let checkpoints = zip(times, distances).map { (time, dist) in CheckPoint(time: time, routeDistance: dist) }
+        let checkpoints = zip(times, distances).map { time, dist in CheckPoint(time: time, routeDistance: dist) }
         self.init(runner: User(id: runnerId, name: ""), checkpoints: checkpoints)
     }
 }
@@ -34,7 +34,7 @@ class Pace: FirestoreCodable {
 extension Pace {
     static let collectionID = CollectionNames.paces
 
-    func toFirestoreDoc() -> Dictionary<String, Any> {
+    func toFirestoreDoc() -> [String: Any] {
         return [
             "user_id": String(runner.id),
             "checkpoint_times": checkpoints.map { $0.time },

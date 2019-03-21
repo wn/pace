@@ -12,7 +12,7 @@ import Firebase
 protocol FirestoreCodable {
     /// The ID for the collection. Used to retrieve from Firestore.
     static var collectionID: String { get }
-    
+
     /// The "decoding" function used to build an object from Firestore data.
     init?(dictionary: [String: Any])
 
