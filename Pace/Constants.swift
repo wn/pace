@@ -12,3 +12,9 @@ struct Constants {
     static let sameLocationThreshold = 5.0
     static let checkPointDistanceInterval = 20.0
 }
+
+struct CollectionNames {
+    static let paces = "paces"
+    static let routes = "routes"
+    static let users = "users"
+}

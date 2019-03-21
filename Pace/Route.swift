@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-class Route {
+class Route: FirestoreCodable {
     private let creator: User
     let name: String
     private var paces: [Pace]
@@ -22,30 +22,23 @@ class Route {
         self.checkpoints = locations
     }
 
-    init?(dictionary: Dictionary<String, Any>) {
+    required convenience init?(dictionary: Dictionary<String, Any>) {
         guard
-            let name = dictionary["name"],
-            let locations = dictionary["checkpoints"] else {
+            let name = dictionary["name"] as? String,
+            let locations = dictionary["checkpoints"] as? [GeoPoint] else {
                 return nil
         }
-        print("constructing: \(name), \(locations)")
-        self.creator = User(id: 0)
-        self.name = name as! String
-        self.paces = []
-        self.checkpoints = locations as! [GeoPoint]
+        self.init(creator: User(id: 0, name: ""), name: name, paces: [], locations: locations)
     }
+}
 
-    /// Retrieves all `Route`s from the Firestore database.
-    static func all(firestore: Firestore, callback: @escaping ([Route]?) -> Void) {
-        let routesRef = firestore.collection("routes")
-        routesRef.getDocuments { querySnapshot, err in
-            guard err == nil else {
-                print("Error acquiring documents")
-                return
-            }
-            let routes = querySnapshot?.documents
-                .compactMap { Route(dictionary: $0.data()) }
-            callback(routes)
-        }
+extension Route {
+    static let collectionID = CollectionNames.routes
+
+    func toFirestoreDoc() -> [String : Any] {
+        return [
+            "name": name,
+            "location": checkpoints,
+        ]
     }
 }

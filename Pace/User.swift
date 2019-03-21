@@ -8,12 +8,23 @@
 
 import Foundation
 
-class User: Hashable {
-
+class User: Hashable, FirestoreCodable {
     let id: Int
+    let name: String
 
-    init(id: Int) {
+    init(id: Int, name: String) {
         self.id = id
+        self.name = name
+    }
+
+    required convenience init?(dictionary: [String : Any]) {
+        guard
+            let id = dictionary["id"] as? Int,
+            let name = dictionary["name"] as? String
+            else {
+                return nil
+        }
+        self.init(id: id, name: name)
     }
 
     static func == (lhs: User, rhs: User) -> Bool {
@@ -22,5 +33,16 @@ class User: Hashable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+}
+
+extension User {
+    static let collectionID = CollectionNames.users
+
+    func toFirestoreDoc() -> [String : Any] {
+        return [
+            "id": id,
+            "name": name
+        ]
     }
 }

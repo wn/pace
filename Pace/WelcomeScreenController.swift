@@ -54,7 +54,7 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
 
     /// Refreshes the routes displayed in view.
     func refreshRoutes() {
-        Route.all(firestore: firestore) { routes in
+        Route.all(from: firestore) { routes in
             self.routeInfo.text = routes.flatMap { $0.map { $0.name }.joined(separator: "\n") }
         }
     }
