@@ -23,6 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="142" y="-287"/>
         </scene>
         <!--Friends Feed-->
         <scene sceneID="u5L-4p-IKY">
@@ -34,7 +35,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="wn0-g2-cn6"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Friends Feed" id="b9B-P3-XOF"/>
+                    <tabBarItem key="tabBarItem" title="Friends Feed" image="feed-icon" landscapeImage="feed-icon" largeContentSizeImage="feed-icon" id="b9B-P3-XOF"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApP-Z5-NhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -50,7 +51,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="zV9-pC-x0a"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Activity" id="GDS-i6-6QC"/>
+                    <tabBarItem key="tabBarItem" title="Activity" image="activity-icon" landscapeImage="activity-icon" largeContentSizeImage="activity-icon" id="GDS-i6-6QC"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TQJ-eY-8KH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -66,7 +67,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Uum-Dv-Wrc"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" id="mcB-RP-jyX"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile-icon" landscapeImage="profile-icon" largeContentSizeImage="profile-icon" id="mcB-RP-jyX"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QP2-Ql-hLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -82,11 +83,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6bS-VD-9M5"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Favourites" id="fIk-df-8Ew"/>
+                    <tabBarItem key="tabBarItem" title="Favourites" image="fav-icon" landscapeImage="fav-icon" largeContentSizeImage="fav-icon" id="fIk-df-8Ew"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQ8-Jn-p8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="638" y="-1225"/>
+            <point key="canvasLocation" x="550" y="-1225"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="P57-Ll-DoA">
@@ -109,4 +110,10 @@
             <point key="canvasLocation" x="-298" y="-1224"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="activity-icon" width="22.5" height="22.5"/>
+        <image name="fav-icon" width="22.5" height="22.5"/>
+        <image name="feed-icon" width="22.5" height="22.5"/>
+        <image name="profile-icon" width="22.5" height="22.5"/>
+    </resources>
 </document>
