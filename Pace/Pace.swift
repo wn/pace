@@ -8,11 +8,9 @@
 
 import Foundation
 
-class Pace {
-
-    var route: Route
-    let runner: User
-    var checkpoints: [CheckPoint]
+class Pace: FirestoreCodable {
+    private let runner: User
+    private var checkpoints: [CheckPoint]
 
     init(route: Route, runner: User) {
         self.route = route
@@ -28,7 +26,7 @@ class Pace {
         self.route = route
         self.runner = User(userId: runnerId)
         self.checkpoints = []
-        
+
     }
 
     // Checkpoints are loaded into the Pace separately from instantiation
@@ -45,10 +43,22 @@ class Pace {
             self.checkpoints.append(checkpoint)
         }
     }
-    
+
     /// Adds the next checkpoint to the pace
     func addNextCheckpoint(_ checkpoint: CheckPoint) {
         checkpoints.append(checkpoint)
+    }
+
+    required convenience init?(dictionary: [String: Any]) {
+        guard
+            let runnerId = dictionary["user_id"] as? Int,
+            let times = dictionary["checkpoint_times"] as? [Double],
+            let distances = dictionary["route_distances"] as? [Double]
+            else {
+                return nil
+        }
+        let checkpoints = zip(times, distances).map { time, dist in CheckPoint(time: time, routeDistance: dist) }
+        self.init(runner: User(id: runnerId, name: ""), checkpoints: checkpoints)
     }
 
     /// Normalizes an array of CheckPoints based on the checkPoints array of this Pace.
@@ -62,5 +72,17 @@ class Pace {
             normalizedCheckPoints.append(normalizedPoint)
         }
         return normalizedCheckPoints
+    }
+}
+
+extension Pace {
+    static let collectionID = CollectionNames.paces
+
+    func toFirestoreDoc() -> [String: Any] {
+        return [
+            "user_id": String(runner.id),
+            "checkpoint_times": checkpoints.map { $0.time },
+            "route_distances": checkpoints.compactMap { $0.routeDistance }
+        ]
     }
 }

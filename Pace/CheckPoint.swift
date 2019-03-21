@@ -14,8 +14,12 @@ struct CheckPoint {
     let location: CLLocation
     let time: Double
     private let actualDistance: Double
+<<<<<<< HEAD
     // TODO: decide whether to make routeDistance as Optional
     let routeDistance: Double
+=======
+    let routeDistance: Double?
+>>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 
     /// Constructs a CheckPoint with the given Location, time, actualDistance and routeDistance.
     init(location: CLLocation, time: Double, actualDistance: Double, routeDistance: Double) {
@@ -25,6 +29,7 @@ struct CheckPoint {
         self.routeDistance = routeDistance
     }
 
+<<<<<<< HEAD
     /// Extracts a normalized CheckPoint from the given array of sample CheckPoints.
     /// The extracted CheckPoint shares the same routeDistance and location as this CheckPoint.
     /// - Parameter samplePoints: the array of CheckPoints to extract from.
@@ -90,5 +95,13 @@ struct CheckPoint {
         } else {
             return (leftCp, rightCp)
         }
+=======
+    // TODO: remove/reimplement once we figure out the final shape of the data.
+    init(time: Double, routeDistance: Double) {
+        self.location = Location(longitude: 0.0, latitude: 0.0)
+        self.time = time
+        self.routeDistance = routeDistance
+        self.actualDistance = 0.0
+>>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
     }
 }
