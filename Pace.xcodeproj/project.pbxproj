@@ -19,13 +19,13 @@
 		8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B59BE58223CD81100C2E9E7 /* Secrets.swift */; };
 		8B950A6422435FF700421928 /* FirestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6322435FF700421928 /* FirestoreViewController.swift */; };
 		8B950A6622436FC400421928 /* FirestoreCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6522436FC400421928 /* FirestoreCodable.swift */; };
+		8B950A702243E2FA00421928 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6C2243E2FA00421928 /* ProfileViewController.swift */; };
+		8B950A712243E2FA00421928 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6D2243E2FA00421928 /* FavouriteViewController.swift */; };
+		8B950A722243E2FA00421928 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6E2243E2FA00421928 /* ActivityViewController.swift */; };
+		8B950A732243E2FA00421928 /* FriendsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6F2243E2FA00421928 /* FriendsFeedViewController.swift */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
 		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		CC5F12453C1016C7B0F89CFE /* Pods_PaceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F937A4C5195D600A8EEA13 /* Pods_PaceUITests.framework */; };
-		EB00C53522437455005B2C0E /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53422437455005B2C0E /* FavouriteViewController.swift */; };
-		EB00C53722437472005B2C0E /* FriendsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53622437472005B2C0E /* FriendsFeedViewController.swift */; };
-		EB00C5392243748B005B2C0E /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C5382243748B005B2C0E /* ActivityViewController.swift */; };
-		EB00C53B224374A5005B2C0E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53A224374A5005B2C0E /* ProfileViewController.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
 		EB931BC82238066500AFF868 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BC62238066500AFF868 /* Main.storyboard */; };
 		EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC92238066500AFF868 /* Pace.xcdatamodeld */; };
@@ -68,6 +68,10 @@
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		8B950A6322435FF700421928 /* FirestoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreViewController.swift; sourceTree = "<group>"; };
 		8B950A6522436FC400421928 /* FirestoreCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCodable.swift; sourceTree = "<group>"; };
+		8B950A6C2243E2FA00421928 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		8B950A6D2243E2FA00421928 /* FavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
+		8B950A6E2243E2FA00421928 /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		8B950A6F2243E2FA00421928 /* FriendsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsFeedViewController.swift; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		924ABCBCA14C0D12F80B279A /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
@@ -155,14 +159,22 @@
 		8B950A6222435FBE00421928 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8B950A6E2243E2FA00421928 /* ActivityViewController.swift */,
+				8B950A6D2243E2FA00421928 /* FavouriteViewController.swift */,
+				8B950A6F2243E2FA00421928 /* FriendsFeedViewController.swift */,
+				8B950A6C2243E2FA00421928 /* ProfileViewController.swift */,
 				8B950A6322435FF700421928 /* FirestoreViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		D6DEEEE4D6DB17AE914A5392 /* Pods */ = {
+		8B950A6B2243E13500421928 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				EB00C53422437455005B2C0E /* FavouriteViewController.swift */,
+				EB00C53622437472005B2C0E /* FriendsFeedViewController.swift */,
+				EB00C5382243748B005B2C0E /* ActivityViewController.swift */,
+				EB00C53A224374A5005B2C0E /* ProfileViewController.swift */,
 				924ABCBCA14C0D12F80B279A /* Pods-Pace.debug.xcconfig */,
 				3560A320C4C58A2B75B1E491 /* Pods-Pace.release.xcconfig */,
 				46301A05B3208857FB683CD8 /* Pods-PaceTests.debug.xcconfig */,
@@ -170,18 +182,7 @@
 				15411BC27D0C46C9FEDD7B25 /* Pods-PaceUITests.debug.xcconfig */,
 				5D9BDD022C9F600644F62838 /* Pods-PaceUITests.release.xcconfig */,
 			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		EB00C53322437444005B2C0E /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				EB00C53422437455005B2C0E /* FavouriteViewController.swift */,
-				EB00C53622437472005B2C0E /* FriendsFeedViewController.swift */,
-				EB00C5382243748B005B2C0E /* ActivityViewController.swift */,
-				EB00C53A224374A5005B2C0E /* ProfileViewController.swift */,
-			);
-			name = Controllers;
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		EB931BB62238066500AFF868 = {
@@ -191,8 +192,8 @@
 				EB931BD92238066800AFF868 /* PaceTests */,
 				EB931BE42238066800AFF868 /* PaceUITests */,
 				EB931BC02238066500AFF868 /* Products */,
-				D28E048BB43E58B15EC22A28 /* Pods */,
 				720673039073410DB329DE67 /* Frameworks */,
+				8B950A6B2243E13500421928 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -535,18 +536,18 @@
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
 				5C8E42D8223CC95500DEC2F4 /* Location.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
+				8B950A732243E2FA00421928 /* FriendsFeedViewController.swift in Sources */,
+				8B950A722243E2FA00421928 /* ActivityViewController.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
-				EB00C53522437455005B2C0E /* FavouriteViewController.swift in Sources */,
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,
+				8B950A702243E2FA00421928 /* ProfileViewController.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				8B044D35223F7C0600AA8449 /* Pace.swift in Sources */,
 				8B950A6622436FC400421928 /* FirestoreCodable.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				8B044D32223F7BB000AA8449 /* WelcomeScreenController.swift in Sources */,
-				EB00C53722437472005B2C0E /* FriendsFeedViewController.swift in Sources */,
-				EB00C5392243748B005B2C0E /* ActivityViewController.swift in Sources */,
-				EB00C53B224374A5005B2C0E /* ProfileViewController.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
+				8B950A712243E2FA00421928 /* FavouriteViewController.swift in Sources */,
 				8B950A6422435FF700421928 /* FirestoreViewController.swift in Sources */,
 				8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */,
 			);
