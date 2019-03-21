@@ -10,29 +10,20 @@ import Foundation
 import CoreLocation
 import Firebase
 
-<<<<<<< HEAD
-class Route {
-
-    let docId: String?
-    let creator: User
-=======
 class Route: FirestoreCodable {
     private let creator: User
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
     let name: String
     var locations: [CLLocation]
     var paces: [Pace]
 
     /// Constructs a Route with the given creator and array of Paces.
     init(docId: String?, creator: User, name: String, paces: [Pace]) {
-        self.docId = docId
         self.creator = creator
         self.name = name
         self.locations = []
         self.paces = paces
     }
 
-<<<<<<< HEAD
     init?(docId: String, document: [String: Any]) {
         guard
             let name = document[FireDB.Route.name] as? String,
@@ -40,7 +31,6 @@ class Route: FirestoreCodable {
             let locations = document[FireDB.Route.checkpoints] as? [GeoPoint] else {
                 return nil
         }
-        self.docId = docId
         self.creator = User(userId: creatorId)
         self.name = name
         self.paces = []
@@ -53,7 +43,8 @@ class Route: FirestoreCodable {
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
         let initialPace = Pace(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
         self.init(docId: nil, creator: runner, name: "blabla", paces: [initialPace])
-=======
+    }
+        
     required convenience init?(dictionary: [String: Any]) {
         guard
             let name = dictionary["name"] as? String,
@@ -61,11 +52,8 @@ class Route: FirestoreCodable {
                 return nil
         }
         self.init(creator: User(id: 0, name: ""), name: name, paces: [], locations: locations)
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
     }
-}
 
-<<<<<<< HEAD
     /// Normalizes an array of CheckPoints based on the pre-defined distance interval.
     /// - Precondition: The runner records are arranged by increasing routeDistance.
     /// - Parameter runnerRecords: the array of CheckPoints to be normalized.
@@ -97,7 +85,9 @@ class Route: FirestoreCodable {
             }
         }
         return normalizedCheckPoints
-=======
+    }
+}
+        
 extension Route {
     static let collectionID = CollectionNames.routes
 

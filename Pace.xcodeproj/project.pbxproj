@@ -11,7 +11,6 @@
 		5C751F0E223CD7650082BC93 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C751F0D223CD7650082BC93 /* Constants.swift */; };
 		5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */; };
 		5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E42D9223CCA0D00DEC2F4 /* User.swift */; };
-<<<<<<< HEAD
 		62097178223CD41900BD26E1 /* RunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62097177223CD41900BD26E1 /* RunViewController.swift */; };
 		6209717D223CDC3100BD26E1 /* StopWatch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6209717C223CDC3100BD26E1 /* StopWatch.xib */; };
 		6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6209717E223CDFDF00BD26E1 /* StopWatch.swift */; };
@@ -20,9 +19,7 @@
 		62FF750E224152FC008847CC /* Pace+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF750D224152FC008847CC /* Pace+Firebase.swift */; };
 		62FF751022415A39008847CC /* FirebaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF750F22415A39008847CC /* FirebaseDB.swift */; };
 		6445D550064D1B2689B8B8F8 /* Pods_PaceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CC74146F089ECCAF13B46B /* Pods_PaceUITests.framework */; };
-=======
 		71F83142E66EA4579166BE50 /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928B400BE1578AC54C04BD25 /* Pods_Pace.framework */; };
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 		8B044D32223F7BB000AA8449 /* WelcomeScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D31223F7BB000AA8449 /* WelcomeScreenController.swift */; };
 		8B044D35223F7C0600AA8449 /* Pace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D33223F7C0600AA8449 /* Pace.swift */; };
 		8B044D36223F7C0600AA8449 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D34223F7C0600AA8449 /* Route.swift */; };
@@ -70,7 +67,6 @@
 		5C751F0D223CD7650082BC93 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
 		5C8E42D9223CCA0D00DEC2F4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		5FE7D1CA9EE9886FD4A46F45 /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
 		62097177223CD41900BD26E1 /* RunViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunViewController.swift; sourceTree = "<group>"; };
 		6209717C223CDC3100BD26E1 /* StopWatch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StopWatch.xib; sourceTree = "<group>"; };
@@ -79,9 +75,7 @@
 		62FF750B22413F73008847CC /* CLLocation+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
 		62FF750D224152FC008847CC /* Pace+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pace+Firebase.swift"; sourceTree = "<group>"; };
 		62FF750F22415A39008847CC /* FirebaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDB.swift; sourceTree = "<group>"; };
-=======
 		5D9BDD022C9F600644F62838 /* Pods-PaceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PaceUITests/Pods-PaceUITests.release.xcconfig"; sourceTree = "<group>"; };
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 		8B044D31223F7BB000AA8449 /* WelcomeScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenController.swift; sourceTree = "<group>"; };
 		8B044D33223F7C0600AA8449 /* Pace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pace.swift; sourceTree = "<group>"; };
 		8B044D34223F7C0600AA8449 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -159,7 +153,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		62097179223CDB2B00BD26E1 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,7 +170,8 @@
 				62FF750F22415A39008847CC /* FirebaseDB.swift */,
 			);
 			name = Firestore;
-=======
+			sourceTree = "<group>";
+		};
 		720673039073410DB329DE67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,7 +180,6 @@
 				27F937A4C5195D600A8EEA13 /* Pods_PaceUITests.framework */,
 			);
 			name = Frameworks;
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 			sourceTree = "<group>";
 		};
 		8B59BE5A223CE59600C2E9E7 /* Helpers */ = {
@@ -307,14 +300,9 @@
 				EB931BBB2238066500AFF868 /* Sources */,
 				EB931BBC2238066500AFF868 /* Frameworks */,
 				EB931BBD2238066500AFF868 /* Resources */,
-<<<<<<< HEAD
 				02F28FFC0156DA2E9091E066 /* [CP] Copy Pods Resources */,
 				5C77FC68223FF7DC008DCC16 /* ShellScript */,
 				8733C2CCA5EFA20EF7A533A7 /* [CP] Embed Pods Frameworks */,
-=======
-				D536CBEEDE5DDFADDA20E01D /* [CP] Embed Pods Frameworks */,
-				F9B509C3172D352925185725 /* [CP] Copy Pods Resources */,
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 			);
 			buildRules = (
 			);
@@ -436,7 +424,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-<<<<<<< HEAD
 		02F28FFC0156DA2E9091E066 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -462,9 +449,6 @@
 			showEnvVarsInLog = 0;
 		};
 		5C77FC68223FF7DC008DCC16 /* ShellScript */ = {
-=======
-		4C85B60A3789095305C509D2 /* [CP] Check Pods Manifest.lock */ = {
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -476,20 +460,13 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-<<<<<<< HEAD
-=======
 				"$(DERIVED_FILE_DIR)/Pods-PaceTests-checkManifestLockResult.txt",
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint --config .swiftlint.yml\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-<<<<<<< HEAD
 		857E0C24EC102BBE1A2404C6 /* [CP] Check Pods Manifest.lock */ = {
-=======
-		5EBA6310007BE6AFDC3A88FE /* [CP] Check Pods Manifest.lock */ = {
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -511,11 +488,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-<<<<<<< HEAD
 		8733C2CCA5EFA20EF7A533A7 /* [CP] Embed Pods Frameworks */ = {
-=======
-		D536CBEEDE5DDFADDA20E01D /* [CP] Embed Pods Frameworks */ = {
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -645,13 +618,10 @@
 				62FF751022415A39008847CC /* FirebaseDB.swift in Sources */,
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
-<<<<<<< HEAD
 				62FF750E224152FC008847CC /* Pace+Firebase.swift in Sources */,
 				62FF750922412EDD008847CC /* Route+Firestore.swift in Sources */,
-=======
 				8B950A732243E2FA00421928 /* FriendsFeedViewController.swift in Sources */,
 				8B950A722243E2FA00421928 /* ActivityViewController.swift in Sources */,
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,

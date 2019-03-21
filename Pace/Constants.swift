@@ -17,7 +17,6 @@ struct Constants {
     static let checkPointDistanceInterval = 20.0
 }
 
-<<<<<<< HEAD
 /// Identifiers for Firebase collections
 struct FireDB {
     static let routes = "routes"
@@ -49,10 +48,10 @@ struct FireDB {
 /// For Development Purposes until the rest of the interface is ready
 struct Dummy {
     static let user = User(userId: "VWO0w2OLjw4cnH9B4AnT")
-=======
+}
+    
 struct CollectionNames {
     static let paces = "paces"
     static let routes = "routes"
     static let users = "users"
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
 }
