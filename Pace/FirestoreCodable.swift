@@ -37,7 +37,7 @@ extension FirestoreCodable {
     static func all(from firestore: Firestore, start: Int? = 0, limit: Int? = 50,
                     callback: @escaping ([Self]?) -> Void) {
         let collectionReference = Self.collectionReference(from: firestore)
-        collectionReference.getDocuments { querySnapshot, err in
+        collectionReference.addSnapshotListener { querySnapshot, err in
             guard err == nil else {
                 print("Error acquiring documents")
                 return
