@@ -24,7 +24,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--Item 2-->
+        <!--Friends Feed-->
         <scene sceneID="u5L-4p-IKY">
             <objects>
                 <viewController id="Qv1-1B-viS" customClass="FriendsFeedViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
@@ -34,13 +34,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="wn0-g2-cn6"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="b9B-P3-XOF"/>
+                    <tabBarItem key="tabBarItem" title="Friends Feed" id="b9B-P3-XOF"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApP-Z5-NhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1391" y="-1226"/>
         </scene>
-        <!--Item-->
+        <!--Activity-->
         <scene sceneID="0ib-sa-HYG">
             <objects>
                 <viewController id="8fe-T8-kg8" customClass="ActivityViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
@@ -50,13 +50,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="zV9-pC-x0a"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="GDS-i6-6QC"/>
+                    <tabBarItem key="tabBarItem" title="Activity" id="GDS-i6-6QC"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TQJ-eY-8KH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2183" y="-1227"/>
         </scene>
-        <!--Item-->
+        <!--Profile-->
         <scene sceneID="Pxg-bB-8rj">
             <objects>
                 <viewController id="zUq-ob-WlL" customClass="ProfileViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
@@ -66,7 +66,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Uum-Dv-Wrc"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="mcB-RP-jyX"/>
+                    <tabBarItem key="tabBarItem" title="Profile" id="mcB-RP-jyX"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QP2-Ql-hLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

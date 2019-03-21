@@ -43,3 +43,4 @@ line_length:
 excluded:
   - Pace/AppDelegate.swift
   - PaceUITests/*
+  - Pods/*
