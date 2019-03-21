@@ -14,7 +14,6 @@ struct CheckPoint {
     let location: CLLocation
     let time: Double
     private let actualDistance: Double
-    // TODO: decide whether to make routeDistance as Optional
     let routeDistance: Double
 
     /// Constructs a CheckPoint with the given Location, time, actualDistance and routeDistance.
@@ -90,12 +89,5 @@ struct CheckPoint {
         } else {
             return (leftCp, rightCp)
         }
-
-    // TODO: remove/reimplement once we figure out the final shape of the data.
-    init(time: Double, routeDistance: Double) {
-        self.location = Location(longitude: 0.0, latitude: 0.0)
-        self.time = time
-        self.routeDistance = routeDistance
-        self.actualDistance = 0.0
     }
 }

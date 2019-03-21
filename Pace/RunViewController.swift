@@ -52,8 +52,7 @@ class RunViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     @IBAction func save(_ sender: UIButton) {
-        let route = Route(runner: Dummy.user, runnerRecords: checkpoints)
-        
+//        let route = Route(runner: Dummy.user, runnerRecords: checkpoints)
     }
 
     @objc

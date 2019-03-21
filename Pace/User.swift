@@ -9,41 +9,38 @@
 import Foundation
 
 class User: Hashable, FirestoreCodable {
-    let userId: Int
+
+    var docId: String?
     let name: String
 
-    init(userId: Int, name: String) {
-        self.userId = userId
+    init(docId: String?, name: String) {
+        self.docId = docId
         self.name = name
     }
 
-    required convenience init?(dictionary: [String: Any]) {
+    required convenience init?(docId: String, data: [String: Any]) {
         guard
-            let userId = dictionary["userId"] as? Int,
-            let name = dictionary["name"] as? String
+            let name = data[FireDB.User.username] as? String
             else {
                 return nil
         }
-        self.init(userId: userId, name: name)
+        self.init(docId: docId, name: name)
     }
 
     // MARK: - Hashable
     static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.userId == rhs.userId
+        return lhs.docId == rhs.docId
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(userId)
+        hasher.combine(docId)
     }
 }
 
 extension User {
-    static let collectionuserId = CollectionNames.users
-
     func toFirestoreDoc() -> [String: Any] {
         return [
-            "userId": userId,
-            "name": name
+            FireDB.User.username: name
         ]
     }
 }

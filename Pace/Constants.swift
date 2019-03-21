@@ -28,14 +28,19 @@ struct FireDB {
         static let name = "name"
         // Foreign Key of User
         static let creatorId = "creator_id"
+        // (Not in firebase) Added field to load creator (user) data for each route
+        static let creatorData = "creator_data"
     }
 
     struct Pace {
         static let timings = "checkpoint_times"
+        static let distances = "route_distances"
         // Foreign Key of Route
         static let routeId = "route_id"
         // Foreign Key of User
         static let userId = "user_id"
+        // (Not in firebase) Added field to load user data for each pace
+        static let userData = "user_data"
     }
 
     struct User {
@@ -47,11 +52,5 @@ struct FireDB {
 
 /// For Development Purposes until the rest of the interface is ready
 struct Dummy {
-    static let user = User(userId: "VWO0w2OLjw4cnH9B4AnT")
-}
-    
-struct CollectionNames {
-    static let paces = "paces"
-    static let routes = "routes"
-    static let users = "users"
+    static let user = User(docId: "VWO0w2OLjw4cnH9B4AnT", name: "angunong")
 }

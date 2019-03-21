@@ -11,27 +11,34 @@ import CoreLocation
 import Firebase
 
 class Route: FirestoreCodable {
-    private let creator: User
+    let creator: User
+    var docId: String?
     let name: String
     var locations: [CLLocation]
     var paces: [Pace]
 
     /// Constructs a Route with the given creator and array of Paces.
     init(docId: String?, creator: User, name: String, paces: [Pace]) {
+        self.docId = docId
         self.creator = creator
         self.name = name
         self.locations = []
         self.paces = paces
     }
 
-    init?(docId: String, document: [String: Any]) {
+    required init?(docId: String, data: [String: Any]) {
         guard
-            let name = document[FireDB.Route.name] as? String,
-            let creatorId = document[FireDB.Route.creatorId] as? String,
-            let locations = document[FireDB.Route.checkpoints] as? [GeoPoint] else {
+            let creatorId = data[FireDB.Route.creatorId] as? String,
+            let userData = data[FireDB.Route.creatorData] as? [String: Any],
+            let name = data[FireDB.Route.name] as? String,
+            let locations = data[FireDB.Route.checkpoints] as? [GeoPoint] else {
                 return nil
         }
-        self.creator = User(userId: creatorId)
+        guard let creator = User(docId: creatorId, data: userData) else {
+            return nil
+        }
+        self.creator = creator
+        self.docId = docId
         self.name = name
         self.paces = []
         self.locations = locations.map { CLLocation(latitude: $0.latitude, longitude: $0.longitude) }
@@ -43,15 +50,6 @@ class Route: FirestoreCodable {
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
         let initialPace = Pace(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
         self.init(docId: nil, creator: runner, name: "blabla", paces: [initialPace])
-    }
-        
-    required convenience init?(dictionary: [String: Any]) {
-        guard
-            let name = dictionary["name"] as? String,
-            let locations = dictionary["checkpoints"] as? [GeoPoint] else {
-                return nil
-        }
-        self.init(creator: User(id: 0, name: ""), name: name, paces: [], locations: locations)
     }
 
     /// Normalizes an array of CheckPoints based on the pre-defined distance interval.
@@ -89,13 +87,11 @@ class Route: FirestoreCodable {
 }
         
 extension Route {
-    static let collectionID = CollectionNames.routes
-
     func toFirestoreDoc() -> [String: Any] {
         return [
-            "name": name,
-            "location": checkpoints,
+            FireDB.Route.name: name,
+            FireDB.Route.checkpoints: locations,
+            FireDB.Route.creatorId: creator.docId ?? ""
         ]
->>>>>>> cad6c622a22e3f518e4e964aa6d18fbcd8c7a24f
     }
 }
