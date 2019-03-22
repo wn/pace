@@ -63,14 +63,10 @@
 
 /* Begin PBXFileReference section */
 		03C11157F7CEB9999E084193 /* Pods-PaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.release.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.release.xcconfig"; sourceTree = "<group>"; };
-		15411BC27D0C46C9FEDD7B25 /* Pods-PaceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PaceUITests/Pods-PaceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		27F937A4C5195D600A8EEA13 /* Pods_PaceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3560A320C4C58A2B75B1E491 /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
-		46301A05B3208857FB683CD8 /* Pods-PaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PaceTests/Pods-PaceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C751F0D223CD7650082BC93 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
 		5C8E42D9223CCA0D00DEC2F4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		5D9BDD022C9F600644F62838 /* Pods-PaceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PaceUITests/Pods-PaceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		62097177223CD41900BD26E1 /* RunViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunViewController.swift; sourceTree = "<group>"; };
 		6209717C223CDC3100BD26E1 /* StopWatch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StopWatch.xib; sourceTree = "<group>"; };
 		6209717E223CDFDF00BD26E1 /* StopWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
@@ -92,10 +88,8 @@
 		8BA83F3F2244DFA300FBCBC8 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		924ABCBCA14C0D12F80B279A /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 		928B400BE1578AC54C04BD25 /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4EDAB24273E924F479225B /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
-		A5E47D3286A850C25069D8C9 /* Pods-PaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PaceTests/Pods-PaceTests.release.xcconfig"; sourceTree = "<group>"; };
 		AC5B5B4E955A78B6929EB023 /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRoutesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -211,19 +205,6 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
-		8B950A6B2243E13500421928 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				924ABCBCA14C0D12F80B279A /* Pods-Pace.debug.xcconfig */,
-				3560A320C4C58A2B75B1E491 /* Pods-Pace.release.xcconfig */,
-				46301A05B3208857FB683CD8 /* Pods-PaceTests.debug.xcconfig */,
-				A5E47D3286A850C25069D8C9 /* Pods-PaceTests.release.xcconfig */,
-				15411BC27D0C46C9FEDD7B25 /* Pods-PaceUITests.debug.xcconfig */,
-				5D9BDD022C9F600644F62838 /* Pods-PaceUITests.release.xcconfig */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		EB00C53C22438291005B2C0E /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,7 +238,6 @@
 				EB931BE42238066800AFF868 /* PaceUITests */,
 				EB931BC02238066500AFF868 /* Products */,
 				720673039073410DB329DE67 /* Frameworks */,
-				8B950A6B2243E13500421928 /* Recovered References */,
 				81E8E91CCDCB9BB312FAC8AB /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -831,13 +811,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7R2NJCMGC8;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0150739b.Pace;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0166955m.pace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -852,13 +832,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7R2NJCMGC8;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0150739b.Pace;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0166955m.pace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
