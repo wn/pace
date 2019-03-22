@@ -48,13 +48,14 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
     }
 
     /// Callback for the refresh button.
-    @objc func refresh(sender: UIButton!) {
+    @objc
+    func refresh(sender: UIButton!) {
         refreshRoutes()
     }
 
     /// Refreshes the routes displayed in view.
     func refreshRoutes() {
-        Route.all(firestore: firestore) { routes in
+        FirebaseDB.retrieveRoutes { routes in
             self.routeInfo.text = routes.flatMap { $0.map { $0.name }.joined(separator: "\n") }
         }
     }
