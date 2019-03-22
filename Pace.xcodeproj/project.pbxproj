@@ -18,23 +18,19 @@
 		62FF751022415A39008847CC /* FirebaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF750F22415A39008847CC /* FirebaseDB.swift */; };
 		62FF751422443E91008847CC /* FirebaseDB+Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF751322443E91008847CC /* FirebaseDB+Routes.swift */; };
 		62FF751622443EBD008847CC /* FirebaseDB+Paces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF751522443EBD008847CC /* FirebaseDB+Paces.swift */; };
+		62FF75242244CE8F008847CC /* WelcomeScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF751F2244CE8F008847CC /* WelcomeScreenController.swift */; };
+		62FF75252244CE8F008847CC /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75202244CE8F008847CC /* ActivityViewController.swift */; };
+		62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75212244CE8F008847CC /* ProfileViewController.swift */; };
+		62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75222244CE8F008847CC /* FavouriteViewController.swift */; };
+		62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */; };
 		71F83142E66EA4579166BE50 /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928B400BE1578AC54C04BD25 /* Pods_Pace.framework */; };
-		8B044D32223F7BB000AA8449 /* WelcomeScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D31223F7BB000AA8449 /* WelcomeScreenController.swift */; };
 		8B044D35223F7C0600AA8449 /* Pace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D33223F7C0600AA8449 /* Pace.swift */; };
 		8B044D36223F7C0600AA8449 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D34223F7C0600AA8449 /* Route.swift */; };
 		8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B59BE58223CD81100C2E9E7 /* Secrets.swift */; };
 		8B950A6622436FC400421928 /* FirestoreCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6522436FC400421928 /* FirestoreCodable.swift */; };
-		8B950A702243E2FA00421928 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6C2243E2FA00421928 /* ProfileViewController.swift */; };
-		8B950A712243E2FA00421928 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6D2243E2FA00421928 /* FavouriteViewController.swift */; };
-		8B950A722243E2FA00421928 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6E2243E2FA00421928 /* ActivityViewController.swift */; };
-		8B950A732243E2FA00421928 /* FriendsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B950A6F2243E2FA00421928 /* FriendsFeedViewController.swift */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
 		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		CC5F12453C1016C7B0F89CFE /* Pods_PaceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F937A4C5195D600A8EEA13 /* Pods_PaceUITests.framework */; };
-		EB00C53522437455005B2C0E /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53422437455005B2C0E /* FavouriteViewController.swift */; };
-		EB00C53722437472005B2C0E /* FriendsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53622437472005B2C0E /* FriendsFeedViewController.swift */; };
-		EB00C5392243748B005B2C0E /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C5382243748B005B2C0E /* ActivityViewController.swift */; };
-		EB00C53B224374A5005B2C0E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53A224374A5005B2C0E /* ProfileViewController.swift */; };
 		EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */; };
 		EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
@@ -80,25 +76,21 @@
 		62FF750F22415A39008847CC /* FirebaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDB.swift; sourceTree = "<group>"; };
 		62FF751322443E91008847CC /* FirebaseDB+Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseDB+Routes.swift"; sourceTree = "<group>"; };
 		62FF751522443EBD008847CC /* FirebaseDB+Paces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseDB+Paces.swift"; sourceTree = "<group>"; };
-		8B044D31223F7BB000AA8449 /* WelcomeScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenController.swift; sourceTree = "<group>"; };
+		62FF751F2244CE8F008847CC /* WelcomeScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenController.swift; sourceTree = "<group>"; };
+		62FF75202244CE8F008847CC /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		62FF75212244CE8F008847CC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		62FF75222244CE8F008847CC /* FavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
+		62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsFeedViewController.swift; sourceTree = "<group>"; };
 		8B044D33223F7C0600AA8449 /* Pace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pace.swift; sourceTree = "<group>"; };
 		8B044D34223F7C0600AA8449 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		8B950A6522436FC400421928 /* FirestoreCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCodable.swift; sourceTree = "<group>"; };
-		8B950A6C2243E2FA00421928 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		8B950A6D2243E2FA00421928 /* FavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
-		8B950A6E2243E2FA00421928 /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
-		8B950A6F2243E2FA00421928 /* FriendsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsFeedViewController.swift; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		924ABCBCA14C0D12F80B279A /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 		928B400BE1578AC54C04BD25 /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5E47D3286A850C25069D8C9 /* Pods-PaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PaceTests/Pods-PaceTests.release.xcconfig"; sourceTree = "<group>"; };
 		AC5B5B4E955A78B6929EB023 /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB00C53422437455005B2C0E /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
-		EB00C53622437472005B2C0E /* FriendsFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedViewController.swift; sourceTree = "<group>"; };
-		EB00C5382243748B005B2C0E /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
-		EB00C53A224374A5005B2C0E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRoutesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
@@ -193,29 +185,13 @@
 			children = (
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
-				5C751F0D223CD7650082BC93 /* Constants.swift */,
 			);
 			name = Helpers;
-			sourceTree = "<group>";
-		};
-		8B950A6222435FBE00421928 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				8B950A6E2243E2FA00421928 /* ActivityViewController.swift */,
-				8B950A6D2243E2FA00421928 /* FavouriteViewController.swift */,
-				8B950A6F2243E2FA00421928 /* FriendsFeedViewController.swift */,
-				8B950A6C2243E2FA00421928 /* ProfileViewController.swift */,
-			);
-			name = Controllers;
 			sourceTree = "<group>";
 		};
 		8B950A6B2243E13500421928 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				EB00C53422437455005B2C0E /* FavouriteViewController.swift */,
-				EB00C53622437472005B2C0E /* FriendsFeedViewController.swift */,
-				EB00C5382243748B005B2C0E /* ActivityViewController.swift */,
-				EB00C53A224374A5005B2C0E /* ProfileViewController.swift */,
 				924ABCBCA14C0D12F80B279A /* Pods-Pace.debug.xcconfig */,
 				3560A320C4C58A2B75B1E491 /* Pods-Pace.release.xcconfig */,
 				46301A05B3208857FB683CD8 /* Pods-PaceTests.debug.xcconfig */,
@@ -276,14 +252,17 @@
 		EB931BC12238066500AFF868 /* Pace */ = {
 			isa = PBXGroup;
 			children = (
+				62FF75202244CE8F008847CC /* ActivityViewController.swift */,
+				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
+				62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */,
+				62FF75212244CE8F008847CC /* ProfileViewController.swift */,
+				62FF751F2244CE8F008847CC /* WelcomeScreenController.swift */,
 				EB00C53C22438291005B2C0E /* Views */,
-				EB00C53322437444005B2C0E /* Controllers */,
 				8B59BE5A223CE59600C2E9E7 /* Helpers */,
 				5C8E42D0223CC7E900DEC2F4 /* Models */,
 				62FF750722412EB8008847CC /* Firestore */,
 				62097179223CDB2B00BD26E1 /* views */,
 				EBC1644A223C9EE900745F91 /* Supporting Files */,
-				8B044D31223F7BB000AA8449 /* WelcomeScreenController.swift */,
 				EB931BC62238066500AFF868 /* Main.storyboard */,
 				EB931BC92238066500AFF868 /* Pace.xcdatamodeld */,
 				8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */,
@@ -584,31 +563,26 @@
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
 				6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */,
 				62FF751022415A39008847CC /* FirebaseDB.swift in Sources */,
+				62FF75252244CE8F008847CC /* ActivityViewController.swift in Sources */,
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
-				5C8E42D8223CC95500DEC2F4 /* Location.swift in Sources */,
+				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
-				8B950A732243E2FA00421928 /* FriendsFeedViewController.swift in Sources */,
-				8B950A722243E2FA00421928 /* ActivityViewController.swift in Sources */,
+				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
+				62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,
 				EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */,
-				EB00C53522437455005B2C0E /* FavouriteViewController.swift in Sources */,
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,
-				8B950A702243E2FA00421928 /* ProfileViewController.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				8B044D35223F7C0600AA8449 /* Pace.swift in Sources */,
 				8B950A6622436FC400421928 /* FirestoreCodable.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
-				8B044D32223F7BB000AA8449 /* WelcomeScreenController.swift in Sources */,
-				EB00C53722437472005B2C0E /* FriendsFeedViewController.swift in Sources */,
 				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
-				EB00C5392243748B005B2C0E /* ActivityViewController.swift in Sources */,
-				EB00C53B224374A5005B2C0E /* ProfileViewController.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
-				8B950A712243E2FA00421928 /* FavouriteViewController.swift in Sources */,
 				62FF751422443E91008847CC /* FirebaseDB+Routes.swift in Sources */,
 				8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */,
+				62FF75242244CE8F008847CC /* WelcomeScreenController.swift in Sources */,
 				62FF751622443EBD008847CC /* FirebaseDB+Paces.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
