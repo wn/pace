@@ -26,6 +26,7 @@
 		EB00C53B224374A5005B2C0E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53A224374A5005B2C0E /* ProfileViewController.swift */; };
 		EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */; };
 		EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */; };
+		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
 		EB931BC82238066500AFF868 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BC62238066500AFF868 /* Main.storyboard */; };
 		EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC92238066500AFF868 /* Pace.xcdatamodeld */; };
@@ -78,6 +79,7 @@
 		EB00C53A224374A5005B2C0E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRoutesCollectionViewCell.swift; sourceTree = "<group>"; };
+		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BC22238066500AFF868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB931BC72238066500AFF868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -129,7 +131,6 @@
 				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
 				5C8E42D7223CC95500DEC2F4 /* Location.swift */,
-				5C751F0D223CD7650082BC93 /* Constants.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -147,6 +148,9 @@
 		8B59BE5A223CE59600C2E9E7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
+				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
+				5C751F0D223CD7650082BC93 /* Constants.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -178,26 +182,26 @@
 		EB00C53C22438291005B2C0E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EB408D372243F95D00F9C561 /* Favourites */,
-				EB00C53F2243966D005B2C0E /* FriendsFeed */,
+				EB408D372243F95D00F9C561 /* FavouritesView */,
+				EB00C53F2243966D005B2C0E /* FriendsFeedView */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
-		EB00C53F2243966D005B2C0E /* FriendsFeed */ = {
+		EB00C53F2243966D005B2C0E /* FriendsFeedView */ = {
 			isa = PBXGroup;
 			children = (
 				EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */,
 			);
-			name = FriendsFeed;
+			name = FriendsFeedView;
 			sourceTree = "<group>";
 		};
-		EB408D372243F95D00F9C561 /* Favourites */ = {
+		EB408D372243F95D00F9C561 /* FavouritesView */ = {
 			isa = PBXGroup;
 			children = (
 				EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */,
 			);
-			name = Favourites;
+			name = FavouritesView;
 			sourceTree = "<group>";
 		};
 		EB931BB62238066500AFF868 = {
@@ -264,7 +268,6 @@
 				EB931BCC2238066800AFF868 /* Assets.xcassets */,
 				EB931BCE2238066800AFF868 /* LaunchScreen.storyboard */,
 				EB931BD12238066800AFF868 /* Info.plist */,
-				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -342,6 +345,11 @@
 				TargetAttributes = {
 					EB931BBE2238066500AFF868 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					EB931BD52238066800AFF868 = {
 						CreatedOnToolsVersion = 10.1;
@@ -550,6 +558,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
+				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				5C8E42D8223CC95500DEC2F4 /* Location.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
@@ -743,7 +752,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P4SYV2WJ27;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -764,7 +773,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P4SYV2WJ27;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
