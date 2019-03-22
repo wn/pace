@@ -11,12 +11,32 @@ import UIKit
 class FriendsFeedViewController: UIViewController {
     // MARK: - Properties
     private let feedIdentifier = "friendsFeedCell"
-    let friendsRoutes = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+    let friendsRoutes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    private(set) var friends: [String] = []
+    
+    @IBOutlet weak var friendsTable: UICollectionView!
+    
     let itemsPerRow = 1
     private let sectionInsets = UIEdgeInsets(top: 0,
                                              left: 20.0,
                                              bottom: 100.0,
                                              right: 20.0)
+    
+    // TODO: Replace with reactive/observer pattern, probably when we have rxswift up.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if UserManager.isLoggedIn {
+            UserManager.getCurrentUser { user in
+                print(user == nil)
+                if let _ = user {
+                    self.friends = ["Ben", "YK", "YYC"]
+                } else {
+                    self.friends = []
+                }
+                self.friendsTable.reloadData()
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -32,6 +52,9 @@ extension FriendsFeedViewController: UICollectionViewDataSource, UICollectionVie
         ) -> UICollectionViewCell {
         let cell = collectionView
             .dequeueReusableCell(withReuseIdentifier: feedIdentifier, for: indexPath) as! FriendsFeedCollectionViewCell
+        if indexPath.item < friends.count {
+            cell.friend = friends[indexPath.item]
+        }
         cell.backgroundColor = .blue
         // Configure the cell
         return cell

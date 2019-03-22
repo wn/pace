@@ -20,7 +20,7 @@ class User: Hashable, FirestoreCodable {
 
     required convenience init?(docId: String, data: [String: Any]) {
         guard
-            let name = data[FireDB.User.username] as? String
+            let name = data[FireDB.User.name] as? String
             else {
                 return nil
         }

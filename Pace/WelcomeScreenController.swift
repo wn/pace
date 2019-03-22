@@ -89,12 +89,12 @@ class WelcomeScreenController: UIViewController, LoginButtonDelegate {
                 return
             }
             let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-            Auth.auth().signInAndRetrieveData(with: credential) { _, err in
-                guard err == nil else {
-                    print("error: \( err.debugDescription)")
-                    return
+            UserManager.logIn(with: credential) {
+                if $0 {
+                    print("success!")
+                } else {
+                    print("error signing in")
                 }
-                print("success!")
                 self.updateIndicator()
             }
         case .failed(let err):

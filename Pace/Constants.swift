@@ -46,6 +46,7 @@ struct FireDB {
         static let email = "email"
         static let password = "password"
         static let username = "username"
+        static let name = "name"
     }
 }
 

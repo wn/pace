@@ -26,10 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         UserProfile.updatesOnAccessTokenChange = true
         FirebaseApp.configure()
-        
-        let db = Firestore.firestore()
-        
-        print(db)
         return true
     }
 
