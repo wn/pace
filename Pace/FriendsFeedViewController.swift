@@ -69,7 +69,7 @@ extension FriendsFeedViewController: UICollectionViewDataSource, UICollectionVie
 }
 
 // MARK: - Collection View Flow Layout Delegate
-extension FriendsFeedViewController : UICollectionViewDelegateFlowLayout {
+extension FriendsFeedViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

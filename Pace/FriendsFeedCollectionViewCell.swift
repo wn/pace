@@ -20,8 +20,8 @@ class FriendsFeedCollectionViewCell: UICollectionViewCell {
             _friend = name
         }
     }
-    
+
     @IBOutlet weak var nameLabel: UILabel!
-    
+
     let numOfRunners = 100
 }

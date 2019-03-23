@@ -85,7 +85,7 @@ class Route: FirestoreCodable {
         return normalizedCheckPoints
     }
 }
-        
+
 extension Route {
     func toFirestoreDoc() -> [String: Any] {
         return [

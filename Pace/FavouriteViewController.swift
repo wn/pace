@@ -11,7 +11,7 @@ import UIKit
 class FavouriteViewController: UIViewController {
     // MARK: - Properties
     private let favouriteCellIdentifier = "favouriteCell"
-    let favouriteRoutes = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+    let favouriteRoutes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     let itemsPerRow = 1
     private let sectionInsets = UIEdgeInsets(top: 0,
                                              left: 20.0,
@@ -39,7 +39,7 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 // MARK: - Collection View Flow Layout Delegate
-extension FavouriteViewController : UICollectionViewDelegateFlowLayout {
+extension FavouriteViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
