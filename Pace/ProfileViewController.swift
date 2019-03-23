@@ -20,33 +20,13 @@ class ProfileViewController: UIViewController {
         loginButton.center = view.center
         loginButton.delegate = self
         
-        // Do any additional setup after loading the view, typically from a nib.
-        // let map = generateMap(width: view.frame.width, height: view.frame.height / 2)
-        
-        // view.addSubview(map)
         view.addSubview(loginButton)
         
         indicator.center = view.center.applying(CGAffineTransform(translationX: 0, y: -100))
-        routeInfo.center = view.center.applying(CGAffineTransform(translationX: 0, y: 100))
         updateIndicator()
         
-        // Setup fire store and display routes available
         view.addSubview(indicator)
     }
-
-    /// Callback for the refresh button.
-    @objc
-    func refresh(sender: UIButton!) {
-        refreshRoutes()
-    }
-    
-    /// Refreshes the routes displayed in view.
-    func refreshRoutes() {
-        FirebaseDB.retrieveRoutes { routes in
-            self.routeInfo.text = routes.flatMap { $0.map { $0.name }.joined(separator: "\n") }
-        }
-    }
-
     // MARK: - Login & Firestore methods
     
     /// An indicator for whether the user is logged in.

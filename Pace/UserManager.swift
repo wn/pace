@@ -122,4 +122,43 @@ class UserManager {
             }
         }
     }
+
+    // MARK: - Social network methods
+    /// Gets the friends' names of a person and performs callback with it.
+    static func getFriends(_ completion: @escaping ([String]?, Error?) -> Void) {
+        guard isLoggedIn, let userRef = currentUserRef else {
+            completion(nil, NSError())
+            return
+        }
+        userRef.getDocument { snapshot, err in
+            guard let snapshot = snapshot, err == nil else {
+                completion(nil, err)
+                return
+            }
+            let dispatchGroup = DispatchGroup()
+            var friendNames: [String] = []
+            guard let friends = snapshot.data()?["friends"] as? [String: Any] else {
+                completion(nil, NSError())
+                return
+            }
+            friends.keys.forEach { userId in
+                dispatchGroup.enter()
+                FirebaseDB.users.document(userId).getDocument { friendSnap, err in
+                    guard
+                        err == nil,
+                        let friend = friendSnap,
+                        let name = friend.data()?["name"] as? String
+                        else {
+                            dispatchGroup.leave()
+                            return
+                    }
+                    friendNames.append(name)
+                    dispatchGroup.leave()
+                }
+            }
+            dispatchGroup.notify(queue: DispatchQueue.main) {
+                completion(friendNames, nil)
+            }
+        }
+    }
 }
