@@ -1,7 +1,6 @@
 import Foundation
 import CoreLocation
 
-
 struct Constants {
 
     // Threshold distance value to determine whether two locations should be considered as same
@@ -13,7 +12,8 @@ struct Constants {
     // MARK: - MapView location constants
     // mapView constants
     static let initialZoom: Float = 18
-    static let guardDistance: CLLocationDistance = 10 // New location must be greater than guardDistance for map to update
+    static let guardDistance: CLLocationDistance = 10
+        // New location must be greater than guardDistance for map to update
 }
 
 /// Identifiers for Firebase collections
@@ -21,6 +21,7 @@ struct FireDB {
     static let routes = "routes"
     static let paces = "paces"
     static let users = "users"
+    static let friend_requests = "friend_requests"
 
     struct Route {
         static let checkpoints = "checkpoints"

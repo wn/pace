@@ -11,6 +11,7 @@ import FirebaseAuth
 import FacebookCore
 import Firebase
 
+/// This class is a singleton manager for all user & friend related methods.
 class UserManager {
 
     /// The current id of the user.
@@ -24,8 +25,13 @@ class UserManager {
     }
 
     /// The collection reference for all the users.
-    static var usersCollectionReference: CollectionReference {
+    private static var usersCollectionReference: CollectionReference {
         return FirebaseDB.users
+    }
+
+    /// The collection reference for all the friend requests.
+    private static var friendRequestsCollectionReference: CollectionReference {
+        return FirebaseDB.friend_requests
     }
 
     /// The document reference for this user.
@@ -34,6 +40,14 @@ class UserManager {
             return nil
         }
         return usersCollectionReference.document("\(currentID)")
+    }
+
+    /// The document reference for this user's friend requests
+    static var currentUserRequestsRef: DocumentReference? {
+        guard let currentID = currentID else {
+            return nil
+        }
+        return friendRequestsCollectionReference.document("\(currentID)")
     }
 
     /// The document reference for a user.
@@ -49,12 +63,12 @@ class UserManager {
     /// - Parameters:
     ///   - completion: The callback for when the user is retrieved.
     static func currentUser(_ completion: @escaping (User?) -> Void) {
-        guard let currentID = currentID else {
+        guard let currentID = currentID, let currentUserRef = currentUserRef else {
             print("NOT LOGGED IN")
             completion(nil)
             return
         }
-        currentUserRef?.getDocument { snapshot, err in
+        currentUserRef.getDocument { snapshot, err in
             guard let snapshot = snapshot, let data = snapshot.data(), err == nil else {
                 print(err.debugDescription)
                 print("SNAPSHOT FAILED")
@@ -70,14 +84,14 @@ class UserManager {
     /// `completion` would be performed on `nil`.
     /// - Parameters:
     ///   - completion: The callback for when the user is retrieved.
-    static func getUser(id: String, _ completion: @escaping (User?) -> Void) {
-        userRef(forUserId: id).getDocument { snapshot, err in
+    static func getUser(userId: String, _ completion: @escaping (User?) -> Void) {
+        userRef(forUserId: userId).getDocument { snapshot, err in
             guard let snapshot = snapshot, let data = snapshot.data(), err == nil else {
                 print(err.debugDescription)
                 completion(nil)
                 return
             }
-            completion(User(docId: id, data: data))
+            completion(User(docId: userId, data: data))
         }
     }
 
@@ -133,11 +147,12 @@ class UserManager {
         logIn(with: credential, completion: completion)
     }
 
+    /// Logs the current user out
     static func logOut(_ completion: @escaping () -> Void) throws {
         try Auth.auth().signOut()
         completion()
     }
-    
+
     // MARK: - Social network methods
     /// Gets the friends' names of a person and performs callback with it.
     static func getFriends(_ completion: @escaping ([String]?, Error?) -> Void) {
@@ -174,6 +189,36 @@ class UserManager {
             dispatchGroup.notify(queue: DispatchQueue.main) {
                 completion(friendNames, nil)
             }
+        }
+    }
+
+    /// Sends a request to this user.
+    static func sendRequestTo(userId: String, completion: @escaping (Error?) -> Void) {
+        guard isLoggedIn, let currentID = currentID else {
+            completion(NSError())
+            return
+        }
+        friendRequestsCollectionReference.document(userId)
+            .updateData(["incoming": FieldValue.arrayUnion([currentID])],
+                        completion: completion)
+    }
+
+    /// Gets requests for this user.
+    static func getRequests(completion: @escaping ([String]?, Error?) -> Void) {
+        guard isLoggedIn, let currentUserRequestsRef = currentUserRequestsRef else {
+            completion(nil, NSError())
+            return
+        }
+        currentUserRequestsRef.getDocument { snapshot, err in
+            guard
+                err == nil,
+                let data = snapshot?.data(),
+                let incoming = data["incoming"] as? [String]
+                else {
+                    completion(nil, err)
+                    return
+            }
+            completion(incoming, nil)
         }
     }
 }

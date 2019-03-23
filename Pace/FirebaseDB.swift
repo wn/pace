@@ -14,4 +14,5 @@ class FirebaseDB {
     static let routes = firestore.collection(FireDB.routes)
     static let paces = firestore.collection(FireDB.paces)
     static let users = firestore.collection(FireDB.users)
+    static let friend_requests = firestore.collection(FireDB.friend_requests)
 }
