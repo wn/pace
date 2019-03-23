@@ -9,7 +9,6 @@
 import UIKit
 import FacebookCore
 import FacebookLogin
-import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     override func viewDidLoad() {
@@ -50,11 +49,13 @@ class ProfileViewController: UIViewController {
     
     /// Updates the log in indicator.
     private func updateIndicator() {
-        guard let user = Auth.auth().currentUser else {
-            indicator.text = "Please log in"
-            return
+        UserManager.currentUser { user in
+            guard let user = user else {
+                self.indicator.text = "Please log in"
+                return
+            }
+            self.indicator.text = "Welcome back \(user.name)"
         }
-        indicator.text = "Welcome back \(user.displayName ?? "")"
     }
 
 }
@@ -63,13 +64,7 @@ extension ProfileViewController: LoginButtonDelegate {
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
         case .success(_, _, let token):
-            print(token.authenticationToken)
-            guard let accessToken = AccessToken.current else {
-                print("some shit happened")
-                return
-            }
-            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-            UserManager.logIn(with: credential) {
+            UserManager.logIn(withFacebookToken: token) {
                 if $0 {
                     print("success!")
                 } else {
@@ -86,10 +81,9 @@ extension ProfileViewController: LoginButtonDelegate {
     
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
         do {
-            try Auth.auth().signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
+            try UserManager.logOut { self.updateIndicator() }
+        } catch {
+            print(error.localizedDescription)
         }
-        updateIndicator()
     }
 }

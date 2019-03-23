@@ -18,7 +18,6 @@
 		62FF751022415A39008847CC /* FirebaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF750F22415A39008847CC /* FirebaseDB.swift */; };
 		62FF751422443E91008847CC /* FirebaseDB+Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF751322443E91008847CC /* FirebaseDB+Routes.swift */; };
 		62FF751622443EBD008847CC /* FirebaseDB+Paces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF751522443EBD008847CC /* FirebaseDB+Paces.swift */; };
-		62FF75242244CE8F008847CC /* WelcomeScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF751F2244CE8F008847CC /* WelcomeScreenController.swift */; };
 		62FF75252244CE8F008847CC /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75202244CE8F008847CC /* ActivityViewController.swift */; };
 		62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75212244CE8F008847CC /* ProfileViewController.swift */; };
 		62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75222244CE8F008847CC /* FavouriteViewController.swift */; };
@@ -74,7 +73,6 @@
 		62FF750F22415A39008847CC /* FirebaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDB.swift; sourceTree = "<group>"; };
 		62FF751322443E91008847CC /* FirebaseDB+Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseDB+Routes.swift"; sourceTree = "<group>"; };
 		62FF751522443EBD008847CC /* FirebaseDB+Paces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseDB+Paces.swift"; sourceTree = "<group>"; };
-		62FF751F2244CE8F008847CC /* WelcomeScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenController.swift; sourceTree = "<group>"; };
 		62FF75202244CE8F008847CC /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		62FF75212244CE8F008847CC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		62FF75222244CE8F008847CC /* FavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
 				62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */,
 				62FF75212244CE8F008847CC /* ProfileViewController.swift */,
-				62FF751F2244CE8F008847CC /* WelcomeScreenController.swift */,
 				EB00C53C22438291005B2C0E /* Views */,
 				8B59BE5A223CE59600C2E9E7 /* Helpers */,
 				5C8E42D0223CC7E900DEC2F4 /* Models */,
@@ -632,7 +629,6 @@
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
 				62FF751422443E91008847CC /* FirebaseDB+Routes.swift in Sources */,
 				8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */,
-				62FF75242244CE8F008847CC /* WelcomeScreenController.swift in Sources */,
 				62FF751622443EBD008847CC /* FirebaseDB+Paces.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

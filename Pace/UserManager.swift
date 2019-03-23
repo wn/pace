@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseAuth
+import FacebookCore
 import Firebase
 
 class UserManager {
@@ -47,7 +48,7 @@ class UserManager {
     /// the document, `completion` would be performed on `nil`.
     /// - Parameters:
     ///   - completion: The callback for when the user is retrieved.
-    static func getCurrentUser(_ completion: @escaping (User?) -> Void) {
+    static func currentUser(_ completion: @escaping (User?) -> Void) {
         guard let currentID = currentID else {
             print("NOT LOGGED IN")
             completion(nil)
@@ -96,7 +97,7 @@ class UserManager {
     /// - Parameters:
     ///   - credential: The credential to log in with.
     ///   - completion: The callback for completion. Would perform differently based on the authentication result.
-    static func logIn(with credential: AuthCredential, completion: @escaping (Bool) -> Void) {
+    private static func logIn(with credential: AuthCredential, completion: @escaping (Bool) -> Void) {
         if isLoggedIn {
             return
         }
@@ -123,6 +124,20 @@ class UserManager {
         }
     }
 
+    /// Logs the user into the app using a facebook token.
+    /// - Parameters:
+    ///   - credential: The Facebook token to log in with.
+    ///   - completion: The callback for completion. Would perform differently based on the authentication result.
+    static func logIn(withFacebookToken accessToken: AccessToken, completion: @escaping (Bool) -> Void) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+        logIn(with: credential, completion: completion)
+    }
+
+    static func logOut(_ completion: @escaping () -> Void) throws {
+        try Auth.auth().signOut()
+        completion()
+    }
+    
     // MARK: - Social network methods
     /// Gets the friends' names of a person and performs callback with it.
     static func getFriends(_ completion: @escaping ([String]?, Error?) -> Void) {
