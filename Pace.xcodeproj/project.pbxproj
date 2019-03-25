@@ -41,6 +41,8 @@
 		EB931BD02238066800AFF868 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BCE2238066800AFF868 /* LaunchScreen.storyboard */; };
 		EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BDA2238066800AFF868 /* PaceTests.swift */; };
 		EB931BE62238066800AFF868 /* PaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BE52238066800AFF868 /* PaceUITests.swift */; };
+		EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */; };
+		EBAF2CB522490EBA000FCE0E /* StopwatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		EB931BE12238066800AFF868 /* PaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BE52238066800AFF868 /* PaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceUITests.swift; sourceTree = "<group>"; };
 		EB931BE72238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesListViewController.swift; sourceTree = "<group>"; };
+		EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchTimer.swift; sourceTree = "<group>"; };
 		F1B14D43ECC2EE78A3B9F30D /* Pods-PaceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.debug.xcconfig"; path = "Target Support Files/Pods-PaceUITests/Pods-PaceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F9FB2B1F3D0B2B53565C21FA /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +151,7 @@
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				8B950A6522436FC400421928 /* FirestoreCodable.swift */,
+				EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 		EB931BC12238066500AFF868 /* Pace */ = {
 			isa = PBXGroup;
 			children = (
+				EBAF2CB12248DBC0000FCE0E /* Containers */,
 				62FF75202244CE8F008847CC /* ActivityViewController.swift */,
 				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
 				62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */,
@@ -287,6 +293,14 @@
 				EB931BE72238066800AFF868 /* Info.plist */,
 			);
 			path = PaceUITests;
+			sourceTree = "<group>";
+		};
+		EBAF2CB12248DBC0000FCE0E /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */,
+			);
+			name = Containers;
 			sourceTree = "<group>";
 		};
 		EBC1644A223C9EE900745F91 /* Supporting Files */ = {
@@ -604,6 +618,8 @@
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				8B044D35223F7C0600AA8449 /* Pace.swift in Sources */,
 				8B950A6622436FC400421928 /* FirestoreCodable.swift in Sources */,
+				EBAF2CB522490EBA000FCE0E /* StopwatchTimer.swift in Sources */,
+				EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				8BA83F402244DFA300FBCBC8 /* UserManager.swift in Sources */,
 				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,

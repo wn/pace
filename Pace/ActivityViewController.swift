@@ -10,6 +10,70 @@ class ActivityViewController: UIViewController {
     @IBOutlet var position: UILabel!
     @IBOutlet private var mapView: GMSMapView!
 
+    // TODO: Remove the following.
+    // Used for testing only
+    @IBOutlet var horizontalAccuracy: UILabel!
+    @IBOutlet var distanceTravelled: UILabel!
+    @IBOutlet var pace: UILabel!
+    @IBOutlet var time: UILabel!
+
+    @IBAction func restartRun(_ sender: UIButton) {
+        stopwatch.reset()
+        distance = 0
+        locationManager.stopUpdatingLocation()
+    }
+    var distance: CLLocationDistance = 0
+    let stopwatch = StopwatchTimer()
+
+    func startRun() {
+        guard stopwatch.isPlaying == false else {
+            return
+        }
+        VoiceAssistant.say("Starting run")
+        locationManager.startUpdatingLocation()
+        stopwatch.start()
+        updateValues()
+    }
+
+    func updateGPS() {
+        guard let accuracy = locationManager.location?.horizontalAccuracy else {
+            horizontalAccuracy.text = "Disconnected"
+            return
+        }
+        horizontalAccuracy.text = "Horizontal accuracy: \(accuracy) meters"
+    }
+
+    func updateDistanceTravelled() {
+        distanceTravelled.text = "Distance: \(Int(distance)) metres"
+    }
+
+    func updateTimer() {
+        guard stopwatch.isPlaying == true else {
+            return
+        }
+        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed()) secs"
+    }
+
+    func updatePace() {
+        let paceValue = distance != 0 ? 1000 * stopwatch.timeElapsed() / Int(distance) : 0
+        pace.text = "Pace: \(paceValue) seconds /km"
+    }
+
+    func updateValues() {
+        guard stopwatch.isPlaying == true else {
+            return
+        }
+        updatePace()
+        updateTimer()
+        updateGPS()
+        updateDistanceTravelled()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.updateValues()
+        }
+    }
+
+    // ------------- ------------- ------------- -------------
+
     private let locationManager = CLLocationManager()
     private var path = GMSMutablePath()
     var lastMarkedPosition: CLLocation?
@@ -95,18 +159,23 @@ extension ActivityViewController: CLLocationManagerDelegate {
         guard let location = locations.last else {
             return
         }
+        guard let acc = locationManager.location?.horizontalAccuracy, acc < 25 else {
+            return
+        }
         isConnected = true
         if let lastMarkedPosition = lastMarkedPosition {
             // TODO: Print statement is to find the optimal guardDistance. To delete
             // once we found the optimal distance.
             // Can also combine the 2 if-statements above and below this line.
-            print("Distance =  \(location.distance(from: lastMarkedPosition))")
+            let distanceMoved = location.distance(from: lastMarkedPosition)
+            print("Distance =  \(distanceMoved)")
             if location.distance(from: lastMarkedPosition) < Constants.guardDistance {
                 // Do not consider new location if new location is
                 // less than guardDistance. This guard against poor
                 // GPS accuracy.
                 return
             }
+            distance += distanceMoved
         }
         lastMarkedPosition = location
 
@@ -162,29 +231,31 @@ extension ActivityViewController {
 }
 
 extension ActivityViewController {
-//    /// TEST FUNCTIONS. NOT TO BE USED IN PRODUCTION.
-//    @IBAction func start_ping(_ sender: UIButton) {
-//        VoiceAssistant.say("CONNECTED")
-//        print("CONNECTED")
-//        locationManager.startUpdatingLocation()
-//    }
-//
-//    @IBAction func stop_ping(_ sender: UIButton) {
-//        VoiceAssistant.say("Activity paused!")
-//        locationManager.stopUpdatingHeading()
-//    }
-//
-//    @IBAction func clearMapDrawing(_ sender: UIButton) {
-//        mapView.clear()
-//        path = GMSMutablePath()
-//        position.text = "CLEARED DRAWING"
-//    }
-//
-//    @IBAction func testbutton(_ sender: UIButton) {
-//        print("PINGED BUTTON")
-//
-//        // This function takes time to load, hence may not load immediately. Takes time for
-//        // app to determine location, especially when location accuracy is set to high.
-//        locationManager.requestLocation()
-//    }
+    /// TEST FUNCTIONS. NOT TO BE USED IN PRODUCTION.
+    @IBAction func start_ping(_ sender: UIButton) {
+        print("button to start run pressed")
+        startRun()
+    }
+
+    @IBAction func stop_ping(_ sender: UIButton) {
+        stopwatch.pause()
+        VoiceAssistant.say("Activity paused!")
+        locationManager.stopUpdatingLocation()
+    }
+
+    @IBAction func clearMapDrawing(_ sender: UIButton) {
+        mapView.clear()
+        path = GMSMutablePath()
+        position.text = "CLEARED DRAWING"
+    }
+
+    @IBAction func testbutton(_ sender: UIButton) {
+        print("PINGED BUTTON")
+
+        // This function takes time to load, hence may not load immediately. Takes time for
+        // app to determine location, especially when location accuracy is set to high.
+        locationManager.requestLocation()
+    }
+
+
 }
