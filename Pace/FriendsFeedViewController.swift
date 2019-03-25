@@ -11,10 +11,10 @@ import UIKit
 class FriendsFeedViewController: UIViewController {
     // MARK: - Properties
     private let feedIdentifier = "friendsFeedCell"
-    let friendsRoutes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    private var friendsRoutes: [String] = []
     private(set) var friends: [String] = []
-    @IBOutlet weak var friendsTable: UICollectionView!
-    let itemsPerRow = 1
+    @IBOutlet private weak var friendsTable: UICollectionView!
+    private let itemsPerRow = 1
     private let sectionInsets = UIEdgeInsets(top: 0,
                                              left: 20.0,
                                              bottom: 100.0,
@@ -34,14 +34,26 @@ class FriendsFeedViewController: UIViewController {
                 }
                 self.friendsTable.reloadData()
             }*/
-            UserManager.getFriends { names, error in
+            UserManager.getFriends { [weak self] names, error in
                 guard error == nil, let names = names else {
-                    self.friends = ["no friends"]
+                    self?.friends = ["no friends"]
                     return
                 }
-                self.friends = names
-                self.friendsTable.reloadData()
+                self?.friends = names
+                self?.friendsRoutes = names // TODO: Remove and replace with actual routes
+                self?.friendsTable.reloadData()
             }
+        } else {
+            // We need to set the following to empty array as user might log out of the app, and
+            // that friends, friendsRoutes isn't empty.
+            self.friends = []
+            self.friendsRoutes = []
+            let alert = UIAlertController(
+                title: "Not logged in",
+                message: "You are not logged in yet. Please sign in to view routes created by your friends.",
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
         }
     }
 }

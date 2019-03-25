@@ -30,7 +30,7 @@ class UserManager {
     }
 
     /// The collection reference for all the friend requests.
-    private static var friendRequestsCollectionReference: CollectionReference {
+    private static var friendRequestsCollectionReference: CollectionRef erence {
         return FirebaseDB.friend_requests
     }
 
