@@ -54,4 +54,27 @@ extension FirebaseDB {
             callback(timings)
         }
     }
+
+    /// Gets paces which the user is allowed to view
+    static func retrieveFriendsPaces(_ completion: @escaping ([Pace]?) -> Void) {
+        guard let currentId = UserManager.currentId else {
+            completion(nil)
+            return
+        }
+        paces.whereField("visibleTo", arrayContains: currentId)
+            .getDocuments { snapshot, error in
+                guard
+                    error == nil,
+                    let documents = snapshot?.documents
+                    else {
+                        print("Error loading paces \(String(describing: error))")
+                        completion(nil)
+                        return
+                }
+                let paces = documents.compactMap { document in
+                    Pace(docId: document.documentID, data: document.data())
+                }
+                completion(paces)
+            }
+    }
 }

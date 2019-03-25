@@ -34,14 +34,15 @@ class FriendsFeedViewController: UIViewController {
                 }
                 self.friendsTable.reloadData()
             }*/
-            UserManager.getFriends { [weak self] names, error in
-                guard error == nil, let names = names else {
-                    self?.friends = ["no friends"]
+            FirebaseDB.retrieveFriendsPaces { [unowned self] paces in
+                guard let paces = paces else {
+                    self.friends = ["no friends"]
                     return
                 }
-                self?.friends = names
-                self?.friendsRoutes = names // TODO: Remove and replace with actual routes
-                self?.friendsTable.reloadData()
+                let names = paces.map { $0.runner.name }
+                self.friends = names
+                self.friendsRoutes = names // TODO: Remove and replace with actual routes
+                self.friendsTable.reloadData()
             }
         } else {
             // We need to set the following to empty array as user might log out of the app, and

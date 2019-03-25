@@ -15,13 +15,13 @@ import Firebase
 class UserManager {
 
     /// The current id of the user.
-    static var currentID: String? {
+    static var currentId: String? {
         return Auth.auth().currentUser?.uid
     }
 
     /// Returns if a user is logged in
     static var isLoggedIn: Bool {
-        return currentID != nil
+        return currentId != nil
     }
 
     /// The collection reference for all the users.
@@ -36,7 +36,7 @@ class UserManager {
 
     /// The document reference for this user.
     static var currentUserRef: DocumentReference? {
-        guard let currentID = currentID else {
+        guard let currentID = currentId else {
             return nil
         }
         return usersCollectionReference.document("\(currentID)")
@@ -44,7 +44,7 @@ class UserManager {
 
     /// The document reference for this user's friend requests
     static var currentUserRequestsRef: DocumentReference? {
-        guard let currentID = currentID else {
+        guard let currentID = currentId else {
             return nil
         }
         return friendRequestsCollectionReference.document("\(currentID)")
@@ -63,7 +63,7 @@ class UserManager {
     /// - Parameters:
     ///   - completion: The callback for when the user is retrieved.
     static func currentUser(_ completion: @escaping (User?) -> Void) {
-        guard let currentID = currentID, let currentUserRef = currentUserRef else {
+        guard let currentID = currentId, let currentUserRef = currentUserRef else {
             print("NOT LOGGED IN")
             completion(nil)
             return
@@ -194,31 +194,47 @@ class UserManager {
 
     /// Sends a request to this user.
     static func sendRequestTo(userId: String, completion: @escaping (Error?) -> Void) {
-        guard isLoggedIn, let currentID = currentID else {
+        guard isLoggedIn, let currentId = currentId else {
             completion(NSError())
             return
         }
-        friendRequestsCollectionReference.document(userId)
-            .updateData(["incoming": FieldValue.arrayUnion([currentID])],
-                        completion: completion)
+        // We want to write both an incoming and an outgoing invite.
+        let writeBatch = FirebaseDB.firestore.batch()
+        let receiverDoc = friendRequestsCollectionReference.document(userId)
+        writeBatch.updateData(["incoming": FieldValue.arrayUnion([currentId])], forDocument: receiverDoc)
+        
+        let senderDoc = friendRequestsCollectionReference.document(currentId)
+        writeBatch.updateData(["outgoing": FieldValue.arrayUnion([userId])], forDocument: senderDoc)
+
+        writeBatch.commit(completion: completion)
     }
 
     /// Gets requests for this user.
-    static func getRequests(completion: @escaping ([String]?, Error?) -> Void) {
+    // We are adding a listener to this as we would potentially have some view that uses this as a source
+    // of requests and it would update live.
+    static func observeRequests(_ listener: @escaping ([FriendRequest]?, Error?) -> Void) -> ListenerRegistration? {
         guard isLoggedIn, let currentUserRequestsRef = currentUserRequestsRef else {
-            completion(nil, NSError())
-            return
+            listener(nil, NSError())
+            return nil
         }
-        currentUserRequestsRef.getDocument { snapshot, err in
+        return currentUserRequestsRef.addSnapshotListener { snapshot, err in
             guard
                 err == nil,
                 let data = snapshot?.data(),
                 let incoming = data["incoming"] as? [String]
                 else {
-                    completion(nil, err)
+                    listener(nil, err)
                     return
             }
-            completion(incoming, nil)
+            listener(incoming.map { FriendRequest($0) }, nil)
         }
+    }
+
+    static func acceptRequest(completion: @escaping (Error?) -> Void) {
+        guard isLoggedIn, let currentUserRequestsRef = currentUserRequestsRef else {
+            completion(NSError())
+            return
+        }
+        completion(nil)
     }
 }

@@ -23,6 +23,7 @@
 		62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75222244CE8F008847CC /* FavouriteViewController.swift */; };
 		62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */; };
 		71F83142E66EA4579166BE50 /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928B400BE1578AC54C04BD25 /* Pods_Pace.framework */; };
+		8B035482224945BA00FFC283 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B035481224945BA00FFC283 /* FriendRequest.swift */; };
 		8B044D35223F7C0600AA8449 /* Pace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D33223F7C0600AA8449 /* Pace.swift */; };
 		8B044D36223F7C0600AA8449 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D34223F7C0600AA8449 /* Route.swift */; };
 		8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B59BE58223CD81100C2E9E7 /* Secrets.swift */; };
@@ -79,6 +80,7 @@
 		62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsFeedViewController.swift; sourceTree = "<group>"; };
 		724E6274DD448C13BED1D633 /* Pods-PaceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.release.xcconfig"; path = "Target Support Files/Pods-PaceUITests/Pods-PaceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		769C74E96A0B1F7A6C0943E5 /* Pods-PaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.debug.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8B035481224945BA00FFC283 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		8B044D33223F7C0600AA8449 /* Pace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pace.swift; sourceTree = "<group>"; };
 		8B044D34223F7C0600AA8449 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -140,10 +142,10 @@
 		5C8E42D0223CC7E900DEC2F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8B0354802249459600FFC283 /* Social Network */,
 				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
 				8B044D33223F7C0600AA8449 /* Pace.swift */,
 				8B044D34223F7C0600AA8449 /* Route.swift */,
-				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				8B950A6522436FC400421928 /* FirestoreCodable.swift */,
@@ -192,6 +194,15 @@
 				724E6274DD448C13BED1D633 /* Pods-PaceUITests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8B0354802249459600FFC283 /* Social Network */ = {
+			isa = PBXGroup;
+			children = (
+				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
+				8B035481224945BA00FFC283 /* FriendRequest.swift */,
+			);
+			name = "Social Network";
 			sourceTree = "<group>";
 		};
 		8B59BE5A223CE59600C2E9E7 /* Helpers */ = {
@@ -603,6 +614,7 @@
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				8B044D35223F7C0600AA8449 /* Pace.swift in Sources */,
+				8B035482224945BA00FFC283 /* FriendRequest.swift in Sources */,
 				8B950A6622436FC400421928 /* FirestoreCodable.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				8BA83F402244DFA300FBCBC8 /* UserManager.swift in Sources */,
