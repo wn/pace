@@ -24,6 +24,10 @@
 		62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */; };
 		62FF752A2248EE08008847CC /* QuerySnapshot+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75292248EE08008847CC /* QuerySnapshot+Extension.swift */; };
 		62FF752C2248EEEF008847CC /* DocumentSnapshot+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF752B2248EEEF008847CC /* DocumentSnapshot+Extension.swift */; };
+		62FF752E22495B54008847CC /* PaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF752D22495B54008847CC /* PaceView.swift */; };
+		62FF753022495BB6008847CC /* PaceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FF752F22495BB6008847CC /* PaceView.xib */; };
+		62FF753222495E36008847CC /* ViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF753122495E36008847CC /* ViewDelegate.swift */; };
+		62FF753422496348008847CC /* RequireLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF753322496348008847CC /* RequireLoginController.swift */; };
 		71F83142E66EA4579166BE50 /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928B400BE1578AC54C04BD25 /* Pods_Pace.framework */; };
 		8B044D35223F7C0600AA8449 /* Pace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D33223F7C0600AA8449 /* Pace.swift */; };
 		8B044D36223F7C0600AA8449 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D34223F7C0600AA8449 /* Route.swift */; };
@@ -81,6 +85,10 @@
 		62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsFeedViewController.swift; sourceTree = "<group>"; };
 		62FF75292248EE08008847CC /* QuerySnapshot+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuerySnapshot+Extension.swift"; sourceTree = "<group>"; };
 		62FF752B2248EEEF008847CC /* DocumentSnapshot+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentSnapshot+Extension.swift"; sourceTree = "<group>"; };
+		62FF752D22495B54008847CC /* PaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceView.swift; sourceTree = "<group>"; };
+		62FF752F22495BB6008847CC /* PaceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaceView.xib; sourceTree = "<group>"; };
+		62FF753122495E36008847CC /* ViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDelegate.swift; sourceTree = "<group>"; };
+		62FF753322496348008847CC /* RequireLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequireLoginController.swift; sourceTree = "<group>"; };
 		8B044D33223F7C0600AA8449 /* Pace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pace.swift; sourceTree = "<group>"; };
 		8B044D34223F7C0600AA8449 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -89,6 +97,7 @@
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		928B400BE1578AC54C04BD25 /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		946062D947F373A958980C43 /* Pods-PaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.debug.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9E4EDAB24273E924F479225B /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
 		AC5B5B4E955A78B6929EB023 /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -107,6 +116,7 @@
 		EB931BE12238066800AFF868 /* PaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BE52238066800AFF868 /* PaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceUITests.swift; sourceTree = "<group>"; };
 		EB931BE72238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F042A3CE013C3F3704DC8EC7 /* Pods-PaceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.release.xcconfig"; path = "Target Support Files/Pods-PaceUITests/Pods-PaceUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F1B14D43ECC2EE78A3B9F30D /* Pods-PaceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.debug.xcconfig"; path = "Target Support Files/Pods-PaceUITests/Pods-PaceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F9FB2B1F3D0B2B53565C21FA /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,10 +200,10 @@
 			children = (
 				F9FB2B1F3D0B2B53565C21FA /* Pods-Pace.debug.xcconfig */,
 				9E4EDAB24273E924F479225B /* Pods-Pace.release.xcconfig */,
-				769C74E96A0B1F7A6C0943E5 /* Pods-PaceTests.debug.xcconfig */,
 				03C11157F7CEB9999E084193 /* Pods-PaceTests.release.xcconfig */,
 				F1B14D43ECC2EE78A3B9F30D /* Pods-PaceUITests.debug.xcconfig */,
-				724E6274DD448C13BED1D633 /* Pods-PaceUITests.release.xcconfig */,
+				946062D947F373A958980C43 /* Pods-PaceTests.debug.xcconfig */,
+				F042A3CE013C3F3704DC8EC7 /* Pods-PaceUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -210,6 +220,8 @@
 		EB00C53C22438291005B2C0E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				62FF752D22495B54008847CC /* PaceView.swift */,
+				62FF752F22495BB6008847CC /* PaceView.xib */,
 				EB408D372243F95D00F9C561 /* FavouritesView */,
 				EB00C53F2243966D005B2C0E /* FriendsFeedView */,
 			);
@@ -271,6 +283,8 @@
 				EB931BC92238066500AFF868 /* Pace.xcdatamodeld */,
 				8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */,
 				62097177223CD41900BD26E1 /* RunViewController.swift */,
+				62FF753122495E36008847CC /* ViewDelegate.swift */,
+				62FF753322496348008847CC /* RequireLoginController.swift */,
 			);
 			path = Pace;
 			sourceTree = "<group>";
@@ -424,6 +438,7 @@
 				EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */,
 				EB931BC82238066500AFF868 /* Main.storyboard in Resources */,
 				6209717D223CDC3100BD26E1 /* StopWatch.xib in Resources */,
+				62FF753022495BB6008847CC /* PaceView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,6 +609,7 @@
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
 				62FF752C2248EEEF008847CC /* DocumentSnapshot+Extension.swift in Sources */,
 				6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */,
+				62FF753222495E36008847CC /* ViewDelegate.swift in Sources */,
 				62FF751022415A39008847CC /* FirebaseDB.swift in Sources */,
 				62FF75252244CE8F008847CC /* ActivityViewController.swift in Sources */,
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
@@ -608,9 +624,11 @@
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				8B044D35223F7C0600AA8449 /* Pace.swift in Sources */,
+				62FF752E22495B54008847CC /* PaceView.swift in Sources */,
 				62FF752A2248EE08008847CC /* QuerySnapshot+Extension.swift in Sources */,
 				8B950A6622436FC400421928 /* FirestoreCodable.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
+				62FF753422496348008847CC /* RequireLoginController.swift in Sources */,
 				8BA83F402244DFA300FBCBC8 /* UserManager.swift in Sources */,
 				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
@@ -794,13 +812,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = 7R2NJCMGC8;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0166955m.pace;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0150739b.Pace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -815,13 +833,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = 7R2NJCMGC8;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0166955m.pace;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.a0150739b.Pace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -831,12 +849,12 @@
 		};
 		EB931BEE2238066800AFF868 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 769C74E96A0B1F7A6C0943E5 /* Pods-PaceTests.debug.xcconfig */;
+			baseConfigurationReference = 946062D947F373A958980C43 /* Pods-PaceTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = 7R2NJCMGC8;
 				INFOPLIST_FILE = PaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -858,7 +876,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = 7R2NJCMGC8;
 				INFOPLIST_FILE = PaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -879,7 +897,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = 7R2NJCMGC8;
 				INFOPLIST_FILE = PaceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -896,11 +914,11 @@
 		};
 		EB931BF22238066800AFF868 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 724E6274DD448C13BED1D633 /* Pods-PaceUITests.release.xcconfig */;
+			baseConfigurationReference = F042A3CE013C3F3704DC8EC7 /* Pods-PaceUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = 7R2NJCMGC8;
 				INFOPLIST_FILE = PaceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

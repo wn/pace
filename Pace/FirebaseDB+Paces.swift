@@ -29,8 +29,8 @@ extension FirebaseDB {
                     }
                     paces.append(pace)
                 }
+                callback(paces)
             }
-            callback(paces)
         }
     }
 
@@ -51,7 +51,7 @@ extension FirebaseDB {
     }
     
     /// Retrieve Paces of a User
-    static func retrievePaces(of user: User, callback: @escaping ([Pace]?) -> Void) {
+    static func retrievePaces(of user: User, callback: @escaping ([Pace]) -> Void) {
         guard let userId = user.docId else {
             return
         }

@@ -30,7 +30,7 @@ class UserManager {
     }
 
     /// The collection reference for all the friend requests.
-    private static var friendRequestsCollectionReference: CollectionRef erence {
+    private static var friendRequestsCollectionReference: CollectionReference {
         return FirebaseDB.friend_requests
     }
 
@@ -69,13 +69,13 @@ class UserManager {
             return
         }
         currentUserRef.getDocument { snapshot, err in
-            guard let snapshot = snapshot, let data = snapshot.data(), err == nil else {
+            guard let snapshot = snapshot, err == nil else {
                 print(err.debugDescription)
                 print("SNAPSHOT FAILED")
                 completion(nil)
                 return
             }
-            completion(User(docId: currentID, data: data))
+            completion(User(data: snapshot.getData()))
         }
     }
 
@@ -86,12 +86,12 @@ class UserManager {
     ///   - completion: The callback for when the user is retrieved.
     static func getUser(userId: String, _ completion: @escaping (User?) -> Void) {
         userRef(forUserId: userId).getDocument { snapshot, err in
-            guard let snapshot = snapshot, let data = snapshot.data(), err == nil else {
+            guard let snapshot = snapshot, err == nil else {
                 print(err.debugDescription)
                 completion(nil)
                 return
             }
-            completion(User(docId: userId, data: data))
+            completion(User(data: snapshot.getData()))
         }
     }
 
