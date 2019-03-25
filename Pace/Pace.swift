@@ -19,18 +19,25 @@ class Pace: FirestoreCodable {
     }
 
     // Only load the metadata (without the timings)
-    required init?(docId: String, data: [String: Any]) {
+    required init?(data: [String: Any]) {
         guard
-            let runnerId = data[FireDB.Pace.userId] as? String,
+            let docId = data[FireDB.primaryKey] as? String,
             let runnerData = data[FireDB.Pace.userData] as? [String: Any] else {
             return nil
         }
-        guard let runner = User(docId: runnerId, data: runnerData) else {
+        guard let runner = User(data: runnerData) else {
             return nil
         }
+        self.docId = docId
         self.runner = runner
         self.checkpoints = []
 
+    }
+
+    convenience init?(data: [String: Any], with user: User) {
+        var data = data
+        data[FireDB.Pace.userData] = user.toFirestoreDoc()
+        self.init(data: data)
     }
 
     // Checkpoints are loaded into the Pace separately from instantiation

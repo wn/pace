@@ -18,8 +18,9 @@ class User: Hashable, FirestoreCodable {
         self.name = name
     }
 
-    required convenience init?(docId: String, data: [String: Any]) {
+    required convenience init?(data: [String: Any]) {
         guard
+            let docId = data[FireDB.primaryKey] as? String,
             let name = data[FireDB.User.name] as? String
             else {
                 return nil

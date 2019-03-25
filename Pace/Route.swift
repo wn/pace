@@ -26,15 +26,15 @@ class Route: FirestoreCodable {
         self.paces = paces
     }
 
-    required init?(docId: String, data: [String: Any]) {
+    required init?(data: [String: Any]) {
         guard
-            let creatorId = data[FireDB.Route.creatorId] as? String,
+            let docId = data[FireDB.primaryKey] as? String,
             let userData = data[FireDB.Route.creatorData] as? [String: Any],
             let name = data[FireDB.Route.name] as? String,
             let locations = data[FireDB.Route.checkpoints] as? [GeoPoint] else {
                 return nil
         }
-        guard let creator = User(docId: creatorId, data: userData) else {
+        guard let creator = User(data: userData) else {
             return nil
         }
         self.creator = creator
@@ -88,7 +88,14 @@ class Route: FirestoreCodable {
 
 extension Route {
     func toFirestoreDoc() -> [String: Any] {
+        guard
+            let startLocation = locations.first,
+            let endLocation = locations.last else {
+                return [String: Any]()
+        }
         return [
+            FireDB.Route.startLocation: startLocation,
+            FireDB.Route.endLocation: endLocation,
             FireDB.Route.name: name,
             FireDB.Route.checkpoints: locations,
             FireDB.Route.creatorId: creator.docId ?? ""

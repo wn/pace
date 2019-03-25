@@ -11,7 +11,7 @@ import Foundation
 /* Paces Collection API */
 extension FirebaseDB {
     /// Retrieve Paces of a certain route
-    static func retrievePaces(of route: Route, callback: @escaping ([Pace]?) -> Void) {
+    static func retrievePaces(of route: Route, callback: @escaping ([Pace]) -> Void) {
         guard let routeId = route.docId else {
             return
         }
@@ -22,18 +22,13 @@ extension FirebaseDB {
             }
             var paces = [Pace]()
 
-            for document in snapshot.documents {
-                var data = document.data()
-                guard let userId = data[FireDB.Pace.userId] as? String else {
-                    continue
+            snapshot.join(collection: users, on: FireDB.Pace.userId, nestDataTo: FireDB.Pace.userData) { dataCollection in
+                for paceData in dataCollection {
+                    guard let pace = Pace(data: paceData) else {
+                        continue
+                    }
+                    paces.append(pace)
                 }
-                users.document(userId).getDocument { userSnapshot, _ in
-                    data[FireDB.Pace.userData] = userSnapshot?.data()
-                }
-                guard let pace = Pace(docId: document.documentID, data: data) else {
-                    continue
-                }
-                paces.append(pace)
             }
             callback(paces)
         }
@@ -47,11 +42,33 @@ extension FirebaseDB {
         paces.document(paceId).getDocument { snapshot, error in
             guard
                 let snapshot = snapshot,
-                let timings = snapshot.data()?[FireDB.Pace.timings] as? [Double] else {
+                let timings = snapshot.getData()[FireDB.Pace.timings] as? [Double] else {
                 print("Error loading pace \(String(describing: error))")
                 return
             }
             callback(timings)
+        }
+    }
+    
+    /// Retrieve Paces of a User
+    static func retrievePaces(of user: User, callback: @escaping ([Pace]?) -> Void) {
+        guard let userId = user.docId else {
+            return
+        }
+    
+        paces.whereField(FireDB.Pace.userId, isEqualTo: userId).getDocuments { snapshot, error in
+            guard let snapshot = snapshot else {
+                print("Error acquiring paces of user: \(String(describing: error))")
+                return
+            }
+            var paces = [Pace]()
+            for document in snapshot.documents {
+                guard let pace = Pace(data: document.getData(), with: user) else {
+                    continue
+                }
+                paces.append(pace)
+            }
+            callback(paces)
         }
     }
 }

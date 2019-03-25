@@ -11,7 +11,7 @@ import Firebase
 
 protocol FirestoreCodable {
     /// The "decoding" function used to build an object from Firestore data.
-    init?(docId: String, data: [String: Any])
+    init?(data: [String: Any])
 
     /// The "encoding" function used to encode the object into a Firestore-able object.
     func toFirestoreDoc() -> [String: Any]

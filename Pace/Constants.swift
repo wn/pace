@@ -18,12 +18,16 @@ struct Constants {
 
 /// Identifiers for Firebase collections
 struct FireDB {
+    // Primary key used for all documents
+    static let primaryKey = "doc_id"
     static let routes = "routes"
     static let paces = "paces"
     static let users = "users"
     static let friend_requests = "friend_requests"
 
     struct Route {
+        static let startLocation = "start_location"
+        static let endLocation = "end_location"
         static let checkpoints = "checkpoints"
         static let name = "name"
         // Foreign Key of User
@@ -54,4 +58,5 @@ struct FireDB {
 /// For Development Purposes until the rest of the interface is ready
 struct Dummy {
     static let user = User(docId: "VWO0w2OLjw4cnH9B4AnT", name: "angunong")
+    static let route = Route(docId: "4ejv5GWpwiPLrXwvXJzi", creator: Dummy.user, name: "rc4", paces: [])
 }

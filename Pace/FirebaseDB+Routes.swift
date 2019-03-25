@@ -19,14 +19,17 @@ extension FirebaseDB {
             }
             var routes = [Route]()
             for document in snapshot.documents {
-                var data = document.data()
+                var data = document.getData()
                 guard let creatorId = data[FireDB.Route.creatorId] as? String else {
                     continue
                 }
                 users.document(creatorId).getDocument { userSnapshot, _ in
-                    data[FireDB.Route.creatorData] = userSnapshot?.data()
+                    guard let userSnapshot = userSnapshot else {
+                        return
+                    }
+                    data[FireDB.Route.creatorData] = userSnapshot.getData()
                 }
-                guard let route = Route(docId: document.documentID, data: document.data()) else {
+                guard let route = Route(data: data) else {
                     continue
                 }
                 routes.append(route)
