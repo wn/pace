@@ -10,6 +10,18 @@ import UIKit
 
 class FriendsFeedCollectionViewCell: UICollectionViewCell {
     let distance = 100
-    let friend = "WEINENG"
+    private var _friend = "WEINENG"
+    var friend: String {
+        get {
+            return _friend
+        }
+        set(name) {
+            nameLabel.text = name
+            _friend = name
+        }
+    }
+
+    @IBOutlet weak var nameLabel: UILabel!
+
     let numOfRunners = 100
 }

@@ -10,21 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Welcome Screen Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="WelcomeScreenController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="142" y="-287"/>
-        </scene>
         <!--Friends Feed-->
         <scene sceneID="u5L-4p-IKY">
             <objects>
@@ -65,7 +50,24 @@
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                     <rect key="frame" x="0.0" y="0.0" width="49" height="69"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Csf-ZC-uHW">
+                                                            <rect key="frame" x="3" y="24" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                 </view>
+                                                <constraints>
+                                                    <constraint firstItem="Csf-ZC-uHW" firstAttribute="centerY" secondItem="8ic-jp-rC2" secondAttribute="centerY" id="K9B-vH-yd3"/>
+                                                    <constraint firstItem="Csf-ZC-uHW" firstAttribute="centerX" secondItem="8ic-jp-rC2" secondAttribute="centerX" id="LdT-eA-sIB"/>
+                                                    <constraint firstItem="Csf-ZC-uHW" firstAttribute="centerY" secondItem="8ic-jp-rC2" secondAttribute="centerY" id="M0t-gf-klz"/>
+                                                    <constraint firstItem="Csf-ZC-uHW" firstAttribute="centerX" secondItem="8ic-jp-rC2" secondAttribute="centerX" id="jxL-sG-VrY"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="nameLabel" destination="Csf-ZC-uHW" id="obN-l3-iYL"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                         <connections>
@@ -95,6 +97,9 @@
                         <viewLayoutGuide key="safeArea" id="wn0-g2-cn6"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Friends Feed" image="feed-icon" landscapeImage="feed-icon" largeContentSizeImage="feed-icon" id="b9B-P3-XOF"/>
+                    <connections>
+                        <outlet property="friendsTable" destination="N0h-rf-yIP" id="6vf-lM-veP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApP-Z5-NhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
