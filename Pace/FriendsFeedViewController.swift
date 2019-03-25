@@ -13,6 +13,7 @@ class FriendsFeedViewController: UIViewController {
     private let feedIdentifier = "friendsFeedCell"
     private var friendsRoutes: [String] = []
     private(set) var friends: [String] = []
+    private(set) var friendIds: [String?] = []
     @IBOutlet private weak var friendsTable: UICollectionView!
     private let itemsPerRow = 1
     private let sectionInsets = UIEdgeInsets(top: 0,
@@ -40,6 +41,8 @@ class FriendsFeedViewController: UIViewController {
                     return
                 }
                 let names = paces.map { $0.runner.name }
+                let ids = paces.map { $0.runner.docId }
+                self.friendIds = ids
                 self.friends = names
                 self.friendsRoutes = names // TODO: Remove and replace with actual routes
                 self.friendsTable.reloadData()
@@ -74,6 +77,7 @@ extension FriendsFeedViewController: UICollectionViewDataSource, UICollectionVie
             .dequeueReusableCell(withReuseIdentifier: feedIdentifier, for: indexPath) as! FriendsFeedCollectionViewCell
         if indexPath.item < friends.count {
             cell.friend = friends[indexPath.item]
+            cell.id = friendIds[indexPath.item]
         }
         cell.backgroundColor = .blue
         // Configure the cell

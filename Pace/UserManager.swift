@@ -202,7 +202,7 @@ class UserManager {
         let writeBatch = FirebaseDB.firestore.batch()
         let receiverDoc = friendRequestsCollectionReference.document(userId)
         writeBatch.updateData(["incoming": FieldValue.arrayUnion([currentId])], forDocument: receiverDoc)
-        
+
         let senderDoc = friendRequestsCollectionReference.document(currentId)
         writeBatch.updateData(["outgoing": FieldValue.arrayUnion([userId])], forDocument: senderDoc)
 
@@ -231,7 +231,7 @@ class UserManager {
     }
 
     static func acceptRequest(completion: @escaping (Error?) -> Void) {
-        guard isLoggedIn, let currentUserRequestsRef = currentUserRequestsRef else {
+        guard isLoggedIn, let _ = currentUserRequestsRef else {
             completion(NSError())
             return
         }
