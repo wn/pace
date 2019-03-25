@@ -469,6 +469,64 @@
             </objects>
             <point key="canvasLocation" x="1568.8" y="-568.51574212893559"/>
         </scene>
+        <!--Activity Summary View Controller-->
+        <scene sceneID="liK-rk-ZQh">
+            <objects>
+                <viewController storyboardIdentifier="summaryVC" id="xC9-Rd-j1i" customClass="ActivitySummaryViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cm9-DN-0rm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CzE-2p-SeH">
+                                <rect key="frame" x="0.0" y="20" width="375" height="77.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance travelled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVi-vM-Us2">
+                                        <rect key="frame" x="0.0" y="0.0" width="137" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkw-pu-Nvy">
+                                        <rect key="frame" x="0.0" y="28.5" width="38" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goE-VL-BAo">
+                                        <rect key="frame" x="0.0" y="57" width="38" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFU-bh-McZ">
+                                <rect key="frame" x="172" y="617" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Exit"/>
+                                <connections>
+                                    <action selector="exit:" destination="xC9-Rd-j1i" eventType="touchUpInside" id="yFJ-cY-Ka9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="CzE-2p-SeH" firstAttribute="leading" secondItem="mYZ-xs-OrO" secondAttribute="leading" id="43v-h4-oCb"/>
+                            <constraint firstItem="CzE-2p-SeH" firstAttribute="top" secondItem="mYZ-xs-OrO" secondAttribute="top" id="DHk-TB-9m7"/>
+                            <constraint firstItem="mYZ-xs-OrO" firstAttribute="trailing" secondItem="CzE-2p-SeH" secondAttribute="trailing" id="ICP-Cd-Rxy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mYZ-xs-OrO"/>
+                    </view>
+                    <connections>
+                        <outlet property="distanceLabel" destination="CVi-vM-Us2" id="Ujp-FH-kL5"/>
+                        <outlet property="paceLabel" destination="bkw-pu-Nvy" id="DKa-Nx-7uy"/>
+                        <outlet property="timeLabel" destination="goE-VL-BAo" id="U5q-fz-Ome"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yb1-gH-OxL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2269" y="-431"/>
+        </scene>
     </scenes>
     <resources>
         <image name="activity-icon" width="22.5" height="22.5"/>

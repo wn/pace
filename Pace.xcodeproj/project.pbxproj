@@ -43,6 +43,8 @@
 		EB931BE62238066800AFF868 /* PaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BE52238066800AFF868 /* PaceUITests.swift */; };
 		EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */; };
 		EBAF2CB522490EBA000FCE0E /* StopwatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */; };
+		EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */; };
+		EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,8 @@
 		EB931BE72238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesListViewController.swift; sourceTree = "<group>"; };
 		EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchTimer.swift; sourceTree = "<group>"; };
+		EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySummaryViewController.swift; sourceTree = "<group>"; };
+		EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Render.swift"; sourceTree = "<group>"; };
 		F1B14D43ECC2EE78A3B9F30D /* Pods-PaceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.debug.xcconfig"; path = "Target Support Files/Pods-PaceUITests/Pods-PaceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F9FB2B1F3D0B2B53565C21FA /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,7 +148,6 @@
 		5C8E42D0223CC7E900DEC2F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
 				8B044D33223F7C0600AA8449 /* Pace.swift */,
 				8B044D34223F7C0600AA8449 /* Route.swift */,
 				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
@@ -204,6 +207,8 @@
 			children = (
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
+				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
+				EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -258,8 +263,8 @@
 		EB931BC12238066500AFF868 /* Pace */ = {
 			isa = PBXGroup;
 			children = (
+				EBAF2CB622492BB9000FCE0E /* Activity */,
 				EBAF2CB12248DBC0000FCE0E /* Containers */,
-				62FF75202244CE8F008847CC /* ActivityViewController.swift */,
 				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
 				62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */,
 				62FF75212244CE8F008847CC /* ProfileViewController.swift */,
@@ -301,6 +306,15 @@
 				EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */,
 			);
 			name = Containers;
+			sourceTree = "<group>";
+		};
+		EBAF2CB622492BB9000FCE0E /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				62FF75202244CE8F008847CC /* ActivityViewController.swift */,
+				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
+			);
+			name = Activity;
 			sourceTree = "<group>";
 		};
 		EBC1644A223C9EE900745F91 /* Supporting Files */ = {
@@ -605,9 +619,11 @@
 				6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */,
 				62FF751022415A39008847CC /* FirebaseDB.swift in Sources */,
 				62FF75252244CE8F008847CC /* ActivityViewController.swift in Sources */,
+				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
+				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,

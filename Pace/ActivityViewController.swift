@@ -18,9 +18,17 @@ class ActivityViewController: UIViewController {
     @IBOutlet var time: UILabel!
 
     @IBAction func restartRun(_ sender: UIButton) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let summaryVC =
+            storyBoard.instantiateViewController(
+                withIdentifier: "summaryVC")
+                as! ActivitySummaryViewController
+        summaryVC.setStats(distance: distance, time: stopwatch.timeElapsed())
+        renderChildController(summaryVC)
         stopwatch.reset()
         distance = 0
         locationManager.stopUpdatingLocation()
+        updateLabels()
     }
     var distance: CLLocationDistance = 0
     let stopwatch = StopwatchTimer()
@@ -63,13 +71,17 @@ class ActivityViewController: UIViewController {
         guard stopwatch.isPlaying == true else {
             return
         }
+        updateLabels()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.updateValues()
+        }
+    }
+
+    func updateLabels() {
         updatePace()
         updateTimer()
         updateGPS()
         updateDistanceTravelled()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.updateValues()
-        }
     }
 
     // ------------- ------------- ------------- -------------
