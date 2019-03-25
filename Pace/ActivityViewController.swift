@@ -160,21 +160,14 @@ extension ActivityViewController: CLLocationManagerDelegate {
             return
         }
         guard let acc = locationManager.location?.horizontalAccuracy, acc < 25 else {
+            // Our accuracy is too poor, assume connection has failed.
+            isConnected = false
             return
         }
         isConnected = true
         if let lastMarkedPosition = lastMarkedPosition {
-            // TODO: Print statement is to find the optimal guardDistance. To delete
-            // once we found the optimal distance.
-            // Can also combine the 2 if-statements above and below this line.
             let distanceMoved = location.distance(from: lastMarkedPosition)
             print("Distance =  \(distanceMoved)")
-            if location.distance(from: lastMarkedPosition) < Constants.guardDistance {
-                // Do not consider new location if new location is
-                // less than guardDistance. This guard against poor
-                // GPS accuracy.
-                return
-            }
             distance += distanceMoved
         }
         lastMarkedPosition = location
@@ -233,7 +226,6 @@ extension ActivityViewController {
 extension ActivityViewController {
     /// TEST FUNCTIONS. NOT TO BE USED IN PRODUCTION.
     @IBAction func start_ping(_ sender: UIButton) {
-        print("button to start run pressed")
         startRun()
     }
 
@@ -250,8 +242,6 @@ extension ActivityViewController {
     }
 
     @IBAction func testbutton(_ sender: UIButton) {
-        print("PINGED BUTTON")
-
         // This function takes time to load, hence may not load immediately. Takes time for
         // app to determine location, especially when location accuracy is set to high.
         locationManager.requestLocation()
