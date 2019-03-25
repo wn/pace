@@ -170,10 +170,10 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fh8-xe-FVh">
-                                                                <rect key="frame" x="27.5" y="120" width="73" height="30"/>
-                                                                <state key="normal" title="restartRun"/>
+                                                                <rect key="frame" x="37.5" y="120" width="53" height="30"/>
+                                                                <state key="normal" title="endRun"/>
                                                                 <connections>
-                                                                    <action selector="restartRun:" destination="8fe-T8-kg8" eventType="touchUpInside" id="MNW-Fa-VVm"/>
+                                                                    <action selector="endRun:" destination="8fe-T8-kg8" eventType="touchUpInside" id="MNW-Fa-VVm"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>

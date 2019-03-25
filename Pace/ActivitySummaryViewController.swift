@@ -31,6 +31,9 @@ class ActivitySummaryViewController: UIViewController {
         distanceLabel.text = "distance: \(distance)"
         paceLabel.text = "pace: \(pace)"
         timeLabel.text = "time: \(time)"
+        VoiceAssistant.say("Distance: \(distance) meters")
+        VoiceAssistant.say("Duration: \(time) seconds")
+        VoiceAssistant.say("Pace: \(pace) seconds per kilometer")
     }
 
     @IBAction func exit(_ sender: UIButton) {

@@ -17,7 +17,8 @@ class ActivityViewController: UIViewController {
     @IBOutlet var pace: UILabel!
     @IBOutlet var time: UILabel!
 
-    @IBAction func restartRun(_ sender: UIButton) {
+    @IBAction func endRun(_ sender: UIButton) {
+        VoiceAssistant.say("Run completed")
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let summaryVC =
             storyBoard.instantiateViewController(
@@ -30,6 +31,7 @@ class ActivityViewController: UIViewController {
         locationManager.stopUpdatingLocation()
         updateLabels()
     }
+
     var distance: CLLocationDistance = 0
     let stopwatch = StopwatchTimer()
 
@@ -56,9 +58,6 @@ class ActivityViewController: UIViewController {
     }
 
     func updateTimer() {
-        guard stopwatch.isPlaying == true else {
-            return
-        }
         self.time.text = "time elapsed: \(self.stopwatch.timeElapsed()) secs"
     }
 
