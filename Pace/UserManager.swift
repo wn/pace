@@ -11,6 +11,7 @@ import FirebaseAuth
 import FacebookCore
 import Firebase
 
+/*
 /// This class is a singleton manager for all user & friend related methods.
 class UserManager {
 
@@ -140,3 +141,4 @@ class UserManager {
         completion()
     }
 }
+*/

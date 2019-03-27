@@ -60,5 +60,5 @@ struct FireDB {
 
 /// For Development Purposes until the rest of the interface is ready
 struct Dummy {
-    static let user = User(docId: "VWO0w2OLjw4cnH9B4AnT", name: "angunong")
+    static let user = User()
 }

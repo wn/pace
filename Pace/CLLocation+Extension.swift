@@ -12,14 +12,17 @@ import RealmSwift
 
 extension CLLocation {
 
+    /// The latitude of the coordinate this `CLLocation` represents
     var longitude: CLLocationDegrees {
         return coordinate.longitude
     }
 
+    /// The longitude of the coordinate this `CLLocation` represents.
     var latitude: CLLocationDegrees {
         return coordinate.latitude
     }
 
+    /// Returns this location as a Realm-storable object
     var asRealmObject: RealmCLLocation {
         return RealmCLLocation(self)
     }
@@ -48,6 +51,7 @@ extension CLLocation {
     
 }
 
+/// A wrapper to store `CLLocation` objects into Realm objects.
 class RealmCLLocation: Object {
     @objc dynamic var latitude: Double = 0.0
     @objc dynamic var longitude: Double = 0.0
@@ -57,7 +61,8 @@ class RealmCLLocation: Object {
         latitude = location.latitude
         longitude = location.longitude
     }
-    
+
+    /// Returns this `RealmCLLocation` as a `CLLocation` object.
     var asCLLocation: CLLocation {
         return CLLocation(latitude: latitude, longitude: longitude)
     }
