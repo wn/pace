@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-class FriendRequest {
-    let receivedFrom: String
+class FriendRequest: Object {
+    @objc dynamic var receivedFrom: String = ""
 
-    init(_ from: String) {
+    convenience init(_ from: String) {
+        self.init()
         receivedFrom = from
     }
 }

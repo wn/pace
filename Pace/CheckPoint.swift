@@ -7,8 +7,24 @@
 //
 
 import Foundation
+import RealmSwift
 import CoreLocation
 
+class CheckPoint: Object {
+    @objc dynamic private var _location: RealmCLLocation?
+    @objc dynamic private var actualDistance: Double = 0.0
+    @objc dynamic var routeDistance: Double = 0.0
+
+    var location: CLLocation? {
+        get {
+            return _location?.asCLLocation
+        }
+        set(location) {
+            _location = location?.asRealmObject
+        }
+    }
+}
+/*
 struct CheckPoint {
 
     let location: CLLocation
@@ -91,3 +107,4 @@ struct CheckPoint {
         }
     }
 }
+*/

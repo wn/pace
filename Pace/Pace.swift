@@ -7,7 +7,14 @@
 //
 
 import Foundation
+import RealmSwift
 
+class Pace: Object {
+    @objc dynamic var id: String?
+    @objc dynamic var runner: User?
+}
+
+/*
 class Pace: FirestoreCodable {
     var docId: String?
     let runner: User
@@ -76,3 +83,5 @@ extension Pace {
         ]
     }
 }
+ */
+

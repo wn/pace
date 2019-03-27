@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import RealmSwift
 
 extension CLLocation {
 
@@ -17,6 +18,10 @@ extension CLLocation {
 
     var latitude: CLLocationDegrees {
         return coordinate.latitude
+    }
+
+    var asRealmObject: RealmCLLocation {
+        return RealmCLLocation(self)
     }
 
     /// Checks if this Location is considered the same another Location.
@@ -39,5 +44,21 @@ extension CLLocation {
         let newLongitude = left.longitude + (right.longitude - left.longitude) * interpolationFraction
         let newLatitude = left.latitude + (right.latitude - left.latitude) * interpolationFraction
         return CLLocation(latitude: newLatitude, longitude: newLongitude)
+    }
+    
+}
+
+class RealmCLLocation: Object {
+    @objc dynamic var latitude: Double = 0.0
+    @objc dynamic var longitude: Double = 0.0
+
+    convenience init(_ location: CLLocation) {
+        self.init()
+        latitude = location.latitude
+        longitude = location.longitude
+    }
+    
+    var asCLLocation: CLLocation {
+        return CLLocation(latitude: latitude, longitude: longitude)
     }
 }

@@ -140,6 +140,11 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.7.0)
+  - Realm (3.13.1):
+    - Realm/Headers (= 3.13.1)
+  - Realm/Headers (3.13.1)
+  - RealmSwift (3.13.1):
+    - Realm (= 3.13.1)
 
 DEPENDENCIES:
   - FacebookCore
@@ -151,6 +156,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - GoogleMaps
   - GooglePlaces
+  - RealmSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -180,6 +186,8 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - Realm
+    - RealmSwift
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -208,7 +216,9 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
+  Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
+  RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
 
-PODFILE CHECKSUM: 2f9aa17d285bd413a5a661141c63316ce5a48389
+PODFILE CHECKSUM: bef1a08197a4c429b5a31e5018ef6290d2a2610e
 
 COCOAPODS: 1.6.1

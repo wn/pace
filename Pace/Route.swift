@@ -8,8 +8,17 @@
 
 import Foundation
 import CoreLocation
+import RealmSwift
 import Firebase
 
+class Route: Object {
+    @objc dynamic var creator: User?
+    @objc dynamic var docId: String?
+    @objc dynamic var name: String = ""
+    let locations = List<RealmCLLocation>()
+}
+
+/*
 class Route: FirestoreCodable {
     let creator: User
     var docId: String?
@@ -95,3 +104,4 @@ extension Route {
         ]
     }
 }
+*/

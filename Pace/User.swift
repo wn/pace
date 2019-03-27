@@ -7,7 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
+class User: Object {
+    @objc dynamic var docId: String?
+    @objc dynamic var name: String = ""
+}
+/*
 class User: Hashable, FirestoreCodable {
 
     var docId: String?
@@ -44,3 +50,5 @@ extension User {
         ]
     }
 }
+ */
+

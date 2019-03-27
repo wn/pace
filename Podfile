@@ -13,8 +13,9 @@ target 'Pace' do
   pod 'Firebase/Storage'
   pod 'FacebookCore'
   pod 'FacebookLogin'
-  pod 'FacebookShare' 
-  
+  pod 'FacebookShare'
+  pod 'RealmSwift'
+
   target 'PaceTests' do
     inherit! :search_paths
     # Pods for testing
