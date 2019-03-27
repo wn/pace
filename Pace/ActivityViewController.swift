@@ -6,7 +6,7 @@ import GoogleMaps
 import GooglePlaces
 import AVFoundation
 
-class ActivityViewController: UIViewController {
+class ActivityViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var position: UILabel!
     @IBOutlet private var mapView: GMSMapView!
 
@@ -57,6 +57,11 @@ class ActivityViewController: UIViewController {
         mapView.animate(toZoom: Constants.initialZoom)
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+
+        // Required to activate gestures in mapView
+        mapView.settings.consumesGesturesInView = false
+        mapView.delegate = self
+        mapView.setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
     }
 
     /// Set up location manager from CoreLocation.
@@ -71,12 +76,94 @@ class ActivityViewController: UIViewController {
         locationManager.requestLocation()
         while locationManager.location == nil {
             // Wait 1 second and check if location has been loaded.
+            // If location cannot be loaded, code here will never terminate
+            // TODO: FIX ABOVE
             sleep(1)
         }
         guard let location = locationManager.location else {
             fatalError("While loop should have captured nil value!")
         }
         setCameraPosition(location.coordinate)
+    }
+    @IBAction func test(_ sender: Any) {
+
+    }
+
+    // Keep track of all markers in the map
+    // Int to change to run details instead.
+    var markers: [GMSMarker: Int] = [:]
+
+    func redrawMarkers(_ location: CLLocationCoordinate2D) {
+        markers = [:]
+        guard mapView.camera.zoom > Constants.minZoomToShowRoutes else {
+            return
+        }
+
+        // TODO: Get all potential markers and generate them.
+        // Get marker nearby location
+        let routes = getNearbyRoutes()
+        markers = [:]
+        for i in 0..<routes.count {
+            // Count is the number of routes that the marker represents
+            // Set as 17 as that is the name of the image
+            let count = 17
+            let marker = generateRouteMarker(location: routes[i], count: count)
+            markers[marker] = i
+        }
+    }
+
+    func getNearbyRoutes() -> [CLLocation] {
+        let topLeft = mapView.projection.visibleRegion().farLeft
+        let bottomRight = mapView.projection.visibleRegion().nearRight
+
+        // Bounds of maps to retrieve
+        let top = topLeft.latitude
+        let bottom = bottomRight.latitude
+        let left = topLeft.longitude
+        let right = bottomRight.longitude
+
+        // Fake data. To draw real data here instead
+        let one = CLLocation(latitude: bottom + 0.001, longitude: left)
+        let two = CLLocation(latitude: bottom + 0.0005, longitude: left)
+        let three = CLLocation(latitude: top - 0.001, longitude: right)
+        let four = CLLocation(latitude: top - 0.0005, longitude: right)
+        return [one, two, three, four]
+    }
+
+    func generateRouteMarker(location: CLLocation, count: Int) -> GMSMarker {
+        let marker = GMSMarker(position: location.coordinate)
+        marker.map = mapView
+        marker.icon = UIImage(named: "\(count)")
+        return marker
+    }
+}
+
+// MARK: - GMSMapViewDelegate
+extension ActivityViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        // TODO: On tap with marker, pop up route description
+        let markerID = markers[marker]!
+        let alert = UIAlertController(
+            title: "TAPPED MARKER",
+            message: "tapped marker \(markerID)",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+        return true
+    }
+
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        mapView.clear()
+        redrawMarkers(mapView.camera.target)
+    }
+
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        guard let location = locationManager.location else {
+            return false
+        }
+        setCameraPosition(location.coordinate)
+        mapView.animate(toZoom: Constants.initialZoom)
+        return true
     }
 }
 
@@ -107,7 +194,7 @@ extension ActivityViewController: CLLocationManagerDelegate {
         guard let location = locations.last else {
             return
         }
-        guard let acc = locationManager.location?.horizontalAccuracy, acc < 25 else {
+        guard let acc = locationManager.location?.horizontalAccuracy, acc < Constants.guardAccuracy else {
             // Our accuracy is too poor, assume connection has failed.
             isConnected = false
             return
@@ -127,7 +214,7 @@ extension ActivityViewController: CLLocationManagerDelegate {
         // Or can we dynamically generate the map without mutablepath
         mapView.clear()
         let mapPaths = GMSPolyline(path: path)
-        mapPaths.strokeColor = .black
+        mapPaths.strokeColor = .blue
         mapPaths.strokeWidth = 5
         mapPaths.map = mapView
 
@@ -171,8 +258,18 @@ extension ActivityViewController {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+/// TEST FUNCTIONS. NOT TO BE USED IN PRODUCTION.
 extension ActivityViewController {
-    /// TEST FUNCTIONS. NOT TO BE USED IN PRODUCTION.
     @IBAction func start_ping(_ sender: UIButton) {
         startRun()
     }

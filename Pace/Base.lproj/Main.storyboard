@@ -88,12 +88,22 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqz-D6-ina">
+                                                <rect key="frame" x="334" y="0.0" width="41" height="66.5"/>
+                                                <state key="normal" title="TEST "/>
+                                                <connections>
+                                                    <action selector="test:" destination="8fe-T8-kg8" eventType="touchUpInside" id="HGc-Ya-SL8"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="9kf-k2-vvc" firstAttribute="top" secondItem="tAk-jl-geg" secondAttribute="top" id="YBQ-se-D6U"/>
                                             <constraint firstAttribute="bottom" secondItem="9kf-k2-vvc" secondAttribute="bottom" id="fSI-l0-Hvd"/>
                                             <constraint firstAttribute="trailing" secondItem="9kf-k2-vvc" secondAttribute="trailing" id="gfS-qA-FKX"/>
+                                            <constraint firstAttribute="bottom" secondItem="bqz-D6-ina" secondAttribute="bottom" id="jUV-wf-Ogj"/>
+                                            <constraint firstAttribute="trailing" secondItem="bqz-D6-ina" secondAttribute="trailing" id="rqR-Rx-yKa"/>
+                                            <constraint firstItem="bqz-D6-ina" firstAttribute="top" secondItem="tAk-jl-geg" secondAttribute="top" id="sOX-wt-ccs"/>
                                             <constraint firstItem="9kf-k2-vvc" firstAttribute="leading" secondItem="tAk-jl-geg" secondAttribute="leading" id="woT-3C-g6X"/>
                                         </constraints>
                                     </view>
