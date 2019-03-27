@@ -32,6 +32,7 @@
 		8BA83F402244DFA300FBCBC8 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA83F3F2244DFA300FBCBC8 /* UserManager.swift */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
 		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
+		8BE3ED7F224978730096EFEE /* UserManager+Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE3ED7E224978730096EFEE /* UserManager+Friends.swift */; };
 		CC5F12453C1016C7B0F89CFE /* Pods_PaceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F937A4C5195D600A8EEA13 /* Pods_PaceUITests.framework */; };
 		EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */; };
 		EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */; };
@@ -90,6 +91,7 @@
 		8BA83F3F2244DFA300FBCBC8 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8BE3ED7E224978730096EFEE /* UserManager+Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserManager+Friends.swift"; sourceTree = "<group>"; };
 		928B400BE1578AC54C04BD25 /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4EDAB24273E924F479225B /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
 		AC5B5B4E955A78B6929EB023 /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +174,7 @@
 				62FF751522443EBD008847CC /* FirebaseDB+Paces.swift */,
 				8BA83F3F2244DFA300FBCBC8 /* UserManager.swift */,
 				8B03548322495DC000FFC283 /* Storage.swift */,
+				8BE3ED7E224978730096EFEE /* UserManager+Friends.swift */,
 			);
 			name = Firestore;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
+				8BE3ED7F224978730096EFEE /* UserManager+Friends.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
 				62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,

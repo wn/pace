@@ -25,16 +25,6 @@ class FriendsFeedViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if UserManager.isLoggedIn {
-            /*
-            UserManager.getCurrentUser { user in
-                print(user == nil)
-                if let _ = user {
-                    self.friends = ["Ben", "YK", "YYC"]
-                } else {
-                    self.friends = []
-                }
-                self.friendsTable.reloadData()
-            }*/
             FirebaseDB.retrieveFriendsPaces { [unowned self] paces in
                 guard let paces = paces else {
                     self.friends = ["no friends"]
