@@ -37,7 +37,7 @@ class RunViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
 
-    @IBAction func start(_ sender: UIButton) {
+    @IBAction private func start(_ sender: UIButton) {
         timer = Timer.scheduledTimer(timeInterval: 1,
                       target: self,
                       selector: #selector(updateTime),
@@ -46,12 +46,12 @@ class RunViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestLocation()
     }
 
-    @IBAction func stop(_ sender: UIButton) {
+    @IBAction private func stop(_ sender: UIButton) {
         timer?.invalidate()
         timer = nil
     }
 
-    @IBAction func save(_ sender: UIButton) {
+    @IBAction private func save(_ sender: UIButton) {
 //        let route = Route(runner: Dummy.user, runnerRecords: checkpoints)
     }
 

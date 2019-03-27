@@ -10,9 +10,9 @@ import UIKit
 import CoreLocation
 
 class ActivitySummaryViewController: UIViewController {
-    @IBOutlet var distanceLabel: UILabel!
-    @IBOutlet var paceLabel: UILabel!
-    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet private var distanceLabel: UILabel!
+    @IBOutlet private var paceLabel: UILabel!
+    @IBOutlet private var timeLabel: UILabel!
 
     var distance: CLLocationDistance = 0
     var pace: Int = 0
@@ -33,7 +33,7 @@ class ActivitySummaryViewController: UIViewController {
         VoiceAssistant.say("Pace: \(pace) seconds per kilometer")
     }
 
-    @IBAction func exit(_ sender: UIButton) {
+    @IBAction private func exit(_ sender: UIButton) {
         derenderChildController()
     }
 }

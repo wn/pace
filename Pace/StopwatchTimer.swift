@@ -14,11 +14,16 @@ class StopwatchTimer {
     var isPlaying = false
 
     func start() {
-        if(isPlaying) {
+        if isPlaying {
             return
         }
 
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(
+            timeInterval: 0.1,
+            target: self,
+            selector: #selector(update),
+            userInfo: nil,
+            repeats: true)
         isPlaying = true
     }
 
@@ -33,8 +38,9 @@ class StopwatchTimer {
         counter = 0.0
     }
 
-    @objc func update() {
-        counter = counter + 0.1
+    @objc
+    func update() {
+        counter += 0.1
     }
 
     func timeElapsed() -> Int {
