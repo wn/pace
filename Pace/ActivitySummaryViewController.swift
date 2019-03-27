@@ -10,9 +10,6 @@ import UIKit
 import CoreLocation
 
 class ActivitySummaryViewController: UIViewController {
-
-
-
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var paceLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
@@ -31,7 +28,7 @@ class ActivitySummaryViewController: UIViewController {
         distanceLabel.text = "distance: \(distance)"
         paceLabel.text = "pace: \(pace)"
         timeLabel.text = "time: \(time)"
-        VoiceAssistant.say("Distance: \(distance) meters")
+        VoiceAssistant.say("Distance: \(Int(distance)) meters")
         VoiceAssistant.say("Duration: \(time) seconds")
         VoiceAssistant.say("Pace: \(pace) seconds per kilometer")
     }

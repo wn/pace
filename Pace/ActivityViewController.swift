@@ -17,71 +17,8 @@ class ActivityViewController: UIViewController {
     @IBOutlet var pace: UILabel!
     @IBOutlet var time: UILabel!
 
-    @IBAction func endRun(_ sender: UIButton) {
-        VoiceAssistant.say("Run completed")
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let summaryVC =
-            storyBoard.instantiateViewController(
-                withIdentifier: "summaryVC")
-                as! ActivitySummaryViewController
-        summaryVC.setStats(distance: distance, time: stopwatch.timeElapsed())
-        renderChildController(summaryVC)
-        stopwatch.reset()
-        distance = 0
-        locationManager.stopUpdatingLocation()
-        updateLabels()
-    }
-
     var distance: CLLocationDistance = 0
     let stopwatch = StopwatchTimer()
-
-    func startRun() {
-        guard stopwatch.isPlaying == false else {
-            return
-        }
-        VoiceAssistant.say("Starting run")
-        locationManager.startUpdatingLocation()
-        stopwatch.start()
-        updateValues()
-    }
-
-    func updateGPS() {
-        guard let accuracy = locationManager.location?.horizontalAccuracy else {
-            horizontalAccuracy.text = "Disconnected"
-            return
-        }
-        horizontalAccuracy.text = "Horizontal accuracy: \(accuracy) meters"
-    }
-
-    func updateDistanceTravelled() {
-        distanceTravelled.text = "Distance: \(Int(distance)) metres"
-    }
-
-    func updateTimer() {
-        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed()) secs"
-    }
-
-    func updatePace() {
-        let paceValue = distance != 0 ? 1000 * stopwatch.timeElapsed() / Int(distance) : 0
-        pace.text = "Pace: \(paceValue) seconds /km"
-    }
-
-    func updateValues() {
-        guard stopwatch.isPlaying == true else {
-            return
-        }
-        updateLabels()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.updateValues()
-        }
-    }
-
-    func updateLabels() {
-        updatePace()
-        updateTimer()
-        updateGPS()
-        updateDistanceTravelled()
-    }
 
     // ------------- ------------- ------------- -------------
 
@@ -256,7 +193,69 @@ extension ActivityViewController {
         // This function takes time to load, hence may not load immediately. Takes time for
         // app to determine location, especially when location accuracy is set to high.
         locationManager.requestLocation()
+        updateGPS()
     }
 
+    @IBAction func endRun(_ sender: UIButton) {
+        VoiceAssistant.say("Run completed")
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let summaryVC =
+            storyBoard.instantiateViewController(
+                withIdentifier: "summaryVC")
+                as! ActivitySummaryViewController
+        summaryVC.setStats(distance: distance, time: stopwatch.timeElapsed())
+        renderChildController(summaryVC)
+        stopwatch.reset()
+        distance = 0
+        locationManager.stopUpdatingLocation()
+        updateLabels()
+    }
 
+    func startRun() {
+        guard stopwatch.isPlaying == false else {
+            return
+        }
+        VoiceAssistant.say("Starting run")
+        locationManager.startUpdatingLocation()
+        stopwatch.start()
+        updateValues()
+    }
+
+    func updateGPS() {
+        guard let accuracy = locationManager.location?.horizontalAccuracy else {
+            horizontalAccuracy.text = "Disconnected"
+            return
+        }
+        horizontalAccuracy.text = "Horizontal accuracy: \(accuracy) meters"
+    }
+
+    func updateDistanceTravelled() {
+        distanceTravelled.text = "Distance: \(Int(distance)) metres"
+    }
+
+    func updateTimer() {
+        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed()) secs"
+    }
+
+    func updatePace() {
+        let paceValue = distance != 0 ? 1000 * stopwatch.timeElapsed() / Int(distance) : 0
+        pace.text = "Pace: \(paceValue) seconds /km"
+    }
+
+    func updateValues() {
+        guard stopwatch.isPlaying == true else {
+            return
+        }
+        updateLabels()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.updateValues()
+        }
+    }
+
+    func updateLabels() {
+        updatePace()
+        updateTimer()
+        updateGPS()
+        updateDistanceTravelled()
+    }
 }

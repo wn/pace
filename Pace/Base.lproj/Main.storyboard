@@ -429,7 +429,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBY-8x-KJr">
-                                                    <rect key="frame" x="3" y="24" width="42" height="21"/>
+                                                    <rect key="frame" x="3.5" y="24" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -460,6 +460,7 @@
                             <constraint firstAttribute="bottom" secondItem="RKE-Ta-of2" secondAttribute="bottom" id="lOS-LL-jBr"/>
                             <constraint firstAttribute="trailing" secondItem="RKE-Ta-of2" secondAttribute="trailing" id="yUw-et-2Th"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="8F1-fS-zTz"/>
                     </view>
                     <connections>
                         <outlet property="friendsTable" destination="RKE-Ta-of2" id="eZz-3H-ov2"/>
@@ -467,7 +468,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o7g-sJ-uW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1568.8" y="-568.51574212893559"/>
+            <point key="canvasLocation" x="1390" y="-501"/>
         </scene>
         <!--Activity Summary View Controller-->
         <scene sceneID="liK-rk-ZQh">
