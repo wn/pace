@@ -9,24 +9,19 @@
 import Foundation
 import RealmSwift
 
-class User: Object {
-    @objc dynamic var userId: String = UUID().uuidString
+class User: IdentifiableObject {
     @objc dynamic var name: String = ""
-    
-    override static func primaryKey() -> String? {
-        return "userId"
-    }
-    
+
     convenience init(name: String) {
         self.init()
         self.name = name
     }
-    
+
     // MARK: - Hashable
     static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.userId == rhs.userId
+        return lhs.id == rhs.id && lhs.name == rhs.name
     }
-    }
+}
 /*
 class User: Hashable, FirestoreCodable {
 
@@ -65,4 +60,3 @@ extension User {
     }
 }
  */
-

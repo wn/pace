@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import FacebookCore
-import Firebase
 import GoogleMaps
 import GooglePlaces
 
@@ -25,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey(Secrets.mapsToken)
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         UserProfile.updatesOnAccessTokenChange = true
-        FirebaseApp.configure()
         return true
     }
 

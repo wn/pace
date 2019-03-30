@@ -11,13 +11,8 @@ import CoreLocation
 import RealmSwift
 
 class Run: Object {
-    @objc dynamic var paceId: String = UUID().uuidString
     @objc dynamic var runner: User?
     var checkpoints = List<CheckPoint>()
-
-    override static func primaryKey() -> String? {
-        return "paceId"
-    }
 
     var locations: [CLLocation] {
         return checkpoints.compactMap { $0.location }
@@ -32,7 +27,7 @@ class Run: Object {
             return checkpointsList
         }()
     }
-   
+
     /// Normalizes an array of CheckPoints based on the checkPoints array of this Pace.
     /// - Precondition: the given runner record does not deviate from this Pace.
     /// - Parameter runnerRecords: the array of CheckPoints to be normalized.

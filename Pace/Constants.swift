@@ -15,12 +15,12 @@ struct Constants {
     static let initialZoom: Float = 18
     static let guardDistance: CLLocationDistance = 10
         // New location must be greater than guardDistance for map to update
-    
+
     // MARK: - Realm constants
-    static let PACE_CLOUD_INSTANCE_ADDRESS = "pace.us1.cloud.realm.io"
-    
-    static let AUTH_URL = "https://\(PACE_CLOUD_INSTANCE_ADDRESS)"
-    static let REALM_URL = "https://\(PACE_CLOUD_INSTANCE_ADDRESS)/pace"
+    static let paceCloudInstanceAddress = "pace.us1.cloud.realm.io"
+
+    static let AuthURL = "https://\(paceCloudInstanceAddress)"
+    static let RealmURL = "https://\(paceCloudInstanceAddress)/pace"
 
 }
 

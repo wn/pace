@@ -17,7 +17,7 @@ class FavouriteViewController: UIViewController {
     var notificationToken: NotificationToken?
     var subscriptionToken: NotificationToken?
     var syncSubscription: SyncSubscription<Route>!
-    
+
     // Constants for table view
     /// Number of items per row for the `UITableView`
     let itemsPerRow = 1
@@ -27,18 +27,18 @@ class FavouriteViewController: UIViewController {
                                              left: 20.0,
                                              bottom: 100.0,
                                              right: 20.0)
-    
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         let configuration = SyncUser.current?.configuration()
         realm = try! Realm(configuration: configuration!)
         favouriteRoutes = realm.objects(Route.self).filter("by = %@", SyncUser.current!.identity!)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         notificationToken?.invalidate()
         subscriptionToken?.invalidate()

@@ -48,7 +48,7 @@ extension CLLocation {
         let newLatitude = left.latitude + (right.latitude - left.latitude) * interpolationFraction
         return CLLocation(latitude: newLatitude, longitude: newLongitude)
     }
-    
+
 }
 
 /// A wrapper to store `CLLocation` objects into Realm objects.

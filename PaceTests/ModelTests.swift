@@ -36,4 +36,5 @@ class ModelTests: PaceTests {
             XCTFail("Write failed because \(error.localizedDescription)")
         }
     }
+
 }

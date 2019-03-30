@@ -13,14 +13,14 @@ import CoreLocation
 class CheckPoint: Object {
     /// The time taken by runner to reach this checkpoint.
     @objc dynamic var time: Double = 0.0
-    
+
     /// The location represented by this checkpoint.
     /// This is a private variable used for storage.
     @objc dynamic private var realmLocation: RealmCLLocation?
-    
+
     /// The actual distance run by the runner to reach this checkpoint.
     @objc dynamic private var actualDistance: Double = 0.0
-    
+
     /// The cumulative distance with relation to checkpoints in the route.
     ///
     /// TODO: @yuntongzhang please document how this is stored.
@@ -35,7 +35,7 @@ class CheckPoint: Object {
             realmLocation = location?.asRealmObject
         }
     }
-    
+
     /// Constructs a CheckPoint with the given Location, time, actualDistance and routeDistance.
     convenience init(location: CLLocation, time: Double, actualDistance: Double, routeDistance: Double) {
         self.init()

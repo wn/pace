@@ -9,28 +9,17 @@
 import Foundation
 import CoreLocation
 import RealmSwift
-import Firebase
 
 class Route: Object {
     @objc dynamic var creator: User?
-    @objc dynamic var routeId: String = UUID().uuidString
     @objc dynamic var name: String = ""
-    var locations = List<RealmCLLocation>()
+    var creatorRun: Run?
     var paces = List<Run>()
-
-    override static func primaryKey() -> String? {
-        return "routeId"
-    }
 
     convenience init(creator: User, name: String, locations: [CLLocation], paces: [Run]) {
         self.init()
         self.creator = creator
         self.name = name
-        self.locations = {
-            let locationsList = List<RealmCLLocation>()
-            locationsList.append(objectsIn: locations.map { $0.asRealmObject })
-            return locationsList
-        }()
         self.paces = {
             let pacesList = List<Run>()
             pacesList.append(objectsIn: paces)

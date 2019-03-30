@@ -16,10 +16,10 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         func presentMainView() {
             let mainViewController = storyboard?.instantiateViewController(withIdentifier: "Main View")
             guard let viewController = mainViewController else {
@@ -27,18 +27,18 @@ class LoginViewController: UIViewController {
             }
             present(viewController, animated: true, completion: nil)
         }
-        
+
         if let _ = SyncUser.current {
             presentMainView()
         } else {
             let alertController = UIAlertController(title: "Login to Realm Cloud", message: "Supply a nice nickname!", preferredStyle: .alert)
-            
+
             alertController.addAction(UIAlertAction(title: "Login", style: .default, handler: {
-                alert -> Void in
+                _ -> Void in
                 let textField = alertController.textFields![0] as UITextField
                 let creds = SyncCredentials.nickname(textField.text!)
-                
-                SyncUser.logIn(with: creds, server: URL(string: Constants.AUTH_URL)!, onCompletion: { (user, err) in
+
+                SyncUser.logIn(with: creds, server: URL(string: Constants.AuthURL)!, onCompletion: { user, err in
                     if let _ = user {
                         presentMainView()
                     } else if let error = err {
@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
                 })
             }))
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alertController.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
+            alertController.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
                 textField.placeholder = "A Name for your user"
             })
             self.present(alertController, animated: true, completion: nil)
