@@ -24,31 +24,14 @@ class FriendsFeedViewController: UIViewController {
     // TODO: Replace with reactive/observer pattern, probably when we have rxswift up.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if UserManager.isLoggedIn {
-            FirebaseDB.retrieveFriendsPaces { [unowned self] paces in
-                guard let paces = paces else {
-                    self.friends = ["no friends"]
-                    return
-                }
-                let names = paces.map { $0.runner.name }
-                let ids = paces.map { $0.runner.docId }
-                self.friendIds = ids
-                self.friends = names
-                self.friendsRoutes = names // TODO: Remove and replace with actual routes
-                self.friendsTable.reloadData()
-            }
-        } else {
-            // We need to set the following to empty array as user might log out of the app, and
-            // that friends, friendsRoutes isn't empty.
-            self.friends = []
-            self.friendsRoutes = []
-            let alert = UIAlertController(
-                title: "Not logged in",
-                message: "You are not logged in yet. Please sign in to view routes created by your friends.",
-                preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
-        }
+        self.friends = []
+        self.friendsRoutes = []
+        let alert = UIAlertController(
+            title: "Not logged in",
+            message: "You are not logged in yet. Please sign in to view routes created by your friends.",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }
 

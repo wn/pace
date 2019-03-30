@@ -36,9 +36,6 @@ class FriendsFeedCollectionViewCell: UICollectionViewCell {
             guard let id = _id else {
                 return
             }
-            StorageManager.getUserPicture(for: id) { image, _ in
-                self.profileImage = image
-            }
         }
     }
     @IBOutlet private weak var nameLabel: UILabel!

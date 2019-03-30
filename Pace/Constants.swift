@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import RealmSwift
 
 struct Constants {
 
@@ -60,5 +61,6 @@ struct FireDB {
 
 /// For Development Purposes until the rest of the interface is ready
 struct Dummy {
-    static let user = User()
+    static let user = User(name: "angunong")
+    static let realm = try! Realm()
 }

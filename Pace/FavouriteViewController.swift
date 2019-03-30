@@ -7,16 +7,42 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FavouriteViewController: UIViewController {
     // MARK: - Properties
+    let realm: Realm
     private let favouriteCellIdentifier = "favouriteCell"
-    let favouriteRoutes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    let favouriteRoutes: Results<Route>
+    var notificationToken: NotificationToken?
+    var subscriptionToken: NotificationToken?
+    var syncSubscription: SyncSubscription<Route>!
+    
+    // Constants for table view
+    /// Number of items per row for the `UITableView`
     let itemsPerRow = 1
+
+    /// Section insets for `UITableViewCell`s.
     private let sectionInsets = UIEdgeInsets(top: 0,
                                              left: 20.0,
                                              bottom: 100.0,
                                              right: 20.0)
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        let configuration = SyncUser.current?.configuration()
+        realm = try! Realm(configuration: configuration!)
+        favouriteRoutes = realm.objects(Route.self).filter("by = %@", SyncUser.current!.identity!)
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        notificationToken?.invalidate()
+        subscriptionToken?.invalidate()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
