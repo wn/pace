@@ -21,7 +21,7 @@ struct FireDB {
     static let routes = "routes"
     static let paces = "paces"
     static let users = "users"
-    static let friend_requests = "friend_requests"
+    static let friendRequests = "friend_requests"
 
     struct Route {
         static let checkpoints = "checkpoints"
