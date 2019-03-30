@@ -17,9 +17,4 @@ target 'Pace' do
     # Pods for testing
   end
 
-  target 'PaceUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
