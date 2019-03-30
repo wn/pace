@@ -18,50 +18,40 @@ class User: IdentifiableObject {
         self.name = name
     }
 
-    func addFavouriteRoute(_ route: Route) {
-        favouriteRoutes.append(route)
+    func addFavouriteRoute(_ route: Route) -> Bool {
+        do {
+            try Realm.getDefault.write {
+                favouriteRoutes.append(route)
+            }
+            return true
+        } catch {
+            print("Operation unsuccessful: \(error.localizedDescription)")
+            return false
+        }
     }
 
     // MARK: - Hashable
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.id == rhs.id && lhs.name == rhs.name
     }
-}
-/*
-class User: Hashable, FirestoreCodable {
-
-    var docId: String?
-    let name: String
-
-    init(docId: String?, name: String) {
-        self.docId = docId
-        self.name = name
-    }
-
-    required convenience init?(docId: String, data: [String: Any]) {
-        guard
-            let name = data[FireDB.User.name] as? String
-            else {
-                return nil
+    
+    // MARK: - Testing functions
+    static func getUser(name: String) -> User {
+        var user = Realm.getDefault.objects(User.self).first {
+            $0.name == name
         }
-        self.init(docId: docId, name: name)
-    }
-
-    // MARK: - Hashable
-    static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.docId == rhs.docId
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(docId)
+        if user == nil {
+            let newUser = User(name: name)
+            try! Realm.getDefault.write {
+                Realm.getDefault.add(newUser)
+            }
+            user = Realm.getDefault.objects(User.self).first
+        }
+        return user!
     }
 }
 
 extension User {
-    func toFirestoreDoc() -> [String: Any] {
-        return [
-            FireDB.User.username: name
-        ]
-    }
+    static var currentUser: User?
 }
- */
+

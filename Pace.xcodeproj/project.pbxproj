@@ -25,8 +25,8 @@
 		8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B59BE58223CD81100C2E9E7 /* Secrets.swift */; };
 		8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */; };
 		8BD4C56F224F68BB00D0CEC7 /* List+Constructors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */; };
-		8BD4C571224F7A5100D0CEC7 /* User+Retrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C570224F7A5100D0CEC7 /* User+Retrieval.swift */; };
-		8BD4C573224F7AA800D0CEC7 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm.swift */; };
+		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
+		8BD4C575224FEAFC00D0CEC7 /* FavouriteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BD4C574224FEAFC00D0CEC7 /* FavouriteView.xib */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
 		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
@@ -72,8 +72,8 @@
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableObject.swift; sourceTree = "<group>"; };
 		8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+Constructors.swift"; sourceTree = "<group>"; };
-		8BD4C570224F7A5100D0CEC7 /* User+Retrieval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Retrieval.swift"; sourceTree = "<group>"; };
-		8BD4C572224F7AA800D0CEC7 /* Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
+		8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
+		8BD4C574224FEAFC00D0CEC7 /* FavouriteView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteView.xib; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8BDFFF87224F482000F3BB3A /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		5C8E42D0223CC7E900DEC2F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8B0354802249459600FFC283 /* Social Network */,
+				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
 				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
 				8B044D34223F7C0600AA8449 /* Route.swift */,
 				8BDFFF87224F482000F3BB3A /* Run.swift */,
@@ -129,8 +129,6 @@
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
 				8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */,
-				8BD4C570224F7A5100D0CEC7 /* User+Retrieval.swift */,
-				8BD4C572224F7AA800D0CEC7 /* Realm.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -140,6 +138,7 @@
 			children = (
 				6209717C223CDC3100BD26E1 /* StopWatch.xib */,
 				6209717E223CDFDF00BD26E1 /* StopWatch.swift */,
+				8BD4C574224FEAFC00D0CEC7 /* FavouriteView.xib */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -166,17 +165,10 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		8B0354802249459600FFC283 /* Social Network */ = {
-			isa = PBXGroup;
-			children = (
-				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
-			);
-			name = "Social Network";
-			sourceTree = "<group>";
-		};
 		8B59BE5A223CE59600C2E9E7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
 			);
@@ -365,6 +357,7 @@
 				8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */,
 				EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */,
 				EB931BC82238066500AFF868 /* Main.storyboard in Resources */,
+				8BD4C575224FEAFC00D0CEC7 /* FavouriteView.xib in Resources */,
 				6209717D223CDC3100BD26E1 /* StopWatch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -503,7 +496,6 @@
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
-				8BD4C571224F7A5100D0CEC7 /* User+Retrieval.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
 				62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,
@@ -515,7 +507,7 @@
 				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
 				8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */,
-				8BD4C573224F7AA800D0CEC7 /* Realm.swift in Sources */,
+				8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,7 +715,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = PaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -745,7 +737,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = PaceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

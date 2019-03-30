@@ -11,9 +11,12 @@ import RealmSwift
 
 class FavouriteViewController: UIViewController {
     // MARK: - Properties
-    private let favouriteRoutes = User.currentUser?.favouriteRoutes ?? List<Route>()
+    private var favouriteRoutes = User.currentUser?.favouriteRoutes ?? List<Route>()
     private let favouriteCellIdentifier = "favouriteCell"
 
+    @IBOutlet private weak var favourites: UICollectionView!
+    @IBOutlet private weak var userIndicator: UILabel!
+    
     // Constants for table view
     /// Number of items per row for the `UITableView`
     let itemsPerRow = 1
@@ -23,7 +26,50 @@ class FavouriteViewController: UIViewController {
                                              left: 20.0,
                                              bottom: 100.0,
                                              right: 20.0)
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if User.currentUser == nil {
+            presentUserPrompt()
+        }
+        updateUserIndicator()
+    }
+    
+    private func presentUserPrompt() {
+        let alertController = UIAlertController(title: "Login", message: "Supply a nice nickname!", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Login", style: .default, handler: { [unowned self] alert -> Void in
+            let textField = alertController.textFields![0]
+            User.currentUser = User.getUser(name: textField.text!)
+            self.favouriteRoutes = User.currentUser?.favouriteRoutes ?? List<Route>()
+            self.favourites.reloadData()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertController.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
+            textField.placeholder = "A Name for your user"
+        })
+        self.present(alertController, animated: true, completion: nil)
+    }
 
+    private func updateUserIndicator() {
+        userIndicator.text = User.currentUser?.name
+    }
+
+    @IBAction func addFavourite() {
+        guard let currentUser = User.currentUser else {
+            return
+        }
+        let uuidString = UUID().uuidString
+        let index = uuidString.firstIndex(of: "-") ?? uuidString.endIndex
+        let randomString = uuidString[..<index]
+        let randomRoute = Route(creator: currentUser, name: String(randomString), creatorRun: Run(runner: currentUser, checkpoints: []))
+        currentUser.addFavouriteRoute(randomRoute)
+        onFavouriteAdded()
+    }
+    
+    func onFavouriteAdded() {
+        favourites.reloadData()
+    }
 }
 
 // MARK: - UICollectionViewDataSource

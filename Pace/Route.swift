@@ -13,6 +13,13 @@ import RealmSwift
 class Route: Object {
     @objc dynamic var creator: User?
     @objc dynamic var name: String = ""
+    @objc dynamic var thumbnailData: Data?
+    var thumbnail: UIImage? {
+        guard let thumbnailData = thumbnailData else {
+            return nil
+        }
+        return UIImage(data: thumbnailData)
+    }
     var creatorRun: Run?
     var paces = List<Run>()
 
@@ -22,13 +29,14 @@ class Route: Object {
     ///   - creator: The creator of the route.
     ///   - name: The name of the route.
     ///   - creatorRun: The first run in the route (made by creator).
-    convenience init(creator: User, name: String, creatorRun: Run, paces: List<Run>) {
+    convenience init(creator: User, name: String, thumbnail: Data? = nil, creatorRun: Run, paces: List<Run>) {
         assert(paces.contains(creatorRun))
         self.init()
         self.creator = creator
         self.name = name
         self.creatorRun = creatorRun
         self.paces = paces
+        self.thumbnailData = thumbnail
     }
 
     /// Constructs a route given the runner, name and the first (creator) run.
@@ -36,8 +44,8 @@ class Route: Object {
     ///   - creator: The creator of the route.
     ///   - name: The name of the route.
     ///   - creatorRun: The first run in the route (made by creator).
-    convenience init(creator: User, name: String, creatorRun: Run) {
-        self.init(creator: creator, name: name, creatorRun: creatorRun, paces: List(creatorRun))
+    convenience init(creator: User, name: String, thumbnail: Data? = nil,creatorRun: Run) {
+        self.init(creator: creator, name: name, thumbnail: thumbnail, creatorRun: creatorRun, paces: List(creatorRun))
     }
 
     /// Constructs a Route with the given runner and an array of pre-normalized checkpoints representing

@@ -264,11 +264,26 @@
                                     </collectionView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Logged in as:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B47-Iw-Owh">
+                                <rect key="frame" x="136.5" y="578" width="102.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htA-zf-zlC">
+                                <rect key="frame" x="137" y="540" width="102" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="add favourite"/>
+                                <connections>
+                                    <action selector="addFavourite" destination="03V-wc-IEY" eventType="touchUpInside" id="aML-6i-IUV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="width" secondItem="Gva-UJ-vuS" secondAttribute="width" id="184-4f-1hZ"/>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="top" secondItem="6bS-VD-9M5" secondAttribute="top" id="1uh-bo-Jdf"/>
+                            <constraint firstItem="B47-Iw-Owh" firstAttribute="centerX" secondItem="Gva-UJ-vuS" secondAttribute="centerX" id="J7e-4Z-dtZ"/>
                             <constraint firstItem="ZuV-UM-zZ8" firstAttribute="height" secondItem="Gva-UJ-vuS" secondAttribute="height" multiplier="0.1" id="Z07-4r-Dk7"/>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="bottom" secondItem="6bS-VD-9M5" secondAttribute="bottom" id="qMm-LT-tTF"/>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="centerX" secondItem="6bS-VD-9M5" secondAttribute="centerX" id="uCA-ea-eVi"/>
@@ -276,6 +291,10 @@
                         <viewLayoutGuide key="safeArea" id="6bS-VD-9M5"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Favourites" image="fav-icon" landscapeImage="fav-icon" largeContentSizeImage="fav-icon" id="fIk-df-8Ew"/>
+                    <connections>
+                        <outlet property="favourites" destination="qQg-hd-NaB" id="1LE-q3-IcW"/>
+                        <outlet property="userIndicator" destination="B47-Iw-Owh" id="r1R-wg-Isn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQ8-Jn-p8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
