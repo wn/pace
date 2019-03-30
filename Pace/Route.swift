@@ -16,23 +16,36 @@ class Route: Object {
     var creatorRun: Run?
     var paces = List<Run>()
 
-    convenience init(creator: User, name: String, locations: [CLLocation], paces: [Run]) {
+    /// Constructs a route given the runner, name, the first (creator) run and collection to paces.
+    /// - Precondition: `creatorRun` must be within `paces`.
+    /// - Parameters:
+    ///   - creator: The creator of the route.
+    ///   - name: The name of the route.
+    ///   - creatorRun: The first run in the route (made by creator).
+    convenience init(creator: User, name: String, creatorRun: Run, paces: List<Run>) {
+        assert(paces.contains(creatorRun))
         self.init()
         self.creator = creator
         self.name = name
-        self.paces = {
-            let pacesList = List<Run>()
-            pacesList.append(objectsIn: paces)
-            return pacesList
-        }()
+        self.creatorRun = creatorRun
+        self.paces = paces
+    }
+    
+    /// Constructs a route given the runner, name and the first (creator) run.
+    /// - Parameters:
+    ///   - creator: The creator of the route.
+    ///   - name: The name of the route.
+    ///   - creatorRun: The first run in the route (made by creator).
+    convenience init(creator: User, name: String, creatorRun: Run) {
+        self.init(creator: creator, name: name, creatorRun: creatorRun, paces: List(creatorRun))
     }
 
     /// Constructs a Route with the given runner and an array of unnormalized CheckPoints representing
     /// the running record from the runner.
     /// To be used for creating Route for the first time when a runner just finished the first Pace for a Route.
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
-        let initialPace = Run(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
-        self.init(creator: runner, name: "blabla", locations: initialPace.locations, paces: [initialPace])
+        let initialRun = Run(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
+        self.init(creator: runner, name: "blabla", creatorRun: initialRun)
     }
 
     static private func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {

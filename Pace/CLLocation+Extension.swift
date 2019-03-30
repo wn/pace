@@ -55,11 +55,21 @@ extension CLLocation {
 class RealmCLLocation: Object {
     @objc dynamic var latitude: Double = 0.0
     @objc dynamic var longitude: Double = 0.0
+    @objc dynamic var altitude: Double = 0.0
+    @objc dynamic var speed: Double = 0.0
+    @objc dynamic var course: Double = 0.0
+    @objc dynamic var horizontalAccuracy: Double = 0.0
+    @objc dynamic var verticalAccuracy: Double = 0.0
 
     convenience init(_ location: CLLocation) {
         self.init()
         latitude = location.latitude
         longitude = location.longitude
+        altitude = location.altitude
+        speed = location.speed
+        course = location.course
+        horizontalAccuracy = location.horizontalAccuracy
+        verticalAccuracy = location.verticalAccuracy
     }
 
     /// Returns this `RealmCLLocation` as a `CLLocation` object.
