@@ -11,10 +11,15 @@ import RealmSwift
 
 class User: IdentifiableObject {
     @objc dynamic var name: String = ""
+    var favouriteRoutes = List<Route>()
 
     convenience init(name: String) {
         self.init()
         self.name = name
+    }
+
+    func addFavouriteRoute(_ route: Route) {
+        favouriteRoutes.append(route)
     }
 
     // MARK: - Hashable

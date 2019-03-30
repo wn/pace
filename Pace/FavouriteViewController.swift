@@ -11,12 +11,8 @@ import RealmSwift
 
 class FavouriteViewController: UIViewController {
     // MARK: - Properties
-    let realm: Realm
+    private let favouriteRoutes = User.currentUser?.favouriteRoutes ?? List<Route>()
     private let favouriteCellIdentifier = "favouriteCell"
-    let favouriteRoutes: Results<Route>
-    var notificationToken: NotificationToken?
-    var subscriptionToken: NotificationToken?
-    var syncSubscription: SyncSubscription<Route>!
 
     // Constants for table view
     /// Number of items per row for the `UITableView`
@@ -28,21 +24,6 @@ class FavouriteViewController: UIViewController {
                                              bottom: 100.0,
                                              right: 20.0)
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        let configuration = SyncUser.current?.configuration()
-        realm = try! Realm(configuration: configuration!)
-        favouriteRoutes = realm.objects(Route.self).filter("by = %@", SyncUser.current!.identity!)
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        notificationToken?.invalidate()
-        subscriptionToken?.invalidate()
-    }
 }
 
 // MARK: - UICollectionViewDataSource
