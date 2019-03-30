@@ -30,7 +30,7 @@ class Route: Object {
         self.creatorRun = creatorRun
         self.paces = paces
     }
-    
+
     /// Constructs a route given the runner, name and the first (creator) run.
     /// - Parameters:
     ///   - creator: The creator of the route.
@@ -40,9 +40,11 @@ class Route: Object {
         self.init(creator: creator, name: name, creatorRun: creatorRun, paces: List(creatorRun))
     }
 
-    /// Constructs a Route with the given runner and an array of unnormalized CheckPoints representing
+    /// Constructs a Route with the given runner and an array of pre-normalized checkpoints representing
     /// the running record from the runner.
-    /// To be used for creating Route for the first time when a runner just finished the first Pace for a Route.
+    /// - Parameters:
+    ///   - runner: The runner of these records.
+    ///   - runnerRecord: The pre-normalized checkpoints representing the run.
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
         let initialRun = Run(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
         self.init(creator: runner, name: "blabla", creatorRun: initialRun)

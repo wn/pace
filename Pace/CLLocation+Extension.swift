@@ -27,7 +27,7 @@ extension CLLocation {
         return RealmCLLocation(self)
     }
 
-    /// Checks if this Location is considered the same another Location.
+    /// Checks if this Location is considered the same as another Location.
     /// - Parameter other: the other Location to compare to.
     /// - Returns: true if this location is considered same as the given location.
     func isSameAs(other: CLLocation) -> Bool {
@@ -48,7 +48,6 @@ extension CLLocation {
         let newLatitude = left.latitude + (right.latitude - left.latitude) * interpolationFraction
         return CLLocation(latitude: newLatitude, longitude: newLongitude)
     }
-
 }
 
 /// A wrapper to store `CLLocation` objects into Realm objects.

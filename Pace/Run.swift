@@ -14,6 +14,7 @@ class Run: Object {
     @objc dynamic var runner: User?
     var checkpoints = List<CheckPoint>()
 
+    // TODO: test map and compactMap for Realm List
     var locations: [CLLocation] {
         return checkpoints.compactMap { $0.location }
     }
