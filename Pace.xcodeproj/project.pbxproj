@@ -34,6 +34,8 @@
 		EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */; };
 		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
 		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
+		EB29FAFB224CB60400DF2CE6 /* PresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAF7224CB60400DF2CE6 /* PresentedView.swift */; };
+		EB29FAFD224D257B00DF2CE6 /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAFC224D257B00DF2CE6 /* PresentedViewController.swift */; };
 		EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
@@ -98,6 +100,8 @@
 		EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
+		EB29FAF7224CB60400DF2CE6 /* PresentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentedView.swift; path = ../../../../../../../playground/DrawerKit/DrawerKitDemo/DrawerKitDemo/PresentedView.swift; sourceTree = "<group>"; };
+		EB29FAFC224D257B00DF2CE6 /* PresentedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentedViewController.swift; path = ../../../../../../../.Trash/PresentedViewController.swift; sourceTree = "<group>"; };
 		EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRoutesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +239,15 @@
 			name = FriendsFeedView;
 			sourceTree = "<group>";
 		};
+		EB29FAF3224CB5F000DF2CE6 /* DrawerDisplayController */ = {
+			isa = PBXGroup;
+			children = (
+				EB29FAF7224CB60400DF2CE6 /* PresentedView.swift */,
+				EB29FAFC224D257B00DF2CE6 /* PresentedViewController.swift */,
+			);
+			path = DrawerDisplayController;
+			sourceTree = "<group>";
+		};
 		EB408D372243F95D00F9C561 /* FavouritesView */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +329,7 @@
 		EBAF2CB622492BB9000FCE0E /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				EB29FAF3224CB5F000DF2CE6 /* DrawerDisplayController */,
 				62FF75202244CE8F008847CC /* RunningViewController.swift */,
 				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
 				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
@@ -531,6 +545,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Pace/Pods-Pace-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/DrawerKit/DrawerKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -551,6 +566,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DrawerKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -633,6 +649,7 @@
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
+				EB29FAFB224CB60400DF2CE6 /* PresentedView.swift in Sources */,
 				62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */,
 				EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,
@@ -645,6 +662,7 @@
 				EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
+				EB29FAFD224D257B00DF2CE6 /* PresentedViewController.swift in Sources */,
 				8BA83F402244DFA300FBCBC8 /* UserManager.swift in Sources */,
 				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,

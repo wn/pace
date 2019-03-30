@@ -12,8 +12,9 @@ target 'Pace' do
   pod 'Firebase/Firestore'
   pod 'FacebookCore'
   pod 'FacebookLogin'
-  pod 'FacebookShare' 
-  
+  pod 'FacebookShare'
+  pod 'DrawerKit'
+
   target 'PaceTests' do
     inherit! :search_paths
     # Pods for testing
