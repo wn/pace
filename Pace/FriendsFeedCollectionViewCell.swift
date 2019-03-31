@@ -12,11 +12,6 @@ class FriendsFeedCollectionViewCell: UICollectionViewCell {
     let distance = 100
     private var _friend = "WEINENG"
     private var _id: String?
-    private var profileImage: UIImage? {
-        didSet {
-            profileImageView.image = profileImage
-        }
-    }
     var friend: String {
         get {
             return _friend

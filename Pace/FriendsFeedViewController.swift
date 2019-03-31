@@ -50,7 +50,6 @@ extension FriendsFeedViewController: UICollectionViewDataSource, UICollectionVie
             .dequeueReusableCell(withReuseIdentifier: feedIdentifier, for: indexPath) as! FriendsFeedCollectionViewCell
         if indexPath.item < friends.count {
             cell.friend = friends[indexPath.item]
-            cell.id = friendIds[indexPath.item]
         }
         cell.backgroundColor = .blue
         // Configure the cell

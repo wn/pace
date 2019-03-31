@@ -218,7 +218,7 @@ private extension ActivityViewController {
         configuration.numberOfTapsForOutsideDrawerDismissal = 1
         configuration.flickSpeedThreshold = 3
         configuration.upperMarkGap = 100 // default is 40
-        configuration.lowerMarkGap =  80 // default is 40
+        configuration.lowerMarkGap = 80 // default is 40
         configuration.maximumCornerRadius = 15
         configuration.cornerAnimationOption = .none
         configuration.passthroughTouchesInStates = passthrough ? [.collapsed, .partiallyExpanded] : []

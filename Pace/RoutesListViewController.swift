@@ -23,6 +23,7 @@ class RoutesListViewController: UIViewController {
     // TODO: Replace with reactive/observer pattern, probably when we have rxswift up.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        /*
         if UserManager.isLoggedIn {
             /*
              UserManager.getCurrentUser { user in
@@ -55,6 +56,7 @@ class RoutesListViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true)
         }
+ */
     }
 }
 

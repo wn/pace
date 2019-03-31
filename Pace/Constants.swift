@@ -18,7 +18,6 @@ struct Constants {
     static let minZoom: Float = 11.5
     static let maxZoom: Float = 18.5
     static let minZoomToShowRoutes: Float = 17.1
-}
 
     // MARK: - Realm constants
     static let paceCloudInstanceAddress = "pace.us1.cloud.realm.io"
