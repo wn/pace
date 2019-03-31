@@ -31,6 +31,7 @@ class FavouriteViewController: UIViewController {
         super.viewDidLoad()
         favourites.register(UINib(nibName: "FavouriteRouteViewCell", bundle: Bundle.main),
                             forCellWithReuseIdentifier: favouriteCellIdentifier)
+        favouriteRoutes = User.currentUser?.favouriteRoutes ?? List<Route>()
     }
 
     override func viewDidAppear(_ animated: Bool) {
