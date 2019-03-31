@@ -32,10 +32,10 @@
 		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		CC5F12453C1016C7B0F89CFE /* Pods_PaceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F937A4C5195D600A8EEA13 /* Pods_PaceUITests.framework */; };
 		EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */; };
+		EB0F13842250B90700E1F5C9 /* PresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F13832250B90700E1F5C9 /* PresentedView.swift */; };
+		EB0F13862250B91D00E1F5C9 /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F13852250B91D00E1F5C9 /* PresentedViewController.swift */; };
 		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
 		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
-		EB29FAFB224CB60400DF2CE6 /* PresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAF7224CB60400DF2CE6 /* PresentedView.swift */; };
-		EB29FAFD224D257B00DF2CE6 /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAFC224D257B00DF2CE6 /* PresentedViewController.swift */; };
 		EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
@@ -98,10 +98,10 @@
 		9E4EDAB24273E924F479225B /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
 		AC5B5B4E955A78B6929EB023 /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
+		EB0F13832250B90700E1F5C9 /* PresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedView.swift; sourceTree = "<group>"; };
+		EB0F13852250B91D00E1F5C9 /* PresentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedViewController.swift; sourceTree = "<group>"; };
 		EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
-		EB29FAF7224CB60400DF2CE6 /* PresentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentedView.swift; path = ../../../../../../../playground/DrawerKit/DrawerKitDemo/DrawerKitDemo/PresentedView.swift; sourceTree = "<group>"; };
-		EB29FAFC224D257B00DF2CE6 /* PresentedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentedViewController.swift; path = ../../../../../../../.Trash/PresentedViewController.swift; sourceTree = "<group>"; };
 		EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRoutesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,8 +242,8 @@
 		EB29FAF3224CB5F000DF2CE6 /* DrawerDisplayController */ = {
 			isa = PBXGroup;
 			children = (
-				EB29FAF7224CB60400DF2CE6 /* PresentedView.swift */,
-				EB29FAFC224D257B00DF2CE6 /* PresentedViewController.swift */,
+				EB0F13832250B90700E1F5C9 /* PresentedView.swift */,
+				EB0F13852250B91D00E1F5C9 /* PresentedViewController.swift */,
 			);
 			path = DrawerDisplayController;
 			sourceTree = "<group>";
@@ -645,11 +645,12 @@
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
+				EB0F13862250B91D00E1F5C9 /* PresentedViewController.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
+				EB0F13842250B90700E1F5C9 /* PresentedView.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
-				EB29FAFB224CB60400DF2CE6 /* PresentedView.swift in Sources */,
 				62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */,
 				EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,
@@ -662,7 +663,6 @@
 				EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
-				EB29FAFD224D257B00DF2CE6 /* PresentedViewController.swift in Sources */,
 				8BA83F402244DFA300FBCBC8 /* UserManager.swift in Sources */,
 				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
