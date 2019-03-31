@@ -16,28 +16,28 @@ class CLLocationExtensionSpec: QuickSpec {
     override func spec() {
         describe("a CLLocation") {
             var location: CLLocation!
-            beforeEach { location = CLLocation(latitude: 1.35210, longitude: 103.81983) }
+            beforeEach { location = CLLocation(latitude: 1.352_10, longitude: 103.819_83) }
 
             describe("compares with another CLLocation") {
                 context("when the distance is smaller than the threshold") {
                     var nearLocation: CLLocation!
                     beforeEach {
-                        nearLocation = CLLocation(latitude: 1.35211, longitude: 103.81984)
+                        nearLocation = CLLocation(latitude: 1.352_11, longitude: 103.819_84)
                         assert(location.distance(from: nearLocation) <= Constants.sameLocationThreshold)
                     }
                     it("should be the same location") {
-                        expect(location.isSameAs(other: nearLocation)).to(beTrue())
+                        expect(location.isSameAs(other: nearLocation)) == true
                     }
                 }
 
                 context("when the distance is bigger than the threshold") {
                     var farLocation: CLLocation!
                     beforeEach {
-                        farLocation = CLLocation(latitude: 2.35210, longitude: 104.81983)
+                        farLocation = CLLocation(latitude: 2.352_10, longitude: 104.819_83)
                         assert(location.distance(from: farLocation) >= Constants.sameLocationThreshold)
                     }
                     it("should not be the same location") {
-                        expect(location.isSameAs(other: farLocation)).to(beFalse())
+                        expect(location.isSameAs(other: farLocation)) == false
                     }
                 }
             }
@@ -46,7 +46,7 @@ class CLLocationExtensionSpec: QuickSpec {
                 it("should be the same when converting back") {
                     let realmLocation = location.asRealmObject
                     let convertedBackLocation = realmLocation.asCLLocation
-                    expect(convertedBackLocation.isEqualTo(other: location)).to(beTrue())
+                    expect(convertedBackLocation.isEqualTo(other: location)) == true
                 }
             }
         }

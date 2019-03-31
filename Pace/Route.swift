@@ -44,7 +44,7 @@ class Route: Object {
     ///   - creator: The creator of the route.
     ///   - name: The name of the route.
     ///   - creatorRun: The first run in the route (made by creator).
-    convenience init(creator: User, name: String, thumbnail: Data? = nil,creatorRun: Run) {
+    convenience init(creator: User, name: String, thumbnail: Data? = nil, creatorRun: Run) {
         self.init(creator: creator, name: name, thumbnail: thumbnail, creatorRun: creatorRun, paces: List(creatorRun))
     }
 

@@ -16,7 +16,7 @@ class FavouriteViewController: UIViewController {
 
     @IBOutlet private weak var favourites: UICollectionView!
     @IBOutlet private weak var userIndicator: UILabel!
-    
+
     // Constants for table view
     /// Number of items per row for the `UITableView`
     let itemsPerRow = 1
@@ -26,7 +26,7 @@ class FavouriteViewController: UIViewController {
                                              left: 20.0,
                                              bottom: 100.0,
                                              right: 20.0)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         favourites.register(UINib(nibName: "FavouriteRouteViewCell", bundle: Bundle.main),
@@ -41,18 +41,18 @@ class FavouriteViewController: UIViewController {
         }
         updateUserIndicator()
     }
-    
+
     private func presentUserPrompt() {
         let alertController = UIAlertController(title: "Login", message: "Supply a nice nickname!", preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "Login", style: .default, handler: { [unowned self] alert -> Void in
+
+        alertController.addAction(UIAlertAction(title: "Login", style: .default, handler: { [unowned self] _ -> Void in
             let textField = alertController.textFields![0]
             User.currentUser = User.getUser(name: textField.text!)
             self.favouriteRoutes = User.currentUser?.favouriteRoutes ?? List<Route>()
             self.favourites.reloadData()
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alertController.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
+        alertController.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
             textField.placeholder = "A Name for your user"
         })
         self.present(alertController, animated: true, completion: nil)
@@ -78,7 +78,7 @@ class FavouriteViewController: UIViewController {
         currentUser.addFavouriteRoute(randomRoute)
         onFavouriteAdded()
     }
-    
+
     func onFavouriteAdded() {
         favourites.reloadData()
     }

@@ -34,7 +34,7 @@ class User: IdentifiableObject {
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.id == rhs.id && lhs.name == rhs.name
     }
-    
+
     // MARK: - Testing functions
     static func getUser(name: String) -> User {
         var user = Realm.getDefault.objects(User.self).first {
@@ -54,4 +54,3 @@ class User: IdentifiableObject {
 extension User {
     static var currentUser: User?
 }
-
