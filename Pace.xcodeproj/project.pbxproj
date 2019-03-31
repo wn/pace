@@ -143,6 +143,7 @@
 		5C8E42D0223CC7E900DEC2F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8BD4C57A2250F89F00D0CEC7 /* Managers */,
 				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
 				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
 				8B044D34223F7C0600AA8449 /* Route.swift */,
@@ -208,18 +209,10 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
-		EB00C53C22438291005B2C0E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				EB408D372243F95D00F9C561 /* FavouritesView */,
-				EB00C53F2243966D005B2C0E /* FriendsFeedView */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		EB00C53F2243966D005B2C0E /* FriendsFeedView */ = {
 			isa = PBXGroup;
 			children = (
+				62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */,
 				EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */,
 			);
 			name = FriendsFeedView;
@@ -237,6 +230,7 @@
 		EB408D372243F95D00F9C561 /* FavouritesView */ = {
 			isa = PBXGroup;
 			children = (
+				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
 				EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */,
 				8BD4C5772250733200D0CEC7 /* FavouriteRouteViewCell.xib */,
 			);
@@ -268,13 +262,11 @@
 			children = (
 				EBAF2CB622492BB9000FCE0E /* Activity */,
 				EBAF2CB12248DBC0000FCE0E /* Containers */,
-				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
-				62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */,
 				62FF75212244CE8F008847CC /* ProfileViewController.swift */,
-				EB00C53C22438291005B2C0E /* Views */,
+				EB408D372243F95D00F9C561 /* FavouritesView */,
+				EB00C53F2243966D005B2C0E /* FriendsFeedView */,
 				8B59BE5A223CE59600C2E9E7 /* Helpers */,
 				5C8E42D0223CC7E900DEC2F4 /* Models */,
-				8BD4C57A2250F89F00D0CEC7 /* Managers */,
 				62097179223CDB2B00BD26E1 /* views */,
 				EBC1644A223C9EE900745F91 /* Supporting Files */,
 				EB931BC62238066500AFF868 /* Main.storyboard */,
