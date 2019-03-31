@@ -47,16 +47,16 @@ class ActivityViewController: UIViewController {
         locationManager.requestAlwaysAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestLocation()
-        while locationManager.location == nil {
-            // Wait 1 second and check if location has been loaded.
-            // If location cannot be loaded, code here will never terminate
-            // TODO: FIX ABOVE
-            sleep(1)
-        }
-        guard let location = locationManager.location else {
-            fatalError("While loop should have captured nil value!")
-        }
-        mapView.setCameraPosition(location.coordinate)
+//        while locationManager.location == nil {
+//            // Wait 1 second and check if location has been loaded.
+//            // If location cannot be loaded, code here will never terminate
+//            // TODO: FIX ABOVE
+//            sleep(1)
+//        }
+//        guard let location = locationManager.location else {
+//            fatalError("While loop should have captured nil value!")
+//        }
+//        mapView.setCameraPosition(location.coordinate)
     }
 
     @IBAction private func startRun(_ sender: UIButton) {
