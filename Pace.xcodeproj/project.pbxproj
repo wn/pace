@@ -16,7 +16,7 @@
 		6209717D223CDC3100BD26E1 /* StopWatch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6209717C223CDC3100BD26E1 /* StopWatch.xib */; };
 		6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6209717E223CDFDF00BD26E1 /* StopWatch.swift */; };
 		62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF750B22413F73008847CC /* CLLocation+Extension.swift */; };
-		62FF75252244CE8F008847CC /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75202244CE8F008847CC /* ActivityViewController.swift */; };
+		62FF75252244CE8F008847CC /* RunningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75202244CE8F008847CC /* RunningViewController.swift */; };
 		62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75212244CE8F008847CC /* ProfileViewController.swift */; };
 		62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75222244CE8F008847CC /* FavouriteViewController.swift */; };
 		62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */; };
@@ -33,6 +33,10 @@
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
 		8BDFFF8A224F4AC400F3BB3A /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF89224F4AC400F3BB3A /* ModelTests.swift */; };
 		EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */; };
+		EB0F13842250B90700E1F5C9 /* PresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F13832250B90700E1F5C9 /* PresentedView.swift */; };
+		EB0F13862250B91D00E1F5C9 /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F13852250B91D00E1F5C9 /* PresentedViewController.swift */; };
+		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
+		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
 		EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
@@ -41,6 +45,11 @@
 		EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB931BCC2238066800AFF868 /* Assets.xcassets */; };
 		EB931BD02238066800AFF868 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BCE2238066800AFF868 /* LaunchScreen.storyboard */; };
 		EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BDA2238066800AFF868 /* PaceTests.swift */; };
+		EB931BE62238066800AFF868 /* PaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BE52238066800AFF868 /* PaceUITests.swift */; };
+		EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */; };
+		EBAF2CB522490EBA000FCE0E /* StopwatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */; };
+		EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */; };
+		EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +72,7 @@
 		6209717C223CDC3100BD26E1 /* StopWatch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StopWatch.xib; sourceTree = "<group>"; };
 		6209717E223CDFDF00BD26E1 /* StopWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
 		62FF750B22413F73008847CC /* CLLocation+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
-		62FF75202244CE8F008847CC /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		62FF75202244CE8F008847CC /* RunningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningViewController.swift; sourceTree = "<group>"; };
 		62FF75212244CE8F008847CC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		62FF75222244CE8F008847CC /* FavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsFeedViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +93,10 @@
 		9E4EDAB24273E924F479225B /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
 		AC5B5B4E955A78B6929EB023 /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
+		EB0F13832250B90700E1F5C9 /* PresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedView.swift; sourceTree = "<group>"; };
+		EB0F13852250B91D00E1F5C9 /* PresentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedViewController.swift; sourceTree = "<group>"; };
+		EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
 		EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRoutesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +109,13 @@
 		EB931BD62238066800AFF868 /* PaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BDA2238066800AFF868 /* PaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceTests.swift; sourceTree = "<group>"; };
 		EB931BDC2238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB931BE12238066800AFF868 /* PaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB931BE52238066800AFF868 /* PaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceUITests.swift; sourceTree = "<group>"; };
+		EB931BE72238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesListViewController.swift; sourceTree = "<group>"; };
+		EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchTimer.swift; sourceTree = "<group>"; };
+		EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySummaryViewController.swift; sourceTree = "<group>"; };
+		EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Render.swift"; sourceTree = "<group>"; };
 		F1B14D43ECC2EE78A3B9F30D /* Pods-PaceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.debug.xcconfig"; path = "Target Support Files/Pods-PaceUITests/Pods-PaceUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F9FB2B1F3D0B2B53565C21FA /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,7 +149,8 @@
 				8BDFFF87224F482000F3BB3A /* Run.swift */,
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
-				8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
+			  EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */,
+		    8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
 				8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */,
 			);
 			name = Models;
@@ -173,6 +194,9 @@
 				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
+				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
+				EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */,
+				EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -192,6 +216,15 @@
 				EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */,
 			);
 			name = FriendsFeedView;
+			sourceTree = "<group>";
+		};
+		EB29FAF3224CB5F000DF2CE6 /* DrawerDisplayController */ = {
+			isa = PBXGroup;
+			children = (
+				EB0F13832250B90700E1F5C9 /* PresentedView.swift */,
+				EB0F13852250B91D00E1F5C9 /* PresentedViewController.swift */,
+			);
+			path = DrawerDisplayController;
 			sourceTree = "<group>";
 		};
 		EB408D372243F95D00F9C561 /* FavouritesView */ = {
@@ -225,7 +258,8 @@
 		EB931BC12238066500AFF868 /* Pace */ = {
 			isa = PBXGroup;
 			children = (
-				62FF75202244CE8F008847CC /* ActivityViewController.swift */,
+				EBAF2CB622492BB9000FCE0E /* Activity */,
+				EBAF2CB12248DBC0000FCE0E /* Containers */,
 				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
 				62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */,
 				62FF75212244CE8F008847CC /* ProfileViewController.swift */,
@@ -252,6 +286,34 @@
 				5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */,
 			);
 			path = PaceTests;
+			sourceTree = "<group>";
+		};
+		EB931BE42238066800AFF868 /* PaceUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EB931BE52238066800AFF868 /* PaceUITests.swift */,
+				EB931BE72238066800AFF868 /* Info.plist */,
+			);
+			path = PaceUITests;
+			sourceTree = "<group>";
+		};
+		EBAF2CB12248DBC0000FCE0E /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */,
+			);
+			name = Containers;
+			sourceTree = "<group>";
+		};
+		EBAF2CB622492BB9000FCE0E /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				EB29FAF3224CB5F000DF2CE6 /* DrawerDisplayController */,
+				62FF75202244CE8F008847CC /* RunningViewController.swift */,
+				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
+				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
+			);
+			name = Activity;
 			sourceTree = "<group>";
 		};
 		EBC1644A223C9EE900745F91 /* Supporting Files */ = {
@@ -432,6 +494,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Pace/Pods-Pace-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/DrawerKit/DrawerKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -446,6 +509,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DrawerKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -517,20 +581,29 @@
 				8B4F948A224BD472004500CA /* LoginViewController.swift in Sources */,
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
 				6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */,
-				62FF75252244CE8F008847CC /* ActivityViewController.swift in Sources */,
+				62FF75252244CE8F008847CC /* RunningViewController.swift in Sources */,
+				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
+				EB0F13862250B91D00E1F5C9 /* PresentedViewController.swift in Sources */,
+				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
+				EB0F13842250B90700E1F5C9 /* PresentedView.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
 				62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */,
+				EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,
 				EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */,
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
+				EBAF2CB522490EBA000FCE0E /* StopwatchTimer.swift in Sources */,
+				EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */,
+				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
+				EB29FAFD224D257B00DF2CE6 /* PresentedViewController.swift in Sources */,
 				8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */,
 				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,

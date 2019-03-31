@@ -5,6 +5,7 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - DrawerKit (0.7.0)
   - FacebookCore (0.5.0):
     - Bolts (~> 1.9)
     - FBSDKCoreKit (~> 4.37)
@@ -40,6 +41,7 @@ PODS:
     - Realm (= 3.13.1)
 
 DEPENDENCIES:
+  - DrawerKit
   - FacebookCore
   - FacebookLogin
   - FacebookShare
@@ -52,6 +54,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Bolts
+    - DrawerKit
     - FacebookCore
     - FacebookLogin
     - FacebookShare
@@ -67,6 +70,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  DrawerKit: 704a618190366883302c7a0895b246fab88cf73b
   FacebookCore: 74288d0add931d361b1596beae787ab72c438249
   FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
   FacebookShare: 963b4bb1124a64a395b1e428163d70b5774116e8
@@ -80,6 +84,6 @@ SPEC CHECKSUMS:
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
 
-PODFILE CHECKSUM: 64ec303b34bf282c623ce1e09634d9fa49110e30
+PODFILE CHECKSUM: 02837ab359c6532f68f24fe081e089793b76f20d
 
 COCOAPODS: 1.6.1

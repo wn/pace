@@ -12,11 +12,6 @@ class FriendsFeedCollectionViewCell: UICollectionViewCell {
     let distance = 100
     private var _friend = "WEINENG"
     private var _id: String?
-    private var profileImage: UIImage? {
-        didSet {
-            profileImageView.image = profileImage
-        }
-    }
     var friend: String {
         get {
             return _friend
@@ -27,19 +22,7 @@ class FriendsFeedCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    var id: String? {
-        get {
-            return _id
-        }
-        set(newId) {
-            _id = newId
-            guard let id = _id else {
-                return
-            }
-        }
-    }
     @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var profileImageView: UIImageView!
 
     let numOfRunners = 100
 }
