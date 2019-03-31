@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import RealmSwift
 
-class Run: Object {
+class Run: IdentifiableObject {
     @objc dynamic var runner: User?
     var checkpoints = List<CheckPoint>()
 

@@ -28,6 +28,8 @@
 		8BD4C56F224F68BB00D0CEC7 /* List+Constructors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */; };
 		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
 		8BD4C5782250733200D0CEC7 /* FavouriteRouteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BD4C5772250733200D0CEC7 /* FavouriteRouteViewCell.xib */; };
+		8BD4C5802250FAB200D0CEC7 /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */; };
+		8BD4C5822251011000D0CEC7 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5812251011000D0CEC7 /* UserManager.swift */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
 		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
@@ -45,7 +47,6 @@
 		EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB931BCC2238066800AFF868 /* Assets.xcassets */; };
 		EB931BD02238066800AFF868 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BCE2238066800AFF868 /* LaunchScreen.storyboard */; };
 		EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BDA2238066800AFF868 /* PaceTests.swift */; };
-		EB931BE62238066800AFF868 /* PaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BE52238066800AFF868 /* PaceUITests.swift */; };
 		EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */; };
 		EBAF2CB522490EBA000FCE0E /* StopwatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */; };
 		EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */; };
@@ -85,6 +86,8 @@
 		8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+Constructors.swift"; sourceTree = "<group>"; };
 		8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
 		8BD4C5772250733200D0CEC7 /* FavouriteRouteViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteRouteViewCell.xib; sourceTree = "<group>"; };
+		8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
+		8BD4C5812251011000D0CEC7 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8BDFFF87224F482000F3BB3A /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
@@ -109,9 +112,6 @@
 		EB931BD62238066800AFF868 /* PaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BDA2238066800AFF868 /* PaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceTests.swift; sourceTree = "<group>"; };
 		EB931BDC2238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB931BE12238066800AFF868 /* PaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB931BE52238066800AFF868 /* PaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceUITests.swift; sourceTree = "<group>"; };
-		EB931BE72238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesListViewController.swift; sourceTree = "<group>"; };
 		EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchTimer.swift; sourceTree = "<group>"; };
 		EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySummaryViewController.swift; sourceTree = "<group>"; };
@@ -149,8 +149,8 @@
 				8BDFFF87224F482000F3BB3A /* Run.swift */,
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
-			  EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */,
-		    8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
+				EBAF2CB422490EBA000FCE0E /* StopwatchTimer.swift */,
+				8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
 				8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */,
 			);
 			name = Models;
@@ -161,7 +161,6 @@
 			children = (
 				6209717C223CDC3100BD26E1 /* StopWatch.xib */,
 				6209717E223CDFDF00BD26E1 /* StopWatch.swift */,
-				8BD4C5772250733200D0CEC7 /* FavouriteRouteViewCell.xib */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -194,11 +193,19 @@
 				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
-				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
 				EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */,
 				EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		8BD4C57A2250F89F00D0CEC7 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8BD4C5812251011000D0CEC7 /* UserManager.swift */,
+				8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		EB00C53C22438291005B2C0E /* Views */ = {
@@ -231,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */,
+				8BD4C5772250733200D0CEC7 /* FavouriteRouteViewCell.xib */,
 			);
 			name = FavouritesView;
 			sourceTree = "<group>";
@@ -266,6 +274,7 @@
 				EB00C53C22438291005B2C0E /* Views */,
 				8B59BE5A223CE59600C2E9E7 /* Helpers */,
 				5C8E42D0223CC7E900DEC2F4 /* Models */,
+				8BD4C57A2250F89F00D0CEC7 /* Managers */,
 				62097179223CDB2B00BD26E1 /* views */,
 				EBC1644A223C9EE900745F91 /* Supporting Files */,
 				EB931BC62238066500AFF868 /* Main.storyboard */,
@@ -286,15 +295,6 @@
 				5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */,
 			);
 			path = PaceTests;
-			sourceTree = "<group>";
-		};
-		EB931BE42238066800AFF868 /* PaceUITests */ = {
-			isa = PBXGroup;
-			children = (
-				EB931BE52238066800AFF868 /* PaceUITests.swift */,
-				EB931BE72238066800AFF868 /* Info.plist */,
-			);
-			path = PaceUITests;
 			sourceTree = "<group>";
 		};
 		EBAF2CB12248DBC0000FCE0E /* Containers */ = {
@@ -589,6 +589,8 @@
 				EB0F13862250B91D00E1F5C9 /* PresentedViewController.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
+				8BD4C5802250FAB200D0CEC7 /* RouteManager.swift in Sources */,
+				8BD4C5822251011000D0CEC7 /* UserManager.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
 				EB0F13842250B90700E1F5C9 /* PresentedView.swift in Sources */,
@@ -603,7 +605,6 @@
 				EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
-				EB29FAFD224D257B00DF2CE6 /* PresentedViewController.swift in Sources */,
 				8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */,
 				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
