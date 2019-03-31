@@ -5,24 +5,18 @@ target 'Pace' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
+  pod 'DrawerKit'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Firestore'
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
-  pod 'DrawerKit'
+  pod 'RealmSwift'
 
   target 'PaceTests' do
     inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'PaceUITests' do
-    inherit! :search_paths
-    # Pods for testing
+    pod 'Quick'
+    pod 'Nimble'
   end
 
 end

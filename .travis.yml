@@ -13,7 +13,7 @@ before_install:
 
 install:
   - pod deintegrate
-  - pod install
+  - pod install --repo-update
   - brew install swiftlint
 script:
   - swiftlint
