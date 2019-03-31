@@ -7,21 +7,15 @@ target 'Pace' do
 
   pod 'GoogleMaps'
   pod 'GooglePlaces'
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Firestore'
   pod 'FacebookCore'
   pod 'FacebookLogin'
-  pod 'FacebookShare' 
-  
+  pod 'FacebookShare'
+  pod 'RealmSwift'
+
   target 'PaceTests' do
     inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'PaceUITests' do
-    inherit! :search_paths
-    # Pods for testing
+    pod 'Quick'
+    pod 'Nimble'
   end
 
 end

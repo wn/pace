@@ -49,41 +49,14 @@ class ProfileViewController: UIViewController {
 
     /// Updates the log in indicator.
     private func updateIndicator() {
-        UserManager.currentUser { user in
-            guard let user = user else {
-                self.indicator.text = "Please log in"
-                return
-            }
-            self.indicator.text = "Welcome back \(user.name)"
-        }
     }
 
 }
 
 extension ProfileViewController: LoginButtonDelegate {
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
-        switch result {
-        case .success(_, _, let token):
-            UserManager.logIn(withFacebookToken: token) {
-                if $0 {
-                    print("success!")
-                } else {
-                    print("error signing in")
-                }
-                self.updateIndicator()
-            }
-        case .failed(let err):
-            print(err.localizedDescription)
-        case .cancelled:
-            print("cancelled by user")
-        }
     }
 
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
-        do {
-            try UserManager.logOut { self.updateIndicator() }
-        } catch {
-            print(error.localizedDescription)
-        }
     }
 }

@@ -69,8 +69,8 @@ class RunViewController: UIViewController, CLLocationManagerDelegate {
             return
         }
         var distance: Double = 0
-        if let lastCheckpoint = checkpoints.last {
-            distance = location.distance(from: lastCheckpoint.location)
+        if let lastCheckpoint = checkpoints.last, let lastLocation = lastCheckpoint.location {
+            distance = location.distance(from: lastLocation)
         }
         let newCheckpoint = CheckPoint(location: location,
                                        time: seconds,

@@ -7,17 +7,38 @@
 //
 
 import Foundation
+import RealmSwift
 import CoreLocation
 
-struct CheckPoint {
+class CheckPoint: Object {
+    /// The time taken by runner to reach this checkpoint.
+    @objc dynamic var time: Double = 0.0
 
-    let location: CLLocation
-    let time: Double
-    private let actualDistance: Double
-    let routeDistance: Double
+    /// The location represented by this checkpoint.
+    /// This is a private variable used for storage.
+    @objc dynamic private var realmLocation: RealmCLLocation?
+
+    /// The actual distance run by the runner to reach this checkpoint.
+    @objc dynamic private var actualDistance: Double = 0.0
+
+    /// The cumulative distance with relation to checkpoints in the route.
+    ///
+    /// TODO: @yuntongzhang please document how this is stored.
+    @objc dynamic var routeDistance: Double = 0.0
+
+    /// The location represented by this checkpoint.
+    var location: CLLocation? {
+        get {
+            return realmLocation?.asCLLocation
+        }
+        set(location) {
+            realmLocation = location?.asRealmObject
+        }
+    }
 
     /// Constructs a CheckPoint with the given Location, time, actualDistance and routeDistance.
-    init(location: CLLocation, time: Double, actualDistance: Double, routeDistance: Double) {
+    convenience init(location: CLLocation, time: Double, actualDistance: Double, routeDistance: Double) {
+        self.init()
         self.location = location
         self.time = time
         self.actualDistance = actualDistance
@@ -53,15 +74,17 @@ struct CheckPoint {
         if let newLocation = location {
             return CheckPoint(location: newLocation, time: newTime,
                               actualDistance: newActualDistance, routeDistance: currentDistance)
-        } else {
-            // location is not known, calculate it from interpolation
-            let distanceFromLeft = currentDistance - left.routeDistance
-            let newLocation = CLLocation.interpolate(with: distanceFromLeft,
-                                                     between: left.location,
-                                                     and: right.location)
-            return CheckPoint(location: newLocation, time: newTime,
-                              actualDistance: newActualDistance, routeDistance: currentDistance)
         }
+        guard let leftLocation = left.location, let rightLocation = right.location else {
+            fatalError("Locations are uninitialised for the checkpoints.")
+        }
+        // location is not known, calculate it from interpolation
+        let distanceFromLeft = currentDistance - left.routeDistance
+        let newLocation = CLLocation.interpolate(with: distanceFromLeft,
+                                                 between: leftLocation,
+                                                 and: rightLocation)
+        return CheckPoint(location: newLocation, time: newTime,
+                          actualDistance: newActualDistance, routeDistance: currentDistance)
     }
 
     /// Finds the smaller CheckPoint (by route distance) with largest distance, and the larger CheckPoint

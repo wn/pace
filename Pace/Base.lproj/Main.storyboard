@@ -38,19 +38,25 @@
                                         <rect key="frame" x="0.0" y="86.5" width="375" height="511.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="60q-6O-4YG">
-                                            <size key="itemSize" width="49" height="69"/>
+                                            <size key="itemSize" width="350" height="69"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="friendsFeedCell" id="8ic-jp-rC2" customClass="FriendsFeedCollectionViewCell" customModule="Pace" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="49" height="69"/>
+                                                <rect key="frame" x="12.5" y="0.0" width="350" height="69"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="49" height="69"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="69"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YrH-FI-vaH">
+                                                            <rect key="frame" x="-0.5" y="-0.5" width="70" height="69"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="YrH-FI-vaH" secondAttribute="height" multiplier="1:1" id="ecM-zn-bNH"/>
+                                                            </constraints>
+                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Csf-ZC-uHW">
                                                             <rect key="frame" x="3" y="24" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -60,13 +66,17 @@
                                                     </subviews>
                                                 </view>
                                                 <constraints>
+                                                    <constraint firstItem="YrH-FI-vaH" firstAttribute="leading" secondItem="8ic-jp-rC2" secondAttribute="leading" id="3SI-8q-pYG"/>
                                                     <constraint firstItem="Csf-ZC-uHW" firstAttribute="centerY" secondItem="8ic-jp-rC2" secondAttribute="centerY" id="K9B-vH-yd3"/>
                                                     <constraint firstItem="Csf-ZC-uHW" firstAttribute="centerX" secondItem="8ic-jp-rC2" secondAttribute="centerX" id="LdT-eA-sIB"/>
                                                     <constraint firstItem="Csf-ZC-uHW" firstAttribute="centerY" secondItem="8ic-jp-rC2" secondAttribute="centerY" id="M0t-gf-klz"/>
                                                     <constraint firstItem="Csf-ZC-uHW" firstAttribute="centerX" secondItem="8ic-jp-rC2" secondAttribute="centerX" id="jxL-sG-VrY"/>
+                                                    <constraint firstAttribute="bottom" secondItem="YrH-FI-vaH" secondAttribute="bottom" id="owS-Yc-wtY"/>
+                                                    <constraint firstItem="YrH-FI-vaH" firstAttribute="top" secondItem="8ic-jp-rC2" secondAttribute="top" id="to8-eh-KWL"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="nameLabel" destination="Csf-ZC-uHW" id="obN-l3-iYL"/>
+                                                    <outlet property="profileImageView" destination="YrH-FI-vaH" id="6vI-ee-RXr"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -238,7 +248,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="favouriteCell" id="oXn-XP-rZw" customClass="FavouriteRoutesCollectionViewCell" customModule="Pace" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="1PV-CL-X7M" customClass="FavouriteRoutesCollectionViewCell" customModule="Pace" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -254,11 +264,26 @@
                                     </collectionView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Logged in as:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B47-Iw-Owh">
+                                <rect key="frame" x="136.5" y="578" width="102.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htA-zf-zlC">
+                                <rect key="frame" x="137" y="540" width="102" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="add favourite"/>
+                                <connections>
+                                    <action selector="addFavourite" destination="03V-wc-IEY" eventType="touchUpInside" id="aML-6i-IUV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="width" secondItem="Gva-UJ-vuS" secondAttribute="width" id="184-4f-1hZ"/>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="top" secondItem="6bS-VD-9M5" secondAttribute="top" id="1uh-bo-Jdf"/>
+                            <constraint firstItem="B47-Iw-Owh" firstAttribute="centerX" secondItem="Gva-UJ-vuS" secondAttribute="centerX" id="J7e-4Z-dtZ"/>
                             <constraint firstItem="ZuV-UM-zZ8" firstAttribute="height" secondItem="Gva-UJ-vuS" secondAttribute="height" multiplier="0.1" id="Z07-4r-Dk7"/>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="bottom" secondItem="6bS-VD-9M5" secondAttribute="bottom" id="qMm-LT-tTF"/>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="centerX" secondItem="6bS-VD-9M5" secondAttribute="centerX" id="uCA-ea-eVi"/>
@@ -266,6 +291,10 @@
                         <viewLayoutGuide key="safeArea" id="6bS-VD-9M5"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Favourites" image="fav-icon" landscapeImage="fav-icon" largeContentSizeImage="fav-icon" id="fIk-df-8Ew"/>
+                    <connections>
+                        <outlet property="favourites" destination="qQg-hd-NaB" id="1LE-q3-IcW"/>
+                        <outlet property="userIndicator" destination="B47-Iw-Owh" id="r1R-wg-Isn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQ8-Jn-p8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -274,7 +303,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="P57-Ll-DoA">
             <objects>
-                <tabBarController id="l3m-lG-2is" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Main View" id="l3m-lG-2is" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wN0-u8-Yf0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

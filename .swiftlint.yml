@@ -33,6 +33,7 @@ opt_in_rules:
   - yoda_condition
 
 force_cast: warning
+force_try: warning
 
 line_length:
   warning: 120

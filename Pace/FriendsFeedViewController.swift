@@ -13,6 +13,7 @@ class FriendsFeedViewController: UIViewController {
     private let feedIdentifier = "friendsFeedCell"
     private var friendsRoutes: [String] = []
     private(set) var friends: [String] = []
+    private(set) var friendIds: [String?] = []
     @IBOutlet private weak var friendsTable: UICollectionView!
     private let itemsPerRow = 1
     private let sectionInsets = UIEdgeInsets(top: 0,
@@ -23,38 +24,14 @@ class FriendsFeedViewController: UIViewController {
     // TODO: Replace with reactive/observer pattern, probably when we have rxswift up.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if UserManager.isLoggedIn {
-            /*
-            UserManager.getCurrentUser { user in
-                print(user == nil)
-                if let _ = user {
-                    self.friends = ["Ben", "YK", "YYC"]
-                } else {
-                    self.friends = []
-                }
-                self.friendsTable.reloadData()
-            }*/
-            UserManager.getFriends { [weak self] names, error in
-                guard error == nil, let names = names else {
-                    self?.friends = ["no friends"]
-                    return
-                }
-                self?.friends = names
-                self?.friendsRoutes = names // TODO: Remove and replace with actual routes
-                self?.friendsTable.reloadData()
-            }
-        } else {
-            // We need to set the following to empty array as user might log out of the app, and
-            // that friends, friendsRoutes isn't empty.
-            self.friends = []
-            self.friendsRoutes = []
-            let alert = UIAlertController(
-                title: "Not logged in",
-                message: "You are not logged in yet. Please sign in to view routes created by your friends.",
-                preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
-        }
+        self.friends = []
+        self.friendsRoutes = []
+        let alert = UIAlertController(
+            title: "Not logged in",
+            message: "You are not logged in yet. Please sign in to view routes created by your friends.",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }
 
@@ -73,6 +50,7 @@ extension FriendsFeedViewController: UICollectionViewDataSource, UICollectionVie
             .dequeueReusableCell(withReuseIdentifier: feedIdentifier, for: indexPath) as! FriendsFeedCollectionViewCell
         if indexPath.item < friends.count {
             cell.friend = friends[indexPath.item]
+            cell.id = friendIds[indexPath.item]
         }
         cell.backgroundColor = .blue
         // Configure the cell

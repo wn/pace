@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favouriteCell" id="2l1-jG-Nrw" customClass="FavouriteRoutesCollectionViewCell" customModule="Pace" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="298" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="298" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHg-wg-v9T">
+                        <rect key="frame" x="106" y="14.5" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PVF-yG-QyC">
+                        <rect key="frame" x="0.0" y="0.0" width="93" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="PVF-yG-QyC" secondAttribute="height" multiplier="93:50" id="HBX-Td-sc3"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="PVF-yG-QyC" firstAttribute="leading" secondItem="2l1-jG-Nrw" secondAttribute="leading" id="1J1-kc-ITU"/>
+                <constraint firstAttribute="bottom" secondItem="PVF-yG-QyC" secondAttribute="bottom" id="6z8-DF-LG7"/>
+                <constraint firstItem="PVF-yG-QyC" firstAttribute="top" secondItem="2l1-jG-Nrw" secondAttribute="top" id="OcA-qj-DBp"/>
+                <constraint firstItem="jHg-wg-v9T" firstAttribute="centerY" secondItem="2l1-jG-Nrw" secondAttribute="centerY" id="XBh-IR-qBB"/>
+                <constraint firstItem="jHg-wg-v9T" firstAttribute="leading" secondItem="PVF-yG-QyC" secondAttribute="trailing" constant="13" id="rAx-k9-CBS"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="2LY-TP-aaX"/>
+            <size key="customSize" width="298" height="50"/>
+            <connections>
+                <outlet property="mapPreview" destination="PVF-yG-QyC" id="2Tu-aT-iGX"/>
+                <outlet property="routeLabel" destination="jHg-wg-v9T" id="Shy-rA-eNC"/>
+            </connections>
+            <point key="canvasLocation" x="161.59999999999999" y="88.15592203898052"/>
+        </collectionViewCell>
+    </objects>
+</document>
