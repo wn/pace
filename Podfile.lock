@@ -31,6 +31,8 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (3.0.3):
     - GoogleMaps/Base (= 3.0.3)
+  - Nimble (8.0.1)
+  - Quick (2.0.0)
   - Realm (3.13.1):
     - Realm/Headers (= 3.13.1)
   - Realm/Headers (3.13.1)
@@ -43,6 +45,8 @@ DEPENDENCIES:
   - FacebookShare
   - GoogleMaps
   - GooglePlaces
+  - Nimble
+  - Quick
   - RealmSwift
 
 SPEC REPOS:
@@ -56,6 +60,8 @@ SPEC REPOS:
     - FBSDKShareKit
     - GoogleMaps
     - GooglePlaces
+    - Nimble
+    - Quick
     - Realm
     - RealmSwift
 
@@ -69,9 +75,11 @@ SPEC CHECKSUMS:
   FBSDKShareKit: 387749259d79e4070ebb304b3fd256e4b4bc4298
   GoogleMaps: fd5c9fa58871781b9fb94d4936f19c69fe60ce32
   GooglePlaces: f09e76993c9c3ee4af8f4f7f535bb94d6aa3b649
+  Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
+  Quick: ce1276c7c27ba2da3cb2fd0cde053c3648b3b22d
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
 
-PODFILE CHECKSUM: 52351e9f502bb6b9a6967ff059e94c4f83760fa2
+PODFILE CHECKSUM: 64ec303b34bf282c623ce1e09634d9fa49110e30
 
 COCOAPODS: 1.6.1

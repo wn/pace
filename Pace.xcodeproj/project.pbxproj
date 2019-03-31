@@ -11,6 +11,7 @@
 		5C751F0E223CD7650082BC93 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C751F0D223CD7650082BC93 /* Constants.swift */; };
 		5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */; };
 		5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E42D9223CCA0D00DEC2F4 /* User.swift */; };
+		5CD24196224FBFD6001AE19A /* CLLocationExtensionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */; };
 		62097178223CD41900BD26E1 /* RunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62097177223CD41900BD26E1 /* RunViewController.swift */; };
 		6209717D223CDC3100BD26E1 /* StopWatch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6209717C223CDC3100BD26E1 /* StopWatch.xib */; };
 		6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6209717E223CDFDF00BD26E1 /* StopWatch.swift */; };
@@ -57,6 +58,7 @@
 		5C751F0D223CD7650082BC93 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
 		5C8E42D9223CCA0D00DEC2F4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationExtensionSpec.swift; sourceTree = "<group>"; };
 		62097177223CD41900BD26E1 /* RunViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunViewController.swift; sourceTree = "<group>"; };
 		6209717C223CDC3100BD26E1 /* StopWatch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StopWatch.xib; sourceTree = "<group>"; };
 		6209717E223CDFDF00BD26E1 /* StopWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				EB931BDA2238066800AFF868 /* PaceTests.swift */,
 				EB931BDC2238066800AFF868 /* Info.plist */,
 				8BDFFF89224F4AC400F3BB3A /* ModelTests.swift */,
+				5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */,
 			);
 			path = PaceTests;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				EB931BD22238066800AFF868 /* Sources */,
 				EB931BD32238066800AFF868 /* Frameworks */,
 				EB931BD42238066800AFF868 /* Resources */,
+				943D2D23CD787FFACCDFA706 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -456,6 +460,30 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pace/Pods-Pace-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		943D2D23CD787FFACCDFA706 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PaceTests/Pods-PaceTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PaceTests/Pods-PaceTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EB0651D1DE32CFE162831674 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -516,6 +544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */,
+				5CD24196224FBFD6001AE19A /* CLLocationExtensionSpec.swift in Sources */,
 				8BDFFF8A224F4AC400F3BB3A /* ModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,7 +741,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 769C74E96A0B1F7A6C0943E5 /* Pods-PaceTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P4SYV2WJ27;
@@ -734,7 +763,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 03C11157F7CEB9999E084193 /* Pods-PaceTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P4SYV2WJ27;
