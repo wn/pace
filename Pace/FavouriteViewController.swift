@@ -27,6 +27,12 @@ class FavouriteViewController: UIViewController {
                                              bottom: 100.0,
                                              right: 20.0)
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        favourites.register(UINib(nibName: "FavouriteRouteViewCell", bundle: Bundle.main),
+                            forCellWithReuseIdentifier: favouriteCellIdentifier)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if User.currentUser == nil {
@@ -59,10 +65,15 @@ class FavouriteViewController: UIViewController {
         guard let currentUser = User.currentUser else {
             return
         }
+        let imageNames = ["cat.jpeg", "dog.jpeg", "seal.jpeg"]
         let uuidString = UUID().uuidString
         let index = uuidString.firstIndex(of: "-") ?? uuidString.endIndex
         let randomString = uuidString[..<index]
-        let randomRoute = Route(creator: currentUser, name: String(randomString), creatorRun: Run(runner: currentUser, checkpoints: []))
+        let randomImage = imageNames[[Int](0..<3).randomElement()!]
+        let randomRoute = Route(creator: currentUser,
+                                name: String(randomString),
+                                thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
+                                creatorRun: Run(runner: currentUser, checkpoints: []))
         currentUser.addFavouriteRoute(randomRoute)
         onFavouriteAdded()
     }
@@ -85,7 +96,7 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
         ) -> UICollectionViewCell {
         let cell = collectionView
             .dequeueReusableCell(withReuseIdentifier: favouriteCellIdentifier, for: indexPath) as! FavouriteRoutesCollectionViewCell
-        cell.backgroundColor = .blue
+        cell.route = favouriteRoutes[indexPath.item]
         // Configure the cell
         return cell
     }
@@ -100,7 +111,7 @@ extension FavouriteViewController: UICollectionViewDelegateFlowLayout {
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / CGFloat(itemsPerRow)
 
-        return CGSize(width: widthPerItem, height: widthPerItem)
+        return CGSize(width: widthPerItem, height: widthPerItem / 4)
     }
 
     func collectionView(_ collectionView: UICollectionView,

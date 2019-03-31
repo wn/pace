@@ -16,7 +16,7 @@ class Route: Object {
     @objc dynamic var thumbnailData: Data?
     var thumbnail: UIImage? {
         guard let thumbnailData = thumbnailData else {
-            return nil
+            return UIImage(named: "run.jpeg")
         }
         return UIImage(data: thumbnailData)
     }
