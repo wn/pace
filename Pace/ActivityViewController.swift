@@ -14,7 +14,7 @@ import DrawerKit
 
 class ActivityViewController: UIViewController {
 
-   var drawerDisplayController: DrawerDisplayController?
+    var drawerDisplayController: DrawerDisplayController?
 
     @IBOutlet private var mapView: GMSMapView!
     // Keep track of all markers in the map

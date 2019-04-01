@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import RealmSwift
 
-class Route: Object {
+class Route: IdentifiableObject {
     @objc dynamic var creator: User?
     @objc dynamic var name: String = ""
     @objc dynamic var thumbnailData: Data?
