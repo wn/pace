@@ -42,6 +42,7 @@
 		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
 		EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
+		EB677AE5225269BB0047B248 /* ActivityViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB677AE4225269BB0047B248 /* ActivityViewController+Extensions.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
 		EB931BC82238066500AFF868 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BC62238066500AFF868 /* Main.storyboard */; };
 		EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC92238066500AFF868 /* Pace.xcdatamodeld */; };
@@ -104,6 +105,7 @@
 		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
 		EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRoutesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
+		EB677AE4225269BB0047B248 /* ActivityViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityViewController+Extensions.swift"; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BC22238066500AFF868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB931BC72238066500AFF868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				62FF75202244CE8F008847CC /* RunningViewController.swift */,
 				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
 				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
+				EB677AE4225269BB0047B248 /* ActivityViewController+Extensions.swift */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				5C5124BB225316FB00B8A15C /* RouteStats.swift in Sources */,
 				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
+				EB677AE5225269BB0047B248 /* ActivityViewController+Extensions.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				EB0F13862250B91D00E1F5C9 /* PresentedViewController.swift in Sources */,
