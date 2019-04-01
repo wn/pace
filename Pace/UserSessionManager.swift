@@ -8,17 +8,17 @@
 
 import RealmSwift
 
-protocol UserManager {
+protocol UserSessionManager {
     typealias BooleanHandler = (Bool) -> Void
     var currentUser: User? { get }
-    func signInAs(user: User)
+    func signInAs(user: User?)
     func findUserWith(name: String, orSignUp: Bool) -> User?
     func getFavouriteRoutes() -> List<Route>?
     func addToFavourites(route: Route, _ completion: BooleanHandler?)
 }
 
-class RealmUserManager: UserManager {
-    static let forDefaultRealm = RealmUserManager()
+class RealmUserSessionManager: UserSessionManager {
+    static let forDefaultRealm = RealmUserSessionManager()
 
     private(set) var currentUser: User?
 
@@ -27,10 +27,10 @@ class RealmUserManager: UserManager {
     init(realm: Realm = Realm.getDefault) {
         self.realm = realm
         // TODO: Proper persistence. Should be able to be handled with Realm Sync.
-        signInAs(user: realm.objects(User.self).first!)
+        signInAs(user: realm.objects(User.self).first)
     }
 
-    func signInAs(user: User) {
+    func signInAs(user: User?) {
         currentUser = user
     }
 

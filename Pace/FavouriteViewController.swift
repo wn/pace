@@ -11,9 +11,9 @@ import RealmSwift
 
 class FavouriteViewController: UIViewController {
     // MARK: - Properties
-    private var favouriteRoutes = List<Route>()
+    private var favouriteRoutes: List<Route>? = List<Route>()
     private let favouriteCellIdentifier = "favouriteCell"
-    private var userManager: UserManager?
+    private var userSession: UserSessionManager?
     private var notificationToken: NotificationToken?
 
     @IBOutlet private weak var favourites: UICollectionView!
@@ -33,14 +33,17 @@ class FavouriteViewController: UIViewController {
         super.viewDidLoad()
         favourites.register(UINib(nibName: "FavouriteRouteViewCell", bundle: Bundle.main),
                             forCellWithReuseIdentifier: favouriteCellIdentifier)
-        userManager = RealmUserManager.forDefaultRealm
-        favouriteRoutes = userManager?.getFavouriteRoutes() ?? List<Route>()
+        userSession = RealmUserSessionManager.forDefaultRealm
+        favouriteRoutes = userSession?.getFavouriteRoutes()
+        guard let favouriteRoutes = favouriteRoutes else {
+            return
+        }
         notificationToken = favouriteRoutes.observe { [unowned self] _ in self.favourites.reloadData() }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if userManager?.currentUser == nil {
+        if userSession?.currentUser == nil {
             presentUserPrompt()
         }
         updateUserIndicator()
@@ -51,10 +54,14 @@ class FavouriteViewController: UIViewController {
 
         alertController.addAction(UIAlertAction(title: "Login", style: .default, handler: { [unowned self] _ -> Void in
             let textField = alertController.textFields![0]
-            let newUser = self.userManager?.findUserWith(name: textField.text!, orSignUp: true)
-            self.favouriteRoutes = newUser?.favouriteRoutes ?? List<Route>()
+            let newUser = self.userSession?.findUserWith(name: textField.text!, orSignUp: true)
+            self.userSession?.signInAs(user: newUser)
+            self.favouriteRoutes = newUser?.favouriteRoutes
             self.notificationToken?.invalidate()
-            self.notificationToken = self.favouriteRoutes.observe { [unowned self] _ in self.favourites.reloadData() }
+            guard let favouriteRoutes = self.favouriteRoutes else {
+                return
+            }
+            self.notificationToken = favouriteRoutes.observe { [unowned self] _ in self.favourites.reloadData() }
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alertController.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
@@ -64,11 +71,11 @@ class FavouriteViewController: UIViewController {
     }
 
     private func updateUserIndicator() {
-        userIndicator.text = userManager?.currentUser?.name
+        userIndicator.text = userSession?.currentUser?.name
     }
 
     @IBAction func addFavourite() {
-        guard let currentUser = userManager?.currentUser else {
+        guard let currentUser = userSession?.currentUser else {
             return
         }
         let imageNames = ["cat.jpeg", "dog.jpeg", "seal.jpeg"]
@@ -80,7 +87,7 @@ class FavouriteViewController: UIViewController {
                                 name: String(randomString),
                                 thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
                                 creatorRun: Run(runner: currentUser, checkpoints: []))
-        userManager?.addToFavourites(route: randomRoute, nil)
+        userSession?.addToFavourites(route: randomRoute, nil)
     }
 }
 
@@ -88,7 +95,7 @@ class FavouriteViewController: UIViewController {
 extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     // Tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favouriteRoutes.count
+        return favouriteRoutes?.count ?? 0
     }
 
     func collectionView(
@@ -97,7 +104,7 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
         ) -> UICollectionViewCell {
         let cell = collectionView
             .dequeueReusableCell(withReuseIdentifier: favouriteCellIdentifier, for: indexPath) as! FavouriteRoutesCollectionViewCell
-        cell.route = favouriteRoutes[indexPath.item]
+        cell.route = favouriteRoutes?[indexPath.item]
         // Configure the cell
         return cell
     }

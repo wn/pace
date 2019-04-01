@@ -29,7 +29,7 @@
 		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
 		8BD4C5782250733200D0CEC7 /* FavouriteRouteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BD4C5772250733200D0CEC7 /* FavouriteRouteViewCell.xib */; };
 		8BD4C5802250FAB200D0CEC7 /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */; };
-		8BD4C5822251011000D0CEC7 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5812251011000D0CEC7 /* UserManager.swift */; };
+		8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
 		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
@@ -87,7 +87,7 @@
 		8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
 		8BD4C5772250733200D0CEC7 /* FavouriteRouteViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteRouteViewCell.xib; sourceTree = "<group>"; };
 		8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
-		8BD4C5812251011000D0CEC7 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionManager.swift; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8BDFFF87224F482000F3BB3A /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
@@ -203,10 +203,17 @@
 		8BD4C57A2250F89F00D0CEC7 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				8BD4C5812251011000D0CEC7 /* UserManager.swift */,
+				8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */,
 				8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */,
 			);
 			name = Managers;
+			sourceTree = "<group>";
+		};
+		8BD4C5842252026700D0CEC7 /* LoginViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = LoginViews;
 			sourceTree = "<group>";
 		};
 		EB00C53F2243966D005B2C0E /* FriendsFeedView */ = {
@@ -260,6 +267,7 @@
 		EB931BC12238066500AFF868 /* Pace */ = {
 			isa = PBXGroup;
 			children = (
+				8BD4C5842252026700D0CEC7 /* LoginViews */,
 				EBAF2CB622492BB9000FCE0E /* Activity */,
 				EBAF2CB12248DBC0000FCE0E /* Containers */,
 				62FF75212244CE8F008847CC /* ProfileViewController.swift */,
@@ -582,7 +590,7 @@
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BD4C5802250FAB200D0CEC7 /* RouteManager.swift in Sources */,
-				8BD4C5822251011000D0CEC7 /* UserManager.swift in Sources */,
+				8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
 				EB0F13842250B90700E1F5C9 /* PresentedView.swift in Sources */,

@@ -20,7 +20,7 @@ class RealmRouteManager: RouteManager {
 
     private var realm: Realm
 
-    init(realm: Realm = Realm.getDefault, userManager: RealmUserManager = RealmUserManager.forDefaultRealm) {
+    init(realm: Realm = Realm.getDefault, userManager: RealmUserSessionManager = RealmUserSessionManager.forDefaultRealm) {
         self.realm = realm
     }
 
@@ -28,7 +28,7 @@ class RealmRouteManager: RouteManager {
         let routes = realm.objects(Route.self)
         completion(routes, nil)
     }
-    
+
     func addNewRoute(route: Route) -> Bool {
         do {
             try realm.write {
@@ -40,10 +40,8 @@ class RealmRouteManager: RouteManager {
             return false
         }
     }
-    
+
     func getRunsFor(route: Route, _ completion: (List<Run>?, Error?) -> Void) {
         completion(route.paces, nil)
     }
 }
-
-
