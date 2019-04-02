@@ -7,12 +7,13 @@
 //
 
 import XCTest
+import RealmSwift
 @testable import Pace
 
 class PaceTests: XCTestCase {
-
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        Realm.Configuration.defaultConfiguration.inMemoryIdentifier = name
     }
 
     override func tearDown() {

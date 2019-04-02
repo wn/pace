@@ -1,38 +1,27 @@
-//  Created by Ang Wei Neng on 12/3/19.
+//
+//  RunningViewController.swift
+//  Pace
+//
+//  Created by Ang Wei Neng on 27/3/19.
 //  Copyright © 2019 nus.cs3217.pace. All rights reserved.
 //
+
 import UIKit
 import GoogleMaps
 import GooglePlaces
 import AVFoundation
+import DrawerKit
 
 class ActivityViewController: UIViewController {
-    @IBOutlet var position: UILabel!
+
+    var drawerDisplayController: DrawerDisplayController?
+
     @IBOutlet private var mapView: GMSMapView!
+    // Keep track of all markers in the map
+    // Int to change to run details instead.
+    var markers: [GMSMarker: Int] = [:]
 
     private let locationManager = CLLocationManager()
-    private var path = GMSMutablePath()
-    var lastMarkedPosition: CLLocation?
-
-    private var _isConnected = true
-    var isConnected: Bool {
-        get {
-            return _isConnected
-        }
-        set (value) {
-            let connected = _isConnected == false && value == true
-            let disconnected = _isConnected == true && value == false
-
-            if connected {
-                VoiceAssistant.say("Reconnected to GPS!")
-                print("CONNECTED")
-            } else if disconnected {
-                VoiceAssistant.say("GPS signal lost!")
-                print("DISCONNECTED")
-            }
-            _isConnected = value
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,26 +34,63 @@ class ActivityViewController: UIViewController {
         mapView.animate(toZoom: Constants.initialZoom)
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+
+        // Required to activate gestures in mapView
+        mapView.settings.consumesGesturesInView = false
+        mapView.delegate = self
+        mapView.setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
     }
 
     /// Set up location manager from CoreLocation.
     private func setupLocationManager() {
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        // THIS GONNA FUCK UP THE BATTERY
-        // Can we alternate between lower battery usage and high battery usage?
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestLocation()
-        while locationManager.location == nil {
-            // Wait 1 second and check if location has been loaded.
-            sleep(1)
-        }
-        guard let location = locationManager.location else {
-            fatalError("While loop should have captured nil value!")
-        }
-        setCameraPosition(location.coordinate)
+//        while locationManager.location == nil {
+//            // Wait 1 second and check if location has been loaded.
+//            // If location cannot be loaded, code here will never terminate
+//            // TODO: FIX ABOVE
+//            sleep(1)
+//        }
+//        guard let location = locationManager.location else {
+//            fatalError("While loop should have captured nil value!")
+//        }
+//        mapView.setCameraPosition(location.coordinate)
+    }
+
+    @IBAction private func startRun(_ sender: UIButton) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let runVC =
+            storyBoard.instantiateViewController(
+                withIdentifier: "runVC")
+                as! RunningViewController
+        renderChildController(runVC)
+    }
+
+    func getNearbyRoutes() -> [CLLocation] {
+        let topLeft = mapView.projection.visibleRegion().farLeft
+        let bottomRight = mapView.projection.visibleRegion().nearRight
+
+        // Bounds of maps to retrieve
+        let top = topLeft.latitude
+        let bottom = bottomRight.latitude
+        let left = topLeft.longitude
+        let right = bottomRight.longitude
+
+        // TODO: Fake data. To draw real data here instead
+        let one = CLLocation(latitude: bottom + 0.001, longitude: left)
+        let two = CLLocation(latitude: bottom + 0.000_5, longitude: left)
+        let three = CLLocation(latitude: top - 0.001, longitude: right)
+        let four = CLLocation(latitude: top - 0.000_5, longitude: right)
+        return [one, two, three, four]
+    }
+
+    func generateRouteMarker(location: CLLocation, count: Int) -> GMSMarker {
+        let marker = GMSMarker(position: location.coordinate)
+        marker.map = mapView
+        marker.icon = UIImage(named: "\(count)")
+        return marker
     }
 }
 
@@ -78,50 +104,21 @@ extension ActivityViewController: CLLocationManagerDelegate {
     ///   - manager: The location manager for the view-controller.
     ///   - status: The newly set location authorization level.
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status == .authorizedWhenInUse else {
-            locationManager.requestWhenInUseAuthorization()
+        if status == .authorizedWhenInUse {
             return
         }
-        // TODO: Add authorizartion handling.
+        locationManager.requestWhenInUseAuthorization()
     }
 
     /// Function from CLLocationManagerDelegate.
-    /// Function to handle update in location.
+    /// Empty function as we do not do anything about the
+    /// location result. 
     ///
     /// - Parameters:
     ///   - manager: The location manager for the view-controller.
     ///   - locations: The array of location updates that is not handled yet.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else {
-            return
-        }
-        isConnected = true
-        if let lastMarkedPosition = lastMarkedPosition {
-            // TODO: Print statement is to find the optimal guardDistance. To delete
-            // once we found the optimal distance.
-            // Can also combine the 2 if-statements above and below this line.
-            print("Distance =  \(location.distance(from: lastMarkedPosition))")
-            if location.distance(from: lastMarkedPosition) < Constants.guardDistance {
-                // Do not consider new location if new location is
-                // less than guardDistance. This guard against poor
-                // GPS accuracy.
-                return
-            }
-        }
-        lastMarkedPosition = location
-
-        let coordinate = location.coordinate
-        path.add(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
-
-        // TODO: We redraw the whole map again. is this good?
-        // Or can we dynamically generate the map without mutablepath
-        mapView.clear()
-        let mapPaths = GMSPolyline(path: path)
-        mapPaths.strokeColor = .black
-        mapPaths.strokeWidth = 5
-        mapPaths.map = mapView
-
-        position.text = "lat: \(coordinate.latitude), long: \(coordinate.longitude)"
+        return
     }
 
     /// Function from CLLocationManagerDelegate.
@@ -132,59 +129,124 @@ extension ActivityViewController: CLLocationManagerDelegate {
     ///   - error: Error message.
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
-        isConnected = false
+        // isConnected = false
     }
 }
 
-// MARK: - Helper functions for mapView
-extension ActivityViewController {
-    /// Set the camera position of mapView
-    ///
-    /// - Parameter coordinate: The coordinate that mapView will be centered on.
-    func setCameraPosition(_ coordinate: CLLocationCoordinate2D) {
-        // The following is to ensure that we do not change users viewing
-        // specification while updating location. Done by reusing the old zoom,
-        // bearing and angle.
-        let mapZoom = mapView.camera.zoom
-        let mapBearing = mapView.camera.bearing
-        let mapViewAngle = mapView.camera.viewingAngle
-
-        mapView.camera = GMSCameraPosition(target: coordinate, zoom: mapZoom, bearing: mapBearing, viewingAngle: mapViewAngle)
+// MARK: - GMSMapViewDelegate
+extension ActivityViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        // TODO: On tap with marker, pop up route description
+        guard let markerID = markers[marker] else {
+            redrawMarkers(mapView.camera.target)
+            return false
+        }
+        let alert = UIAlertController(
+            title: "TAPPED MARKER",
+            message: "tapped marker \(markerID)",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+        return true
     }
 
-    /// Drop a marker on the specified location.
-    ///
-    /// - Parameter position: location to drop marker.
-    private func dropMarker(_ position: CLLocationCoordinate2D) {
-        let posMarker = GMSMarker(position: position)
-        posMarker.map = mapView
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        redrawMarkers(mapView.camera.target)
+    }
+
+    func redrawMarkers(_ location: CLLocationCoordinate2D) {
+        mapView.clear()
+        markers = [:]
+        guard mapView.camera.zoom > Constants.minZoomToShowRoutes else {
+            return
+        }
+
+        // TODO: Get all potential markers and generate them.
+        // Get marker nearby location
+        let routes = getNearbyRoutes()
+        markers = [:]
+        for index in 0..<routes.count {
+            // Count is the number of routes that the marker represents
+            // Set as 17 as that is the name of the image
+            let count = 17
+            let marker = generateRouteMarker(location: routes[index], count: count)
+            markers[marker] = index
+        }
+    }
+
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        guard let location = locationManager.location else {
+            return false
+        }
+        mapView.setCameraPosition(location.coordinate)
+        mapView.animate(toZoom: Constants.initialZoom)
+        return true
     }
 }
 
-extension ActivityViewController {
-//    /// TEST FUNCTIONS. NOT TO BE USED IN PRODUCTION.
-//    @IBAction func start_ping(_ sender: UIButton) {
-//        VoiceAssistant.say("CONNECTED")
-//        print("CONNECTED")
-//        locationManager.startUpdatingLocation()
-//    }
-//
-//    @IBAction func stop_ping(_ sender: UIButton) {
-//        VoiceAssistant.say("Activity paused!")
-//        locationManager.stopUpdatingHeading()
-//    }
-//
-//    @IBAction func clearMapDrawing(_ sender: UIButton) {
-//        mapView.clear()
-//        path = GMSMutablePath()
-//        position.text = "CLEARED DRAWING"
-//    }
-//
-//    @IBAction func testbutton(_ sender: UIButton) {
-//        print("PINGED BUTTON")
-//
-//        // This function takes time to load, hence may not load immediately. Takes time for
-//        // app to determine location, especially when location accuracy is set to high.
-//        locationManager.requestLocation()
-//    }
+private extension ActivityViewController {
+
+    // TODO: Automatically populate when marker is press, instead
+    // of pressing a button.
+    @IBAction func presentButtonTapped() {
+        doModalPresentation(passthrough: false)
+    }
+
+    func doModalPresentation(passthrough: Bool) {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "presented")
+            as? PresentedViewController else { return }
+
+        // you can provide the configuration values in the initialiser...
+        var configuration = DrawerConfiguration(/* ..., ..., ..., */)
+
+        // ... or after initialisation. All of these have default values so change only
+        // what you need to configure differently. They're all listed here just so you
+        // can see what can be configured. The values listed are the default ones,
+        // except where indicated otherwise.
+        //        configuration.initialState = .collapsed
+        configuration.totalDurationInSeconds = 0.4
+        configuration.durationIsProportionalToDistanceTraveled = false
+        // default is UISpringTimingParameters()
+        configuration.timingCurveProvider = UISpringTimingParameters(dampingRatio: 0.8)
+        configuration.fullExpansionBehaviour = .coversFullScreen
+        configuration.supportsPartialExpansion = true
+        configuration.dismissesInStages = true
+        configuration.isDrawerDraggable = true
+        configuration.isFullyPresentableByDrawerTaps = true
+        configuration.numberOfTapsForFullDrawerPresentation = 1
+        configuration.isDismissableByOutsideDrawerTaps = true
+        configuration.numberOfTapsForOutsideDrawerDismissal = 1
+        configuration.flickSpeedThreshold = 3
+        configuration.upperMarkGap = 100 // default is 40
+        configuration.lowerMarkGap = 80 // default is 40
+        configuration.maximumCornerRadius = 15
+        configuration.cornerAnimationOption = .none
+        configuration.passthroughTouchesInStates = passthrough ? [.collapsed, .partiallyExpanded] : []
+
+        var handleViewConfiguration = HandleViewConfiguration()
+        handleViewConfiguration.autoAnimatesDimming = true
+        handleViewConfiguration.backgroundColor = .gray
+        handleViewConfiguration.size = CGSize(width: 40, height: 6)
+        handleViewConfiguration.top = 8
+        handleViewConfiguration.cornerRadius = .automatic
+        configuration.handleViewConfiguration = handleViewConfiguration
+
+        let borderColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
+        let drawerBorderConfiguration = DrawerBorderConfiguration(borderThickness: 0.5,
+                                                                  borderColor: borderColor)
+        configuration.drawerBorderConfiguration = drawerBorderConfiguration // default is nil
+
+        let drawerShadowConfiguration = DrawerShadowConfiguration(shadowOpacity: 0.75,
+                                                                  shadowRadius: 10,
+                                                                  shadowOffset: .zero,
+                                                                  shadowColor: .red)
+        configuration.drawerShadowConfiguration = drawerShadowConfiguration // default is nil
+
+        drawerDisplayController = DrawerDisplayController(presentingViewController: self,
+                                                          presentedViewController: vc,
+                                                          configuration: configuration,
+                                                          inDebugMode: true)
+
+        present(vc, animated: true)
+    }
 }

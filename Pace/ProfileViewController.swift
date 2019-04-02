@@ -12,7 +12,7 @@ import FacebookLogin
 import CoreLocation
 
 class ProfileViewController: UIViewController, ViewDelegate {
-    
+
     let route = Dummy.route
     var paces = [Pace]()
     @IBOutlet private var runHistory: UICollectionView!
@@ -21,14 +21,14 @@ class ProfileViewController: UIViewController, ViewDelegate {
         super.viewDidLoad()
         self.navigationItem.title = Titles.profile
         // Dummy Data
-        
+
         var checkpoints = [CheckPoint]()
         for i in 0...100 {
             checkpoints.append(
                 CheckPoint(location: CLLocation(latitude: Double(100 + i), longitude: Double(100 + i)),
                            time: Double(i*2), actualDistance: Double(i*2), routeDistance: Double(i*2)))
         }
-        
+
         for _ in 0...5 {
             paces.append(Pace(runner: Dummy.user, checkpoints: checkpoints))
         }

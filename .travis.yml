@@ -1,4 +1,4 @@
-language: objective-c
+language: swift
 osx_image: xcode10.1
 
 env:
@@ -8,9 +8,12 @@ env:
         - SDK=iphonesimulator12.1
         - DESTINATION="platform=iOS Simulator,OS=latest,name=iPhone X"
 
+before_install:
+  - gem install cocoapods -v '1.6.1'
+
 install:
   - pod deintegrate
-  - pod install
+  - pod install --repo-update
   - brew install swiftlint
 script:
   - swiftlint

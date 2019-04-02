@@ -11,6 +11,7 @@ import UIKit
 class FriendsFeedCollectionViewCell: UICollectionViewCell {
     let distance = 100
     private var _friend = "WEINENG"
+    private var _id: String?
     var friend: String {
         get {
             return _friend
@@ -21,7 +22,7 @@ class FriendsFeedCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
 
     let numOfRunners = 100
 }

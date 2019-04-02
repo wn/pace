@@ -8,24 +8,38 @@
 
 import Foundation
 import CoreLocation
-import Firebase
+import RealmSwift
 
-class Route: FirestoreCodable {
-    let creator: User
-    var docId: String?
-    let name: String
-    var locations: [CLLocation]
-    var paces: [Pace]
+class Route: IdentifiableObject {
+    @objc dynamic var creator: User?
+    @objc dynamic var name: String = ""
+    @objc dynamic var thumbnailData: Data?
+    var thumbnail: UIImage? {
+        guard let thumbnailData = thumbnailData else {
+            return UIImage(named: "run.jpeg")
+        }
+        return UIImage(data: thumbnailData)
+    }
+    var creatorRun: Run?
+    var paces = List<Run>()
 
-    /// Constructs a Route with the given creator and array of Paces.
-    init(docId: String?, creator: User, name: String, paces: [Pace]) {
-        self.docId = docId
+    /// Constructs a route given the runner, name, the first (creator) run and collection to paces.
+    /// - Precondition: `creatorRun` must be within `paces`.
+    /// - Parameters:
+    ///   - creator: The creator of the route.
+    ///   - name: The name of the route.
+    ///   - creatorRun: The first run in the route (made by creator).
+    convenience init(creator: User, name: String, thumbnail: Data? = nil, creatorRun: Run, paces: List<Run>) {
+        assert(paces.contains(creatorRun))
+        self.init()
         self.creator = creator
         self.name = name
-        self.locations = []
+        self.creatorRun = creatorRun
         self.paces = paces
+        self.thumbnailData = thumbnail
     }
 
+<<<<<<< HEAD
     required init?(data: [String: Any]) {
         guard
             let docId = data[FireDB.primaryKey] as? String,
@@ -42,20 +56,52 @@ class Route: FirestoreCodable {
         self.name = name
         self.paces = []
         self.locations = locations.map { CLLocation(latitude: $0.latitude, longitude: $0.longitude) }
+=======
+    /// Constructs a route given the runner, name and the first (creator) run.
+    /// - Parameters:
+    ///   - creator: The creator of the route.
+    ///   - name: The name of the route.
+    ///   - creatorRun: The first run in the route (made by creator).
+    convenience init(creator: User, name: String, thumbnail: Data? = nil, creatorRun: Run) {
+        self.init(creator: creator, name: name, thumbnail: thumbnail, creatorRun: creatorRun, paces: List(creatorRun))
+>>>>>>> 101572c87a1970f308c03bc389a297135b06247a
     }
 
-    /// Constructs a Route with the given runner and an array of unnormalized CheckPoints representing
+    /// Constructs a Route with the given runner and an array of pre-normalized checkpoints representing
     /// the running record from the runner.
-    /// To be used for creating Route for the first time when a runner just finished the first Pace for a Route.
+    /// - Parameters:
+    ///   - runner: The runner of these records.
+    ///   - runnerRecord: The pre-normalized checkpoints representing the run.
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
-        let initialPace = Pace(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
-        self.init(docId: nil, creator: runner, name: "blabla", paces: [initialPace])
+        let initialRun = Run(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
+        self.init(creator: runner, name: "blabla", creatorRun: initialRun)
     }
 
-    /// Normalizes an array of CheckPoints based on the pre-defined distance interval.
-    /// - Precondition: The runner records are arranged by increasing routeDistance.
-    /// - Parameter runnerRecords: the array of CheckPoints to be normalized.
-    /// - Returns: an array of normalized CheckPoints.
+    /// Add a new run to this Route.
+    /// Only use this method to add a following run, but not a creator run.
+    /// - Parameter run: The new run to be added.
+    func addNewRun(_ run: Run) {
+        // TODO: check for 80% overlap
+        paces.append(run)
+    }
+
+    /// Generates stats for this route.
+    /// - Returns: The RouteStats if all stats can be obtained; nil otherwise.
+    func generateStats() -> RouteStats? {
+        var runners = Set<User>()
+        for run in paces {
+            guard let runner = run.runner else {
+                fatalError("A run should have a runner.")
+            }
+            runners.insert(runner)
+        }
+        return RouteStats(startingLocation: creatorRun?.startingLocation,
+                          dateCreated: creatorRun?.dateCreated,
+                          totalDistance: creatorRun?.totalDistance,
+                          numOfRunners: runners.count,
+                          fastestTime: paces.min(ofProperty: "timeSpent"))
+    }
+
     static private func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
         guard runnerRecords.count >= 2 else {
             // empty or only has one point recorded
@@ -85,6 +131,7 @@ class Route: FirestoreCodable {
         return normalizedCheckPoints
     }
 }
+<<<<<<< HEAD
 
 extension Route {
     func toFirestoreDoc() -> [String: Any] {
@@ -102,3 +149,5 @@ extension Route {
         ]
     }
 }
+=======
+>>>>>>> 101572c87a1970f308c03bc389a297135b06247a

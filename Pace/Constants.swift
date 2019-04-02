@@ -1,8 +1,9 @@
 import Foundation
 import CoreLocation
+import RealmSwift
 
 struct Constants {
-    
+
     // Threshold distance value to determine whether two locations should be considered as same
     static let sameLocationThreshold = 5.0
 
@@ -11,64 +12,24 @@ struct Constants {
 
     // MARK: - MapView location constants
     // mapView constants
-    static let initialZoom: Float = 18
-    static let guardDistance: CLLocationDistance = 10
-    // New location must be greater than guardDistance for map to update
-}
+    static let initialZoom: Float = 17.5
+    // Horizontal accuracy must be greater than guardDistance for map to update
+    static let guardAccuracy: CLLocationDistance = 25
+    static let minZoom: Float = 11.5
+    static let maxZoom: Float = 18.5
+    static let minZoomToShowRoutes: Float = 17.1
 
-/// Identifiers for Firebase collections
-struct FireDB {
-    // Primary key used for all documents
-    static let primaryKey = "doc_id"
-    static let routes = "routes"
-    static let paces = "paces"
-    static let users = "users"
-    static let friend_requests = "friend_requests"
+    // MARK: - Realm constants
+    static let paceCloudInstanceAddress = "pace.us1.cloud.realm.io"
 
-    struct Route {
-        static let startLocation = "start_location"
-        static let endLocation = "end_location"
-        static let checkpoints = "checkpoints"
-        static let name = "name"
-        // Foreign Key of User
-        static let creatorId = "creator_id"
-        // (Not in firebase) Added field to load creator (user) data for each route
-        static let creatorData = "creator_data"
-    }
+    static let AuthURL = "https://\(paceCloudInstanceAddress)"
+    static let RealmURL = "https://\(paceCloudInstanceAddress)/pace"
 
-    struct Pace {
-        static let timings = "checkpoint_times"
-        static let distances = "route_distances"
-        // Foreign Key of Route
-        static let routeId = "route_id"
-        // Foreign Key of User
-        static let userId = "user_id"
-        // (Not in firebase) Added field to load user data for each pace
-        static let userData = "user_data"
-    }
-
-    struct User {
-        static let email = "email"
-        static let password = "password"
-        static let username = "username"
-        static let name = "name"
-    }
 }
 
 /// For Development Purposes until the rest of the interface is ready
 struct Dummy {
-    static let user = User(docId: "VWO0w2OLjw4cnH9B4AnT", name: "angunong")
-    static let route = Route(docId: "4ejv5GWpwiPLrXwvXJzi", creator: Dummy.user, name: "rc4", paces: [])
-//    static let pace = Pace(runner: Dummy.user, checkpoints: [
-//        CheckPoint(location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>),
-//                   time: 0, actualDistance: 0, routeDistance: <#T##Double#>),
-//        CheckPoint(location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>),
-//                   time: 4, actualDistance: 4, routeDistance: <#T##Double#>),
-//        CheckPoint(location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>),
-//                   time: 6, actualDistance: 6, routeDistance: <#T##Double#>),
-//        CheckPoint(location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>),
-//                   time: 8, actualDistance: 8, routeDistance: <#T##Double#>),
-//    ])
+    static let user = User(name: "angunong")
 }
 
 struct Identifiers {
