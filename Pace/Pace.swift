@@ -12,16 +12,20 @@ class Pace: FirestoreCodable {
     var docId: String?
     let runner: User
     var checkpoints: [CheckPoint]
+    var timing: Double?
+    var distance: Double?
 
     init(runner: User, checkpoints: [CheckPoint]) {
         self.runner = runner
-        self.checkpoints = []
+        self.checkpoints = checkpoints
     }
 
     // Only load the metadata (without the timings)
     required init?(data: [String: Any]) {
         guard
             let docId = data[FireDB.primaryKey] as? String,
+            let distances = data[FireDB.Pace.distances] as? [Double],
+            let timings = data[FireDB.Pace.timings] as? [Double],
             let runnerData = data[FireDB.Pace.userData] as? [String: Any] else {
             return nil
         }
@@ -31,7 +35,8 @@ class Pace: FirestoreCodable {
         self.docId = docId
         self.runner = runner
         self.checkpoints = []
-
+        self.timing = timings.last
+        self.distance = distances.last
     }
 
     convenience init?(data: [String: Any], with user: User) {
@@ -79,7 +84,7 @@ extension Pace {
         return [
             FireDB.Pace.timings: checkpoints.map { $0.time },
             FireDB.Pace.distances: checkpoints.compactMap { $0.routeDistance },
-            FireDB.Pace.userId: runner.docId ?? ""
+            FireDB.Pace.userId: runner.docId ?? "",
         ]
     }
 }

@@ -40,7 +40,6 @@ class RequireLoginController: UIViewController {
             guard let user = user else {
                 self.view.addSubview(self.loginButton)
                 self.view.addSubview(self.indicator)
-                print("not logged in")
                 group.leave()
                 return
             }

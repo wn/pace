@@ -2,7 +2,7 @@ import Foundation
 import CoreLocation
 
 struct Constants {
-
+    
     // Threshold distance value to determine whether two locations should be considered as same
     static let sameLocationThreshold = 5.0
 
@@ -13,7 +13,7 @@ struct Constants {
     // mapView constants
     static let initialZoom: Float = 18
     static let guardDistance: CLLocationDistance = 10
-        // New location must be greater than guardDistance for map to update
+    // New location must be greater than guardDistance for map to update
 }
 
 /// Identifiers for Firebase collections
@@ -59,4 +59,30 @@ struct FireDB {
 struct Dummy {
     static let user = User(docId: "VWO0w2OLjw4cnH9B4AnT", name: "angunong")
     static let route = Route(docId: "4ejv5GWpwiPLrXwvXJzi", creator: Dummy.user, name: "rc4", paces: [])
+//    static let pace = Pace(runner: Dummy.user, checkpoints: [
+//        CheckPoint(location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>),
+//                   time: 0, actualDistance: 0, routeDistance: <#T##Double#>),
+//        CheckPoint(location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>),
+//                   time: 4, actualDistance: 4, routeDistance: <#T##Double#>),
+//        CheckPoint(location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>),
+//                   time: 6, actualDistance: 6, routeDistance: <#T##Double#>),
+//        CheckPoint(location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>),
+//                   time: 8, actualDistance: 8, routeDistance: <#T##Double#>),
+//    ])
+}
+
+struct Identifiers {
+    static let pace = "paceIdentifier"
+    static let userStats = "userStatsIdentifier"
+    static let runAnalysisController = "runAnalysisController"
+}
+
+struct Titles {
+    static let profile = "Profile"
+    static let run = "Run"
+}
+
+struct Xibs {
+    static let paceView = "PaceView"
+    static let userStatsView = "UserStatsView"
 }
