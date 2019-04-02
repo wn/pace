@@ -28,6 +28,10 @@ class Run: IdentifiableObject {
         return checkpoints.compactMap { $0.location }
     }
 
+    /// Constructs a Run with the given runner and checkpoints.
+    /// - Parameters:
+    ///   - runner: The runner of this Run.
+    ///   - checkpoints: The array of normalized checkpoints for this Run.
     convenience init(runner: User, checkpoints: [CheckPoint]) {
         self.init()
         guard let lastPoint = checkpoints.last else {
@@ -42,8 +46,22 @@ class Run: IdentifiableObject {
         }()
     }
 
-    /// Normalizes an array of CheckPoints based on the checkPoints array of this Pace.
-    /// - Precondition: the given runner record does not deviate from this Pace.
+    /// Gets the latitude and longitude boundaries for this run.
+    /// - Returns: A tuple of range of latitude and range of longitude.
+    func getBoundaries() -> (ClosedRange<CLLocationDegrees>, ClosedRange<CLLocationDegrees>) {
+        let latitudes = locations.map { $0.latitude }
+        let longitudes = locations.map { $0.longitude }
+        guard let minLatitude = latitudes.min(),
+            let maxLatitude = latitudes.max(),
+            let minLongitude = longitudes.min(),
+            let maxLongitude = longitudes.max() else {
+                fatalError("There should be locations in the run.")
+        }
+        return (latitudeRange: minLatitude...maxLatitude, longitudeRange: minLongitude...maxLongitude)
+    }
+
+    /// Normalizes an array of CheckPoints based on the checkPoints array of this Run.
+    /// - Precondition: the given runner record does not deviate from this Run.
     /// - Parameter runnerRecords: the array of CheckPoints to be normalized.
     /// - Returns: an array of normalized CheckPoints.
     func normalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
