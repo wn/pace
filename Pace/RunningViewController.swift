@@ -13,6 +13,7 @@ class RunningViewController: UIViewController, UIGestureRecognizerDelegate, GMSM
     var isMapLock = false
 
     func lockMap(_ lock: Bool) {
+
 //        isMapLock = lock
 //        mapView.settings.setAllGesturesEnabled(!lock)
     }
@@ -61,7 +62,11 @@ class RunningViewController: UIViewController, UIGestureRecognizerDelegate, GMSM
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
+<<<<<<< HEAD
         lockMap(false)
+=======
+        lockMap(true)
+>>>>>>> bc80979adf21016e282fec5d5a0d16f8aad32a1c
     }
 
     /// Set up mapView view.
