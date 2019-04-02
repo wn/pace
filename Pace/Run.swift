@@ -16,6 +16,13 @@ class Run: IdentifiableObject {
     @objc dynamic var timeSpent: Double = 0.0
     var checkpoints = List<CheckPoint>()
 
+    // computed properties, ignored by Realm
+    var startingLocation: CLLocation? {
+        return checkpoints.first?.location
+    }
+    var totalDistance: Double? {
+        return checkpoints.last?.routeDistance
+    }
     // TODO: test map and compactMap for Realm List
     var locations: [CLLocation] {
         return checkpoints.compactMap { $0.location }

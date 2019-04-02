@@ -62,15 +62,13 @@ class Route: IdentifiableObject {
     /// Only use this method to add a following run, but not a creator run.
     /// - Parameter run: The new run to be added.
     func addNewRun(_ run: Run) {
+        // TODO: check for 80% overlap
         paces.append(run)
     }
 
     /// Generates stats for this route.
     /// - Returns: The RouteStats if all stats can be obtained; nil otherwise.
     func generateStats() -> RouteStats? {
-        let startingLocation = creatorRun?.checkpoints.first?.location
-        let dateCreated = creatorRun?.dateCreated
-        let totalDistance = creatorRun?.checkpoints.last?.routeDistance
         var runners = Set<User>()
         for run in paces {
             guard let runner = run.runner else {
@@ -78,10 +76,11 @@ class Route: IdentifiableObject {
             }
             runners.insert(runner)
         }
-        let numOfRunners = runners.count
-        let fastestTime: Double? = paces.min(ofProperty: "timeSpent")
-        return RouteStats(startingLocation: startingLocation, dateCreated: dateCreated, totalDistance: totalDistance,
-                          numOfRunners: numOfRunners, fastestTime: fastestTime)
+        return RouteStats(startingLocation: creatorRun?.startingLocation,
+                          dateCreated: creatorRun?.dateCreated,
+                          totalDistance: creatorRun?.totalDistance,
+                          numOfRunners: runners.count,
+                          fastestTime: paces.min(ofProperty: "timeSpent"))
     }
 
     static private func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
