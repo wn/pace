@@ -62,11 +62,7 @@ class RunningViewController: UIViewController, UIGestureRecognizerDelegate, GMSM
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
-<<<<<<< HEAD
         lockMap(false)
-=======
-        lockMap(true)
->>>>>>> bc80979adf21016e282fec5d5a0d16f8aad32a1c
     }
 
     /// Set up mapView view.

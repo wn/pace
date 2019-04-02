@@ -10,16 +10,11 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import AVFoundation
-import DrawerKit
 import RealmSwift
 
 class ActivityViewController: UIViewController {
-
-    var drawerDisplayController: DrawerDisplayController?
-
-    var vc: PresentedViewController? = nil
-
     var routesManager = RealmRouteManager.forDefaultRealm
+    var originalPullUpControllerViewSize: CGSize = .zero
 
     @IBOutlet private var mapView: GMSMapView!
     // Keep track of all markers in the map
@@ -32,9 +27,6 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
-
-        vc = storyboard?.instantiateViewController(withIdentifier: "presented") as? PresentedViewController
-        doModalPresentation(passthrough: true)
     }
 
     /// Set up mapView view.
@@ -149,14 +141,8 @@ extension ActivityViewController: GMSMapViewDelegate {
             redrawMarkers(mapView.camera.target)
             return false
         }
-//        let alert = UIAlertController(
-//            title: "TAPPED MARKER",
-//            message: "tapped marker \(markerID)",
-//            preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//        self.present(alert, animated: true)
-
-        vc?.label.text = "\(markerID)"
+        print("MARKER PRESSED: \(markerID)")
+        renderDrawer(stats: "\(markerID)")
         return true
     }
 
@@ -205,5 +191,36 @@ extension ActivityViewController: GMSMapViewDelegate {
         mapView.setCameraPosition(location.coordinate)
         mapView.animate(toZoom: Constants.initialZoom)
         return true
+    }
+}
+
+// MARK: - Extension for drawer
+extension ActivityViewController {
+    private var pullUpDrawer: DrawerViewController {
+        let currentPullUpController = children
+            .filter({ $0 is DrawerViewController })
+            .first as? DrawerViewController
+        let pullUpController: DrawerViewController = currentPullUpController ?? UIStoryboard(name: "Main",bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! DrawerViewController
+        if originalPullUpControllerViewSize == .zero {
+            originalPullUpControllerViewSize = pullUpController.view.bounds.size
+        }
+        return pullUpController
+    }
+
+    private func addPullUpController() {
+        guard children.filter({ $0 is DrawerViewController }).isEmpty else {
+            return
+        }
+        let pullUpController = pullUpDrawer
+        _ = pullUpController.view // call pullUpController.viewDidLoad()
+        let tabbarHeight = tabBarController?.tabBar.frame.height ?? 0
+        addPullUpController(pullUpController,
+                            initialStickyPointOffset: pullUpController.initialPointOffset + tabbarHeight,
+                            animated: true)
+    }
+
+    func renderDrawer(stats: String) {
+        addPullUpController()
+        pullUpDrawer.setStats(stat: stats)
     }
 }
