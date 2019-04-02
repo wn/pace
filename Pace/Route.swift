@@ -66,8 +66,8 @@ class Route: IdentifiableObject {
     }
 
     /// Generates stats for this route.
-    /// - Returns: A tuple of startingLocation, dateCreated, totalDistance, numOfRunners, fastestTime.
-    func generateStats() -> (CLLocation?, Date?, Double?, Int?, Double?) {
+    /// - Returns: The RouteStats if all stats can be obtained; nil otherwise.
+    func generateStats() -> RouteStats? {
         let startingLocation = creatorRun?.checkpoints.first?.location
         let dateCreated = creatorRun?.dateCreated
         let totalDistance = creatorRun?.checkpoints.last?.routeDistance
@@ -80,8 +80,8 @@ class Route: IdentifiableObject {
         }
         let numOfRunners = runners.count
         let fastestTime: Double? = paces.min(ofProperty: "timeSpent")
-        return (startingLocation: startingLocation, dateCreated: dateCreated, totalDistance: totalDistance,
-                numOfRunners: numOfRunners, fastestTime: fastestTime)
+        return RouteStats(startingLocation: startingLocation, dateCreated: dateCreated, totalDistance: totalDistance,
+                          numOfRunners: numOfRunners, fastestTime: fastestTime)
     }
 
     static private func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
