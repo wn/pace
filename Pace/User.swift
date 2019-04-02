@@ -19,14 +19,6 @@ class User: IdentifiableObject {
         self.name = name
     }
 
-<<<<<<< HEAD
-    required convenience init?(data: [String: Any]) {
-        guard
-            let docId = data[FireDB.primaryKey] as? String,
-            let name = data[FireDB.User.name] as? String
-            else {
-                return nil
-=======
     func addFavouriteRoute(_ route: Route) -> Bool {
         do {
             try Realm.getDefault.write {
@@ -36,7 +28,6 @@ class User: IdentifiableObject {
         } catch {
             print("Operation unsuccessful: \(error.localizedDescription)")
             return false
->>>>>>> 101572c87a1970f308c03bc389a297135b06247a
         }
     }
 

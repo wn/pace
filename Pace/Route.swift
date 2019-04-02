@@ -39,24 +39,6 @@ class Route: IdentifiableObject {
         self.thumbnailData = thumbnail
     }
 
-<<<<<<< HEAD
-    required init?(data: [String: Any]) {
-        guard
-            let docId = data[FireDB.primaryKey] as? String,
-            let userData = data[FireDB.Route.creatorData] as? [String: Any],
-            let name = data[FireDB.Route.name] as? String,
-            let locations = data[FireDB.Route.checkpoints] as? [GeoPoint] else {
-                return nil
-        }
-        guard let creator = User(data: userData) else {
-            return nil
-        }
-        self.creator = creator
-        self.docId = docId
-        self.name = name
-        self.paces = []
-        self.locations = locations.map { CLLocation(latitude: $0.latitude, longitude: $0.longitude) }
-=======
     /// Constructs a route given the runner, name and the first (creator) run.
     /// - Parameters:
     ///   - creator: The creator of the route.
@@ -64,7 +46,6 @@ class Route: IdentifiableObject {
     ///   - creatorRun: The first run in the route (made by creator).
     convenience init(creator: User, name: String, thumbnail: Data? = nil, creatorRun: Run) {
         self.init(creator: creator, name: name, thumbnail: thumbnail, creatorRun: creatorRun, paces: List(creatorRun))
->>>>>>> 101572c87a1970f308c03bc389a297135b06247a
     }
 
     /// Constructs a Route with the given runner and an array of pre-normalized checkpoints representing
@@ -131,23 +112,3 @@ class Route: IdentifiableObject {
         return normalizedCheckPoints
     }
 }
-<<<<<<< HEAD
-
-extension Route {
-    func toFirestoreDoc() -> [String: Any] {
-        guard
-            let startLocation = locations.first,
-            let endLocation = locations.last else {
-                return [String: Any]()
-        }
-        return [
-            FireDB.Route.startLocation: startLocation,
-            FireDB.Route.endLocation: endLocation,
-            FireDB.Route.name: name,
-            FireDB.Route.checkpoints: locations,
-            FireDB.Route.creatorId: creator.docId ?? ""
-        ]
-    }
-}
-=======
->>>>>>> 101572c87a1970f308c03bc389a297135b06247a

@@ -249,11 +249,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWI-XE-huj" userLabel="UserStats" customClass="UserStatsView" customModule="Pace" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="245"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="269.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xSb-Gd-IpN" userLabel="RunHistory">
-                                <rect key="frame" x="0.0" y="317" width="375" height="301"/>
+                                <rect key="frame" x="0.0" y="341.5" width="375" height="325.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vyW-GF-MNs">
                                     <size key="itemSize" width="375" height="50"/>
@@ -711,6 +711,10 @@
     <resources>
         <image name="activity-icon" width="22.5" height="22.5"/>
         <image name="fav-icon" width="22.5" height="22.5"/>
+        <image name="feed-icon" width="22.5" height="22.5"/>
         <image name="profile-icon" width="22.5" height="22.5"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Xpv-di-AqK"/>
+    </inferredMetricsTieBreakers>
 </document>
