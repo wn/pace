@@ -58,6 +58,25 @@ class Route: IdentifiableObject {
         self.init(creator: runner, name: "blabla", creatorRun: initialRun)
     }
 
+    /// Generates stats for this route.
+    /// - Returns: A tuple of startingLocation, dateCreated, totalDistance, numOfRunners, fastestTime.
+    func generateStats() -> (CLLocation?, Date?, Double?, Int?, Double?) {
+        let startingLocation = creatorRun?.checkpoints.first?.location
+        let dateCreated = creatorRun?.dateCreated
+        let totalDistance = creatorRun?.checkpoints.last?.routeDistance
+        var runners = Set<User>()
+        for run in paces {
+            guard let runner = run.runner else {
+                fatalError("A run should have a runner.")
+            }
+            runners.insert(runner)
+        }
+        let numOfRunners = runners.count
+        let fastestTime: Double? = paces.min(ofProperty: "timeSpent")
+        return (startingLocation: startingLocation, dateCreated: dateCreated, totalDistance: totalDistance,
+                numOfRunners: numOfRunners, fastestTime: fastestTime)
+    }
+
     static private func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
         guard runnerRecords.count >= 2 else {
             // empty or only has one point recorded

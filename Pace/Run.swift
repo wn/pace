@@ -12,6 +12,8 @@ import RealmSwift
 
 class Run: IdentifiableObject {
     @objc dynamic var runner: User?
+    @objc dynamic var dateCreated = Date()
+    @objc dynamic var timeSpent: Double = 0.0
     var checkpoints = List<CheckPoint>()
 
     // TODO: test map and compactMap for Realm List
@@ -21,7 +23,11 @@ class Run: IdentifiableObject {
 
     convenience init(runner: User, checkpoints: [CheckPoint]) {
         self.init()
+        guard let lastPoint = checkpoints.last else {
+            return
+        }
         self.runner = runner
+        self.timeSpent = lastPoint.time
         self.checkpoints = {
             let checkpointsList = List<CheckPoint>()
             checkpointsList.append(objectsIn: checkpoints)
