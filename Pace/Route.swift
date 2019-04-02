@@ -58,6 +58,13 @@ class Route: IdentifiableObject {
         self.init(creator: runner, name: "blabla", creatorRun: initialRun)
     }
 
+    /// Add a new run to this Route.
+    /// Only use this method to add a following run, but not a creator run.
+    /// - Parameter run: The new run to be added.
+    func addNewRun(_ run: Run) {
+        paces.append(run)
+    }
+
     /// Generates stats for this route.
     /// - Returns: A tuple of startingLocation, dateCreated, totalDistance, numOfRunners, fastestTime.
     func generateStats() -> (CLLocation?, Date?, Double?, Int?, Double?) {
