@@ -19,6 +19,10 @@ struct Constants {
     static let maxZoom: Float = 18.5
     static let minZoomToShowRoutes: Float = 17.1
 
+    // MARK: - Run constants
+    static let startFlag = "start-flag.png"
+    static let endFlag = "end-flag.png"
+
     // MARK: - Realm constants
     static let paceCloudInstanceAddress = "pace.us1.cloud.realm.io"
 

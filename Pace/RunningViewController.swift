@@ -6,15 +6,15 @@ import GoogleMaps
 import GooglePlaces
 import AVFoundation
 
-class RunningViewController: UIViewController, UIGestureRecognizerDelegate {
+class RunningViewController: UIViewController, UIGestureRecognizerDelegate, GMSMapViewDelegate {
     @IBOutlet private var position: UILabel!
     @IBOutlet private var mapView: GMSMapView!
 
     var isMapLock = false
 
     func lockMap(_ lock: Bool) {
-        isMapLock = lock
-        mapView.settings.setAllGesturesEnabled(lock)
+//        isMapLock = lock
+//        mapView.settings.setAllGesturesEnabled(!lock)
     }
 
     // TODO: Remove the following.
@@ -26,6 +26,9 @@ class RunningViewController: UIViewController, UIGestureRecognizerDelegate {
 
     var distance: CLLocationDistance = 0
     let stopwatch = StopwatchTimer()
+    var runStarted: Bool {
+        return stopwatch.isPlaying
+    }
 
     // ------------- ------------- ------------- -------------
 
@@ -58,7 +61,7 @@ class RunningViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
-        lockMap(true)
+        lockMap(false)
     }
 
     /// Set up mapView view.
@@ -69,7 +72,7 @@ class RunningViewController: UIViewController, UIGestureRecognizerDelegate {
 
         // Required to activate gestures in mapView
         mapView.settings.consumesGesturesInView = false
-        // mapView.delegate = self
+        mapView.delegate = self
         mapView.setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
     }
 
@@ -123,6 +126,9 @@ extension RunningViewController: CLLocationManagerDelegate {
     ///   - manager: The location manager for the view-controller.
     ///   - locations: The array of location updates that is not handled yet.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard runStarted else {
+            return
+        }
         guard let location = locations.last else {
             return
         }
@@ -141,6 +147,9 @@ extension RunningViewController: CLLocationManagerDelegate {
             let distanceMoved = location.distance(from: lastMarkedPosition)
             print("Distance =  \(distanceMoved)")
             distance += distanceMoved
+        } else {
+            // First time getting a location
+            addMarker(Constants.startFlag, position: location.coordinate)
         }
         lastMarkedPosition = location
 
@@ -149,13 +158,20 @@ extension RunningViewController: CLLocationManagerDelegate {
 
         // TODO: We redraw the whole map again. is this good?
         // Or can we dynamically generate the map without mutablepath
-        mapView.clear()
+        //mapView.clear()
         let mapPaths = GMSPolyline(path: path)
         mapPaths.strokeColor = .blue
         mapPaths.strokeWidth = 5
-        mapPaths.map = mapView
+        mapPaths.map = self.mapView
 
         position.text = "lat: \(coordinate.latitude), long: \(coordinate.longitude)"
+    }
+
+    func addMarker(_ image: String, position: CLLocationCoordinate2D) {
+        let marker = GMSMarker(position: position)
+        marker.map = mapView
+        marker.icon = UIImage(named: image)
+
     }
 
     /// Function from CLLocationManagerDelegate.
@@ -196,28 +212,39 @@ extension RunningViewController {
     }
 
     @IBAction private func endRun(_ sender: UIButton) {
-        VoiceAssistant.say("Run completed")
+        guard runStarted else {
+            return
+        }
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let summaryVC =
             storyBoard.instantiateViewController(
                 withIdentifier: "summaryVC")
                 as! ActivitySummaryViewController
         summaryVC.setStats(distance: distance, time: stopwatch.timeElapsed())
+        endRun()
         renderChildController(summaryVC)
-        stopwatch.reset()
-        distance = 0
-        locationManager.stopUpdatingLocation()
-        updateLabels()
     }
     
     func startRun() {
-        guard stopwatch.isPlaying == false else {
+        guard !runStarted else {
             return
         }
         VoiceAssistant.say("Starting run")
         locationManager.startUpdatingLocation()
         stopwatch.start()
         updateValues()
+    }
+
+    func endRun() {
+        VoiceAssistant.say("Run completed")
+        stopwatch.reset()
+        distance = 0
+        locationManager.stopUpdatingLocation()
+        updateLabels()
+        guard let endPos = lastMarkedPosition?.coordinate else {
+            return
+        }
+        addMarker(Constants.endFlag, position: endPos)
     }
 
     func updateGPS() {
