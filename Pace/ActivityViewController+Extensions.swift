@@ -9,16 +9,17 @@
 import UIKit
 import DrawerKit
 
-private extension ActivityViewController {
+extension ActivityViewController {
     // TODO: Automatically populate when marker is press, instead
     // of pressing a button.
     @IBAction func presentButtonTapped() {
-        doModalPresentation(passthrough: false)
+        doModalPresentation(passthrough: true)
     }
 
     func doModalPresentation(passthrough: Bool) {
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "presented")
-            as? PresentedViewController else { return }
+        guard let vc = vc else {
+            return
+        }
 
         // you can provide the configuration values in the initialiser...
         var configuration = DrawerConfiguration(/* ..., ..., ..., */)
@@ -38,7 +39,7 @@ private extension ActivityViewController {
         configuration.isDrawerDraggable = true
         configuration.isFullyPresentableByDrawerTaps = true
         configuration.numberOfTapsForFullDrawerPresentation = 1
-        configuration.isDismissableByOutsideDrawerTaps = true
+        configuration.isDismissableByOutsideDrawerTaps = false
         configuration.numberOfTapsForOutsideDrawerDismissal = 1
         configuration.flickSpeedThreshold = 3
         configuration.upperMarkGap = 100 // default is 40
@@ -69,7 +70,7 @@ private extension ActivityViewController {
         drawerDisplayController = DrawerDisplayController(presentingViewController: self,
                                                           presentedViewController: vc,
                                                           configuration: configuration,
-                                                          inDebugMode: true)
+                                                          inDebugMode: false)
 
         present(vc, animated: true)
     }

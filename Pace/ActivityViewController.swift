@@ -17,6 +17,8 @@ class ActivityViewController: UIViewController {
 
     var drawerDisplayController: DrawerDisplayController?
 
+    var vc: PresentedViewController? = nil
+
     var routesManager = RealmRouteManager.forDefaultRealm
 
     @IBOutlet private var mapView: GMSMapView!
@@ -30,6 +32,9 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
+
+        vc = storyboard?.instantiateViewController(withIdentifier: "presented") as? PresentedViewController
+        doModalPresentation(passthrough: true)
     }
 
     /// Set up mapView view.
@@ -144,12 +149,14 @@ extension ActivityViewController: GMSMapViewDelegate {
             redrawMarkers(mapView.camera.target)
             return false
         }
-        let alert = UIAlertController(
-            title: "TAPPED MARKER",
-            message: "tapped marker \(markerID)",
-            preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true)
+//        let alert = UIAlertController(
+//            title: "TAPPED MARKER",
+//            message: "tapped marker \(markerID)",
+//            preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//        self.present(alert, animated: true)
+
+        vc?.label.text = "\(markerID)"
         return true
     }
 
