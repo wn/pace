@@ -10,6 +10,13 @@ class RunningViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet private var position: UILabel!
     @IBOutlet private var mapView: GMSMapView!
 
+    var isMapLock = false
+
+    func lockMap(_ lock: Bool) {
+        isMapLock = lock
+        mapView.settings.setAllGesturesEnabled(lock)
+    }
+
     // TODO: Remove the following.
     // Used for testing only
     @IBOutlet private var horizontalAccuracy: UILabel!
@@ -51,6 +58,7 @@ class RunningViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
+        lockMap(true)
     }
 
     /// Set up mapView view.
@@ -117,6 +125,11 @@ extension RunningViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {
             return
+        }
+        if isMapLock {
+            // Set to current location
+            mapView.setCameraPosition(location.coordinate)
+            mapView.animate(toZoom: Constants.initialZoom)
         }
         guard let acc = locationManager.location?.horizontalAccuracy, acc < Constants.guardAccuracy else {
             // Our accuracy is too poor, assume connection has failed.
@@ -196,7 +209,7 @@ extension RunningViewController {
         locationManager.stopUpdatingLocation()
         updateLabels()
     }
-
+    
     func startRun() {
         guard stopwatch.isPlaying == false else {
             return
