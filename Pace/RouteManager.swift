@@ -10,7 +10,7 @@ import RealmSwift
 import CoreLocation
 
 protocol RouteManager {
-    func getRoutesNear(location: CLLocation, _ completion: (Results<Route>?, Error?) -> Void)
+    func getRoutesNear(coordinate: CLLocationCoordinate2D, _ completion: (Results<Route>?, Error?) -> Void)
     func addNewRoute(route: Route) -> Bool
     func getRunsFor(route: Route, _ completion: (List<Run>?, Error?) -> Void)
 }
@@ -24,7 +24,8 @@ class RealmRouteManager: RouteManager {
         self.realm = realm
     }
 
-    func getRoutesNear(location: CLLocation, _ completion: (Results<Route>?, Error?) -> Void) {
+    // TODO: complete the implementation
+    func getRoutesNear(coordinate: CLLocationCoordinate2D, _ completion: (Results<Route>?, Error?) -> Void) {
         let routes = realm.objects(Route.self)
         completion(routes, nil)
     }
@@ -41,6 +42,7 @@ class RealmRouteManager: RouteManager {
         }
     }
 
+    // TODO: complete the implementation
     func getRunsFor(route: Route, _ completion: (List<Run>?, Error?) -> Void) {
         completion(route.paces, nil)
     }
