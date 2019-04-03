@@ -12,21 +12,21 @@ import RealmSwift
 
 class RequireLoginController: UIViewController {
     var userSession: UserSessionManager?
-    
+
     override func viewDidLoad() {
         userSession = RealmUserSessionManager.forDefaultRealm
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if userSession?.currentUser == nil {
             presentUserPrompt()
         }
     }
-    
+
     private func presentUserPrompt() {
         let alertController = UIAlertController(title: "Login", message: "Supply a nice nickname!", preferredStyle: .alert)
-        
+
         alertController.addAction(UIAlertAction(title: "Login", style: .default, handler: { [unowned self] _ -> Void in
             let textField = alertController.textFields![0]
             let newUser = self.userSession?.findUserWith(name: textField.text!, orSignUp: true)

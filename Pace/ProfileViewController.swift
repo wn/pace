@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController, ViewDelegate {
         for i in 0...100 {
             checkpoints.append(
                 CheckPoint(location: CLLocation(latitude: Double(100 + i), longitude: Double(100 + i)),
-                           time: Double(i*2), actualDistance: Double(i*2), routeDistance: Double(i*2)))
+                           time: Double(i * 2), actualDistance: Double(i * 2), routeDistance: Double(i * 2)))
         }
 
         for _ in 0...5 {

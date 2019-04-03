@@ -43,7 +43,7 @@ class Formatter {
         } else {
             dateFormatter.dateFormat = "MMM, yyyy"
         }
-        
+
         let mmyyString = dateFormatter.string(from: date)
         let day = calendar.component(.day, from: date)
         let ddString = numberFormatter.string(from: NSNumber(value: day)) ?? ""

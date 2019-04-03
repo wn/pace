@@ -10,7 +10,7 @@ import UIKit
 
 class RunAnalysisController: UIViewController {
     weak var run: Run?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = Titles.run

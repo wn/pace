@@ -35,11 +35,11 @@ class FavouriteViewController: RequireLoginController {
             let favouriteRoutes = favouriteRoutes else {
             return
         }
-        let startCp = CheckPoint(location: CLLocation(latitude: 1.308012, longitude: 103.773094),
+        let startCp = CheckPoint(location: CLLocation(latitude: 1.308_012, longitude: 103.773_094),
                                  time: 0,
                                  actualDistance: 0,
                                  routeDistance: 0)
-        let endCp = CheckPoint(location: CLLocation(latitude: 1.308012, longitude: 103.773094),
+        let endCp = CheckPoint(location: CLLocation(latitude: 1.308_012, longitude: 103.773_094),
                                  time: 100,
                                  actualDistance: 1.2,
                                  routeDistance: 1.2)

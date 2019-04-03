@@ -9,7 +9,7 @@
 import UIKit
 
 class UserStatsView: UIView {
-    
+
     @IBOutlet private var content: UIView!
     @IBOutlet private var totalDistance: UILabel!
     @IBOutlet private var totalRuns: UILabel!
@@ -20,7 +20,7 @@ class UserStatsView: UIView {
         super.init(frame: frame)
         loadXib()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadXib()
@@ -29,7 +29,7 @@ class UserStatsView: UIView {
     func setStats(with user: User) {
 
     }
-    
+
     private func loadXib() {
         Bundle.main.loadNibNamed(Xibs.userStatsView, owner: self, options: nil)
         addSubview(content)

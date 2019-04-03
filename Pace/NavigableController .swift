@@ -15,7 +15,7 @@ class NavigableController: UINavigationController {
         super.viewDidLoad()
         loadNavigationBar()
     }
-    
+
     func loadNavigationBar() {
     }
 }

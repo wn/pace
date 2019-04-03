@@ -124,7 +124,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="-101.59999999999999" y="209.59520239880061"/>
+            <point key="canvasLocation" x="-103.2" y="209.59520239880061"/>
         </view>
     </objects>
 </document>

@@ -9,7 +9,7 @@
 import UIKit
 
 class RouteCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet private var content: UIView!
     @IBOutlet private var thumbnail: UIImageView!
     @IBOutlet private var startLocation: UILabel!
