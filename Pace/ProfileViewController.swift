@@ -13,8 +13,7 @@ import CoreLocation
 
 class ProfileViewController: UIViewController, ViewDelegate {
 
-    let route = Dummy.route
-    var paces = [Pace]()
+    var runs = [Run]()
     @IBOutlet private var runHistory: UICollectionView!
 
     override func viewDidLoad() {
@@ -30,16 +29,16 @@ class ProfileViewController: UIViewController, ViewDelegate {
         }
 
         for _ in 0...5 {
-            paces.append(Pace(runner: Dummy.user, checkpoints: checkpoints))
+            runs.append(Run(runner: Dummy.user, checkpoints: checkpoints))
         }
         runHistory.reloadData()
     }
 
-    func buttonTapped(_ pace: Pace) {
+    func buttonTapped(_ run: Run) {
         guard let runAnalysis = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Identifiers.runAnalysisController) as? RunAnalysisController else {
             return
         }
-        runAnalysis.pace = pace
+        runAnalysis.run = run
         navigationController?.pushViewController(runAnalysis, animated: true)
     }
 }
@@ -47,12 +46,12 @@ class ProfileViewController: UIViewController, ViewDelegate {
 // MARK: - UICollectionViewDataSource
 extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return paces.count
+        return runs.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.pace, for: indexPath) as! PaceView
-        cell.pace = paces[indexPath.item]
+        cell.run = runs[indexPath.item]
         cell.delegate = self
         return cell
     }

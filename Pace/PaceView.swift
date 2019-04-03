@@ -17,15 +17,15 @@ class PaceView: UICollectionViewCell {
     @IBOutlet private var paceButton: UIButton!
     private var dateFormat = DateComponentsFormatter()
     weak var delegate: ViewDelegate?
-    weak var runnerPace: Pace?
+    weak var currentRun: Run?
 
-    var pace: Pace? {
+    var run: Run? {
         get {
-            return runnerPace
+            return currentRun
         }
-        set(pace) {
-            runnerPace = pace
-            guard let lastCp = pace?.checkpoints.last else {
+        set(run) {
+            currentRun = run
+            guard let lastCp = currentRun?.checkpoints.last else {
                 return
             }
             paceDistance.text = String(lastCp.routeDistance) + "km"
@@ -46,7 +46,7 @@ class PaceView: UICollectionViewCell {
     }
     
     @IBAction func buttonPressed(_ sender: Any) {
-        guard let runnerPace = runnerPace else {
+        guard let runnerPace = currentRun else {
             return
         }
         delegate?.buttonTapped(runnerPace)

@@ -10,5 +10,5 @@ import Foundation
 import UIKit
 
 protocol ViewDelegate: class {
-    func buttonTapped(_ pace: Pace)
+    func buttonTapped(_ pace: Run)
 }
