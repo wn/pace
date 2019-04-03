@@ -103,7 +103,7 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
         cellForItemAt indexPath: IndexPath
         ) -> UICollectionViewCell {
         let cell = collectionView
-            .dequeueReusableCell(withReuseIdentifier: favouriteCellIdentifier, for: indexPath) as! FavouriteRoutesCollectionViewCell
+            .dequeueReusableCell(withReuseIdentifier: favouriteCellIdentifier, for: indexPath) as! RouteCollectionViewCell
         cell.route = favouriteRoutes?[indexPath.item]
         // Configure the cell
         return cell

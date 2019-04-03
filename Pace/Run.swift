@@ -28,6 +28,9 @@ class Run: IdentifiableObject {
     var startingLocation: CLLocation? {
         return checkpoints.first?.location
     }
+    var endingLocation: CLLocation? {
+        return checkpoints.last?.location
+    }
     var totalDistance: Double? {
         return checkpoints.last?.routeDistance
     }

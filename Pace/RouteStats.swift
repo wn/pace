@@ -14,6 +14,7 @@ import CoreLocation
 struct RouteStats {
 
     let startingLocation: CLLocation
+    let endingLocation: CLLocation
     let dateCreated: Date
     let totalDistance: Double
     let numOfRunners: Int
@@ -21,8 +22,10 @@ struct RouteStats {
 
     /// Constructs a RouteStats based on the provided stats.
     /// - Returns: The constructed `RouteStats` if all of the stats are not nil; nil otherwise.
-    init?(startingLocation: CLLocation?, dateCreated: Date?, totalDistance: Double?, numOfRunners: Int?, fastestTime: Double?) {
+    init?(startingLocation: CLLocation?, endingLocation: CLLocation?, dateCreated: Date?,
+          totalDistance: Double?, numOfRunners: Int?, fastestTime: Double?) {
         guard let startingLocation = startingLocation,
+            let endingLocation = endingLocation,
             let dateCreated = dateCreated,
             let totalDistance = totalDistance,
             let numOfRunners = numOfRunners,
@@ -30,6 +33,7 @@ struct RouteStats {
                 return nil
         }
         self.startingLocation = startingLocation
+        self.endingLocation = endingLocation
         self.dateCreated = dateCreated
         self.totalDistance = totalDistance
         self.numOfRunners = numOfRunners

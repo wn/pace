@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import RealmSwift
+import GoogleMaps
 
 extension CLLocation {
 
@@ -27,6 +28,17 @@ extension CLLocation {
         return RealmCLLocation(self)
     }
 
+    /// Returns the address of the coordinate - reverse geocoding
+    func address(_ callback: @escaping (String?) -> ()) {
+        let geocoder = GMSGeocoder()
+        geocoder.reverseGeocodeCoordinate(self.coordinate) { response, error in
+            guard let result = response?.firstResult() else {
+                return
+            }
+            callback(result.thoroughfare)
+        }
+    }
+    
     /// Checks if this Location is considered the same as another Location, based on coordinates only.
     /// - Parameter other: the other Location to compare to.
     /// - Returns: true if this location is considered same as the given location.

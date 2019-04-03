@@ -276,21 +276,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aQV-zU-mBL">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZuV-UM-zZ8">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="66.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FAVOURITE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cc6-oR-7Xu">
-                                                <rect key="frame" x="142" y="23" width="90" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qQg-hd-NaB">
-                                        <rect key="frame" x="0.0" y="66.5" width="375" height="531.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bRw-XE-dxn">
                                             <size key="itemSize" width="64" height="58"/>
@@ -326,7 +313,6 @@
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="width" secondItem="Gva-UJ-vuS" secondAttribute="width" id="184-4f-1hZ"/>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="top" secondItem="6bS-VD-9M5" secondAttribute="top" id="1uh-bo-Jdf"/>
                             <constraint firstItem="B47-Iw-Owh" firstAttribute="centerX" secondItem="Gva-UJ-vuS" secondAttribute="centerX" id="J7e-4Z-dtZ"/>
-                            <constraint firstItem="ZuV-UM-zZ8" firstAttribute="height" secondItem="Gva-UJ-vuS" secondAttribute="height" multiplier="0.1" id="Z07-4r-Dk7"/>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="bottom" secondItem="6bS-VD-9M5" secondAttribute="bottom" id="qMm-LT-tTF"/>
                             <constraint firstItem="aQV-zU-mBL" firstAttribute="centerX" secondItem="6bS-VD-9M5" secondAttribute="centerX" id="uCA-ea-eVi"/>
                         </constraints>

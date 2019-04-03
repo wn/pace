@@ -47,5 +47,6 @@ struct Titles {
 
 struct Xibs {
     static let runCollectionViewCell = "RunCollectionViewCell"
+    static let routeCollectionViewCell = "RouteCollectionViewCell"
     static let userStatsView = "UserStatsView"
 }

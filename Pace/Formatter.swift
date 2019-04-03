@@ -10,15 +10,18 @@ import Foundation
 
 class Formatter {
     private static var calendar = Calendar.current
-    // Formatter for numbers
+
+    /// Formatter for numbers
     private static var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .ordinal
         return formatter
     }()
-    // Formatter for run times
+
+    /// Formatter for run times
     private static var timeFormatter = DateComponentsFormatter()
-    // Formatter for dates
+
+    /// Formatter for dates
     private static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: Constants.locale)
@@ -41,7 +44,7 @@ class Formatter {
             dateFormatter.dateFormat = "MMM, yyyy"
         }
         
-        let mmyyString = dateFormatter.string(from: date) ?? ""
+        let mmyyString = dateFormatter.string(from: date)
         let day = calendar.component(.day, from: date)
         let ddString = numberFormatter.string(from: NSNumber(value: day)) ?? ""
         return "\(ddString) \(mmyyString)"
