@@ -20,7 +20,7 @@ class DrawerViewController: PullUpController {
         label.text = stat
     }
 
-    var initialState: InitialState = .contracted
+    var initialState: InitialState = .expanded
 
     // MARK: - IBOutlets
 
@@ -31,16 +31,10 @@ class DrawerViewController: PullUpController {
             searchSeparatorView.layer.cornerRadius = searchSeparatorView.frame.height/2
         }
     }
-    @IBOutlet private weak var firstPreviewView: UIView!
-    @IBOutlet private weak var secondPreviewView: UIView!
+    @IBOutlet private weak var ExpandedView: UIView!
 
     var initialPointOffset: CGFloat {
-        switch initialState {
-        case .contracted:
-            return RouteStatsContainerView?.frame.height ?? 0
-        case .expanded:
-            return pullUpControllerPreferredSize.height
-        }
+        return RouteStatsContainerView.frame.maxY
     }
 
     public var portraitSize: CGSize = .zero
@@ -50,14 +44,11 @@ class DrawerViewController: PullUpController {
     override func viewDidLoad() {
         super.viewDidLoad()
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
-                              height: secondPreviewView.frame.maxY)
-        secondPreviewView.layer.borderColor = UIColor.black.cgColor
-        secondPreviewView.layer.borderWidth = 2
+                              height: ExpandedView.frame.maxY)
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        view.layer.cornerRadius = 12
     }
 
     override func pullUpControllerWillMove(to stickyPoint: CGFloat) {
@@ -65,14 +56,14 @@ class DrawerViewController: PullUpController {
     }
 
     override func pullUpControllerDidMove(to stickyPoint: CGFloat) {
-        print("did move to \(stickyPoint)")
+        // print("did move to \(stickyPoint)")
+        if stickyPoint == 0 {
+            parent?.removePullUpController(self, animated: true)
+        }
     }
 
     override func pullUpControllerDidDrag(to point: CGFloat) {
         // print("did drag to \(point)")
-        if point < tabBarHeight {
-            parent?.removePullUpController(self, animated: true)
-        }
     }
 
     var tabBarHeight: CGFloat {
@@ -86,16 +77,11 @@ class DrawerViewController: PullUpController {
     }
 
     override var pullUpControllerMiddleStickyPoints: [CGFloat] {
-        switch initialState {
-        case .contracted:
-            return [firstPreviewView.frame.maxY]
-        case .expanded:
-            return [RouteStatsContainerView.frame.maxY, secondPreviewView.frame.maxY]
-        }
+        return [0, RouteStatsContainerView.frame.maxY, ExpandedView.frame.maxY]
     }
 
     override var pullUpControllerBounceOffset: CGFloat {
-        return 20
+        return 0
     }
 
     override func pullUpControllerAnimate(action: PullUpController.Action,

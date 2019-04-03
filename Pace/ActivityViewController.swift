@@ -213,9 +213,8 @@ extension ActivityViewController {
         }
         let pullUpController = pullUpDrawer
         _ = pullUpController.view // call pullUpController.viewDidLoad()
-        let tabbarHeight = tabBarController?.tabBar.frame.height ?? 0
         addPullUpController(pullUpController,
-                            initialStickyPointOffset: pullUpController.initialPointOffset + tabbarHeight,
+                            initialStickyPointOffset: pullUpController.initialPointOffset,
                             animated: true)
     }
 
