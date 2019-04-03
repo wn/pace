@@ -10,35 +10,57 @@ import RealmSwift
 import CoreLocation
 
 protocol RouteManager {
-    func getRoutesNear(coordinate: CLLocationCoordinate2D, _ completion: (Results<Route>?, Error?) -> Void)
-    func addNewRoute(route: Route) -> Bool
+    func getRoutesNear(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
+                       _ completion: (Results<Route>?, Error?) -> Void)
+    func saveNewRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
+    func saveNewRun(_ run: Run, toRoute: Route, _ completion: ((Error?) -> Void)?)
     func getRunsFor(route: Route, _ completion: (List<Run>?, Error?) -> Void)
 }
 
 class RealmRouteManager: RouteManager {
     static let forDefaultRealm = RealmRouteManager()
 
+    private var storageAPI: PaceStorageAPI
     private var realm: Realm
+    private var inMemoryRealm: Realm
 
-    init(realm: Realm = Realm.getDefault, userManager: RealmUserSessionManager = RealmUserSessionManager.forDefaultRealm) {
-        self.realm = realm
+    private init(persistentRealm: Realm, inMemoryRealm: Realm, storageAPI: PaceStorageAPI) {
+        self.realm = persistentRealm
+        self.inMemoryRealm = inMemoryRealm
+        self.storageAPI = storageAPI
+    }
+
+    convenience init() {
+        self.init(persistentRealm: .persistent, inMemoryRealm: .inMemory,
+                  storageAPI: PaceFirestoreAPI(persistentRealm: .persistent, inMemoryRealm: .inMemory))
     }
 
     // TODO: complete the implementation
-    func getRoutesNear(coordinate: CLLocationCoordinate2D, _ completion: (Results<Route>?, Error?) -> Void) {
+    func getRoutesNear(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
+                       _ completion: (Results<Route>?, Error?) -> Void) {
         let routes = realm.objects(Route.self)
         completion(routes, nil)
     }
 
-    func addNewRoute(route: Route) -> Bool {
+    func saveNewRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {
         do {
             try realm.write {
                 realm.add(route)
             }
-            return true
+            storageAPI.uploadRoute(route, completion)
         } catch {
             print(error.localizedDescription)
-            return false
+        }
+    }
+
+    func saveNewRun(_ run: Run, toRoute route: Route, _ completion: ((Error?) -> Void)?) {
+        do {
+            try realm.write {
+                realm.add(run)
+            }
+            storageAPI.uploadRun(run, forRoute: route, completion)
+        } catch {
+            print(error.localizedDescription)
         }
     }
 

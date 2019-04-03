@@ -68,6 +68,14 @@ class FavouriteViewController: RequireLoginController {
                                 name: String(randomString),
                                 thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
                                 creatorRun: Run(runner: currentUser, checkpoints: []))
+        let manager = RealmRouteManager()
+        manager.saveNewRoute(randomRoute) {
+            if $0 == nil {
+                print("success")
+            } else {
+                print("failure")
+            }
+        }
         userSession?.addToFavourites(route: randomRoute, nil)
     }
 }
