@@ -14,21 +14,21 @@ class ActivitySummaryViewController: UIViewController {
     @IBOutlet private var paceLabel: UILabel!
     @IBOutlet private var timeLabel: UILabel!
 
-    var distance: CLLocationDistance = 0
+    var distance: Int = 0
     var pace: Int = 0
     var time: Int = 0
 
     func setStats(distance: CLLocationDistance, time: Int) {
-        self.distance = distance
+        self.distance = Int(distance)
         self.pace = distance == 0 ? 0 : Int(time / Int(distance))
         self.time = time
     }
 
     override func viewDidLoad() {
-        distanceLabel.text = "distance: \(distance)"
+        distanceLabel.text = "distance: \(distance) meters"
         paceLabel.text = "pace: \(pace)"
-        timeLabel.text = "time: \(time)"
-        VoiceAssistant.say("Distance: \(Int(distance)) meters")
+        timeLabel.text = "time: \(time) seconds"
+        VoiceAssistant.say("Distance: \(distance) meters")
         VoiceAssistant.say("Duration: \(time) seconds")
         VoiceAssistant.say("Pace: \(pace) seconds per kilometer")
     }

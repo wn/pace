@@ -11,13 +11,19 @@ struct Constants {
     static let checkPointDistanceInterval = 20.0
 
     // MARK: - MapView location constants
-    // mapView constants
+    // googleMapView constants
     static let initialZoom: Float = 17.5
     // Horizontal accuracy must be greater than guardDistance for map to update
     static let guardAccuracy: CLLocationDistance = 25
     static let minZoom: Float = 11.5
     static let maxZoom: Float = 18.5
     static let minZoomToShowRoutes: Float = 17.1
+
+    // MARK: - Run constants
+    static let startFlag = "start-flag.png"
+    static let endFlag = "end-flag.png"
+    static let startButton = "start-icon.png"
+    static let endButton = "end-icon.png"
 
     // MARK: - Realm constants
     static let paceCloudInstanceAddress = "pace.us1.cloud.realm.io"
