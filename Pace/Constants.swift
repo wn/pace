@@ -22,6 +22,7 @@ struct Constants {
     // MARK: - Run constants
     static let startFlag = "start-flag.png"
     static let endFlag = "end-flag.png"
+    static let startButton = "start-icon.png"
 
     // MARK: - Realm constants
     static let paceCloudInstanceAddress = "pace.us1.cloud.realm.io"

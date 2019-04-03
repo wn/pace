@@ -27,6 +27,21 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
+        renderStartButton()
+    }
+
+    private func renderStartButton() {
+        let buttonSize: CGFloat = 75
+        let startXPos = mapView.layer.frame.midX
+        let startYPos = mapView.frame.height
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
+        let startImage = UIImage(named: Constants.startButton)
+        button.setImage(startImage, for: .normal)
+        button.center = CGPoint(x: startXPos, y: startYPos)
+        mapView.addSubview(button)
+        mapView.bringSubviewToFront(button)
+
+        button.addTarget(self, action: #selector(startRun(_:)), for: .touchUpInside)
     }
 
     /// Set up mapView view.
@@ -59,7 +74,8 @@ class ActivityViewController: UIViewController {
 //        mapView.setCameraPosition(location.coordinate)
     }
 
-    @IBAction private func startRun(_ sender: UIButton) {
+    @objc
+    func startRun(_ sender: UIButton) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let runVC =
             storyBoard.instantiateViewController(

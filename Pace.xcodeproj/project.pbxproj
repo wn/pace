@@ -238,6 +238,16 @@
 			name = FavouritesView;
 			sourceTree = "<group>";
 		};
+		EB5E42DF2254EC8300A60207 /* SelectActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
+				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
+				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
+			);
+			name = SelectActivityView;
+			sourceTree = "<group>";
+		};
 		EB931BB62238066500AFF868 = {
 			isa = PBXGroup;
 			children = (
@@ -302,11 +312,9 @@
 		EBAF2CB622492BB9000FCE0E /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				EB5E42DF2254EC8300A60207 /* SelectActivityView */,
 				62FF75202244CE8F008847CC /* RunningViewController.swift */,
 				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
-				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
-				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
-				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
