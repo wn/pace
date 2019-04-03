@@ -17,7 +17,6 @@
 		6209717D223CDC3100BD26E1 /* StopWatch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6209717C223CDC3100BD26E1 /* StopWatch.xib */; };
 		6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6209717E223CDFDF00BD26E1 /* StopWatch.swift */; };
 		62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF750B22413F73008847CC /* CLLocation+Extension.swift */; };
-		62FF75252244CE8F008847CC /* RunningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75202244CE8F008847CC /* RunningViewController.swift */; };
 		62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75212244CE8F008847CC /* ProfileViewController.swift */; };
 		62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75222244CE8F008847CC /* FavouriteViewController.swift */; };
 		62FF75282244CE8F008847CC /* FriendsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */; };
@@ -42,6 +41,8 @@
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
 		EB5E42DC2253CEF400A60207 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */; };
 		EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42DD2253CF4A00A60207 /* PullUpController.swift */; };
+		EB5E42E12255015A00A60207 /* ActivityViewController+Drawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */; };
+		EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
 		EB931BC82238066500AFF868 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BC62238066500AFF868 /* Main.storyboard */; };
 		EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC92238066500AFF868 /* Pace.xcdatamodeld */; };
@@ -75,7 +76,6 @@
 		6209717C223CDC3100BD26E1 /* StopWatch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StopWatch.xib; sourceTree = "<group>"; };
 		6209717E223CDFDF00BD26E1 /* StopWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
 		62FF750B22413F73008847CC /* CLLocation+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
-		62FF75202244CE8F008847CC /* RunningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningViewController.swift; sourceTree = "<group>"; };
 		62FF75212244CE8F008847CC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		62FF75222244CE8F008847CC /* FavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		62FF75232244CE8F008847CC /* FriendsFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsFeedViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +104,8 @@
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
 		EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		EB5E42DD2253CF4A00A60207 /* PullUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUpController.swift; sourceTree = "<group>"; };
+		EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityViewController+Drawer.swift"; sourceTree = "<group>"; };
+		EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityViewController+Run.swift"; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BC22238066500AFF868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB931BC72238066500AFF868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -242,8 +244,10 @@
 			isa = PBXGroup;
 			children = (
 				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
+				EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */,
 				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
 				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
+				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
 			);
 			name = SelectActivityView;
 			sourceTree = "<group>";
@@ -313,7 +317,6 @@
 			isa = PBXGroup;
 			children = (
 				EB5E42DF2254EC8300A60207 /* SelectActivityView */,
-				62FF75202244CE8F008847CC /* RunningViewController.swift */,
 				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
 			);
 			name = Activity;
@@ -582,10 +585,10 @@
 				8B4F948A224BD472004500CA /* LoginViewController.swift in Sources */,
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
 				6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */,
-				62FF75252244CE8F008847CC /* RunningViewController.swift in Sources */,
 				5C5124BB225316FB00B8A15C /* RouteStats.swift in Sources */,
 				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
+				EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */,
 				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
@@ -607,6 +610,7 @@
 				EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
+				EB5E42E12255015A00A60207 /* ActivityViewController+Drawer.swift in Sources */,
 				8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */,
 				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,

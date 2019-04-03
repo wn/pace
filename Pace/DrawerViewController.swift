@@ -25,16 +25,16 @@ class DrawerViewController: PullUpController {
     // MARK: - IBOutlets
 
     @IBOutlet private weak var visualEffectView: UIVisualEffectView!
-    @IBOutlet private weak var RouteStatsContainerView: UIView!
+    @IBOutlet private weak var routeStatsContainerView: UIView!
     @IBOutlet private weak var searchSeparatorView: UIView! {
         didSet {
-            searchSeparatorView.layer.cornerRadius = searchSeparatorView.frame.height/2
+            searchSeparatorView.layer.cornerRadius = searchSeparatorView.frame.height / 2
         }
     }
-    @IBOutlet private weak var ExpandedView: UIView!
+    @IBOutlet private weak var expandedView: UIView!
 
     var initialPointOffset: CGFloat {
-        return RouteStatsContainerView.frame.maxY
+        return routeStatsContainerView.frame.maxY
     }
 
     public var portraitSize: CGSize = .zero
@@ -44,7 +44,7 @@ class DrawerViewController: PullUpController {
     override func viewDidLoad() {
         super.viewDidLoad()
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
-                              height: ExpandedView.frame.maxY)
+                              height: expandedView.frame.maxY)
     }
 
     override func viewDidLayoutSubviews() {
@@ -77,7 +77,7 @@ class DrawerViewController: PullUpController {
     }
 
     override var pullUpControllerMiddleStickyPoints: [CGFloat] {
-        return [0, RouteStatsContainerView.frame.maxY, ExpandedView.frame.maxY]
+        return [0, routeStatsContainerView.frame.maxY, expandedView.frame.maxY]
     }
 
     override var pullUpControllerBounceOffset: CGFloat {

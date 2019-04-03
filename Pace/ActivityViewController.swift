@@ -15,53 +15,79 @@ import RealmSwift
 class ActivityViewController: UIViewController {
     var routesManager = RealmRouteManager.forDefaultRealm
     var originalPullUpControllerViewSize: CGSize = .zero
+    let coreLocationManager = CLLocationManager()
 
-    @IBOutlet private var mapView: GMSMapView!
+    @IBAction func endRunButton(_ sender: UIButton) {
+        endRun(sender)
+    }
+
+    @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var pace: UILabel!
+    @IBOutlet var time: UILabel!
+
+    @IBOutlet private var googleMapView: GMSMapView!
     // Keep track of all markers in the map
     // Int to change to run details instead.
     var markers: [GMSMarker: Int] = [:]
 
-    private let locationManager = CLLocationManager()
+    // MARK: - Running variables
+    var path = GMSMutablePath()
+    var lastMarkedPosition: CLLocation?
+    var distance: CLLocationDistance = 0
+    let stopwatch = StopwatchTimer()
+    var runStarted: Bool {
+        return stopwatch.isPlaying
+    }
+
+    private var _isConnected = true
+    var isConnected: Bool {
+        // Make into a GPS symbol instead
+        get {
+            return _isConnected
+        }
+        set (value) {
+            let connected = _isConnected == false && value == true
+            let disconnected = _isConnected == true && value == false
+
+            if connected {
+                VoiceAssistant.say("Reconnected to GPS!")
+                print("CONNECTED")
+            } else if disconnected {
+                VoiceAssistant.say("GPS signal lost!")
+                print("DISCONNECTED")
+            }
+            _isConnected = value
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
-        renderStartButton()
+        renderMapButton()
+        setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
     }
 
-    private func renderStartButton() {
-        let buttonSize: CGFloat = 75
-        let startXPos = mapView.layer.frame.midX
-        let startYPos = mapView.frame.height
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
-        let startImage = UIImage(named: Constants.startButton)
-        button.setImage(startImage, for: .normal)
-        button.center = CGPoint(x: startXPos, y: startYPos)
-        mapView.addSubview(button)
-        mapView.bringSubviewToFront(button)
-
-        button.addTarget(self, action: #selector(startRun(_:)), for: .touchUpInside)
-    }
+    let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     /// Set up mapView view.
     private func setupMapView() {
-        mapView.animate(toZoom: Constants.initialZoom)
-        mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
+        googleMapView.animate(toZoom: Constants.initialZoom)
+        googleMapView.isMyLocationEnabled = true
+        googleMapView.settings.myLocationButton = true
 
-        // Required to activate gestures in mapView
-        mapView.settings.consumesGesturesInView = false
-        mapView.delegate = self
-        mapView.setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
+        // Required to activate gestures in googleMapView
+        googleMapView.settings.consumesGesturesInView = false
+        googleMapView.delegate = self
+        googleMapView.setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
     }
 
     /// Set up location manager from CoreLocation.
     private func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.requestLocation()
+        coreLocationManager.delegate = self
+        coreLocationManager.requestAlwaysAuthorization()
+        coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        coreLocationManager.requestLocation()
 //        while locationManager.location == nil {
 //            // Wait 1 second and check if location has been loaded.
 //            // If location cannot be loaded, code here will never terminate
@@ -71,22 +97,12 @@ class ActivityViewController: UIViewController {
 //        guard let location = locationManager.location else {
 //            fatalError("While loop should have captured nil value!")
 //        }
-//        mapView.setCameraPosition(location.coordinate)
-    }
-
-    @objc
-    func startRun(_ sender: UIButton) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let runVC =
-            storyBoard.instantiateViewController(
-                withIdentifier: "runVC")
-                as! RunningViewController
-        renderChildController(runVC)
+//        googleMapView.setCameraPosition(location.coordinate)
     }
 
     func getNearbyRoutes() -> [CLLocation] {
-        let topLeft = mapView.projection.visibleRegion().farLeft
-        let bottomRight = mapView.projection.visibleRegion().nearRight
+        let topLeft = googleMapView.projection.visibleRegion().farLeft
+        let bottomRight = googleMapView.projection.visibleRegion().nearRight
 
         // Bounds of maps to retrieve
         let top = topLeft.latitude
@@ -101,62 +117,32 @@ class ActivityViewController: UIViewController {
         let four = CLLocation(latitude: top - 0.000_5, longitude: right)
         return [one, two, three, four]
     }
-
-    func generateRouteMarker(location: CLLocation, count: Int) -> GMSMarker {
-        let marker = GMSMarker(position: location.coordinate)
-        marker.map = mapView
-        marker.icon = UIImage(named: "\(count)")
-        return marker
-    }
-}
-
-// MARK: - CLLocationManagerDelegate
-extension ActivityViewController: CLLocationManagerDelegate {
-    /// Function from CLLocationManagerDelegate.
-    /// Check if there was any change to the authorization level
-    /// for location and handle the change.
-    ///
-    /// - Parameters:
-    ///   - manager: The location manager for the view-controller.
-    ///   - status: The newly set location authorization level.
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            return
-        }
-        locationManager.requestWhenInUseAuthorization()
-    }
-
-    /// Function from CLLocationManagerDelegate.
-    /// Empty function as we do not do anything about the
-    /// location result. 
-    ///
-    /// - Parameters:
-    ///   - manager: The location manager for the view-controller.
-    ///   - locations: The array of location updates that is not handled yet.
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        return
-    }
-
-    /// Function from CLLocationManagerDelegate.
-    /// Function to handle failure in retrieving location.
-    ///
-    /// - Parameters:
-    ///   - manager: The location manager for the view-controller.
-    ///   - error: Error message.
-    func locationManager(_ manager: CLLocationManager,
-                         didFailWithError error: Error) {
-        // isConnected = false
-    }
 }
 
 // MARK: - GMSMapViewDelegate
 extension ActivityViewController: GMSMapViewDelegate {
+    private func renderMapButton() {
+        let startXPos = googleMapView.layer.frame.midX
+        let startYPos = googleMapView.frame.height
+        mapButton.center = CGPoint(x: startXPos, y: startYPos)
+        googleMapView.addSubview(mapButton)
+        googleMapView.bringSubviewToFront(mapButton)
+    }
+
+    func setMapButton(imageUrl: String, action: Selector) {
+        mapButton.removeTarget(nil, action: nil, for: .allEvents)
+        let startImage = UIImage(named: imageUrl)
+        mapButton.setImage(startImage, for: .normal)
+        mapButton.addTarget(self, action: action, for: .touchUpInside)
+    }
+
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         // TODO: On tap with marker, pop up route description
         guard let markerID = markers[marker] else {
             redrawMarkers(mapView.camera.target)
             return false
         }
+        // TODO: send correct stats to drawer
         print("MARKER PRESSED: \(markerID)")
         renderDrawer(stats: "\(markerID)")
         return true
@@ -167,9 +153,12 @@ extension ActivityViewController: GMSMapViewDelegate {
     }
 
     func redrawMarkers(_ location: CLLocationCoordinate2D) {
-        mapView.clear()
+        guard !runStarted else {
+            return
+        }
+        googleMapView.clear()
         markers = [:]
-        guard mapView.camera.zoom > Constants.minZoomToShowRoutes else {
+        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
             return
         }
 
@@ -201,41 +190,105 @@ extension ActivityViewController: GMSMapViewDelegate {
     }
 
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        guard let location = locationManager.location else {
+        guard let location = coreLocationManager.location else {
             return false
         }
         mapView.setCameraPosition(location.coordinate)
         mapView.animate(toZoom: Constants.initialZoom)
         return true
     }
+
+    func addMarker(_ image: String, position: CLLocationCoordinate2D) {
+        let marker = GMSMarker(position: position)
+        marker.map = googleMapView
+        marker.icon = UIImage(named: image)
+    }
+
+    func clearMap() {
+        googleMapView.clear()
+    }
+
+    func generateRouteMarker(location: CLLocation, count: Int) -> GMSMarker {
+        let marker = GMSMarker(position: location.coordinate)
+        marker.map = googleMapView
+        marker.icon = UIImage(named: "\(count)")
+        return marker
+    }
 }
 
-// MARK: - Extension for drawer
-extension ActivityViewController {
-    private var pullUpDrawer: DrawerViewController {
-        let currentPullUpController = children
-            .filter({ $0 is DrawerViewController })
-            .first as? DrawerViewController
-        let pullUpController: DrawerViewController = currentPullUpController ?? UIStoryboard(name: "Main",bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! DrawerViewController
-        if originalPullUpControllerViewSize == .zero {
-            originalPullUpControllerViewSize = pullUpController.view.bounds.size
-        }
-        return pullUpController
-    }
-
-    private func addPullUpController() {
-        guard children.filter({ $0 is DrawerViewController }).isEmpty else {
+// MARK: - CLLocationManagerDelegate
+extension ActivityViewController: CLLocationManagerDelegate {
+    /// Function from CLLocationManagerDelegate.
+    /// Check if there was any change to the authorization level
+    /// for location and handle the change.
+    ///
+    /// - Parameters:
+    ///   - manager: The location manager for the view-controller.
+    ///   - status: The newly set location authorization level.
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
             return
         }
-        let pullUpController = pullUpDrawer
-        _ = pullUpController.view // call pullUpController.viewDidLoad()
-        addPullUpController(pullUpController,
-                            initialStickyPointOffset: pullUpController.initialPointOffset,
-                            animated: true)
+        coreLocationManager.requestWhenInUseAuthorization()
     }
 
-    func renderDrawer(stats: String) {
-        addPullUpController()
-        pullUpDrawer.setStats(stat: stats)
+    /// Function from CLLocationManagerDelegate.
+    /// Empty function as we do not do anything about the
+    /// location result.
+    ///
+    /// - Parameters:
+    ///   - manager: The location manager for the view-controller.
+    ///   - locations: The array of location updates that is not handled yet.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard runStarted else {
+            return
+        }
+        guard let location = locations.last else {
+            return
+        }
+        //        if isMapLock {
+        //            // Set to current location
+        //            googleMapView.setCameraPosition(location.coordinate)
+        //            googleMapView.animate(toZoom: Constants.initialZoom)
+        //        }
+        guard let acc = coreLocationManager.location?.horizontalAccuracy, acc < Constants.guardAccuracy else {
+            // Our accuracy is too poor, assume connection has failed.
+            isConnected = false
+            return
+        }
+        isConnected = true
+        if let lastMarkedPosition = lastMarkedPosition {
+            let distanceMoved = location.distance(from: lastMarkedPosition)
+            print("Distance =  \(distanceMoved)")
+            distance += distanceMoved
+        } else {
+            // First time getting a location
+            addMarker(Constants.startFlag, position: location.coordinate)
+        }
+        lastMarkedPosition = location
+
+        let coordinate = location.coordinate
+        path.add(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
+
+        // TODO: We redraw the whole map again. is this good?
+        // Or can we dynamically generate the map without mutablepath
+        //googleMapView.clear()
+        let mapPaths = GMSPolyline(path: path)
+        mapPaths.strokeColor = .blue
+        mapPaths.strokeWidth = 5
+        mapPaths.map = googleMapView
+
+        // position.text = "lat: \(coordinate.latitude), long: \(coordinate.longitude)"
+    }
+
+    /// Function from CLLocationManagerDelegate.
+    /// Function to handle failure in retrieving location.
+    ///
+    /// - Parameters:
+    ///   - manager: The location manager for the view-controller.
+    ///   - error: Error message.
+    func locationManager(_ manager: CLLocationManager,
+                         didFailWithError error: Error) {
+        isConnected = false
     }
 }

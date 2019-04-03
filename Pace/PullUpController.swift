@@ -90,9 +90,9 @@ open class PullUpController: UIViewController {
      At the end of the gesture the pull up controller will scroll at the nearest point in the list.
      */
     public final var pullUpControllerAllStickyPoints: [CGFloat] {
-        var sc_allStickyPoints = [initialStickyPointOffset, pullUpControllerPreferredSize.height].compactMap { $0 }
-        sc_allStickyPoints.append(contentsOf: pullUpControllerMiddleStickyPoints)
-        return sc_allStickyPoints.sorted()
+        var scAllStickyPoints = [initialStickyPointOffset, pullUpControllerPreferredSize.height].compactMap { $0 }
+        scAllStickyPoints.append(contentsOf: pullUpControllerMiddleStickyPoints)
+        return scAllStickyPoints.sorted()
     }
 
     private var leftConstraint: NSLayoutConstraint?
@@ -166,7 +166,7 @@ open class PullUpController: UIViewController {
             completion: { [weak self] _ in
                 self?.pullUpControllerDidMove(to: visiblePoint)
                 completion?()
-        })
+            })
     }
 
     /**
@@ -220,7 +220,7 @@ open class PullUpController: UIViewController {
             self.portraitPreviousStickyPointIndex = nil
         }
 
-        coordinator.animate(alongsideTransition: { [weak self] coordinator in
+        coordinator.animate(alongsideTransition: { [weak self] _ in
             self?.refreshConstraints(newSize: size)
             if let targetStickyPoint = targetStickyPoint {
                 self?.pullUpControllerMoveToVisiblePoint(targetStickyPoint, animated: true, completion: nil)
@@ -377,7 +377,7 @@ open class PullUpController: UIViewController {
             else { return }
         let targetTopOffset = nearestStickyPointY(yVelocity: verticalVelocity)  // v = px/s
         let distanceToConver = topConstraint.constant - targetTopOffset // px
-        let animationDuration = max(0.08, min(0.3, TimeInterval(abs(distanceToConver/verticalVelocity)))) // s = px/v
+        let animationDuration = max(0.08, min(0.3, TimeInterval(abs(distanceToConver / verticalVelocity)))) // s = px/v
         setTopOffset(targetTopOffset, animationDuration: animationDuration)
     }
 
@@ -431,7 +431,7 @@ open class PullUpController: UIViewController {
         } else {
             topConstraint?.constant = nearestStickyPointY(yVelocity: 0)
         }
-        leftConstraint?.constant = (parentViewSize.width - min(pullUpControllerPreferredSize.width, parentViewSize.width))/2
+        leftConstraint?.constant = (parentViewSize.width - min(pullUpControllerPreferredSize.width, parentViewSize.width)) / 2
         widthConstraint?.constant = pullUpControllerPreferredSize.width
         heightConstraint?.constant = pullUpControllerPreferredSize.height
         heightConstraint?.priority = .defaultLow
@@ -500,7 +500,7 @@ extension UIViewController {
                 pullUpController.willMove(toParent: nil)
                 pullUpController.view.removeFromSuperview()
                 pullUpController.removeFromParent()
-        })
+            })
     }
 
 }
