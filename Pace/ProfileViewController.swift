@@ -50,7 +50,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.pace, for: indexPath) as! PaceView
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.pace, for: indexPath) as! RunCollectionViewCell
         cell.run = runs[indexPath.item]
         cell.delegate = self
         return cell

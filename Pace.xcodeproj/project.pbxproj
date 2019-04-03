@@ -14,6 +14,7 @@
 		5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E42D9223CCA0D00DEC2F4 /* User.swift */; };
 		5CD24196224FBFD6001AE19A /* CLLocationExtensionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */; };
 		62559671225492C90036C2B9 /* StopwatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62559670225492C90036C2B9 /* StopwatchTimer.swift */; };
+		6255967322549B2D0036C2B9 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6255967222549B2D0036C2B9 /* Formatter.swift */; };
 		62A7C5BE224EB087009585D3 /* NavigableController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7C5BD224EB087009585D3 /* NavigableController .swift */; };
 		62A7C5C0224F4D32009585D3 /* RunAnalysisController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7C5BF224F4D32009585D3 /* RunAnalysisController.swift */; };
 		62A7C5C2224F6041009585D3 /* UserStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A7C5C1224F6041009585D3 /* UserStatsView.xib */; };
@@ -22,8 +23,8 @@
 		62FF75252244CE8F008847CC /* RunningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75202244CE8F008847CC /* RunningViewController.swift */; };
 		62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75212244CE8F008847CC /* ProfileViewController.swift */; };
 		62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75222244CE8F008847CC /* FavouriteViewController.swift */; };
-		62FF752E22495B54008847CC /* PaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF752D22495B54008847CC /* PaceView.swift */; };
-		62FF753022495BB6008847CC /* PaceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FF752F22495BB6008847CC /* PaceView.xib */; };
+		62FF752E22495B54008847CC /* RunCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF752D22495B54008847CC /* RunCollectionViewCell.swift */; };
+		62FF753022495BB6008847CC /* RunCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FF752F22495BB6008847CC /* RunCollectionViewCell.xib */; };
 		62FF753222495E36008847CC /* ViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF753122495E36008847CC /* ViewDelegate.swift */; };
 		71F83142E66EA4579166BE50 /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928B400BE1578AC54C04BD25 /* Pods_Pace.framework */; };
 		8B044D36223F7C0600AA8449 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D34223F7C0600AA8449 /* Route.swift */; };
@@ -52,7 +53,6 @@
 		EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB931BCC2238066800AFF868 /* Assets.xcassets */; };
 		EB931BD02238066800AFF868 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BCE2238066800AFF868 /* LaunchScreen.storyboard */; };
 		EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BDA2238066800AFF868 /* PaceTests.swift */; };
-		EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */; };
 		EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */; };
 		EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +75,7 @@
 		5C8E42D9223CCA0D00DEC2F4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationExtensionSpec.swift; sourceTree = "<group>"; };
 		62559670225492C90036C2B9 /* StopwatchTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopwatchTimer.swift; sourceTree = "<group>"; };
+		6255967222549B2D0036C2B9 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		62A7C5BD224EB087009585D3 /* NavigableController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigableController .swift"; sourceTree = "<group>"; };
 		62A7C5BF224F4D32009585D3 /* RunAnalysisController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAnalysisController.swift; sourceTree = "<group>"; };
 		62A7C5C1224F6041009585D3 /* UserStatsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserStatsView.xib; sourceTree = "<group>"; };
@@ -83,8 +84,8 @@
 		62FF75202244CE8F008847CC /* RunningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningViewController.swift; sourceTree = "<group>"; };
 		62FF75212244CE8F008847CC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		62FF75222244CE8F008847CC /* FavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
-		62FF752D22495B54008847CC /* PaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceView.swift; sourceTree = "<group>"; };
-		62FF752F22495BB6008847CC /* PaceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaceView.xib; sourceTree = "<group>"; };
+		62FF752D22495B54008847CC /* RunCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunCollectionViewCell.swift; sourceTree = "<group>"; };
+		62FF752F22495BB6008847CC /* RunCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunCollectionViewCell.xib; sourceTree = "<group>"; };
 		62FF753122495E36008847CC /* ViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDelegate.swift; sourceTree = "<group>"; };
 		62FF753322496348008847CC /* RequireLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequireLoginController.swift; sourceTree = "<group>"; };
 		8B044D34223F7C0600AA8449 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -121,7 +122,6 @@
 		EB931BD62238066800AFF868 /* PaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BDA2238066800AFF868 /* PaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceTests.swift; sourceTree = "<group>"; };
 		EB931BDC2238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesListViewController.swift; sourceTree = "<group>"; };
 		EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySummaryViewController.swift; sourceTree = "<group>"; };
 		EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Render.swift"; sourceTree = "<group>"; };
 		F1B14D43ECC2EE78A3B9F30D /* Pods-PaceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceUITests.debug.xcconfig"; path = "Target Support Files/Pods-PaceUITests/Pods-PaceUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -168,8 +168,8 @@
 		62097179223CDB2B00BD26E1 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				62FF752D22495B54008847CC /* PaceView.swift */,
-				62FF752F22495BB6008847CC /* PaceView.xib */,
+				62FF752D22495B54008847CC /* RunCollectionViewCell.swift */,
+				62FF752F22495BB6008847CC /* RunCollectionViewCell.xib */,
 				62A7C5C3224F6053009585D3 /* UserStatsView.swift */,
 				62A7C5C1224F6041009585D3 /* UserStatsView.xib */,
 			);
@@ -202,6 +202,7 @@
 			children = (
 				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
+				6255967222549B2D0036C2B9 /* Formatter.swift */,
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
 				EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */,
 				EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */,
@@ -283,7 +284,6 @@
 				62A7C5BF224F4D32009585D3 /* RunAnalysisController.swift */,
 				8BD4C5842252026700D0CEC7 /* LoginViews */,
 				EBAF2CB622492BB9000FCE0E /* Activity */,
-				EBAF2CB12248DBC0000FCE0E /* Containers */,
 				EB408D372243F95D00F9C561 /* FavouritesView */,
 				8B59BE5A223CE59600C2E9E7 /* Helpers */,
 				5C8E42D0223CC7E900DEC2F4 /* Models */,
@@ -308,14 +308,6 @@
 				5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */,
 			);
 			path = PaceTests;
-			sourceTree = "<group>";
-		};
-		EBAF2CB12248DBC0000FCE0E /* Containers */ = {
-			isa = PBXGroup;
-			children = (
-				EBAF2CB22248DC0B000FCE0E /* RoutesListViewController.swift */,
-			);
-			name = Containers;
 			sourceTree = "<group>";
 		};
 		EBAF2CB622492BB9000FCE0E /* Activity */ = {
@@ -437,7 +429,7 @@
 				EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */,
 				62A7C5C2224F6041009585D3 /* UserStatsView.xib in Resources */,
 				EB931BC82238066500AFF868 /* Main.storyboard in Resources */,
-				62FF753022495BB6008847CC /* PaceView.xib in Resources */,
+				62FF753022495BB6008847CC /* RunCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,8 +608,7 @@
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,
 				62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
-				62FF752E22495B54008847CC /* PaceView.swift in Sources */,
-				EBAF2CB32248DC0B000FCE0E /* RoutesListViewController.swift in Sources */,
+				62FF752E22495B54008847CC /* RunCollectionViewCell.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */,
@@ -626,6 +617,7 @@
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
 				8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */,
 				8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */,
+				6255967322549B2D0036C2B9 /* Formatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,7 +24,9 @@ struct Constants {
 
     static let AuthURL = "https://\(paceCloudInstanceAddress)"
     static let RealmURL = "https://\(paceCloudInstanceAddress)/pace"
-
+    
+    // MARK: Locale variables
+    static let locale = "en_SG"
 }
 
 /// For Development Purposes until the rest of the interface is ready
@@ -44,6 +46,6 @@ struct Titles {
 }
 
 struct Xibs {
-    static let paceView = "PaceView"
+    static let runCollectionViewCell = "RunCollectionViewCell"
     static let userStatsView = "UserStatsView"
 }
