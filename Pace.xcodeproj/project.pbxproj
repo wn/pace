@@ -243,13 +243,21 @@
 		EB5E42DF2254EC8300A60207 /* SelectActivityView */ = {
 			isa = PBXGroup;
 			children = (
+				EB5E42E42255115000A60207 /* Drawer */,
 				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
 				EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */,
-				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
-				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
 				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
 			);
 			name = SelectActivityView;
+			sourceTree = "<group>";
+		};
+		EB5E42E42255115000A60207 /* Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
+				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
+			);
+			name = Drawer;
 			sourceTree = "<group>";
 		};
 		EB931BB62238066500AFF868 = {
