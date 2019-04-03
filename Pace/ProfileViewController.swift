@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController, ViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = Titles.profile
+        navigationItem.title = Titles.profile
         // Dummy Data
 
         var checkpoints = [CheckPoint]()
@@ -50,7 +50,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.pace, for: indexPath) as! RunCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.runCell, for: indexPath) as! RunCollectionViewCell
         cell.run = runs[indexPath.item]
         cell.delegate = self
         return cell

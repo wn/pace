@@ -35,13 +35,15 @@ struct Dummy {
 }
 
 struct Identifiers {
-    static let pace = "paceIdentifier"
+    static let runCell = "runCell"
+    static let routeCell = "routeCell"
     static let userStats = "userStatsIdentifier"
     static let runAnalysisController = "runAnalysisController"
 }
 
 struct Titles {
     static let profile = "Profile"
+    static let favourites = "Favourites"
     static let run = "Run"
 }
 

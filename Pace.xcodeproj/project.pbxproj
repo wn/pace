@@ -21,6 +21,7 @@
 		62A7C5C0224F4D32009585D3 /* RunAnalysisController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7C5BF224F4D32009585D3 /* RunAnalysisController.swift */; };
 		62A7C5C2224F6041009585D3 /* UserStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A7C5C1224F6041009585D3 /* UserStatsView.xib */; };
 		62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7C5C3224F6053009585D3 /* UserStatsView.swift */; };
+		62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */; };
 		62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF750B22413F73008847CC /* CLLocation+Extension.swift */; };
 		62FF75252244CE8F008847CC /* RunningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75202244CE8F008847CC /* RunningViewController.swift */; };
 		62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75212244CE8F008847CC /* ProfileViewController.swift */; };
@@ -81,6 +82,7 @@
 		62A7C5BF224F4D32009585D3 /* RunAnalysisController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAnalysisController.swift; sourceTree = "<group>"; };
 		62A7C5C1224F6041009585D3 /* UserStatsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserStatsView.xib; sourceTree = "<group>"; };
 		62A7C5C3224F6053009585D3 /* UserStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsView.swift; sourceTree = "<group>"; };
+		62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequireLoginController.swift; sourceTree = "<group>"; };
 		62FF750B22413F73008847CC /* CLLocation+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
 		62FF75202244CE8F008847CC /* RunningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningViewController.swift; sourceTree = "<group>"; };
 		62FF75212244CE8F008847CC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -88,7 +90,6 @@
 		62FF752D22495B54008847CC /* RunCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunCollectionViewCell.swift; sourceTree = "<group>"; };
 		62FF752F22495BB6008847CC /* RunCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunCollectionViewCell.xib; sourceTree = "<group>"; };
 		62FF753122495E36008847CC /* ViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDelegate.swift; sourceTree = "<group>"; };
-		62FF753322496348008847CC /* RequireLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequireLoginController.swift; sourceTree = "<group>"; };
 		8B044D34223F7C0600AA8449 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		8B4F9489224BD472004500CA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -259,7 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				62559670225492C90036C2B9 /* StopwatchTimer.swift */,
-				62FF753322496348008847CC /* RequireLoginController.swift */,
+				62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */,
 				62FF75202244CE8F008847CC /* RunningViewController.swift */,
 				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
 				62FF75212244CE8F008847CC /* ProfileViewController.swift */,
@@ -592,6 +593,7 @@
 				62FF752E22495B54008847CC /* RunCollectionViewCell.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
+				62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */,
 				8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */,
 				62A7C5C0224F4D32009585D3 /* RunAnalysisController.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,

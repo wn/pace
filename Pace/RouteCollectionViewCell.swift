@@ -47,11 +47,13 @@ class RouteCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadXib()
+        self.layer.masksToBounds = true
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadXib()
+        self.layer.masksToBounds = true
     }
 
     private func loadXib() {

@@ -8,70 +8,51 @@
 
 import UIKit
 import RealmSwift
+import CoreLocation
 
-class FavouriteViewController: UIViewController {
+class FavouriteViewController: RequireLoginController {
     // MARK: - Properties
     private var favouriteRoutes: List<Route>? = List<Route>()
-    private let favouriteCellIdentifier = "favouriteCell"
-    private var userSession: UserSessionManager?
     private var notificationToken: NotificationToken?
 
     @IBOutlet private weak var favourites: UICollectionView!
-    @IBOutlet private weak var userIndicator: UILabel!
 
     // Constants for table view
     /// Number of items per row for the `UITableView`
     let itemsPerRow = 1
 
     /// Section insets for `UITableViewCell`s.
-    private let sectionInsets = UIEdgeInsets(top: 0,
-                                             left: 20.0,
-                                             bottom: 100.0,
-                                             right: 20.0)
+    private let sectionInsets = UIEdgeInsets(top: 0.0,
+                                             left: 0.0,
+                                             bottom: 0.0,
+                                             right: 0.0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        favourites.register(UINib(nibName: "FavouriteRouteViewCell", bundle: Bundle.main),
-                            forCellWithReuseIdentifier: favouriteCellIdentifier)
-        userSession = RealmUserSessionManager.forDefaultRealm
-        favouriteRoutes = userSession?.getFavouriteRoutes()
-        guard let favouriteRoutes = favouriteRoutes else {
+        navigationItem.title = Titles.favourites
+//        favouriteRoutes = userSession?.getFavouriteRoutes()
+        guard let currentUser = userSession?.currentUser,
+            let favouriteRoutes = favouriteRoutes else {
             return
         }
-        notificationToken = favouriteRoutes.observe { [unowned self] _ in self.favourites.reloadData() }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if userSession?.currentUser == nil {
-            presentUserPrompt()
+        let startCp = CheckPoint(location: CLLocation(latitude: 1.308012, longitude: 103.773094),
+                                 time: 0,
+                                 actualDistance: 0,
+                                 routeDistance: 0)
+        let endCp = CheckPoint(location: CLLocation(latitude: 1.308012, longitude: 103.773094),
+                                 time: 100,
+                                 actualDistance: 1.2,
+                                 routeDistance: 1.2)
+        for _ in 0...4 {
+            let route = Route(creator: currentUser,
+                              name: "Random name",
+                              creatorRun: Run(runner: currentUser, checkpoints: [startCp, endCp]))
+            favouriteRoutes.append(route)
         }
-        updateUserIndicator()
-    }
-
-    private func presentUserPrompt() {
-        let alertController = UIAlertController(title: "Login", message: "Supply a nice nickname!", preferredStyle: .alert)
-
-        alertController.addAction(UIAlertAction(title: "Login", style: .default, handler: { [unowned self] _ -> Void in
-            let textField = alertController.textFields![0]
-            let newUser = self.userSession?.findUserWith(name: textField.text!, orSignUp: true)
-            self.userSession?.signInAs(user: newUser)
-            self.favouriteRoutes = newUser?.favouriteRoutes
-            self.notificationToken?.invalidate()
-            guard let favouriteRoutes = self.favouriteRoutes else {
-                return
-            }
-            self.notificationToken = favouriteRoutes.observe { [unowned self] _ in self.favourites.reloadData() }
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alertController.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
-            textField.placeholder = "A Name for your user"
-        })
-        self.present(alertController, animated: true, completion: nil)
-    }
-
-    private func updateUserIndicator() {
-        userIndicator.text = userSession?.currentUser?.name
+        self.favourites.reloadData()
+//        notificationToken = favouriteRoutes.observe { [unowned self] _ in
+//            self.favourites.reloadData()
+//        }
     }
 
     @IBAction func addFavourite() {
@@ -103,7 +84,7 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
         cellForItemAt indexPath: IndexPath
         ) -> UICollectionViewCell {
         let cell = collectionView
-            .dequeueReusableCell(withReuseIdentifier: favouriteCellIdentifier, for: indexPath) as! RouteCollectionViewCell
+            .dequeueReusableCell(withReuseIdentifier: Identifiers.routeCell, for: indexPath) as! RouteCollectionViewCell
         cell.route = favouriteRoutes?[indexPath.item]
         // Configure the cell
         return cell
@@ -115,11 +96,7 @@ extension FavouriteViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * CGFloat(itemsPerRow + 1)
-        let availableWidth = view.frame.width - paddingSpace
-        let widthPerItem = availableWidth / CGFloat(itemsPerRow)
-
-        return CGSize(width: widthPerItem, height: widthPerItem / 4)
+        return CGSize(width: view.frame.width, height: view.frame.width / 2)
     }
 
     func collectionView(_ collectionView: UICollectionView,

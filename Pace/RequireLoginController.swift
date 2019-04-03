@@ -2,79 +2,51 @@
 //  RequireLoginController.swift
 //  Pace
 //
-//  Created by Tan Zheng Wei on 26/3/19.
+//  Created by Tan Zheng Wei on 4/4/19.
 //  Copyright © 2019 nus.cs3217.pace. All rights reserved.
 //
 
 import Foundation
 import UIKit
-import FacebookCore
-import FacebookLogin
+import RealmSwift
 
 class RequireLoginController: UIViewController {
-    var user: User?
-    var loginButton = LoginButton(readPermissions: [.publicProfile])
-    var indicator = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 300, height: 50))
+    var userSession: UserSessionManager?
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Facebook login button setup
-        loginButton.center = view.center
-        loginButton.delegate = self
-        
-        indicator.text = "Please log in."
-        indicator.backgroundColor = .clear
-        indicator.textAlignment = .center
-        indicator.center = view.center.applying(CGAffineTransform(translationX: 0, y: -100))
-        
-        checkLoggedIn()
-        user = Dummy.user
+        userSession = RealmUserSessionManager.forDefaultRealm
     }
     
-    /// Updates the log in indicator.
-    private func checkLoggedIn() {
-        let group = DispatchGroup()
-        group.enter()
-        UserManager.currentUser { user in
-            guard let user = user else {
-                self.view.addSubview(self.loginButton)
-                self.view.addSubview(self.indicator)
-                group.leave()
-                return
-            }
-            self.user = user
-            self.loginButton.removeFromSuperview()
-            self.indicator.removeFromSuperview()
-            group.leave()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if userSession?.currentUser == nil {
+            presentUserPrompt()
         }
     }
-}
+    
+    private func presentUserPrompt() {
+        let alertController = UIAlertController(title: "Login", message: "Supply a nice nickname!", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Login", style: .default, handler: { [unowned self] _ -> Void in
+            let textField = alertController.textFields![0]
+            let newUser = self.userSession?.findUserWith(name: textField.text!, orSignUp: true)
+            self.userSession?.signInAs(user: newUser)
+//            self.favouriteRoutes = newUser?.favouriteRoutes
+//            self.notificationToken?.invalidate()
+//            guard let favouriteRoutes = self.favouriteRoutes else {
+//                return
+//            }
+//            self.notificationToken = favouriteRoutes.observe { [unowned self] _ in self.favourites.reloadData() }
+//            self.userDidLogin()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertController.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
+            textField.placeholder = "A Name for your user"
+        })
+        self.present(alertController, animated: true, completion: nil)
+    }
 
-extension RequireLoginController: LoginButtonDelegate {
-    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
-        switch result {
-        case .success(_, _, let token):
-            UserManager.logIn(withFacebookToken: token) {
-                if $0 {
-                    print("success!")
-                } else {
-                    print("error signing in")
-                }
-                self.checkLoggedIn()
-            }
-        case .failed(let err):
-            print(err.localizedDescription)
-        case .cancelled:
-            print("cancelled by user")
-        }
-    }
-    
-    func loginButtonDidLogOut(_ loginButton: LoginButton) {
-        do {
-            try UserManager.logOut { self.checkLoggedIn() }
-        } catch {
-            print(error.localizedDescription)
-        }
+    // To override in superclass, used to load data on login
+    func userDidLogin() {
     }
 }
