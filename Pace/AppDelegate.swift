@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import FacebookCore
+import Firebase
 import GoogleMaps
 import GooglePlaces
 import RealmSwift
@@ -26,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         UserProfile.updatesOnAccessTokenChange = true
         
+        FirebaseApp.configure() 
         return true
     }
 

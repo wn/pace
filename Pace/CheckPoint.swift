@@ -114,3 +114,16 @@ class CheckPoint: Object {
         }
     }
 }
+
+extension CheckPoint: FirebaseStorable {
+    /// Returns this checkpoint as a Firebase Geopoint.
+    var asDictionary: [String: Any] {
+        return [
+            "time": time,
+            "location": realmLocation?.asDictionary ?? "",
+            "actualDistance": actualDistance,
+            "routeDistance": routeDistance
+        ]
+    }
+
+}

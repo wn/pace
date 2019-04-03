@@ -113,3 +113,12 @@ class Route: IdentifiableObject {
         return normalizedCheckPoints
     }
 }
+
+extension Route: FirebaseStorable {
+    var asDictionary: [String: Any] {
+        return [
+            "name": name,
+            "creator": creator?.id ?? "",
+        ]
+    }
+}

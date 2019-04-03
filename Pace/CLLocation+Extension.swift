@@ -109,3 +109,12 @@ class RealmCLLocation: Object {
                           timestamp: timestamp)
     }
 }
+
+extension RealmCLLocation: FirebaseStorable {
+    var asDictionary: [String: Any] {
+        return [
+            "longitude": longitude,
+            "latitude": latitude
+        ]
+    }
+}

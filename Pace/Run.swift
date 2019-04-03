@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import RealmSwift
+import Firebase
 
 class Run: IdentifiableObject {
     @objc dynamic var runner: User?
@@ -23,6 +24,7 @@ class Run: IdentifiableObject {
         return UIImage(data: thumbnailData)
     }
     var checkpoints = List<CheckPoint>()
+    var routes: LinkingObjects<Route> = LinkingObjects(fromType: Route.self, property: "paces")
 
     // computed properties, ignored by Realm
     var startingLocation: CLLocation? {
@@ -81,5 +83,17 @@ class Run: IdentifiableObject {
         return checkpoints.map { basePoint in
             basePoint.extractNormalizedPoint(from: runnerRecords)
         }
+    }
+}
+
+extension Run: FirebaseStorable {
+    var asDictionary: [String: Any] {
+        return [
+            "runnerId": runner?.id ?? "",
+            "routeId": routes.first!.id,
+            "dateCreated": Timestamp(date: dateCreated),
+            "timeSpend": timeSpent,
+            "checkPoints": checkpoints.map { $0.asDictionary }
+        ]
     }
 }

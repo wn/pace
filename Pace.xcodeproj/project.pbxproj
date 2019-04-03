@@ -37,6 +37,8 @@
 		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
 		8BD4C5802250FAB200D0CEC7 /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */; };
 		8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */; };
+		8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */; };
+		8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
 		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
@@ -99,6 +101,8 @@
 		8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
 		8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
 		8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionManager.swift; sourceTree = "<group>"; };
+		8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
+		8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorable.swift; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8BDFFF87224F482000F3BB3A /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
 				8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */,
+				8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -231,6 +236,14 @@
 			name = LoginViews;
 			sourceTree = "<group>";
 		};
+		8BD4C58A2255050800D0CEC7 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		EB29FAF3224CB5F000DF2CE6 /* DrawerDisplayController */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +293,7 @@
 				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
 				62FF75212244CE8F008847CC /* ProfileViewController.swift */,
 				62A7C5BF224F4D32009585D3 /* RunAnalysisController.swift */,
+				8BD4C58A2255050800D0CEC7 /* API */,
 				8BD4C5842252026700D0CEC7 /* LoginViews */,
 				EBAF2CB622492BB9000FCE0E /* Activity */,
 				8B59BE5A223CE59600C2E9E7 /* Helpers */,
@@ -604,8 +618,10 @@
 				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
+				8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
+				8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */,
 				8BD4C5802250FAB200D0CEC7 /* RouteManager.swift in Sources */,
 				8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
