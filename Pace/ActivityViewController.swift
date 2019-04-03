@@ -10,43 +10,84 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import AVFoundation
-import DrawerKit
+import RealmSwift
 
 class ActivityViewController: UIViewController {
+    var routesManager = RealmRouteManager.forDefaultRealm
+    var originalPullUpControllerViewSize: CGSize = .zero
+    let coreLocationManager = CLLocationManager()
 
-    var drawerDisplayController: DrawerDisplayController?
+    @IBAction func endRunButton(_ sender: UIButton) {
+        endRun(sender)
+    }
 
-    @IBOutlet private var mapView: GMSMapView!
+    @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var pace: UILabel!
+    @IBOutlet var time: UILabel!
+
+    @IBOutlet private var googleMapView: GMSMapView!
     // Keep track of all markers in the map
     // Int to change to run details instead.
     var markers: [GMSMarker: Int] = [:]
 
-    private let locationManager = CLLocationManager()
+    // MARK: - Running variables
+    var path = GMSMutablePath()
+    var lastMarkedPosition: CLLocation?
+    var distance: CLLocationDistance = 0
+    let stopwatch = StopwatchTimer()
+    var runStarted: Bool {
+        return stopwatch.isPlaying
+    }
+
+    private var _isConnected = true
+    var isConnected: Bool {
+        // Make into a GPS symbol instead
+        get {
+            return _isConnected
+        }
+        set (value) {
+            let connected = _isConnected == false && value == true
+            let disconnected = _isConnected == true && value == false
+
+            if connected {
+                VoiceAssistant.say("Reconnected to GPS!")
+                print("CONNECTED")
+            } else if disconnected {
+                VoiceAssistant.say("GPS signal lost!")
+                print("DISCONNECTED")
+            }
+            _isConnected = value
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
+        renderMapButton()
+        setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
     }
+
+    let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     /// Set up mapView view.
     private func setupMapView() {
-        mapView.animate(toZoom: Constants.initialZoom)
-        mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
+        googleMapView.animate(toZoom: Constants.initialZoom)
+        googleMapView.isMyLocationEnabled = true
+        googleMapView.settings.myLocationButton = true
 
-        // Required to activate gestures in mapView
-        mapView.settings.consumesGesturesInView = false
-        mapView.delegate = self
-        mapView.setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
+        // Required to activate gestures in googleMapView
+        googleMapView.settings.consumesGesturesInView = false
+        googleMapView.delegate = self
+        googleMapView.setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
     }
 
     /// Set up location manager from CoreLocation.
     private func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.requestLocation()
+        coreLocationManager.delegate = self
+        coreLocationManager.requestAlwaysAuthorization()
+        coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        coreLocationManager.requestLocation()
 //        while locationManager.location == nil {
 //            // Wait 1 second and check if location has been loaded.
 //            // If location cannot be loaded, code here will never terminate
@@ -56,21 +97,12 @@ class ActivityViewController: UIViewController {
 //        guard let location = locationManager.location else {
 //            fatalError("While loop should have captured nil value!")
 //        }
-//        mapView.setCameraPosition(location.coordinate)
-    }
-
-    @IBAction private func startRun(_ sender: UIButton) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let runVC =
-            storyBoard.instantiateViewController(
-                withIdentifier: "runVC")
-                as! RunningViewController
-        renderChildController(runVC)
+//        googleMapView.setCameraPosition(location.coordinate)
     }
 
     func getNearbyRoutes() -> [CLLocation] {
-        let topLeft = mapView.projection.visibleRegion().farLeft
-        let bottomRight = mapView.projection.visibleRegion().nearRight
+        let topLeft = googleMapView.projection.visibleRegion().farLeft
+        let bottomRight = googleMapView.projection.visibleRegion().nearRight
 
         // Bounds of maps to retrieve
         let top = topLeft.latitude
@@ -85,10 +117,100 @@ class ActivityViewController: UIViewController {
         let four = CLLocation(latitude: top - 0.000_5, longitude: right)
         return [one, two, three, four]
     }
+}
+
+// MARK: - GMSMapViewDelegate
+extension ActivityViewController: GMSMapViewDelegate {
+    private func renderMapButton() {
+        let startXPos = googleMapView.layer.frame.midX
+        let startYPos = googleMapView.frame.height
+        mapButton.center = CGPoint(x: startXPos, y: startYPos)
+        googleMapView.addSubview(mapButton)
+        googleMapView.bringSubviewToFront(mapButton)
+    }
+
+    func setMapButton(imageUrl: String, action: Selector) {
+        mapButton.removeTarget(nil, action: nil, for: .allEvents)
+        let startImage = UIImage(named: imageUrl)
+        mapButton.setImage(startImage, for: .normal)
+        mapButton.addTarget(self, action: action, for: .touchUpInside)
+    }
+
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        // TODO: On tap with marker, pop up route description
+        guard let markerID = markers[marker] else {
+            redrawMarkers(mapView.camera.target)
+            return false
+        }
+        // TODO: send correct stats to drawer
+        print("MARKER PRESSED: \(markerID)")
+        renderDrawer(stats: "\(markerID)")
+        return true
+    }
+
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        redrawMarkers(mapView.camera.target)
+    }
+
+    func redrawMarkers(_ location: CLLocationCoordinate2D) {
+        guard !runStarted else {
+            return
+        }
+        googleMapView.clear()
+        markers = [:]
+        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
+            return
+        }
+
+        // TODO: Get all potential markers and generate them.
+        // Get marker nearby location
+
+        // BELOW IS THE REAL CODE FOR GET NEARBY ROUTES.
+//        routesManager.getRoutesNear(location: location) { (routes, error) -> Void in
+//            self?.markers = [:]
+//            for index in 0..<routes.count {
+//                // Count is the number of routes that the marker represents
+//                // Set as 17 as that is the name of the image
+//                let count = 17
+//                let marker = self.generateRouteMarker(location: routes[index], count: count)
+//                self.markers[marker] = index
+//            }
+//        }
+
+        // TODO: STUB - TO REMOVE
+        let routes = getNearbyRoutes()
+        markers = [:]
+        for index in 0..<routes.count {
+            // Count is the number of routes that the marker represents
+            // Set as 17 as that is the name of the image
+            let count = 17
+            let marker = generateRouteMarker(location: routes[index], count: count)
+            markers[marker] = index
+        }
+    }
+
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        guard let location = coreLocationManager.location else {
+            return false
+        }
+        mapView.setCameraPosition(location.coordinate)
+        mapView.animate(toZoom: Constants.initialZoom)
+        return true
+    }
+
+    func addMarker(_ image: String, position: CLLocationCoordinate2D) {
+        let marker = GMSMarker(position: position)
+        marker.map = googleMapView
+        marker.icon = UIImage(named: image)
+    }
+
+    func clearMap() {
+        googleMapView.clear()
+    }
 
     func generateRouteMarker(location: CLLocation, count: Int) -> GMSMarker {
         let marker = GMSMarker(position: location.coordinate)
-        marker.map = mapView
+        marker.map = googleMapView
         marker.icon = UIImage(named: "\(count)")
         return marker
     }
@@ -107,18 +229,56 @@ extension ActivityViewController: CLLocationManagerDelegate {
         if status == .authorizedWhenInUse {
             return
         }
-        locationManager.requestWhenInUseAuthorization()
+        coreLocationManager.requestWhenInUseAuthorization()
     }
 
     /// Function from CLLocationManagerDelegate.
     /// Empty function as we do not do anything about the
-    /// location result. 
+    /// location result.
     ///
     /// - Parameters:
     ///   - manager: The location manager for the view-controller.
     ///   - locations: The array of location updates that is not handled yet.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        return
+        guard runStarted else {
+            return
+        }
+        guard let location = locations.last else {
+            return
+        }
+        //        if isMapLock {
+        //            // Set to current location
+        //            googleMapView.setCameraPosition(location.coordinate)
+        //            googleMapView.animate(toZoom: Constants.initialZoom)
+        //        }
+        guard let acc = coreLocationManager.location?.horizontalAccuracy, acc < Constants.guardAccuracy else {
+            // Our accuracy is too poor, assume connection has failed.
+            isConnected = false
+            return
+        }
+        isConnected = true
+        if let lastMarkedPosition = lastMarkedPosition {
+            let distanceMoved = location.distance(from: lastMarkedPosition)
+            print("Distance =  \(distanceMoved)")
+            distance += distanceMoved
+        } else {
+            // First time getting a location
+            addMarker(Constants.startFlag, position: location.coordinate)
+        }
+        lastMarkedPosition = location
+
+        let coordinate = location.coordinate
+        path.add(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
+
+        // TODO: We redraw the whole map again. is this good?
+        // Or can we dynamically generate the map without mutablepath
+        //googleMapView.clear()
+        let mapPaths = GMSPolyline(path: path)
+        mapPaths.strokeColor = .blue
+        mapPaths.strokeWidth = 5
+        mapPaths.map = googleMapView
+
+        // position.text = "lat: \(coordinate.latitude), long: \(coordinate.longitude)"
     }
 
     /// Function from CLLocationManagerDelegate.
@@ -129,124 +289,6 @@ extension ActivityViewController: CLLocationManagerDelegate {
     ///   - error: Error message.
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
-        // isConnected = false
-    }
-}
-
-// MARK: - GMSMapViewDelegate
-extension ActivityViewController: GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        // TODO: On tap with marker, pop up route description
-        guard let markerID = markers[marker] else {
-            redrawMarkers(mapView.camera.target)
-            return false
-        }
-        let alert = UIAlertController(
-            title: "TAPPED MARKER",
-            message: "tapped marker \(markerID)",
-            preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true)
-        return true
-    }
-
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        redrawMarkers(mapView.camera.target)
-    }
-
-    func redrawMarkers(_ location: CLLocationCoordinate2D) {
-        mapView.clear()
-        markers = [:]
-        guard mapView.camera.zoom > Constants.minZoomToShowRoutes else {
-            return
-        }
-
-        // TODO: Get all potential markers and generate them.
-        // Get marker nearby location
-        let routes = getNearbyRoutes()
-        markers = [:]
-        for index in 0..<routes.count {
-            // Count is the number of routes that the marker represents
-            // Set as 17 as that is the name of the image
-            let count = 17
-            let marker = generateRouteMarker(location: routes[index], count: count)
-            markers[marker] = index
-        }
-    }
-
-    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        guard let location = locationManager.location else {
-            return false
-        }
-        mapView.setCameraPosition(location.coordinate)
-        mapView.animate(toZoom: Constants.initialZoom)
-        return true
-    }
-}
-
-private extension ActivityViewController {
-
-    // TODO: Automatically populate when marker is press, instead
-    // of pressing a button.
-    @IBAction func presentButtonTapped() {
-        doModalPresentation(passthrough: false)
-    }
-
-    func doModalPresentation(passthrough: Bool) {
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "presented")
-            as? PresentedViewController else { return }
-
-        // you can provide the configuration values in the initialiser...
-        var configuration = DrawerConfiguration(/* ..., ..., ..., */)
-
-        // ... or after initialisation. All of these have default values so change only
-        // what you need to configure differently. They're all listed here just so you
-        // can see what can be configured. The values listed are the default ones,
-        // except where indicated otherwise.
-        //        configuration.initialState = .collapsed
-        configuration.totalDurationInSeconds = 0.4
-        configuration.durationIsProportionalToDistanceTraveled = false
-        // default is UISpringTimingParameters()
-        configuration.timingCurveProvider = UISpringTimingParameters(dampingRatio: 0.8)
-        configuration.fullExpansionBehaviour = .coversFullScreen
-        configuration.supportsPartialExpansion = true
-        configuration.dismissesInStages = true
-        configuration.isDrawerDraggable = true
-        configuration.isFullyPresentableByDrawerTaps = true
-        configuration.numberOfTapsForFullDrawerPresentation = 1
-        configuration.isDismissableByOutsideDrawerTaps = true
-        configuration.numberOfTapsForOutsideDrawerDismissal = 1
-        configuration.flickSpeedThreshold = 3
-        configuration.upperMarkGap = 100 // default is 40
-        configuration.lowerMarkGap = 80 // default is 40
-        configuration.maximumCornerRadius = 15
-        configuration.cornerAnimationOption = .none
-        configuration.passthroughTouchesInStates = passthrough ? [.collapsed, .partiallyExpanded] : []
-
-        var handleViewConfiguration = HandleViewConfiguration()
-        handleViewConfiguration.autoAnimatesDimming = true
-        handleViewConfiguration.backgroundColor = .gray
-        handleViewConfiguration.size = CGSize(width: 40, height: 6)
-        handleViewConfiguration.top = 8
-        handleViewConfiguration.cornerRadius = .automatic
-        configuration.handleViewConfiguration = handleViewConfiguration
-
-        let borderColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
-        let drawerBorderConfiguration = DrawerBorderConfiguration(borderThickness: 0.5,
-                                                                  borderColor: borderColor)
-        configuration.drawerBorderConfiguration = drawerBorderConfiguration // default is nil
-
-        let drawerShadowConfiguration = DrawerShadowConfiguration(shadowOpacity: 0.75,
-                                                                  shadowRadius: 10,
-                                                                  shadowOffset: .zero,
-                                                                  shadowColor: .red)
-        configuration.drawerShadowConfiguration = drawerShadowConfiguration // default is nil
-
-        drawerDisplayController = DrawerDisplayController(presentingViewController: self,
-                                                          presentedViewController: vc,
-                                                          configuration: configuration,
-                                                          inDebugMode: true)
-
-        present(vc, animated: true)
+        isConnected = false
     }
 }

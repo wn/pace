@@ -23,7 +23,6 @@
 		62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7C5C3224F6053009585D3 /* UserStatsView.swift */; };
 		62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */; };
 		62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF750B22413F73008847CC /* CLLocation+Extension.swift */; };
-		62FF75252244CE8F008847CC /* RunningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75202244CE8F008847CC /* RunningViewController.swift */; };
 		62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75212244CE8F008847CC /* ProfileViewController.swift */; };
 		62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75222244CE8F008847CC /* FavouriteViewController.swift */; };
 		62FF752E22495B54008847CC /* RunCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF752D22495B54008847CC /* RunCollectionViewCell.swift */; };
@@ -47,6 +46,10 @@
 		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
 		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
+		EB5E42DC2253CEF400A60207 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */; };
+		EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42DD2253CF4A00A60207 /* PullUpController.swift */; };
+		EB5E42E12255015A00A60207 /* ActivityViewController+Drawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */; };
+		EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
 		EB931BC82238066500AFF868 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BC62238066500AFF868 /* Main.storyboard */; };
 		EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC92238066500AFF868 /* Pace.xcdatamodeld */; };
@@ -84,7 +87,6 @@
 		62A7C5C3224F6053009585D3 /* UserStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsView.swift; sourceTree = "<group>"; };
 		62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequireLoginController.swift; sourceTree = "<group>"; };
 		62FF750B22413F73008847CC /* CLLocation+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
-		62FF75202244CE8F008847CC /* RunningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningViewController.swift; sourceTree = "<group>"; };
 		62FF75212244CE8F008847CC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		62FF75222244CE8F008847CC /* FavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		62FF752D22495B54008847CC /* RunCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -111,6 +113,10 @@
 		EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
+		EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
+		EB5E42DD2253CF4A00A60207 /* PullUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUpController.swift; sourceTree = "<group>"; };
+		EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityViewController+Drawer.swift"; sourceTree = "<group>"; };
+		EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityViewController+Run.swift"; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BC22238066500AFF868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB931BC72238066500AFF868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -236,6 +242,18 @@
 			path = DrawerDisplayController;
 			sourceTree = "<group>";
 		};
+		EB5E42DF2254EC8300A60207 /* SelectActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
+				EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */,
+				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
+				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
+				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
+			);
+			name = SelectActivityView;
+			sourceTree = "<group>";
+		};
 		EB931BB62238066500AFF868 = {
 			isa = PBXGroup;
 			children = (
@@ -295,9 +313,8 @@
 		EBAF2CB622492BB9000FCE0E /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				EB29FAF3224CB5F000DF2CE6 /* DrawerDisplayController */,
+				EB5E42DF2254EC8300A60207 /* SelectActivityView */,
 				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
-				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -481,7 +498,6 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Pace/Pods-Pace-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/DrawerKit/DrawerKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -496,7 +512,6 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DrawerKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -569,20 +584,23 @@
 				8B4F948A224BD472004500CA /* LoginViewController.swift in Sources */,
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
 				62FF753222495E36008847CC /* ViewDelegate.swift in Sources */,
-				62FF75252244CE8F008847CC /* RunningViewController.swift in Sources */,
-				5C5124BB225316FB00B8A15C /* RouteStats.swift in Sources */,
-				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
-				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
-				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				625596752254AE050036C2B9 /* RouteCollectionViewCell.swift in Sources */,
 				EB0F13862250B91D00E1F5C9 /* PresentedViewController.swift in Sources */,
+				6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */,
+				5C5124BB225316FB00B8A15C /* RouteStats.swift in Sources */,
+				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
+				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
+				EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */,
+				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
+				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
+				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BD4C5802250FAB200D0CEC7 /* RouteManager.swift in Sources */,
 				8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
+				EB5E42DC2253CEF400A60207 /* DrawerViewController.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
-				EB0F13842250B90700E1F5C9 /* PresentedView.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
 				62A7C5BE224EB087009585D3 /* NavigableController .swift in Sources */,
 				EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */,
@@ -594,6 +612,7 @@
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */,
+				EB5E42E12255015A00A60207 /* ActivityViewController+Drawer.swift in Sources */,
 				8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */,
 				62A7C5C0224F4D32009585D3 /* RunAnalysisController.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
