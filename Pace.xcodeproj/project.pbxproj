@@ -39,6 +39,10 @@
 		8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */; };
 		8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */; };
 		8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */; };
+		8BD4C5902256802100D0CEC7 /* Run+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */; };
+		8BD4C5922256806200D0CEC7 /* CheckPoint+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */; };
+		8BD4C5942256808000D0CEC7 /* Route+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */; };
+		8BD4C596225680C600D0CEC7 /* RealmCLLocation+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
 		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
@@ -103,6 +107,10 @@
 		8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionManager.swift; sourceTree = "<group>"; };
 		8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
 		8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorable.swift; sourceTree = "<group>"; };
+		8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Run+Firebase.swift"; sourceTree = "<group>"; };
+		8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CheckPoint+Firebase.swift"; sourceTree = "<group>"; };
+		8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+Firebase.swift"; sourceTree = "<group>"; };
+		8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmCLLocation+Firebase.swift"; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8BDFFF87224F482000F3BB3A /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
@@ -168,7 +176,6 @@
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
 				8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */,
-				8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -239,7 +246,12 @@
 		8BD4C58A2255050800D0CEC7 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */,
 				8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */,
+				8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */,
+				8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */,
+				8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */,
+				8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -611,6 +623,7 @@
 				62FF753222495E36008847CC /* ViewDelegate.swift in Sources */,
 				625596752254AE050036C2B9 /* RouteCollectionViewCell.swift in Sources */,
 				6209717F223CDFDF00BD26E1 /* StopWatch.swift in Sources */,
+				8BD4C5922256806200D0CEC7 /* CheckPoint+Firebase.swift in Sources */,
 				5C5124BB225316FB00B8A15C /* RouteStats.swift in Sources */,
 				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
@@ -635,12 +648,16 @@
 				62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				62FF752E22495B54008847CC /* RunCollectionViewCell.swift in Sources */,
+				8BD4C596225680C600D0CEC7 /* RealmCLLocation+Firebase.swift in Sources */,
+				8BD4C5942256808000D0CEC7 /* Route+Firebase.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */,
 				EB5E42E12255015A00A60207 /* ActivityViewController+Drawer.swift in Sources */,
 				8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */,
 				62A7C5C0224F4D32009585D3 /* RunAnalysisController.swift in Sources */,
+				8BD4C5902256802100D0CEC7 /* Run+Firebase.swift in Sources */,
+				EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
 				8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */,
 				8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */,

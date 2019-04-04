@@ -22,6 +22,9 @@ class Route: IdentifiableObject {
     }
     var creatorRun: Run?
     var paces = List<Run>()
+    var startingLocation: CLLocation? {
+        return creatorRun?.startingLocation
+    }
 
     /// Constructs a route given the runner, name, the first (creator) run and collection to paces.
     /// - Precondition: `creatorRun` must be within `paces`.
@@ -111,14 +114,5 @@ class Route: IdentifiableObject {
             }
         }
         return normalizedCheckPoints
-    }
-}
-
-extension Route: FirebaseStorable {
-    var asDictionary: [String: Any] {
-        return [
-            "name": name,
-            "creator": creator?.id ?? "",
-        ]
     }
 }

@@ -85,15 +85,3 @@ class Run: IdentifiableObject {
         }
     }
 }
-
-extension Run: FirebaseStorable {
-    var asDictionary: [String: Any] {
-        return [
-            "runnerId": runner?.id ?? "",
-            "routeId": routes.first!.id,
-            "dateCreated": Timestamp(date: dateCreated),
-            "timeSpend": timeSpent,
-            "checkPoints": checkpoints.map { $0.asDictionary }
-        ]
-    }
-}
