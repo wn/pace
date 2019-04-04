@@ -31,9 +31,30 @@ struct Constants {
     static let AuthURL = "https://\(paceCloudInstanceAddress)"
     static let RealmURL = "https://\(paceCloudInstanceAddress)/pace"
 
+    // MARK: Locale variables
+    static let locale = "en_SG"
 }
 
 /// For Development Purposes until the rest of the interface is ready
 struct Dummy {
     static let user = User(name: "angunong")
+}
+
+struct Identifiers {
+    static let runCell = "runCell"
+    static let routeCell = "routeCell"
+    static let userStats = "userStatsIdentifier"
+    static let runAnalysisController = "runAnalysisController"
+}
+
+struct Titles {
+    static let profile = "Profile"
+    static let favourites = "Favourites"
+    static let run = "Run"
+}
+
+struct Xibs {
+    static let runCollectionViewCell = "RunCollectionViewCell"
+    static let routeCollectionViewCell = "RouteCollectionViewCell"
+    static let userStatsView = "UserStatsView"
 }

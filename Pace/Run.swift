@@ -14,11 +14,22 @@ class Run: IdentifiableObject {
     @objc dynamic var runner: User?
     @objc dynamic var dateCreated = Date()
     @objc dynamic var timeSpent: Double = 0.0
+    @objc dynamic var distance: Double = 0.0
+    @objc dynamic var thumbnailData: Data?
+    var thumbnail: UIImage? {
+        guard let thumbnailData = thumbnailData else {
+            return UIImage(named: "run.jpeg")
+        }
+        return UIImage(data: thumbnailData)
+    }
     var checkpoints = List<CheckPoint>()
 
     // computed properties, ignored by Realm
     var startingLocation: CLLocation? {
         return checkpoints.first?.location
+    }
+    var endingLocation: CLLocation? {
+        return checkpoints.last?.location
     }
     var totalDistance: Double? {
         return checkpoints.last?.routeDistance
@@ -32,18 +43,20 @@ class Run: IdentifiableObject {
     /// - Parameters:
     ///   - runner: The runner of this Run.
     ///   - checkpoints: The array of normalized checkpoints for this Run.
-    convenience init(runner: User, checkpoints: [CheckPoint]) {
+    convenience init(runner: User, checkpoints: [CheckPoint], thumbnail: Data? = nil) {
         self.init()
         guard let lastPoint = checkpoints.last else {
             return
         }
         self.runner = runner
         self.timeSpent = lastPoint.time
+        self.distance = lastPoint.routeDistance
         self.checkpoints = {
             let checkpointsList = List<CheckPoint>()
             checkpointsList.append(objectsIn: checkpoints)
             return checkpointsList
         }()
+        self.thumbnailData = thumbnail
     }
 
     /// Gets the latitude and longitude boundaries for this run.

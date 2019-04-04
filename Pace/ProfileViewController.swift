@@ -9,54 +9,56 @@
 import UIKit
 import FacebookCore
 import FacebookLogin
+import CoreLocation
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, ViewDelegate {
+
+    var runs = [Run]()
+    @IBOutlet private var runHistory: UICollectionView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = Titles.profile
+        // Dummy Data
 
-        // Facebook login button setup
-        let loginButton = LoginButton(readPermissions: [ .publicProfile ])
-        loginButton.center = view.center
-        loginButton.delegate = self
+        var checkpoints = [CheckPoint]()
+        for idx in 0...100 {
+            checkpoints.append(
+                CheckPoint(location: CLLocation(latitude: Double(100 + idx), longitude: Double(100 + idx)),
+                           time: Double(idx * 2), actualDistance: Double(idx * 2), routeDistance: Double(idx * 2)))
+        }
 
-        view.addSubview(loginButton)
-
-        indicator.center = view.center.applying(CGAffineTransform(translationX: 0, y: -100))
-        updateIndicator()
-
-        view.addSubview(indicator)
-    }
-    // MARK: - Login & Firestore methods
-
-    /// An indicator for whether the user is logged in.
-    private var indicator: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 300, height: 50))
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        return label
-    }()
-
-    /// Information about routes (show how the api is working)
-    private var routeInfo: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 300, height: 50))
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.font = UIFont(name: "System", size: 10.0)
-        return label
-    }()
-
-    // (Should store an instance in each controller I think?)
-
-    /// Updates the log in indicator.
-    private func updateIndicator() {
+        for _ in 0...5 {
+            runs.append(Run(runner: Dummy.user, checkpoints: checkpoints))
+        }
+        runHistory.reloadData()
     }
 
+    func buttonTapped(_ run: Run) {
+        guard let runAnalysis = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Identifiers.runAnalysisController) as? RunAnalysisController else {
+            return
+        }
+        runAnalysis.run = run
+        navigationController?.pushViewController(runAnalysis, animated: true)
+    }
 }
 
-extension ProfileViewController: LoginButtonDelegate {
-    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
+// MARK: - UICollectionViewDataSource
+extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return runs.count
     }
 
-    func loginButtonDidLogOut(_ loginButton: LoginButton) {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.runCell, for: indexPath) as! RunCollectionViewCell
+        cell.run = runs[indexPath.item]
+        cell.delegate = self
+        return cell
+    }
+}
+
+extension ProfileViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 100)
     }
 }
