@@ -18,6 +18,7 @@ PODS:
     - FacebookCore (~> 0.5)
     - FBSDKCoreKit (~> 4.37)
     - FBSDKShareKit (~> 4.37)
+  - FaveButton (3.2.0)
   - FBSDKCoreKit (4.42.0):
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.42.0):
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
   - FacebookShare
+  - FaveButton
   - GoogleMaps
   - GooglePlaces
   - Nimble
@@ -55,6 +57,7 @@ SPEC REPOS:
     - FacebookCore
     - FacebookLogin
     - FacebookShare
+    - FaveButton
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
@@ -70,6 +73,7 @@ SPEC CHECKSUMS:
   FacebookCore: 74288d0add931d361b1596beae787ab72c438249
   FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
   FacebookShare: 963b4bb1124a64a395b1e428163d70b5774116e8
+  FaveButton: c818ab3d04d22a7615e93f08c7b35932acb3f735
   FBSDKCoreKit: aa42f1c384775f8b075f53a43080474278e9701d
   FBSDKLoginKit: 373830c68aa48c9e8f0bfed93a3e32d2ca8963a0
   FBSDKShareKit: 387749259d79e4070ebb304b3fd256e4b4bc4298
@@ -80,6 +84,6 @@ SPEC CHECKSUMS:
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
 
-PODFILE CHECKSUM: 64ec303b34bf282c623ce1e09634d9fa49110e30
+PODFILE CHECKSUM: 01ebc55614e8224401c786ea6b57039cfb7c803e
 
 COCOAPODS: 1.6.1

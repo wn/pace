@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import FaveButton
 
 class DrawerViewController: PullUpController {
-    @IBOutlet private var label: UILabel!
+    @IBOutlet var favouriteButton: FaveButton!
 
     enum InitialState {
         case contracted
@@ -17,7 +18,18 @@ class DrawerViewController: PullUpController {
     }
 
     func setStats(stat: String) {
-        label.text = stat
+        //label.text = stat
+        /*
+         number of runners
+         distance
+         start point
+         end point
+         created by
+         add_to_favourite
+         */
+
+        // IF ROUTES IN FAVOURITE: SET SELECTED TO TRUE
+        favouriteButton.setSelected(selected: true, animated: false)
     }
 
     @IBOutlet var runnersTableView: UITableView!
@@ -145,5 +157,16 @@ extension DrawerViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    titleForFooterInSection section: Int) -> String? {
         return nil
+    }
+}
+
+extension DrawerViewController: FaveButtonDelegate {
+    func faveButton(_ faveButton: FaveButton, didSelected selected: Bool) {
+        switch selected {
+        case true:
+            print("SELECTED BUTTON: ADD TO FAVOURITE")
+        case false:
+            print("DELECTED BUTTON: REMOVE FROM FAVOURITE")
+        }
     }
 }

@@ -660,7 +660,7 @@
             </objects>
             <point key="canvasLocation" x="2181.5999999999999" y="339.58020989505252"/>
         </scene>
-        <!--Drawer View Controller-->
+        <!--Delegate-->
         <scene sceneID="bNJ-LJ-3Qa">
             <objects>
                 <viewController storyboardIdentifier="SearchViewController" id="eT7-7X-N5l" customClass="DrawerViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
@@ -688,22 +688,25 @@
                                                                 <constraint firstAttribute="height" constant="5" id="qbr-94-JW3"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzr-wp-0Us">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Evt-yl-RQt" customClass="FaveButton" customModule="FaveButton">
+                                                            <rect key="frame" x="337" y="5" width="38" height="38"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="38" id="85h-gn-sVn"/>
+                                                                <constraint firstAttribute="width" constant="38" id="BOY-ne-HAy"/>
+                                                            </constraints>
+                                                            <state key="normal" image="heart"/>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="eT7-7X-N5l" id="DAS-wu-uuT"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="Gzr-wp-0Us" firstAttribute="leading" secondItem="MGB-Om-BVt" secondAttribute="leading" id="ehd-Jx-vTu"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Gzr-wp-0Us" secondAttribute="trailing" id="m5b-XM-iQY"/>
+                                                        <constraint firstItem="Evt-yl-RQt" firstAttribute="top" secondItem="oCz-U9-wRg" secondAttribute="bottom" id="2I5-Sl-YoK"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Evt-yl-RQt" secondAttribute="trailing" id="c2n-lZ-vpe"/>
                                                         <constraint firstAttribute="height" constant="150" id="n1r-3e-t3a"/>
                                                         <constraint firstItem="oCz-U9-wRg" firstAttribute="top" secondItem="MGB-Om-BVt" secondAttribute="top" id="s4O-iE-4jP"/>
-                                                        <constraint firstItem="Gzr-wp-0Us" firstAttribute="top" secondItem="MGB-Om-BVt" secondAttribute="top" id="yaI-7b-BMZ"/>
                                                         <constraint firstItem="oCz-U9-wRg" firstAttribute="centerX" secondItem="MGB-Om-BVt" secondAttribute="centerX" id="yuO-Wc-LcD"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Gzr-wp-0Us" secondAttribute="bottom" id="z8W-F0-Nj0"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fo6-Up-uuL">
@@ -783,7 +786,6 @@
                                             <constraints>
                                                 <constraint firstItem="MGB-Om-BVt" firstAttribute="top" secondItem="FgP-zE-Tz2" secondAttribute="top" id="7yJ-zf-f5N"/>
                                                 <constraint firstItem="MGB-Om-BVt" firstAttribute="top" secondItem="FgP-zE-Tz2" secondAttribute="top" id="BJr-Ta-BPl"/>
-                                                <constraint firstItem="fo6-Up-uuL" firstAttribute="top" secondItem="Gzr-wp-0Us" secondAttribute="bottom" id="ErS-1p-mx4"/>
                                                 <constraint firstAttribute="trailing" secondItem="MGB-Om-BVt" secondAttribute="trailing" id="H4y-XG-Czw"/>
                                                 <constraint firstItem="MGB-Om-BVt" firstAttribute="leading" secondItem="FgP-zE-Tz2" secondAttribute="leading" id="mA2-dm-ZVH"/>
                                             </constraints>
@@ -809,7 +811,7 @@
                     </view>
                     <connections>
                         <outlet property="expandedView" destination="fo6-Up-uuL" id="Unp-em-oaO"/>
-                        <outlet property="label" destination="Gzr-wp-0Us" id="SON-xZ-bMP"/>
+                        <outlet property="favouriteButton" destination="Evt-yl-RQt" id="IgP-Y1-k0J"/>
                         <outlet property="routeStatsContainerView" destination="MGB-Om-BVt" id="gat-Ae-Pex"/>
                         <outlet property="runnersTableView" destination="yQq-Ql-Jyt" id="rn9-mI-tRI"/>
                         <outlet property="searchSeparatorView" destination="oCz-U9-wRg" id="86I-Gy-w8Q"/>
@@ -825,6 +827,7 @@
         <image name="activity-icon" width="22.5" height="22.5"/>
         <image name="fav-icon" width="22.5" height="22.5"/>
         <image name="feed-icon" width="22.5" height="22.5"/>
+        <image name="heart" width="128" height="128"/>
         <image name="profile-icon" width="22.5" height="22.5"/>
     </resources>
 </document>
