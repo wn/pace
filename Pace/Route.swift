@@ -77,6 +77,7 @@ class Route: IdentifiableObject {
             runners.insert(runner)
         }
         return RouteStats(startingLocation: creatorRun?.startingLocation,
+                          endingLocation: creatorRun?.endingLocation,
                           dateCreated: creatorRun?.dateCreated,
                           totalDistance: creatorRun?.totalDistance,
                           numOfRunners: runners.count,
