@@ -59,24 +59,25 @@ class FavouriteViewController: RequireLoginController {
         guard let currentUser = userSession?.currentUser else {
             return
         }
-        let imageNames = ["cat.jpeg", "dog.jpeg", "seal.jpeg"]
-        let uuidString = UUID().uuidString
-        let index = uuidString.firstIndex(of: "-") ?? uuidString.endIndex
-        let randomString = uuidString[..<index]
-        let randomImage = imageNames[[Int](0..<3).randomElement()!]
-        let randomRoute = Route(creator: currentUser,
-                                name: String(randomString),
-                                thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
-                                creatorRun: Run(runner: currentUser, checkpoints: []))
-        let manager = RealmRouteManager()
-        manager.saveNewRoute(randomRoute) {
-            if $0 == nil {
-                print("success")
-            } else {
-                print("failure")
-            }
+        func createCP(lat: Double, long: Double) -> CheckPoint {
+            return CheckPoint(location: CLLocation(latitude: lat, longitude: long), time: 0.0, actualDistance: 0.0, routeDistance: 0.0)
         }
-        userSession?.addToFavourites(route: randomRoute, nil)
+        let imageNames = ["cat.jpeg", "dog.jpeg", "seal.jpeg"]
+        func createRouteStartingAt(lat: Double, long: Double) -> Route {
+            let uuidString = UUID().uuidString
+            let index = uuidString.firstIndex(of: "-") ?? uuidString.endIndex
+            let randomString = uuidString[..<index]
+            let randomImage = imageNames[[Int](0..<3).randomElement()!]
+            let randomRoute = Route(creator: currentUser,
+                                    name: String(randomString),
+                                    thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
+                                    creatorRun: Run(runner: currentUser, checkpoints: [createCP(lat: lat, long: long)]))
+            return randomRoute
+        }
+        let manager = RealmRouteManager()
+        manager.fetchRoutesWithin(latitudeMin: 1.0, latitudeMax: 3.0, longitudeMin: 1.0, longitudeMax: 3.0) {
+            if $0 == nil { print("lol") }
+        }
     }
 }
 

@@ -14,5 +14,5 @@ protocol FirebaseStorable {
     /// Returns a dictionary to be used for storing into Firebase.
     var asDictionary: [String: Any ] { get }
     /// Returns an instance of itself from a Firestore dictionary.
-    static func fromDictionary(value: [String: Any]) -> OwnType?
+    static func fromDictionary(id: String?, value: [String: Any]) -> OwnType?
 }

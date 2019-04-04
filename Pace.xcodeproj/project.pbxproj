@@ -248,9 +248,9 @@
 			children = (
 				8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */,
 				8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */,
+				8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */,
 				8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */,
 				8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */,
-				8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */,
 				8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */,
 			);
 			name = API;

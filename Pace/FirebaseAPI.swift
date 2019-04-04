@@ -10,9 +10,13 @@ import Firebase
 import RealmSwift
 
 protocol PaceStorageAPI {
-    func requestForRoutes(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                          _ completion: @escaping FIRQuerySnapshotBlock)
+    /// Fetches the routes stored in the cloud that start within this region.
+    func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
+                           _ completion: ((Error?) -> Void)?)
+    /// Adds the route upload action into the queue, and attempts it.
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
+    
+    /// Adds the run upload action into the queue, and attempts it.
     func uploadRun(_ run: Run, forRoute: Route, _ completion: ((Error?) -> Void)?)
 }
 
@@ -30,14 +34,35 @@ class PaceFirestoreAPI: PaceStorageAPI {
         self.inMemoryRealm = inMemoryRealm
     }
 
-    func requestForRoutes(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                          _ completion: @escaping FIRQuerySnapshotBlock) {
+    func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
+                           _ completion: ((Error?) -> Void)?) {
         let query = PaceFirestoreAPI.routesRef
-            .whereField("latitude", isGreaterThanOrEqualTo: latitudeMin)
-            .whereField("latitude", isLessThanOrEqualTo: latitudeMax)
-            .whereField("longitude", isGreaterThanOrEqualTo: longitudeMin)
-            .whereField("longitude", isLessThanOrEqualTo: longitudeMax)
-        query.getDocuments(completion: completion)
+            .whereField("startingLatitude", isGreaterThanOrEqualTo: Int(latitudeMin))
+            .whereField("startingLatitude", isLessThanOrEqualTo: Int(latitudeMax))
+        // TODO: make different call and merge with DispatchGroup
+            //.whereField("startingLongitude", isGreaterThanOrEqualTo: longitudeMin)
+            //.whereField("startingLongitude", isLessThanOrEqualTo: longitudeMax)
+        query.getDocuments { snapshot, err in
+            guard err == nil else {
+                if let completion = completion {
+                    completion(err)
+                }
+                return
+            }
+            let targetRealm = self.inMemoryRealm
+            snapshot?.documents
+                .compactMap {
+                    Route.fromDictionary(id: $0.documentID, value: $0.data())
+                }
+                .forEach { route in
+                    try! targetRealm.write {
+                        targetRealm.create(Route.self, value: route, update: true)
+                    }
+                }
+            if let completion = completion {
+                completion(nil)
+            }
+        }
     }
 
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {

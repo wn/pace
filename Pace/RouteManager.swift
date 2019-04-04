@@ -10,14 +10,15 @@ import RealmSwift
 import CoreLocation
 
 protocol RouteManager {
-    func getRoutesNear(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                       _ completion: (Results<Route>?, Error?) -> Void)
+    func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
+                       _ completion: @escaping (Error?) -> Void)
     func saveNewRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
     func saveNewRun(_ run: Run, toRoute: Route, _ completion: ((Error?) -> Void)?)
     func getRunsFor(route: Route, _ completion: (List<Run>?, Error?) -> Void)
 }
 
 class RealmRouteManager: RouteManager {
+    
     static let forDefaultRealm = RealmRouteManager()
 
     private var storageAPI: PaceStorageAPI
@@ -36,10 +37,9 @@ class RealmRouteManager: RouteManager {
     }
 
     // TODO: complete the implementation
-    func getRoutesNear(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                       _ completion: (Results<Route>?, Error?) -> Void) {
-        let routes = realm.objects(Route.self)
-        completion(routes, nil)
+    func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
+                           _ completion: @escaping (Error?) -> Void) {
+        storageAPI.fetchRoutesWithin(latitudeMin: longitudeMax, latitudeMax: latitudeMax, longitudeMin: longitudeMin, longitudeMax: longitudeMax, completion)
     }
 
     func saveNewRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {

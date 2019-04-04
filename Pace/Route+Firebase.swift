@@ -11,22 +11,25 @@ extension Route: FirebaseStorable {
         return [
             "name": name,
             "creator": creator?.id ?? "",
-            "startingLocation": [
-                "longitude": startingLocation?.longitude ?? 0.0,
-                "latitude": startingLocation?.latitude ?? 0.0
-            ],
-            "creatorRun": creatorRun?.asDictionary ?? [:]
+            "startingLongitude": startingLocation?.longitude ?? 0.0,
+            "startingLatitude": startingLocation?.latitude ?? 0.0,
+            "creatorRun": creatorRun?.asDictionary ?? [:],
+            "creatorRunId": creatorRun?.id ?? ""
         ]
     }
     
-    static func fromDictionary(value: [String : Any]) -> Route? {
+    static func fromDictionary(id: String?, value: [String : Any]) -> Route? {
         guard
             let name = value["name"] as? String,
             let _ = value["creator"],
-            let creatorRun = value["creatorRun"] as? [String: Any]
+            let creatorRun = value["creatorRun"] as? [String: Any],
+            let creatorRunId = value["creatorRunId"] as? String,
+            let id = id
             else {
                 return nil
         }
-        return Route(creator: User(name: "newguy"), name: name, creatorRun: Run.fromDictionary(value: creatorRun)!)
+        let route = Route(creator: User(name: "newguy"), name: name, creatorRun: Run.fromDictionary(id: creatorRunId, value: creatorRun)!)
+        route.id = id
+        return route
     }
 }
