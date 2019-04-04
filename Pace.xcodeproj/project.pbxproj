@@ -37,6 +37,7 @@
 		EB00C53E224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */; };
 		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
 		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
+		EB31FDF82255E19E00C4688C /* RunnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB31FDF72255E19E00C4688C /* RunnerCell.swift */; };
 		EB408D392243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
 		EB5E42DC2253CEF400A60207 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */; };
@@ -100,6 +101,7 @@
 		EB00C53D224382CA005B2C0E /* FriendsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
+		EB31FDF72255E19E00C4688C /* RunnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerCell.swift; sourceTree = "<group>"; };
 		EB408D382243F99500F9C561 /* FavouriteRoutesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRoutesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
 		EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
 				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
 				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
+				EB31FDF72255E19E00C4688C /* RunnerCell.swift */,
 			);
 			name = SelectActivityView;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				62097178223CD41900BD26E1 /* RunViewController.swift in Sources */,
 				EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */,
 				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
+				EB31FDF82255E19E00C4688C /* RunnerCell.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,

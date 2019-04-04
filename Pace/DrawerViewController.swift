@@ -20,6 +20,11 @@ class DrawerViewController: PullUpController {
         label.text = stat
     }
 
+    @IBOutlet var runnersTableView: UITableView!
+    var runners = [1,2,3,4,5,6]
+    let runnerCellIdentifier = "runnerCell"
+
+
     var initialState: InitialState = .expanded
 
     // MARK: - IBOutlets
@@ -103,5 +108,42 @@ class DrawerViewController: PullUpController {
                            completion: completion)
         }
     }
+}
 
+extension DrawerViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return runners.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: runnerCellIdentifier, for: indexPath) as! RunnerTableViewCell
+        let row = indexPath.row
+        cell.setupCell(pos: row + 1, name: "John Tan", time: 100 * row)
+        return cell
+    }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let headerHeight = runnersTableView.headerView(forSection: 1)?.frame.height ?? 0
+        return (expandedView.frame.height - headerHeight) / 7
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        _ = indexPath.row
+    }
+
+    func tableView(_ tableView: UITableView,
+                   titleForHeaderInSection section: Int) -> String? {
+        return "Run Statistics"
+    }
+
+    func tableView(_ tableView: UITableView,
+                   titleForFooterInSection section: Int) -> String? {
+        return nil
+    }
 }
