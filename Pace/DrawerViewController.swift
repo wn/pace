@@ -11,6 +11,7 @@ import FaveButton
 
 class DrawerViewController: PullUpController {
     @IBOutlet var favouriteButton: FaveButton!
+    @IBOutlet var numOfRunners: UILabel!
 
     enum InitialState {
         case contracted
@@ -30,6 +31,7 @@ class DrawerViewController: PullUpController {
 
         // IF ROUTES IN FAVOURITE: SET SELECTED TO TRUE
         favouriteButton.setSelected(selected: true, animated: false)
+        numOfRunners.text = "\(runners.count) 🏃🏻‍♂️"
     }
 
     @IBOutlet var runnersTableView: UITableView!

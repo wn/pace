@@ -699,10 +699,18 @@
                                                                 <outlet property="delegate" destination="eT7-7X-N5l" id="DAS-wu-uuT"/>
                                                             </connections>
                                                         </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 🏃🏻‍♂️" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="knQ-vB-DCA">
+                                                            <rect key="frame" x="326" y="120" width="49" height="30"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="Evt-yl-RQt" firstAttribute="top" secondItem="oCz-U9-wRg" secondAttribute="bottom" id="2I5-Sl-YoK"/>
+                                                        <constraint firstAttribute="bottom" secondItem="knQ-vB-DCA" secondAttribute="bottom" id="Akb-Cp-KGf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="knQ-vB-DCA" secondAttribute="trailing" id="Oh5-aa-Evc"/>
                                                         <constraint firstAttribute="trailing" secondItem="Evt-yl-RQt" secondAttribute="trailing" id="c2n-lZ-vpe"/>
                                                         <constraint firstAttribute="height" constant="150" id="n1r-3e-t3a"/>
                                                         <constraint firstItem="oCz-U9-wRg" firstAttribute="top" secondItem="MGB-Om-BVt" secondAttribute="top" id="s4O-iE-4jP"/>
@@ -812,6 +820,7 @@
                     <connections>
                         <outlet property="expandedView" destination="fo6-Up-uuL" id="Unp-em-oaO"/>
                         <outlet property="favouriteButton" destination="Evt-yl-RQt" id="IgP-Y1-k0J"/>
+                        <outlet property="numOfRunners" destination="knQ-vB-DCA" id="XVe-yo-5Rk"/>
                         <outlet property="routeStatsContainerView" destination="MGB-Om-BVt" id="gat-Ae-Pex"/>
                         <outlet property="runnersTableView" destination="yQq-Ql-Jyt" id="rn9-mI-tRI"/>
                         <outlet property="searchSeparatorView" destination="oCz-U9-wRg" id="86I-Gy-w8Q"/>
