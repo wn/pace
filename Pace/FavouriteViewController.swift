@@ -74,12 +74,15 @@ class FavouriteViewController: RequireLoginController {
                                     thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
                                     creatorRun: Run(runner: currentUser, checkpoints: checkpoints))
             [Int](0..<5).forEach { _ in 
-                randomRoute.addNewRun(Run(runner: currentUser, checkpoints: [createCP(lat: 1, long: 2)]))
+                randomRoute.addNewRun(Run(runner: currentUser, checkpoints: [createCP(lat: 1.1, long: 2.1)]))
             }
             return randomRoute
         }
         let manager = RealmRouteManager()
         manager.saveNewRoute(createRouteStartingAt(lat: 1, long: 2)) { if $0 == nil { print("lol") } }
+        manager.fetchRoutesWithin(latitudeMin: 1.0, latitudeMax: 3.0, longitudeMin: 1.0, longitudeMax: 3.0) {
+            print($0)
+        }
     }
 }
 

@@ -10,9 +10,10 @@ import RealmSwift
 import CoreLocation
 
 protocol RouteManager {
+    typealias ErrorHandler = (Error) -> Void
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                       _ completion: @escaping (Error?) -> Void)
-    func getRunsFor(route: Route, _ completion: @escaping (List<Run>?, Error?) -> Void)
+                           _ errorHandler: @escaping ErrorHandler)
+    func getRunsFor(route: Route, _ errorHandler: @escaping ErrorHandler)
     func saveNewRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
     func saveNewRun(_ run: Run, toRoute: Route, _ completion: ((Error?) -> Void)?)
 }
@@ -38,8 +39,20 @@ class RealmRouteManager: RouteManager {
 
     // TODO: complete the implementation
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                           _ completion: @escaping (Error?) -> Void) {
-        storageAPI.fetchRoutesWithin(latitudeMin: longitudeMax, latitudeMax: latitudeMax, longitudeMin: longitudeMin, longitudeMax: longitudeMax, completion)
+                           _ errorHandler: @escaping ErrorHandler) {
+        storageAPI.fetchRoutesWithin(latitudeMin: longitudeMax, latitudeMax: latitudeMax, longitudeMin: longitudeMin, longitudeMax: longitudeMax) { routes, error in
+            guard error == nil, let routes = routes else {
+                if let error = error {
+                    errorHandler(error)
+                }
+                return
+            }
+            routes.forEach { route in
+                try! self.inMemoryRealm.write {
+                    self.inMemoryRealm.create(Route.self, value: route, update: true)
+                }
+            }
+        }
     }
 
     func saveNewRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {
@@ -64,9 +77,17 @@ class RealmRouteManager: RouteManager {
         }
     }
 
-    // TODO: complete the implementation
-    func getRunsFor(route: Route, _ completion: @escaping (List<Run>?, Error?) -> Void) {
-        storageAPI.fetchRunsForRoute(route, nil)
-        completion(route.paces, nil)
+    func getRunsFor(route: Route, _ errorHandler: @escaping ErrorHandler) {
+        storageAPI.fetchRunsForRoute(route) { runs, error in
+            guard error == nil, let runs = runs else {
+                if let error = error {
+                    errorHandler(error)
+                }
+                return
+            }
+            try! route.realm!.write {
+                route.paces.append(objectsIn: runs)
+            }
+        }
     }
 }

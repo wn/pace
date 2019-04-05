@@ -10,11 +10,15 @@ import Firebase
 import RealmSwift
 
 protocol PaceStorageAPI {
+    /// A typealias for the
+    typealias RouteResultsHandler = ([Route]?, Error?) -> Void
+    typealias RunResultsHandler = ([Run]?, Error?) -> Void
+
     /// Fetches the routes stored in the cloud that start within this region.
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                           _ completion: ((Error?) -> Void)?)
+                           _ completion: @escaping RouteResultsHandler)
     /// Fetched the runs for this route.
-    func fetchRunsForRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
+    func fetchRunsForRoute(_ route: Route, _ completion: @escaping RunResultsHandler)
 
     /// Adds the route upload action into the queue, and attempts it.
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
@@ -47,7 +51,7 @@ class PaceFirestoreAPI: PaceStorageAPI {
     }
 
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                           _ completion: ((Error?) -> Void)?) {
+                           _ completion: @escaping RouteResultsHandler) {
         let query = PaceFirestoreAPI.routesRef
             .whereField("startingLatitude", isGreaterThanOrEqualTo: Int(latitudeMin))
             .whereField("startingLatitude", isLessThanOrEqualTo: Int(latitudeMax))
@@ -56,50 +60,30 @@ class PaceFirestoreAPI: PaceStorageAPI {
             //.whereField("startingLongitude", isLessThanOrEqualTo: longitudeMax)
         query.getDocuments { snapshot, err in
             guard err == nil else {
-                if let completion = completion {
-                    completion(err)
-                }
+                completion(nil, err)
                 return
             }
-            let targetRealm = self.inMemoryRealm
-            snapshot?.documents
+            let routes = snapshot?.documents
                 .compactMap {
                     Route.fromDictionary(id: $0.documentID, value: $0.data())
                 }
-                .forEach { route in
-                    try! targetRealm.write {
-                        targetRealm.create(Route.self, value: route, update: true)
-                    }
-                }
-            if let completion = completion {
-                completion(nil)
-            }
+            completion(routes, nil)
         }
     }
 
-    func fetchRunsForRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {
+    func fetchRunsForRoute(_ route: Route, _ completion: @escaping RunResultsHandler) {
         let query = PaceFirestoreAPI.runsRef
             .whereField("routeId", isEqualTo: route.id)
         query.getDocuments { snapshot, err in
             guard err == nil else {
-                if let completion = completion {
-                    completion(err)
-                }
+                completion(nil, err)
                 return
             }
-            let targetRealm = self.inMemoryRealm
-            snapshot?.documents
+            let runs = snapshot?.documents
                 .compactMap {
                     Run.fromDictionary(id: $0.documentID, value: $0.data())
                 }
-                .forEach { route in
-                    try! targetRealm.write {
-                        targetRealm.create(Run.self, value: route, update: true)
-                    }
-            }
-            if let completion = completion {
-                completion(nil)
-            }
+            completion(runs, nil)
         }
     }
 
