@@ -18,8 +18,8 @@ extension Route: FirebaseStorable {
             "runs": Array(paces.map { $0.id })
         ]
     }
-    
-    static func fromDictionary(id: String?, value: [String : Any]) -> Route? {
+
+    static func fromDictionary(id: String?, value: [String: Any]) -> Route? {
         guard
             let name = value["name"] as? String,
             let _ = value["creator"],

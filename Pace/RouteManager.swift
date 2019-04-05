@@ -19,7 +19,7 @@ protocol RouteManager {
 }
 
 class RealmRouteManager: RouteManager {
-    
+
     static let forDefaultRealm = RealmRouteManager()
 
     private var storageAPI: PaceStorageAPI

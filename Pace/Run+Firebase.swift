@@ -17,8 +17,8 @@ extension Run: FirebaseStorable {
             "checkPoints": Array(checkpoints.map { $0.asDictionary })
         ]
     }
-    
-    static func fromDictionary(id: String?, value: [String : Any]) -> Run? {
+
+    static func fromDictionary(id: String?, value: [String: Any]) -> Run? {
         guard
             let _ = value["runnerId"] as? String,
             let checkPoints = value["checkPoints"] as? [[String: Any]],

@@ -16,11 +16,11 @@ extension CheckPoint: FirebaseStorable {
             "routeDistance": routeDistance
         ]
     }
-    
-    static func fromDictionary(id: String?, value: [String : Any]) -> CheckPoint? {
+
+    static func fromDictionary(id: String?, value: [String: Any]) -> CheckPoint? {
         guard
             let time = value["time"] as? Double,
-            let location = value["location"] as? [String:Any],
+            let location = value["location"] as? [String: Any],
             let actualDistance = value["actualDistance"] as? Double,
             let routeDistance = value["routeDistance"] as? Double
             else {

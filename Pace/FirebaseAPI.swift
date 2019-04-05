@@ -22,7 +22,7 @@ protocol PaceStorageAPI {
 
     /// Adds the route upload action into the queue, and attempts it.
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
-    
+
     /// Adds the run upload action into the queue, and attempts it.
     func uploadRun(_ run: Run, forRoute: Route, _ completion: ((Error?) -> Void)?)
 }
@@ -31,7 +31,7 @@ class PaceFirestoreAPI: PaceStorageAPI {
 
     private static let rootRef = Firestore.firestore()
     private static let routesRef = rootRef.collection("routes")
-    
+
     private static func docRefFor(route: Route) -> DocumentReference {
         return routesRef.document(route.id)
     }
@@ -41,7 +41,7 @@ class PaceFirestoreAPI: PaceStorageAPI {
     private static func docRefFor(run: Run) -> DocumentReference {
         return routesRef.document(run.route.id).collection("runs").document(run.id)
     }
-    
+
     private var persistentRealm: Realm
     private var inMemoryRealm: Realm
 

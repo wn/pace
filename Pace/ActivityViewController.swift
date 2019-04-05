@@ -132,8 +132,7 @@ class ActivityViewController: UIViewController {
             print($0.localizedDescription)
         }
     }
-    
-    
+
     func redrawMarkers() {
         guard !runStarted else {
             return
@@ -143,10 +142,10 @@ class ActivityViewController: UIViewController {
         guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
             return
         }
-        
+
         // TODO: Get all potential markers and generate them.
         // Get marker nearby location
-        
+
         // BELOW IS THE REAL CODE FOR GET NEARBY ROUTES.
         //        routesManager.getRoutesNear(location: location) { (routes, error) -> Void in
         //            self?.markers = [:]
@@ -158,7 +157,7 @@ class ActivityViewController: UIViewController {
         //                self.markers[marker] = index
         //            }
         //        }
-        
+
         // TODO: STUB - TO REMOVE
         guard let routes = routes else {
             return
@@ -167,7 +166,7 @@ class ActivityViewController: UIViewController {
         let routeMarkers = Array(routes.compactMap { route in
             self.generateRouteMarker(location: route.startingLocation, count: count)
         })
-        
+
         markers = Dictionary(uniqueKeysWithValues: zip(routeMarkers, [Int](0..<routeMarkers.count)))
     }
 }

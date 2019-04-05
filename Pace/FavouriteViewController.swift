@@ -73,7 +73,7 @@ class FavouriteViewController: RequireLoginController {
                                     name: String(randomString),
                                     thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
                                     creatorRun: Run(runner: currentUser, checkpoints: checkpoints))
-            [Int](0..<5).forEach { _ in 
+            [Int](0..<5).forEach { _ in
                 randomRoute.addNewRun(Run(runner: currentUser, checkpoints: [createCP(lat: 1.1, long: 2.1)]))
             }
             return randomRoute
