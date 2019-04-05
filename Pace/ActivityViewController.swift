@@ -13,9 +13,12 @@ import AVFoundation
 import RealmSwift
 
 class ActivityViewController: UIViewController {
-    var routesManager = RealmRouteManager.forDefaultRealm
+    var userSession: UserSessionManager?
+    var routesManager: RouteManager?
     var originalPullUpControllerViewSize: CGSize = .zero
     let coreLocationManager = CLLocationManager()
+    var routes: Results<Route>?
+    var notificationToken: NotificationToken?
 
     @IBAction func endRunButton(_ sender: UIButton) {
         endRun(sender)
@@ -66,6 +69,12 @@ class ActivityViewController: UIViewController {
         setupMapView()
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
+        routesManager = RealmRouteManager.forDefaultRealm
+        userSession = RealmUserSessionManager.forDefaultRealm
+        routes = Realm.inMemory.objects(Route.self)
+        notificationToken = routes?.observe { _ in
+            self.redrawMarkers()
+        }
     }
 
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
@@ -100,7 +109,7 @@ class ActivityViewController: UIViewController {
 //        googleMapView.setCameraPosition(location.coordinate)
     }
 
-    func getNearbyRoutes() -> [CLLocation] {
+    func fetchNearbyRoutes() {
         let topLeft = googleMapView.projection.visibleRegion().farLeft
         let bottomRight = googleMapView.projection.visibleRegion().nearRight
 
@@ -111,11 +120,55 @@ class ActivityViewController: UIViewController {
         let right = bottomRight.longitude
 
         // TODO: Fake data. To draw real data here instead
+        /*
         let one = CLLocation(latitude: bottom + 0.001, longitude: left)
         let two = CLLocation(latitude: bottom + 0.000_5, longitude: left)
         let three = CLLocation(latitude: top - 0.001, longitude: right)
         let four = CLLocation(latitude: top - 0.000_5, longitude: right)
         return [one, two, three, four]
+         */
+
+        routesManager?.fetchRoutesWithin(latitudeMin: top, latitudeMax: bottom, longitudeMin: left, longitudeMax: right) {
+            print($0.localizedDescription)
+        }
+    }
+    
+    
+    func redrawMarkers() {
+        guard !runStarted else {
+            return
+        }
+        googleMapView.clear()
+        markers = [:]
+        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
+            return
+        }
+        
+        // TODO: Get all potential markers and generate them.
+        // Get marker nearby location
+        
+        // BELOW IS THE REAL CODE FOR GET NEARBY ROUTES.
+        //        routesManager.getRoutesNear(location: location) { (routes, error) -> Void in
+        //            self?.markers = [:]
+        //            for index in 0..<routes.count {
+        //                // Count is the number of routes that the marker represents
+        //                // Set as 17 as that is the name of the image
+        //                let count = 17
+        //                let marker = self.generateRouteMarker(location: routes[index], count: count)
+        //                self.markers[marker] = index
+        //            }
+        //        }
+        
+        // TODO: STUB - TO REMOVE
+        guard let routes = routes else {
+            return
+        }
+        let count = 17
+        let routeMarkers = Array(routes.compactMap { route in
+            self.generateRouteMarker(location: route.startingLocation, count: count)
+        })
+        
+        markers = Dictionary(uniqueKeysWithValues: zip(routeMarkers, [Int](0..<routeMarkers.count)))
     }
 }
 
@@ -139,7 +192,7 @@ extension ActivityViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         // TODO: On tap with marker, pop up route description
         guard let markerID = markers[marker] else {
-            redrawMarkers(mapView.camera.target)
+            redrawMarkers()
             return false
         }
         // TODO: send correct stats to drawer
@@ -149,44 +202,13 @@ extension ActivityViewController: GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        redrawMarkers(mapView.camera.target)
-    }
-
-    func redrawMarkers(_ location: CLLocationCoordinate2D) {
-        guard !runStarted else {
-            return
-        }
-        googleMapView.clear()
-        markers = [:]
-        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
-            return
-        }
-
-        // TODO: Get all potential markers and generate them.
-        // Get marker nearby location
-
-        // BELOW IS THE REAL CODE FOR GET NEARBY ROUTES.
-//        routesManager.getRoutesNear(location: location) { (routes, error) -> Void in
-//            self?.markers = [:]
-//            for index in 0..<routes.count {
-//                // Count is the number of routes that the marker represents
-//                // Set as 17 as that is the name of the image
-//                let count = 17
-//                let marker = self.generateRouteMarker(location: routes[index], count: count)
-//                self.markers[marker] = index
-//            }
-//        }
-
-        // TODO: STUB - TO REMOVE
-        let routes = getNearbyRoutes()
-        markers = [:]
-        for index in 0..<routes.count {
-            // Count is the number of routes that the marker represents
-            // Set as 17 as that is the name of the image
-            let count = 17
-            let marker = generateRouteMarker(location: routes[index], count: count)
-            markers[marker] = index
-        }
+        let corner = mapView.projection.visibleRegion().farLeft
+        print("location: \(mapView.projection.visibleRegion().farLeft)")
+        let checkpoint = CheckPoint(location: CLLocation(latitude: corner.latitude, longitude: corner.longitude),
+                                    time: 1.0, actualDistance: 1.0, routeDistance: 1.0)
+        let run = Run(runner: userSession!.currentUser!, checkpoints: [checkpoint])
+        let route = Route(creator: userSession!.currentUser!, name: "rainbow road", creatorRun: run)
+        fetchNearbyRoutes()
     }
 
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
@@ -208,7 +230,10 @@ extension ActivityViewController: GMSMapViewDelegate {
         googleMapView.clear()
     }
 
-    func generateRouteMarker(location: CLLocation, count: Int) -> GMSMarker {
+    func generateRouteMarker(location: CLLocation?, count: Int) -> GMSMarker? {
+        guard let location = location else {
+            return nil
+        }
         let marker = GMSMarker(position: location.coordinate)
         marker.map = googleMapView
         marker.icon = UIImage(named: "\(count)")

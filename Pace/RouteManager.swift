@@ -49,7 +49,7 @@ class RealmRouteManager: RouteManager {
             }
             routes.forEach { route in
                 try! self.inMemoryRealm.write {
-                    self.inMemoryRealm.create(Route.self, value: route, update: true)
+                    self.inMemoryRealm.add(route, update: true)
                 }
             }
         }

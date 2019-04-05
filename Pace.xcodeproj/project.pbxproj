@@ -42,8 +42,8 @@
 		8BD4C5922256806200D0CEC7 /* CheckPoint+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */; };
 		8BD4C5942256808000D0CEC7 /* Route+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */; };
 		8BD4C596225680C600D0CEC7 /* RealmCLLocation+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */; };
+		8BD4C59A2257B4BF00D0CEC7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BD4C5992257B4BF00D0CEC7 /* GoogleService-Info.plist */; };
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
-		8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */; };
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
 		8BDFFF8A224F4AC400F3BB3A /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF89224F4AC400F3BB3A /* ModelTests.swift */; };
 		DB5C4B241B44C608D65AF3FA /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6414F8B051D411B79379B99 /* Pods_PaceTests.framework */; };
@@ -111,8 +111,8 @@
 		8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CheckPoint+Firebase.swift"; sourceTree = "<group>"; };
 		8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+Firebase.swift"; sourceTree = "<group>"; };
 		8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmCLLocation+Firebase.swift"; sourceTree = "<group>"; };
+		8BD4C5992257B4BF00D0CEC7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
-		8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8BDFFF87224F482000F3BB3A /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		8BDFFF89224F4AC400F3BB3A /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		9425A08F60F1A7AEACC6B14B /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,7 +204,6 @@
 		8B59BE5A223CE59600C2E9E7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
 				6255967222549B2D0036C2B9 /* Formatter.swift */,
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
@@ -217,6 +216,7 @@
 		8BD4C57A2250F89F00D0CEC7 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
 				8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */,
 				8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */,
 			);
@@ -332,7 +332,7 @@
 		EBC1644A223C9EE900745F91 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8BDED014223FE2FA00CD778D /* GoogleService-Info.plist */,
+				8BD4C5992257B4BF00D0CEC7 /* GoogleService-Info.plist */,
 				EB931BC22238066500AFF868 /* AppDelegate.swift */,
 				EB931BCC2238066800AFF868 /* Assets.xcassets */,
 				EB931BCE2238066800AFF868 /* LaunchScreen.storyboard */,
@@ -433,12 +433,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB931BD02238066800AFF868 /* LaunchScreen.storyboard in Resources */,
-				8BDED015223FE2FA00CD778D /* GoogleService-Info.plist in Resources */,
 				EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */,
 				625596772254AE200036C2B9 /* RouteCollectionViewCell.xib in Resources */,
 				62A7C5C2224F6041009585D3 /* UserStatsView.xib in Resources */,
 				EB931BC82238066500AFF868 /* Main.storyboard in Resources */,
 				62FF753022495BB6008847CC /* RunCollectionViewCell.xib in Resources */,
+				8BD4C59A2257B4BF00D0CEC7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,7 +818,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.pace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -839,7 +839,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.pace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
