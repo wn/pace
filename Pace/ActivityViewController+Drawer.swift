@@ -21,7 +21,7 @@ extension ActivityViewController {
         return pullUpController
     }
 
-    private func addPullUpController() {
+    private func showPullUpController() {
         guard children.filter({ $0 is DrawerViewController }).isEmpty else {
             return
         }
@@ -32,8 +32,8 @@ extension ActivityViewController {
                             animated: true)
     }
 
-    func renderDrawer(stats: String) {
-        addPullUpController()
-        pullUpDrawer.setStats(stat: stats)
+    func renderDrawer(/*route: Route*/) {
+        showPullUpController()
+        pullUpDrawer.routeStats(/*route: route*/)
     }
 }

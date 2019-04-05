@@ -8,17 +8,31 @@
 
 import UIKit
 import FaveButton
+import RealmSwift
 
 class DrawerViewController: PullUpController {
     @IBOutlet var favouriteButton: FaveButton!
     @IBOutlet var numOfRunners: UILabel!
+    var initialState: InitialState = .expanded
+
+    @IBOutlet var startPoint: UILabel!
+    @IBOutlet var endPoint: UILabel!
+    @IBOutlet var createdBy: UILabel!
+    @IBOutlet var distance: UILabel!
+
+
+    var viewingRoute: Route? = nil
+
+    @IBOutlet var runnersTableView: UITableView!
+    var paces = List<Run>()
+    let runnerCellIdentifier = "runnerCell"
 
     enum InitialState {
         case contracted
         case expanded
     }
 
-    func setStats(stat: String) {
+    func routeStats(/*route: Route*/) {
         //label.text = stat
         /*
          number of runners
@@ -29,17 +43,35 @@ class DrawerViewController: PullUpController {
          add_to_favourite
          */
 
+//        guard let stats = route.generateStats() else {
+//            return
+//        }
+//        viewingRoute = route
+//        paces = route.paces
+//
+//        startPoint.text = "START: \(stats.startingLocation)"
+//        endPoint.text = "END: \(stats.endingLocation)"
+//        createdBy.text = "Created by: \(route.creator?.name ?? ""))"
+//        distance.text = "Distance: \(stats.totalDistance)"
+
+
         // IF ROUTES IN FAVOURITE: SET SELECTED TO TRUE
         favouriteButton.setSelected(selected: true, animated: false)
-        numOfRunners.text = "\(runners.count) 🏃🏻‍♂️"
+        numOfRunners.text = "\(paces.count) 🏃🏻‍♂️"
+
+        // Add tap gesture to drawer
+        routeStatsContainerView.gestureRecognizers?.removeAll()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(startRoute(_:)))
+        routeStatsContainerView.addGestureRecognizer(tapGesture)
     }
 
-    @IBOutlet var runnersTableView: UITableView!
-    var runners = [1,2,3,4,5,6]
-    let runnerCellIdentifier = "runnerCell"
-
-
-    var initialState: InitialState = .expanded
+    @objc
+    func startRoute(_ sender: UITapGestureRecognizer) {
+        // TODO: Start a run
+        // Render route map, show checkpoints, etc
+        closeDrawer()
+        (parent as? ActivityViewController)?.startingRun()
+    }
 
     // MARK: - IBOutlets
 
@@ -77,8 +109,12 @@ class DrawerViewController: PullUpController {
     override func pullUpControllerDidMove(to stickyPoint: CGFloat) {
         // print("did move to \(stickyPoint)")
         if stickyPoint == 0 {
-            parent?.removePullUpController(self, animated: true)
+            closeDrawer()
         }
+    }
+
+    func closeDrawer() {
+        parent?.removePullUpController(self, animated: true)
     }
 
     override func pullUpControllerDidDrag(to point: CGFloat) {
@@ -126,7 +162,7 @@ class DrawerViewController: PullUpController {
 
 extension DrawerViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return runners.count
+        return paces.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

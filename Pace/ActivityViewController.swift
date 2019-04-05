@@ -17,6 +17,9 @@ class ActivityViewController: UIViewController {
     var originalPullUpControllerViewSize: CGSize = .zero
     let coreLocationManager = CLLocationManager()
 
+    var currentRoute: Route? = nil
+    var currentRun: Run? = nil
+
     @IBAction func endRunButton(_ sender: UIButton) {
         endRun(sender)
     }
@@ -144,7 +147,8 @@ extension ActivityViewController: GMSMapViewDelegate {
         }
         // TODO: send correct stats to drawer
         print("MARKER PRESSED: \(markerID)")
-        renderDrawer(stats: "\(markerID)")
+        // TODO: GET ROUTE associated to marker
+        renderDrawer()
         return true
     }
 
