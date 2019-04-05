@@ -13,6 +13,9 @@ protocol PaceStorageAPI {
     /// Fetches the routes stored in the cloud that start within this region.
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: ((Error?) -> Void)?)
+    /// Fetched the runs for this route.
+    func fetchRunsForRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
+
     /// Adds the route upload action into the queue, and attempts it.
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
     
@@ -24,8 +27,17 @@ class PaceFirestoreAPI: PaceStorageAPI {
 
     private static let rootRef = Firestore.firestore()
     private static let routesRef = rootRef.collection("routes")
+    
+    private static func docRefFor(route: Route) -> DocumentReference {
+        return routesRef.document(route.id)
+    }
+
     private static let runsRef = rootRef.collection("runs")
 
+    private static func docRefFor(run: Run) -> DocumentReference {
+        return routesRef.document(run.route.id).collection("runs").document(run.id)
+    }
+    
     private var persistentRealm: Realm
     private var inMemoryRealm: Realm
 
@@ -65,10 +77,43 @@ class PaceFirestoreAPI: PaceStorageAPI {
         }
     }
 
+    func fetchRunsForRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {
+        let query = PaceFirestoreAPI.runsRef
+            .whereField("routeId", isEqualTo: route.id)
+        query.getDocuments { snapshot, err in
+            guard err == nil else {
+                if let completion = completion {
+                    completion(err)
+                }
+                return
+            }
+            let targetRealm = self.inMemoryRealm
+            snapshot?.documents
+                .compactMap {
+                    Run.fromDictionary(id: $0.documentID, value: $0.data())
+                }
+                .forEach { route in
+                    try! targetRealm.write {
+                        targetRealm.create(Run.self, value: route, update: true)
+                    }
+            }
+            if let completion = completion {
+                completion(nil)
+            }
+        }
+    }
+
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {
         let routeId = route.id
-        PaceFirestoreAPI.routesRef
-            .document(routeId).setData(route.asDictionary, merge: true, completion: completion)
+        let batch = PaceFirestoreAPI.rootRef.batch()
+        let routeDocument = PaceFirestoreAPI.routesRef.document(routeId)
+        batch.setData(route.asDictionary, forDocument: routeDocument, merge: true)
+        route.paces.forEach { run in
+            let runId = run.id
+            let runDocument = routeDocument.collection("runs").document(runId)
+            batch.setData(run.asDictionary, forDocument: runDocument, merge: true)
+        }
+        batch.commit(completion: completion)
     }
 
     func uploadRun(_ run: Run, forRoute route: Route, _ completion: ((Error?) -> Void)?) {

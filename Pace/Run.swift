@@ -25,6 +25,9 @@ class Run: IdentifiableObject {
     }
     var checkpoints = List<CheckPoint>()
     var routes: LinkingObjects<Route> = LinkingObjects(fromType: Route.self, property: "paces")
+    var route: Route {
+        return routes.first!
+    }
 
     // computed properties, ignored by Realm
     var startingLocation: CLLocation? {

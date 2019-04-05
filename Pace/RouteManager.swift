@@ -12,9 +12,9 @@ import CoreLocation
 protocol RouteManager {
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                        _ completion: @escaping (Error?) -> Void)
+    func getRunsFor(route: Route, _ completion: @escaping (List<Run>?, Error?) -> Void)
     func saveNewRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
     func saveNewRun(_ run: Run, toRoute: Route, _ completion: ((Error?) -> Void)?)
-    func getRunsFor(route: Route, _ completion: (List<Run>?, Error?) -> Void)
 }
 
 class RealmRouteManager: RouteManager {
@@ -65,7 +65,8 @@ class RealmRouteManager: RouteManager {
     }
 
     // TODO: complete the implementation
-    func getRunsFor(route: Route, _ completion: (List<Run>?, Error?) -> Void) {
+    func getRunsFor(route: Route, _ completion: @escaping (List<Run>?, Error?) -> Void) {
+        storageAPI.fetchRunsForRoute(route, nil)
         completion(route.paces, nil)
     }
 }

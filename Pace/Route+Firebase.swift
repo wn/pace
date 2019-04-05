@@ -14,7 +14,8 @@ extension Route: FirebaseStorable {
             "startingLongitude": startingLocation?.longitude ?? 0.0,
             "startingLatitude": startingLocation?.latitude ?? 0.0,
             "creatorRun": creatorRun?.asDictionary ?? [:],
-            "creatorRunId": creatorRun?.id ?? ""
+            "creatorRunId": creatorRun?.id ?? "",
+            "runs": Array(paces.map { $0.id })
         ]
     }
     

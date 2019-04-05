@@ -68,16 +68,18 @@ class FavouriteViewController: RequireLoginController {
             let index = uuidString.firstIndex(of: "-") ?? uuidString.endIndex
             let randomString = uuidString[..<index]
             let randomImage = imageNames[[Int](0..<3).randomElement()!]
+            let checkpoints = [Int](0..<6).map { createCP(lat: lat + Double($0), long: long + Double($0)) }
             let randomRoute = Route(creator: currentUser,
                                     name: String(randomString),
                                     thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
-                                    creatorRun: Run(runner: currentUser, checkpoints: [createCP(lat: lat, long: long)]))
+                                    creatorRun: Run(runner: currentUser, checkpoints: checkpoints))
+            [Int](0..<5).forEach { _ in 
+                randomRoute.addNewRun(Run(runner: currentUser, checkpoints: [createCP(lat: 1, long: 2)]))
+            }
             return randomRoute
         }
         let manager = RealmRouteManager()
-        manager.fetchRoutesWithin(latitudeMin: 1.0, latitudeMax: 3.0, longitudeMin: 1.0, longitudeMax: 3.0) {
-            if $0 == nil { print("lol") }
-        }
+        manager.saveNewRoute(createRouteStartingAt(lat: 1, long: 2)) { if $0 == nil { print("lol") } }
     }
 }
 
