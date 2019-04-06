@@ -47,6 +47,7 @@
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
 		8BDFFF8A224F4AC400F3BB3A /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF89224F4AC400F3BB3A /* ModelTests.swift */; };
 		DB5C4B241B44C608D65AF3FA /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6414F8B051D411B79379B99 /* Pods_PaceTests.framework */; };
+		EB22D7FB2258D91C00D0F69D /* GridMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7FA2258D91C00D0F69D /* GridMap.swift */; };
 		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
 		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
@@ -118,6 +119,7 @@
 		9425A08F60F1A7AEACC6B14B /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6414F8B051D411B79379B99 /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E73834FC93DC9C03EC5BF412 /* Pods-PaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.debug.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EB22D7FA2258D91C00D0F69D /* GridMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMap.swift; sourceTree = "<group>"; };
 		EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
@@ -252,6 +254,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EB22D7F92258D90800D0F69D /* GridMapPod */ = {
+			isa = PBXGroup;
+			children = (
+				EB22D7FA2258D91C00D0F69D /* GridMap.swift */,
+			);
+			name = GridMapPod;
+			sourceTree = "<group>";
+		};
 		EB5E42DF2254EC8300A60207 /* SelectActivityView */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +297,7 @@
 		EB931BC12238066500AFF868 /* Pace */ = {
 			isa = PBXGroup;
 			children = (
+				EB22D7F92258D90800D0F69D /* GridMapPod */,
 				62559670225492C90036C2B9 /* StopwatchTimer.swift */,
 				62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */,
 				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
@@ -615,6 +626,7 @@
 				EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */,
 				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
+				EB22D7FB2258D91C00D0F69D /* GridMap.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
