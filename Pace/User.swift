@@ -21,7 +21,7 @@ class User: IdentifiableObject {
 
     func addFavouriteRoute(_ route: Route) -> Bool {
         do {
-            try Realm.getDefault.write {
+            try Realm.persistent.write {
                 favouriteRoutes.append(route)
             }
             return true
@@ -38,15 +38,15 @@ class User: IdentifiableObject {
 
     // MARK: - Testing functions
     static func getUser(name: String) -> User {
-        var user = Realm.getDefault.objects(User.self).first {
+        var user = Realm.persistent.objects(User.self).first {
             $0.name == name
         }
         if user == nil {
             let newUser = User(name: name)
-            try! Realm.getDefault.write {
-                Realm.getDefault.add(newUser)
+            try! Realm.persistent.write {
+                Realm.persistent.add(newUser)
             }
-            user = Realm.getDefault.objects(User.self).first
+            user = Realm.persistent.objects(User.self).first
         }
         return user!
     }
