@@ -60,7 +60,7 @@ extension CLLocation {
             && timestamp == other.timestamp
     }
 
-    /// Checks whether this location is near to the give location, within the given distance.
+    /// Checks whether this location is within the distance of another location
     /// - Parameters:
     ///   - other: The other CLLocation to check against.
     ///   - distance: The distance threshold to check within.

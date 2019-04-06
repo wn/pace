@@ -17,10 +17,7 @@ class OngoingRun {
     // the properties of the run that is being followed.
     let paceRun: Run?
     var pacePoints: [CheckPoint]? {
-        guard let paceRun = paceRun else {
-            return nil
-        }
-        return Array(paceRun.checkpoints)
+        return paceRun.map { Array($0.checkpoints) }
     }
     // keep track of the checkpoints in paceRun that are covered so far. (only for follow run)
     var coveredPacePoints: Set<CheckPoint>?
@@ -38,7 +35,7 @@ class OngoingRun {
         let startingPoint = CheckPoint(location: startingLocation, time: 0, actualDistance: 0, routeDistance: 0)
         self.checkpoints = [startingPoint]
         self.paceRun = paceRun
-        self.coveredPacePoints = paceRun == nil ? nil : Set<CheckPoint>()
+        self.coveredPacePoints = paceRun.map { _ in Set<CheckPoint>() }
         markAsCovered(paceRun?.checkpoints.first)
     }
 
@@ -132,7 +129,7 @@ class OngoingRun {
     }
 
     /// Converts the OngoingRun to a new Route.
-    /// - Precondition: (1) This OngoingRun is a new Run, or;
+    /// - Precondition: (1) This OngoingRun does not follow an existing Route, or;
     ///                 (2) This OngoingRun does not cover the required number of checkpoints in the paceRun.
     /// - Returns: A new Route containing this completed Run.
     func toNewRoute() -> Route {
@@ -166,7 +163,7 @@ class OngoingRun {
         return lastPointPassed
     }
 
-    /// Marks a checkpoint in the paceRun as covered by the OngoingRun.
+    /// Marks a checkpoint in the `paceRun` as covered by the `OngoingRun`.
     /// - Precondition: The checkpoint to be marked must be in the paceRun.
     /// - Parameter checkpoint: The checkpoint to be marked as covered.
     private func markAsCovered(_ checkpoint: CheckPoint?) {

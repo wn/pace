@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10862652088C59101950E3BF /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		119A0BC5BB7EAA25EE7513E5 /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490807CC3ECB2045B2A6315F /* Pods_PaceTests.framework */; };
 		10862652088C59101950E3BF /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9425A08F60F1A7AEACC6B14B /* Pods_Pace.framework */; };
 		5C5124BB225316FB00B8A15C /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BA225316FB00B8A15C /* Stats.swift */; };
