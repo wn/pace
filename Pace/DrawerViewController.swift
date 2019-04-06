@@ -77,12 +77,13 @@ class DrawerViewController: PullUpController {
 
     @IBOutlet private weak var visualEffectView: UIVisualEffectView!
     @IBOutlet private weak var routeStatsContainerView: UIView!
+    @IBOutlet private weak var expandedView: UIView!
+
     @IBOutlet private weak var searchSeparatorView: UIView! {
         didSet {
             searchSeparatorView.layer.cornerRadius = searchSeparatorView.frame.height / 2
         }
     }
-    @IBOutlet private weak var expandedView: UIView!
 
     var initialPointOffset: CGFloat {
         return routeStatsContainerView.frame.maxY
@@ -95,15 +96,11 @@ class DrawerViewController: PullUpController {
     override func viewDidLoad() {
         super.viewDidLoad()
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
-                              height: expandedView.frame.maxY)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+                              height: min(UIScreen.main.bounds.height - 75, expandedView.frame.maxY))
     }
 
     override func pullUpControllerWillMove(to stickyPoint: CGFloat) {
-        //        print("will move to \(stickyPoint)")
+        // print("will move to \(stickyPoint)")
     }
 
     override func pullUpControllerDidMove(to stickyPoint: CGFloat) {
@@ -132,7 +129,7 @@ class DrawerViewController: PullUpController {
     }
 
     override var pullUpControllerMiddleStickyPoints: [CGFloat] {
-        return [0, routeStatsContainerView.frame.maxY, expandedView.frame.maxY]
+        return [0, routeStatsContainerView.frame.maxY]
     }
 
     override var pullUpControllerBounceOffset: CGFloat {
