@@ -34,7 +34,7 @@
 		8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */; };
 		8BD4C56F224F68BB00D0CEC7 /* List+Constructors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */; };
 		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
-		8BD4C5802250FAB200D0CEC7 /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */; };
+		8BD4C5802250FAB200D0CEC7 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C57F2250FAB200D0CEC7 /* StorageManager.swift */; };
 		8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */; };
 		8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */; };
 		8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */; };
@@ -103,7 +103,7 @@
 		8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableObject.swift; sourceTree = "<group>"; };
 		8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+Constructors.swift"; sourceTree = "<group>"; };
 		8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
-		8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
+		8BD4C57F2250FAB200D0CEC7 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionManager.swift; sourceTree = "<group>"; };
 		8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
 		8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorable.swift; sourceTree = "<group>"; };
@@ -218,7 +218,7 @@
 			children = (
 				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
 				8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */,
-				8BD4C57F2250FAB200D0CEC7 /* RouteManager.swift */,
+				8BD4C57F2250FAB200D0CEC7 /* StorageManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -620,7 +620,7 @@
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */,
-				8BD4C5802250FAB200D0CEC7 /* RouteManager.swift in Sources */,
+				8BD4C5802250FAB200D0CEC7 /* StorageManager.swift in Sources */,
 				8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
 				EB5E42DC2253CEF400A60207 /* DrawerViewController.swift in Sources */,

@@ -14,7 +14,7 @@ import RealmSwift
 
 class ActivityViewController: UIViewController {
     var userSession: UserSessionManager?
-    var routesManager: RouteManager?
+    var routesManager: StorageManager?
     var originalPullUpControllerViewSize: CGSize = .zero
     let coreLocationManager = CLLocationManager()
     var routes: Results<Route>?
@@ -69,7 +69,7 @@ class ActivityViewController: UIViewController {
         setupMapView()
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
-        routesManager = RealmRouteManager.forDefaultRealm
+        routesManager = RealmStorageManager.default
         userSession = RealmUserSessionManager.forDefaultRealm
         routes = Realm.inMemory.objects(Route.self)
         notificationToken = routes?.observe { _ in
@@ -129,7 +129,9 @@ class ActivityViewController: UIViewController {
          */
 
         routesManager?.fetchRoutesWithin(latitudeMin: top, latitudeMax: bottom, longitudeMin: left, longitudeMax: right) {
-            print($0.localizedDescription)
+            if let error = $0 {
+                print(error.localizedDescription)
+            }
         }
     }
 
