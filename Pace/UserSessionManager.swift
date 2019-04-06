@@ -24,7 +24,7 @@ class RealmUserSessionManager: UserSessionManager {
 
     private var realm: Realm
 
-    init(realm: Realm = Realm.getDefault) {
+    init(realm: Realm = .persistent) {
         self.realm = realm
         // TODO: Proper persistence. Should be able to be handled with Realm Sync.
         signInAs(user: realm.objects(User.self).first)
@@ -43,7 +43,7 @@ class RealmUserSessionManager: UserSessionManager {
             try! realm.write {
                 realm.add(newUser)
             }
-            user = Realm.getDefault.objects(User.self).first
+            user = Realm.persistent.objects(User.self).first
         }
         return user
     }
@@ -57,7 +57,7 @@ class RealmUserSessionManager: UserSessionManager {
             guard let userFavourites = getFavouriteRoutes() else {
                 throw NSError()
             }
-            try Realm.getDefault.write {
+            try Realm.persistent.write {
                 userFavourites.append(route)
             }
             completion?(true)

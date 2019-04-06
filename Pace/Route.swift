@@ -14,14 +14,17 @@ class Route: IdentifiableObject {
     @objc dynamic var creator: User?
     @objc dynamic var name: String = ""
     @objc dynamic var thumbnailData: Data?
+    @objc dynamic var creatorRun: Run?
     var thumbnail: UIImage? {
         guard let thumbnailData = thumbnailData else {
             return UIImage(named: "run.jpeg")
         }
         return UIImage(data: thumbnailData)
     }
-    var creatorRun: Run?
     var paces = List<Run>()
+    var startingLocation: CLLocation? {
+        return creatorRun?.startingLocation
+    }
 
     /// Constructs a route given the runner, name, the first (creator) run and collection to paces.
     /// - Precondition: `creatorRun` must be within `paces`.

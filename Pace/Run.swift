@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import RealmSwift
+import Firebase
 
 class Run: IdentifiableObject {
     @objc dynamic var runner: User?
@@ -23,6 +24,10 @@ class Run: IdentifiableObject {
         return UIImage(data: thumbnailData)
     }
     var checkpoints = List<CheckPoint>()
+    var routes: LinkingObjects<Route> = LinkingObjects(fromType: Route.self, property: "paces")
+    var route: Route {
+        return routes.first!
+    }
 
     // computed properties, ignored by Realm
     var startingLocation: CLLocation? {
