@@ -12,7 +12,6 @@ import CoreLocation
 /// This struct is not persistently stored.
 /// It is generated based on the Route model upon requested.
 struct RouteStats {
-
     let startingLocation: CLLocation
     let endingLocation: CLLocation
     let dateCreated: Date
@@ -39,4 +38,10 @@ struct RouteStats {
         self.numOfRunners = numOfRunners
         self.fastestTime = fastestTime
     }
+}
+
+struct PacingStats {
+    let pacer: User
+    // pacer timing minus runner timing
+    let timeDifference: Double
 }
