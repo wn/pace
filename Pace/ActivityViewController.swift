@@ -101,7 +101,8 @@ class ActivityViewController: UIViewController {
         notificationToken = routes?.observe { [weak self](changes) in
             switch changes {
             case .initial(_):
-                //self?.requestForRoutes(self?.viewingGrids ?? [])
+                self?.fetchNearbyRoutes()
+                print("FETCHED")
                 break
             case .update(_, let deletions, let insertions, let modifications):
                 var newRoutes = [Route]()
@@ -114,6 +115,7 @@ class ActivityViewController: UIViewController {
                 print(newRoutes)
                 print(deletions)
                 print(modifications)
+                self?.redrawMarkers()
             case .error(_):
                 print("FUCKING ERROR")
             }
@@ -144,16 +146,16 @@ class ActivityViewController: UIViewController {
         coreLocationManager.requestAlwaysAuthorization()
         coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         coreLocationManager.requestLocation()
-//        while locationManager.location == nil {
-//            // Wait 1 second and check if location has been loaded.
-//            // If location cannot be loaded, code here will never terminate
-//            // TODO: FIX ABOVE
-//            sleep(1)
-//        }
-//        guard let location = locationManager.location else {
-//            fatalError("While loop should have captured nil value!")
-//        }
-//        googleMapView.setCameraPosition(location.coordinate)
+        while coreLocationManager.location == nil {
+            // Wait 1 second and check if location has been loaded.
+            // If location cannot be loaded, code here will never terminate
+            // TODO: FIX ABOVE
+            sleep(1)
+        }
+        guard let location = coreLocationManager.location else {
+            fatalError("While loop should have captured nil value!")
+        }
+        // googleMapView.setCameraPosition(location.coordinate)
     }
 
     func fetchNearbyRoutes() {
@@ -166,21 +168,30 @@ class ActivityViewController: UIViewController {
         let left = topLeft.longitude
         let right = bottomRight.longitude
 
-        // TODO: Fake data. To draw real data here instead
-        /*
-        let one = CLLocation(latitude: bottom + 0.001, longitude: left)
-        let two = CLLocation(latitude: bottom + 0.000_5, longitude: left)
-        let three = CLLocation(latitude: top - 0.001, longitude: right)
-        let four = CLLocation(latitude: top - 0.000_5, longitude: right)
-        return [one, two, three, four]
-         */
-
         routesManager?.fetchRoutesWithin(latitudeMin: top, latitudeMax: bottom, longitudeMin: left, longitudeMax: right) {
             if let error = $0 {
                 print(error.localizedDescription)
             }
         }
     }
+
+//    func fetchProjectedMapRoutes() {
+//        for gridNumber in viewingGrids {
+//            guard let bound = gridMapManager?.getBounds(gridId: gridNumber) else {
+//                continue
+//            }
+//            routesManager?.fetchRoutesWithin(
+//                latitudeMin: bound.minLat,
+//                latitudeMax: bound.maxLat,
+//                longitudeMin: bound.minLong,
+//                longitudeMax: bound.maxLong)
+//            {
+//                if let error = $0 {
+//                    print(error.localizedDescription)
+//                }
+//            }
+//        }
+//    }
 
     func redrawMarkers() {
         guard !runStarted else {
@@ -266,6 +277,7 @@ extension ActivityViewController: GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        print("IDLED")
         fetchNearbyRoutes()
     }
 
