@@ -20,6 +20,9 @@ class ActivityViewController: UIViewController {
     var routes: Results<Route>?
     var notificationToken: NotificationToken?
 
+    var currentRoute: Route? = nil
+    var currentRun: Run? = nil
+
     @IBAction func endRunButton(_ sender: UIButton) {
         endRun(sender)
     }
@@ -67,14 +70,18 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
-        renderMapButton()
-        setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
         routesManager = RealmStorageManager.default
         userSession = RealmUserSessionManager.forDefaultRealm
         routes = Realm.inMemory.objects(Route.self)
         notificationToken = routes?.observe { _ in
             self.redrawMarkers()
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        renderMapButton()
+        setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
     }
 
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
@@ -168,7 +175,6 @@ class ActivityViewController: UIViewController {
         let routeMarkers = Array(routes.compactMap { route in
             self.generateRouteMarker(location: route.startingLocation, count: count)
         })
-
         markers = Dictionary(uniqueKeysWithValues: zip(routeMarkers, [Int](0..<routeMarkers.count)))
     }
 }
@@ -177,7 +183,8 @@ class ActivityViewController: UIViewController {
 extension ActivityViewController: GMSMapViewDelegate {
     private func renderMapButton() {
         let startXPos = googleMapView.layer.frame.midX
-        let startYPos = googleMapView.frame.height
+        let startYPos = googleMapView.frame.height - mapButton.frame.height
+        // mapButton.bounds = googleMapView.frame
         mapButton.center = CGPoint(x: startXPos, y: startYPos)
         googleMapView.addSubview(mapButton)
         googleMapView.bringSubviewToFront(mapButton)
@@ -198,17 +205,12 @@ extension ActivityViewController: GMSMapViewDelegate {
         }
         // TODO: send correct stats to drawer
         print("MARKER PRESSED: \(markerID)")
-        renderDrawer(stats: "\(markerID)")
+        // TODO: GET ROUTE associated to marker
+        renderDrawer()
         return true
     }
 
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        let corner = mapView.projection.visibleRegion().farLeft
-        print("location: \(mapView.projection.visibleRegion().farLeft)")
-        let checkpoint = CheckPoint(location: CLLocation(latitude: corner.latitude, longitude: corner.longitude),
-                                    time: 1.0, actualDistance: 1.0, routeDistance: 1.0)
-        let run = Run(runner: userSession!.currentUser!, checkpoints: [checkpoint])
-        let route = Route(creator: userSession!.currentUser!, name: "rainbow road", creatorRun: run)
         fetchNearbyRoutes()
     }
 
