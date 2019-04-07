@@ -17,6 +17,10 @@ extension ActivityViewController {
         guard !runStarted else {
             return
         }
+        startingRun()
+    }
+
+    func startingRun() {
         setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         clearMap() // Clear route markers
         VoiceAssistant.say("Starting run")
