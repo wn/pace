@@ -14,30 +14,11 @@ public class GridMap {
     // The width and height of a grid, in metres.
     public let gridWidth: Double
     public let gridHeight: Double
-
-    /// Get CLLocationDegree representing a unit of gridWidth.
-    private var longitudeLength: CLLocationDegrees {
-        var low: CLLocationDegrees = 0
-        var high: CLLocationDegrees = 180
-
-        let origin = CLLocation(latitude: 0, longitude: 0)
-        while low != high {
-            let mid = low + (high - low) / 2
-            let currLocation = CLLocation(latitude: 0, longitude: mid)
-            let distance = currLocation.distance(from: origin)
-            if distance == gridWidth {
-                return mid
-            } else if distance < gridWidth {
-                low = mid
-            } else {
-                high = mid
-            }
-        }
-        return -1
-    }
+    private let longitudeLength: CLLocationDegrees
+    private let latitudeLength: CLLocationDegrees
 
     /// Get CLLocationDegree representing a unit of gridHeight.
-    private var latitudeLength: CLLocationDegrees {
+    static func getLatitudeLength(_ gridHeight: Double) -> CLLocationDegrees {
         var low: CLLocationDegrees = 0
         var high: CLLocationDegrees = 90
 
@@ -46,7 +27,7 @@ public class GridMap {
             let mid = low + (high - low) / 2
             let currLocation = CLLocation(latitude: mid, longitude: 0)
             let distance = currLocation.distance(from: origin)
-            if distance == gridHeight {
+            if distance - gridHeight < 0.001 {
                 return mid
             } else if distance < gridHeight {
                 low = mid
@@ -57,12 +38,36 @@ public class GridMap {
         return -1
     }
 
+    /// Get CLLocationDegree representing a unit of gridWidth.
+    static func getLongitudeLength(_ gridWidth: Double) -> CLLocationDegrees {
+        var low: CLLocationDegrees = 0
+        var high: CLLocationDegrees = 180
+
+        let origin = CLLocation(latitude: 0, longitude: 0)
+        while low != high {
+            let mid = low + (high - low) / 2
+            let currLocation = CLLocation(latitude: 0, longitude: mid)
+            let distance = currLocation.distance(from: origin)
+            if distance - gridWidth < 0.001 {
+                return mid
+            } else if distance < gridWidth {
+                low = mid
+            } else {
+                high = mid
+            }
+        }
+        return -1
+    }
+
     public init?(width: Double, height: Double) {
+
         guard width > 0 && height > 0 else {
             return nil
         }
         gridWidth = width
         gridHeight = height
+        longitudeLength = GridMap.getLongitudeLength(gridWidth)
+        latitudeLength =  GridMap.getLatitudeLength(gridHeight)
     }
 
 
@@ -71,22 +76,23 @@ public class GridMap {
     /// - Parameter position: The position to look up.
     /// - Returns: The id of the grid that `position` is in.
     public func getGridId(_ position: CLLocationCoordinate2D) -> GridNumber {
-        let long = position.longitude - (position.longitude.truncatingRemainder(dividingBy: gridWidth))
-        let lat = position.latitude - (position.latitude.truncatingRemainder(dividingBy: gridHeight))
+        let long = position.longitude - (position.longitude.truncatingRemainder(dividingBy: longitudeLength))
+        let lat = position.latitude - (position.latitude.truncatingRemainder(dividingBy: latitudeLength))
         return GridNumber(latitude: lat, longitude: long)
     }
 
     public func getBoundedGrid(_ bound: GridBound) -> [GridNumber] {
         var result: [GridNumber] = []
         var smallLat = bound.minLat
+
         while smallLat < bound.maxLat {
             var smallLong = bound.minLong
             while smallLong < bound.maxLong {
                 let currentGridId = getGridId(CLLocationCoordinate2D(latitude: smallLat, longitude: smallLong))
                 result.append(currentGridId)
-                smallLong += gridHeight
+                smallLong += longitudeLength
             }
-            smallLat += gridHeight
+            smallLat += latitudeLength
         }
         return result
     }

@@ -56,7 +56,7 @@ class RealmStorageManager: StorageManager {
     // TODO: complete the implementation
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ errorHandler: @escaping ErrorHandler) {
-        storageAPI.fetchRoutesWithin(latitudeMin: longitudeMax, latitudeMax: latitudeMax, longitudeMin: longitudeMin, longitudeMax: longitudeMax) { routes, error in
+        storageAPI.fetchRoutesWithin(latitudeMin: latitudeMin, latitudeMax: latitudeMax, longitudeMin: longitudeMin, longitudeMax: longitudeMax) { routes, error in
             guard error == nil, let routes = routes else {
                 if let error = error {
                     errorHandler(error)
