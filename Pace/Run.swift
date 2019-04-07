@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 import RealmSwift
 import GoogleMaps
+import Firebase
 
 class Run: IdentifiableObject {
     @objc dynamic var realmCameraPosition: RealmGMSCameraPosition?
@@ -27,6 +28,10 @@ class Run: IdentifiableObject {
     var checkpoints = List<CheckPoint>()
     var cameraPosition: GMSCameraPosition? {
         return realmCameraPosition?.asGMSCameraPosition
+    }
+    var routes: LinkingObjects<Route> = LinkingObjects(fromType: Route.self, property: "paces")
+    var route: Route {
+        return routes.first!
     }
 
     // computed properties, ignored by Realm

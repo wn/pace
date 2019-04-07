@@ -111,6 +111,12 @@ class RealmCLLocation: Object {
         timestamp = location.timestamp
     }
 
+    convenience init(latitude: Double, longitude: Double) {
+        self.init()
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+
     /// Returns this `RealmCLLocation` as a `CLLocation` object.
     var asCLLocation: CLLocation {
         return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),

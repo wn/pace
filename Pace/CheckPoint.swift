@@ -16,10 +16,10 @@ class CheckPoint: Object {
 
     /// The location represented by this checkpoint.
     /// This is a private variable used for storage.
-    @objc dynamic private var realmLocation: RealmCLLocation?
+    @objc dynamic var realmLocation: RealmCLLocation?
 
     /// The actual distance run by the runner to reach this checkpoint.
-    @objc dynamic private var actualDistance: Double = 0.0
+    @objc dynamic var actualDistance: Double = 0.0
 
     /// The cumulative distance with relation to checkpoints in the route.
     ///

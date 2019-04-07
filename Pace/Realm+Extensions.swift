@@ -9,5 +9,9 @@
 import RealmSwift
 
 extension Realm {
-    static var getDefault = try! Realm()
+    static var persistent = try! Realm()
+    static var inMemory: Realm = {
+        let configuration = Realm.Configuration(inMemoryIdentifier: "temp")
+        return try! Realm(configuration: configuration)
+    }()
 }
