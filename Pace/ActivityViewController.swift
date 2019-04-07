@@ -13,30 +13,29 @@ import AVFoundation
 import RealmSwift
 
 class ActivityViewController: UIViewController {
+    // MARK: Realm variables
     var userSession: UserSessionManager?
     var routesManager: StorageManager?
-    var originalPullUpControllerViewSize: CGSize = .zero
-    let coreLocationManager = CLLocationManager()
     var routes: Results<Route>?
     var notificationToken: NotificationToken?
+    var isConnectedToInternet = true
 
-    var currentRoute: Route? = nil
-    var currentRun: Run? = nil
+    // MARK: Drawer variable
+    var originalPullUpControllerViewSize: CGSize = .zero
 
+
+    // MARK: UIVariable
     @IBAction func endRunButton(_ sender: UIButton) {
         endRun(sender)
     }
-
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var pace: UILabel!
     @IBOutlet var time: UILabel!
+    let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
-    @IBOutlet private var googleMapView: GMSMapView!
-    // Keep track of all markers in the map
-    // Int to change to run details instead.
-    var markers: [GMSMarker: Int] = [:]
-
-    // MARK: - Running variables
+    // MARK: Running variables
+    var currentRoute: Route? = nil
+    var currentRun: Run? = nil
     var path = GMSMutablePath()
     var lastMarkedPosition: CLLocation?
     var distance: CLLocationDistance = 0
@@ -66,6 +65,32 @@ class ActivityViewController: UIViewController {
         }
     }
 
+    // MARK: Map variables
+    let coreLocationManager = CLLocationManager()
+    var gridMapManager = GridMap(width: 300, height: 300)
+    @IBOutlet private var googleMapView: GMSMapView!
+    // routesInGrid keeps track of all routes in a grid
+    // markers keeps track of all created markers. Each markers represent
+    // a certain number of routes that it represents, depending on how the routes are aggregated.
+    // When there is new routes created in a grid, we recalculate the GMSMarker
+    // locations.
+    // TODO: Abstract it to GMSView
+    var routesInGrid: [GridNumber: Set<Route>] = [:]
+    var markersInGrid: [GridNumber: Set<GMSMarker>] = [:]
+    var markers: [GMSMarker: Int] = [:]
+    // Put in map
+    var viewingGrids: [GridNumber] {
+        return gridMapManager?.getBoundedGrid(projectedMapView) ?? []
+    }
+
+    var projectedMapView: GridBound {
+        let topLeft = googleMapView.projection.visibleRegion().farLeft
+        let topRight = googleMapView.projection.visibleRegion().farRight
+        let bottomLeft = googleMapView.projection.visibleRegion().nearLeft
+        let bottomRight = googleMapView.projection.visibleRegion().nearRight
+        return GridBound(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
@@ -73,8 +98,25 @@ class ActivityViewController: UIViewController {
         routesManager = RealmStorageManager.default
         userSession = RealmUserSessionManager.forDefaultRealm
         routes = Realm.inMemory.objects(Route.self)
-        notificationToken = routes?.observe { _ in
-            self.redrawMarkers()
+        notificationToken = routes?.observe { [weak self](changes) in
+            switch changes {
+            case .initial(_):
+                //self?.requestForRoutes(self?.viewingGrids ?? [])
+                break
+            case .update(_, let deletions, let insertions, let modifications):
+                var newRoutes = [Route]()
+                for routeIndex in insertions {
+                    guard let newRoute = self?.routes?[routeIndex] else {
+                        continue
+                    }
+                    newRoutes.append(newRoute)
+                }
+                print(newRoutes)
+                print(deletions)
+                print(modifications)
+            case .error(_):
+                print("FUCKING ERROR")
+            }
         }
     }
 
@@ -83,8 +125,6 @@ class ActivityViewController: UIViewController {
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
     }
-
-    let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     /// Set up mapView view.
     private func setupMapView() {
@@ -179,6 +219,21 @@ class ActivityViewController: UIViewController {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // MARK: - GMSMapViewDelegate
 extension ActivityViewController: GMSMapViewDelegate {
     private func renderMapButton() {
@@ -243,6 +298,39 @@ extension ActivityViewController: GMSMapViewDelegate {
         return marker
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // MARK: - CLLocationManagerDelegate
 extension ActivityViewController: CLLocationManagerDelegate {

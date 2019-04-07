@@ -70,14 +70,14 @@ public class GridMap {
     ///
     /// - Parameter position: The position to look up.
     /// - Returns: The id of the grid that `position` is in.
-    public func getGridId(_ position: CLLocationCoordinate2D) -> CLLocationCoordinate2D {
+    public func getGridId(_ position: CLLocationCoordinate2D) -> GridNumber {
         let long = position.longitude - (position.longitude.truncatingRemainder(dividingBy: gridWidth))
         let lat = position.latitude - (position.latitude.truncatingRemainder(dividingBy: gridHeight))
-        return CLLocationCoordinate2D(latitude: lat, longitude: long)
+        return GridNumber(latitude: lat, longitude: long)
     }
 
-    public func getBoundedGrid(_ bound: GridBound) -> [CLLocationCoordinate2D] {
-        var result: [CLLocationCoordinate2D] = []
+    public func getBoundedGrid(_ bound: GridBound) -> [GridNumber] {
+        var result: [GridNumber] = []
         var smallLat = bound.minLat
         while smallLat < bound.maxLat {
             var smallLong = bound.minLong
@@ -95,7 +95,7 @@ public class GridMap {
     ///
     /// - Parameter gridId: The id of the grid.
     /// - Returns: The bounds of the grid with the id `gridId`.
-    public func getBounds(gridId: CLLocationCoordinate2D) -> GridBound {
+    public func getBounds(gridId: GridNumber) -> GridBound {
         let minLat = gridId.latitude
         let minLong = gridId.longitude
         let maxLat = gridId.latitude + latitudeLength
@@ -124,5 +124,15 @@ public struct GridBound {
         self.minLong = minLong
         self.maxLat = maxLat
         self.maxLong = maxLong
+    }
+}
+
+public struct GridNumber: Hashable {
+    let latitude: CLLocationDegrees
+    let longitude: CLLocationDegrees
+
+    public init(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        self.latitude = latitude
+        self.longitude = longitude
     }
 }
