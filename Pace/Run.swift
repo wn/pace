@@ -9,8 +9,10 @@
 import Foundation
 import CoreLocation
 import RealmSwift
+import GoogleMaps
 
 class Run: IdentifiableObject {
+    @objc dynamic var realmCameraPosition: RealmGMSCameraPosition?
     @objc dynamic var runner: User?
     @objc dynamic var dateCreated = Date()
     @objc dynamic var timeSpent: Double = 0.0
@@ -23,6 +25,9 @@ class Run: IdentifiableObject {
         return UIImage(data: thumbnailData)
     }
     var checkpoints = List<CheckPoint>()
+    var cameraPosition: GMSCameraPosition? {
+        return realmCameraPosition?.asGMSCameraPosition
+    }
 
     // computed properties, ignored by Realm
     var startingLocation: CLLocation? {
@@ -81,5 +86,36 @@ class Run: IdentifiableObject {
         return checkpoints.map { basePoint in
             basePoint.extractNormalizedPoint(from: runnerRecords)
         }
+    }
+
+    /// Gets the location of the runner based on the percentage progress of the run
+    /// - Parameter percentage: percentage of the run completed
+    /// - Returns: the CLLocation of the runner at the run percentage
+    func getLocationAt(percentage: Double) -> CLLocation? {
+        guard percentage <= 1 else {
+            return checkpoints.last?.location
+        }
+        let distanceAtPercentage = distance * percentage
+        var leftIdx = 0
+        var rightIdx = checkpoints.count - 1
+        // Binary search to find segment which bounds timeAtPercentage
+        while leftIdx + 1 < rightIdx {
+            let idx = Int((rightIdx + leftIdx) / 2)
+            if checkpoints[idx].routeDistance < distanceAtPercentage {
+                leftIdx = idx
+            } else if checkpoints[idx].routeDistance > distanceAtPercentage {
+                rightIdx = idx
+            } else {
+                return checkpoints[idx].location
+            }
+        }
+
+        // Interpolate to get the CLLocation between the left and right checkpoints
+        let segmentDistance = distanceAtPercentage - checkpoints[leftIdx].routeDistance
+        guard let leftLoc = checkpoints[leftIdx].location,
+            let rightLoc = checkpoints[rightIdx].location else {
+                return nil
+        }
+        return CLLocation.interpolate(distance: segmentDistance, between: leftLoc, and: rightLoc)
     }
 }

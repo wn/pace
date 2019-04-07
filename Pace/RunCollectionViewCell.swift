@@ -15,7 +15,6 @@ class RunCollectionViewCell: UICollectionViewCell {
     @IBOutlet private var runTiming: UILabel!
     @IBOutlet private var runDistance: UILabel!
     @IBOutlet private var thumbnail: UIImageView!
-    weak var delegate: ViewDelegate?
     weak var currentRun: Run?
 
     var run: Run? {

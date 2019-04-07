@@ -250,21 +250,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="RunAnalysis" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bEB-kh-XJP">
-                                <rect key="frame" x="139" y="318" width="100" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QnP-uh-YAq" customClass="RunGraphView" customModule="Pace" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="333.5" width="375" height="150"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="4GQ-fq-xI1"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cP8-hk-TXr" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="313.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QnP-uh-YAq" firstAttribute="top" secondItem="cP8-hk-TXr" secondAttribute="bottom" id="AE6-hm-SlC"/>
+                            <constraint firstItem="cP8-hk-TXr" firstAttribute="leading" secondItem="GwF-Mb-OaA" secondAttribute="leading" id="Dfj-Eb-Arl"/>
+                            <constraint firstItem="GwF-Mb-OaA" firstAttribute="trailing" secondItem="QnP-uh-YAq" secondAttribute="trailing" id="ITj-HQ-Vqe"/>
+                            <constraint firstItem="cP8-hk-TXr" firstAttribute="top" secondItem="GwF-Mb-OaA" secondAttribute="top" id="a4N-aB-p2v"/>
+                            <constraint firstItem="QnP-uh-YAq" firstAttribute="leading" secondItem="GwF-Mb-OaA" secondAttribute="leading" id="d6p-5l-gAb"/>
+                            <constraint firstItem="cP8-hk-TXr" firstAttribute="bottom" secondItem="GwF-Mb-OaA" secondAttribute="bottom" multiplier="0.5" id="lpm-dG-hiM"/>
+                            <constraint firstItem="GwF-Mb-OaA" firstAttribute="trailing" secondItem="cP8-hk-TXr" secondAttribute="trailing" id="r4W-uU-teF"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="GwF-Mb-OaA"/>
                     </view>
+                    <connections>
+                        <outlet property="googleMapView" destination="cP8-hk-TXr" id="Pjp-UA-4U6"/>
+                        <outlet property="runGraph" destination="QnP-uh-YAq" id="Ilo-eE-5N5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MWP-RC-Sn9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3326" y="-663"/>
+            <point key="canvasLocation" x="3098" y="-950"/>
         </scene>
         <!--Favourites-->
         <scene sceneID="1S5-jh-rgF">
