@@ -42,12 +42,12 @@ class CachingStorageManager: RealmStorageManager {
     /// The API used by this manager to store items.
     private var storageAPI: PaceStorageAPI
 
-    private(set) var realm: Realm
+    private(set) var persistentRealm: Realm
 
     private(set) var inMemoryRealm: Realm
 
     private init(persistentRealm: Realm, inMemoryRealm: Realm, storageAPI: PaceStorageAPI) {
-        self.realm = persistentRealm
+        self.persistentRealm = persistentRealm
         self.inMemoryRealm = inMemoryRealm
         self.storageAPI = storageAPI
     }
@@ -91,8 +91,8 @@ class CachingStorageManager: RealmStorageManager {
 
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?) {
         do {
-            try realm.write {
-                realm.add(route)
+            try persistentRealm.write {
+                persistentRealm.add(route)
             }
             storageAPI.uploadRoute(route, completion)
         } catch {
@@ -102,8 +102,8 @@ class CachingStorageManager: RealmStorageManager {
 
     func saveNewRun(_ run: Run, toRoute route: Route, _ completion: ErrorHandler?) {
         do {
-            try realm.write {
-                realm.add(run)
+            try persistentRealm.write {
+                persistentRealm.add(run)
             }
             storageAPI.uploadRun(run, forRoute: route, completion)
         } catch {

@@ -10,7 +10,7 @@ import CoreLocation
 
 /// Create a grid system for the world map.
 /// Works by storing a gridId as the bottom right of the grid.
-public class GridMap {
+public struct GridMap {
     // The width and height of a grid, in metres.
     public let gridWidth: Double
     public let gridHeight: Double

@@ -25,11 +25,10 @@ struct Constants {
     static let startButton = "start-icon.png"
     static let endButton = "end-icon.png"
 
-    // MARK: - Realm constants
-    static let paceCloudInstanceAddress = "pace.us1.cloud.realm.io"
-
-    static let AuthURL = "https://\(paceCloudInstanceAddress)"
-    static let RealmURL = "https://\(paceCloudInstanceAddress)/pace"
+    // MARK: - Default objects
+    static var defaultGridManager: GridMap? {
+        return GridMap(width: 300, height: 300)
+    }
 
     // MARK: Locale variables
     static let locale = "en_SG"

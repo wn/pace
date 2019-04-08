@@ -8,6 +8,7 @@
 
 import Firebase
 import RealmSwift
+import CoreLocation
 
 protocol PaceStorageAPI {
     /// A typealias for the
@@ -52,12 +53,10 @@ class PaceFirestoreAPI: PaceStorageAPI {
 
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: @escaping RouteResultsHandler) {
+        let geohash = Constants.defaultGridManager!.getGridId(CLLocationCoordinate2D(latitude: latitudeMin, longitude: longitudeMin)).code
+        print("getting documents for: \n longitude: \(longitudeMin), latitude: \(latitudeMin) \n geohash: \(geohash)")
         let query = PaceFirestoreAPI.routesRef
-            .whereField("startingLatitude", isGreaterThanOrEqualTo: Int(latitudeMin))
-            .whereField("startingLatitude", isLessThanOrEqualTo: Int(latitudeMax))
-        // TODO: make different call and merge with DispatchGroup
-            //.whereField("startingLongitude", isGreaterThanOrEqualTo: longitudeMin)
-            //.whereField("startingLongitude", isLessThanOrEqualTo: longitudeMax)
+            .whereField("startingGeohash", isEqualTo: geohash)
         query.getDocuments { snapshot, err in
             guard err == nil else {
                 completion(nil, err)

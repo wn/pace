@@ -67,7 +67,7 @@ class ActivityViewController: UIViewController {
 
     // MARK: Map variables
     let coreLocationManager = CLLocationManager()
-    var gridMapManager = GridMap(width: 1000000, height: 1000000)
+    var gridMapManager = Constants.defaultGridManager
     @IBOutlet private var googleMapView: GMSMapView!
     // routesInGrid keeps track of all routes in a grid
     // markers keeps track of all created markers. Each markers represent
@@ -247,7 +247,6 @@ extension ActivityViewController: GMSMapViewDelegate {
             let route = routeMarkers.getRoutes(marker)
             else {
                 fatalError("Created marker should be associated to a route.")
-                return false
         }
         // TODO: send correct stats to drawer
         print("MARKER PRESSED: \(route.first)")

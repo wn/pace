@@ -182,7 +182,6 @@
 				5C5124BA225316FB00B8A15C /* RouteStats.swift */,
 				8BDFFF87224F482000F3BB3A /* Run.swift */,
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
-				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
 				8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */,
 			);
@@ -216,6 +215,7 @@
 		8B59BE5A223CE59600C2E9E7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
 				6255967222549B2D0036C2B9 /* Formatter.swift */,
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
@@ -842,7 +842,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -863,7 +863,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
