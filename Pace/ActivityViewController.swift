@@ -79,7 +79,7 @@ class ActivityViewController: UIViewController {
     var markers: [GMSMarker: Int] = [:]
     // Put in map
     var viewingGrids: [GridNumber] {
-        guard googleMapView.camera.zoom > 15 else {
+        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
             return []
         }
         return gridMapManager?.getBoundedGrid(projectedMapBound) ?? []
@@ -169,7 +169,7 @@ class ActivityViewController: UIViewController {
         guard let location = coreLocationManager.location else {
             fatalError("While loop should have captured nil value!")
         }
-        // googleMapView.setCameraPosition(location.coordinate)
+        googleMapView.setCameraPosition(location.coordinate)
     }
 
     func renderMarkers(_ gridNumbers: [GridNumber]) {
@@ -264,9 +264,9 @@ extension ActivityViewController: GMSMapViewDelegate {
         }
         // googleMapView.clear()
         guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
+            print("ZOOM LEVEL: \(googleMapView.camera.zoom) | ZOOM IN TO VIEW MARKERS")
             return
         }
-        print("CURRENT VIEW \(viewingGrids)")
         redrawMarkers()
     }
 
