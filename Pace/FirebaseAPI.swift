@@ -30,16 +30,16 @@ protocol PaceStorageAPI {
 class PaceFirestoreAPI: PaceStorageAPI {
 
     private static let rootRef = Firestore.firestore()
-    private static let routesRef = rootRef.collection("routes")
+    private static let routesRef = rootRef.collection("pace_routes")
 
     private static func docRefFor(route: Route) -> DocumentReference {
         return routesRef.document(route.id)
     }
 
-    private static let runsRef = rootRef.collection("runs")
+    private static let runsRef = rootRef.collection("pace_runs")
 
     private static func docRefFor(run: Run) -> DocumentReference {
-        return routesRef.document(run.route.id).collection("runs").document(run.id)
+        return runsRef.document(run.id)
     }
 
     private var persistentRealm: Realm
@@ -88,13 +88,11 @@ class PaceFirestoreAPI: PaceStorageAPI {
     }
 
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {
-        let routeId = route.id
         let batch = PaceFirestoreAPI.rootRef.batch()
-        let routeDocument = PaceFirestoreAPI.routesRef.document(routeId)
+        let routeDocument = PaceFirestoreAPI.docRefFor(route: route)
         batch.setData(route.asDictionary, forDocument: routeDocument, merge: true)
         route.paces.forEach { run in
-            let runId = run.id
-            let runDocument = routeDocument.collection("runs").document(runId)
+            let runDocument = PaceFirestoreAPI.docRefFor(run: run)
             batch.setData(run.asDictionary, forDocument: runDocument, merge: true)
         }
         batch.commit(completion: completion)
