@@ -11,8 +11,7 @@ extension Route: FirebaseStorable {
         return [
             "name": name,
             "creator": creator?.id ?? "",
-            "startingLongitude": startingLocation?.longitude ?? 0.0,
-            "startingLatitude": startingLocation?.latitude ?? 0.0,
+            "startingGeohash": GridNumber.encode(creatorRun!.startingLocation!.coordinate),
             "creatorRun": creatorRun?.asDictionary ?? [:],
             "creatorRunId": creatorRun?.id ?? "",
             "runs": Array(paces.map { $0.id })

@@ -15,7 +15,7 @@ import RealmSwift
 class ActivityViewController: UIViewController {
     // MARK: Realm variables
     var userSession: UserSessionManager?
-    var routesManager: StorageManager?
+    var routesManager: RealmStorageManager?
     var routes: Results<Route>?
     var notificationToken: NotificationToken?
     var isConnectedToInternet = true
@@ -98,9 +98,9 @@ class ActivityViewController: UIViewController {
         setupLocationManager()
         setupMapView()
         // Init in variable? @julius
-        routesManager = RealmStorageManager.default
+        routesManager = CachingStorageManager.default
         userSession = RealmUserSessionManager.forDefaultRealm
-        routes = Realm.inMemory.objects(Route.self)
+        routes = routesManager?.inMemoryRealm.objects(Route.self)
         notificationToken = routes?.observe { [weak self](changes) in
             guard let map = self?.googleMapView else {
                 print("MAP NOT RENDERED YET")

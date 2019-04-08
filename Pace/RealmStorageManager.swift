@@ -9,9 +9,15 @@
 import RealmSwift
 import CoreLocation
 
-protocol StorageManager {
+protocol RealmStorageManager {
     /// A Typealias for handling errors.
     typealias ErrorHandler = (Error?) -> Void
+
+    /// The default (persistent) realm for this manager.
+    var persistentRealm: Realm { get }
+    
+    /// The default in-memory realm for this manager.
+    var inMemoryRealm: Realm { get }
 
     /// Attempts to fetch a route within this area.
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
@@ -28,19 +34,17 @@ protocol StorageManager {
     func saveNewRun(_ run: Run, toRoute: Route, _ completion: ErrorHandler?)
 }
 
-class RealmStorageManager: StorageManager {
+class CachingStorageManager: RealmStorageManager {
 
     /// The default RealmStorageManager
-    static let `default` = RealmStorageManager()
+    static let `default` = CachingStorageManager()
 
     /// The API used by this manager to store items.
     private var storageAPI: PaceStorageAPI
 
-    /// The default (persistent) realm for this manager.
-    private var realm: Realm
+    private(set) var realm: Realm
 
-    /// The in-memory realm for this manager.
-    private var inMemoryRealm: Realm
+    private(set) var inMemoryRealm: Realm
 
     private init(persistentRealm: Realm, inMemoryRealm: Realm, storageAPI: PaceStorageAPI) {
         self.realm = persistentRealm
