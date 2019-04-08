@@ -30,6 +30,8 @@
 		62FF753022495BB6008847CC /* RunCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FF752F22495BB6008847CC /* RunCollectionViewCell.xib */; };
 		62FF753222495E36008847CC /* ViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF753122495E36008847CC /* ViewDelegate.swift */; };
 		8B044D36223F7C0600AA8449 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B044D34223F7C0600AA8449 /* Route.swift */; };
+		8B2638D9225B978F004B52AB /* GeoHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2638D8225B978F004B52AB /* GeoHash.swift */; };
+		8B2638DB225B979B004B52AB /* GridMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2638DA225B979B004B52AB /* GridMap.swift */; };
 		8B4F948A224BD472004500CA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4F9489224BD472004500CA /* LoginViewController.swift */; };
 		8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B59BE58223CD81100C2E9E7 /* Secrets.swift */; };
 		8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */; };
@@ -51,7 +53,6 @@
 		DB5C4B241B44C608D65AF3FA /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		EB22D7F622564FC300D0F69D /* RunnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */; };
 		EB22D7F82257393600D0F69D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7F72257393600D0F69D /* MapView.swift */; };
-		EB22D7FB2258D91C00D0F69D /* GridMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7FA2258D91C00D0F69D /* GridMap.swift */; };
 		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
 		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
@@ -67,7 +68,6 @@
 		EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BDA2238066800AFF868 /* PaceTests.swift */; };
 		EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */; };
 		EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */; };
-		EBD0D94D225B1919006C3924 /* GeoHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0D94C225B1919006C3924 /* GeoHash.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +106,8 @@
 		62FF753122495E36008847CC /* ViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDelegate.swift; sourceTree = "<group>"; };
 		6963E4BCCE04B4678A0C0A47 /* Pods-PaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.release.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.release.xcconfig"; sourceTree = "<group>"; };
 		8B044D34223F7C0600AA8449 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		8B2638D8225B978F004B52AB /* GeoHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeoHash.swift; path = CustomPods/GridMap/GeoHash.swift; sourceTree = "<group>"; };
+		8B2638DA225B979B004B52AB /* GridMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GridMap.swift; path = CustomPods/GridMap/GridMap.swift; sourceTree = "<group>"; };
 		8B4F9489224BD472004500CA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableObject.swift; sourceTree = "<group>"; };
@@ -126,7 +128,6 @@
 		C33F9507A06AE79E186ED123 /* Pods-PaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.debug.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTableViewCell.swift; sourceTree = "<group>"; };
 		EB22D7F72257393600D0F69D /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		EB22D7FA2258D91C00D0F69D /* GridMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMap.swift; sourceTree = "<group>"; };
 		EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
@@ -146,7 +147,6 @@
 		EB931BDC2238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySummaryViewController.swift; sourceTree = "<group>"; };
 		EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Render.swift"; sourceTree = "<group>"; };
-		EBD0D94C225B1919006C3924 /* GeoHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoHash.swift; sourceTree = "<group>"; };
 		FCEF38FC04B5DDA627F3D935 /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -267,8 +267,8 @@
 		EB22D7F92258D90800D0F69D /* GridMapPod */ = {
 			isa = PBXGroup;
 			children = (
-				EB22D7FA2258D91C00D0F69D /* GridMap.swift */,
-				EBD0D94C225B1919006C3924 /* GeoHash.swift */,
+				8B2638DA225B979B004B52AB /* GridMap.swift */,
+				8B2638D8225B978F004B52AB /* GeoHash.swift */,
 			);
 			name = GridMapPod;
 			sourceTree = "<group>";
@@ -642,10 +642,9 @@
 				EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */,
 				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
-				EB22D7FB2258D91C00D0F69D /* GridMap.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
+				8B2638DB225B979B004B52AB /* GridMap.swift in Sources */,
 				8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */,
-				EBD0D94D225B1919006C3924 /* GeoHash.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */,
@@ -668,6 +667,7 @@
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */,
+				8B2638D9225B978F004B52AB /* GeoHash.swift in Sources */,
 				EB5E42E12255015A00A60207 /* ActivityViewController+Drawer.swift in Sources */,
 				8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */,
 				62A7C5C0224F4D32009585D3 /* RunAnalysisController.swift in Sources */,
