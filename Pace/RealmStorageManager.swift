@@ -15,7 +15,7 @@ protocol RealmStorageManager {
 
     /// The default (persistent) realm for this manager.
     var persistentRealm: Realm { get }
-    
+
     /// The default in-memory realm for this manager.
     var inMemoryRealm: Realm { get }
 

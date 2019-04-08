@@ -20,8 +20,7 @@ class DrawerViewController: PullUpController {
     @IBOutlet var createdBy: UILabel!
     @IBOutlet var distance: UILabel!
 
-
-    var viewingRoute: Route? = nil
+    var viewingRoute: Route?
 
     @IBOutlet var runnersTableView: UITableView!
     var paces = List<Run>()
@@ -53,7 +52,6 @@ class DrawerViewController: PullUpController {
 //        endPoint.text = "END: \(stats.endingLocation)"
 //        createdBy.text = "Created by: \(route.creator?.name ?? ""))"
 //        distance.text = "Distance: \(stats.totalDistance)"
-
 
         // IF ROUTES IN FAVOURITE: SET SELECTED TO TRUE
         favouriteButton.setSelected(selected: true, animated: false)

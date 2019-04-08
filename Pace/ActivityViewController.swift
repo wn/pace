@@ -23,7 +23,6 @@ class ActivityViewController: UIViewController {
     // MARK: Drawer variable
     var originalPullUpControllerViewSize: CGSize = .zero
 
-
     // MARK: UIVariable
     @IBAction func endRunButton(_ sender: UIButton) {
         endRun(sender)
@@ -34,8 +33,8 @@ class ActivityViewController: UIViewController {
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     // MARK: Running variables
-    var currentRoute: Route? = nil
-    var currentRun: Run? = nil
+    var currentRoute: Route?
+    var currentRun: Run?
     var path = GMSMutablePath()
     var lastMarkedPosition: CLLocation?
     var distance: CLLocationDistance = 0
@@ -101,7 +100,7 @@ class ActivityViewController: UIViewController {
         routesManager = CachingStorageManager.default
         userSession = RealmUserSessionManager.forDefaultRealm
         routes = routesManager?.inMemoryRealm.objects(Route.self)
-        notificationToken = routes?.observe { [weak self](changes) in
+        notificationToken = routes?.observe { [weak self]changes in
             guard let map = self?.googleMapView else {
                 print("MAP NOT RENDERED YET")
                 return
@@ -191,8 +190,7 @@ class ActivityViewController: UIViewController {
                 latitudeMin: bound.minLat,
                 latitudeMax: bound.maxLat,
                 longitudeMin: bound.minLong,
-                longitudeMax: bound.maxLong)
-            {
+                longitudeMax: bound.maxLong) {
                 if let error = $0 {
                     print(error.localizedDescription)
                 }
@@ -205,21 +203,6 @@ class ActivityViewController: UIViewController {
         fetchNearbyRoutes(viewingGrids)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // MARK: - GMSMapViewDelegate
 extension ActivityViewController: GMSMapViewDelegate {
@@ -293,39 +276,6 @@ extension ActivityViewController: GMSMapViewDelegate {
         marker.icon = UIImage(named: image)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // MARK: - CLLocationManagerDelegate
 extension ActivityViewController: CLLocationManagerDelegate {
@@ -443,11 +393,11 @@ class RouteMarkers {
     }
 
     func derenderMarkers() {
-        markers.forEach { $0.map = nil}
+        markers.forEach { $0.map = nil }
     }
 
     func renderMarkers() {
-        markers.forEach {$0.map = map}
+        markers.forEach { $0.map = map }
     }
 
     func generateRouteMarker(routes: Set<Route>) {
