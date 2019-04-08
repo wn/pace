@@ -67,7 +67,7 @@ class ActivityViewController: UIViewController {
 
     // MARK: Map variables
     let coreLocationManager = CLLocationManager()
-    var gridMapManager = GridMap(width: 1000, height: 1000)
+    var gridMapManager = GridMap(width: 1000000, height: 1000000)
     @IBOutlet private var googleMapView: GMSMapView!
     // routesInGrid keeps track of all routes in a grid
     // markers keeps track of all created markers. Each markers represent

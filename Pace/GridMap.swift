@@ -27,7 +27,7 @@ public class GridMap {
             let mid = low + (high - low) / 2
             let currLocation = CLLocation(latitude: mid, longitude: 0)
             let distance = currLocation.distance(from: origin)
-            if distance - gridHeight < 0.001 {
+            if distance - gridHeight < 0.0001 {
                 return mid
             } else if distance < gridHeight {
                 low = mid
@@ -48,7 +48,7 @@ public class GridMap {
             let mid = low + (high - low) / 2
             let currLocation = CLLocation(latitude: 0, longitude: mid)
             let distance = currLocation.distance(from: origin)
-            if distance - gridWidth < 0.001 {
+            if distance - gridWidth < 0.0001 {
                 return mid
             } else if distance < gridWidth {
                 low = mid
@@ -136,9 +136,49 @@ public struct GridBound {
 public struct GridNumber: Hashable {
     let latitude: CLLocationDegrees
     let longitude: CLLocationDegrees
+    let code: String
 
     public init(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        self.latitude = latitude
-        self.longitude = longitude
+        self.latitude = latitude.roundTo(places: 4)
+        self.longitude = longitude.roundTo(places: 4)
+        code = GridNumber.encode(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+    }
+
+    public init(_ s: String) {
+        code = s
+        let position = GridNumber.decode(s)
+        latitude = position.latitude
+        longitude = position.longitude
+    }
+
+    private static func encode(_ position: CLLocationCoordinate2D) -> String {
+        return CLLocationCoordinate2D(latitude: position.latitude, longitude: position.longitude).geohash(precision: .twoHundredFourtyCentimeters)
+    }
+
+    private static func decode(_ s: String) -> CLLocationCoordinate2D {
+        let result = CLLocationCoordinate2D.init(geohash: s)
+        return CLLocationCoordinate2D(latitude: result.latitude.roundTo(places: 4), longitude: result.longitude.roundTo(places: 4))
+    }
+}
+//    public static func test() -> Bool {
+//        let latitude: CLLocationDegrees = 23.123
+//        let longitude: CLLocationDegrees = 123.4567
+//
+//        for i in 0..<10000 {
+//            let newlat = latitude + 0.0001 * Double(i)
+//            let newlong = longitude + 0.0001 * Double(i)
+//            let gn = GridNumber(latitude: newlat, longitude: newlong)
+//            let result = GridNumber.decode(gn.encode())
+//            if result.latitude != gn.latitude.roundTo(places: 4) {
+//                print("WRONG: \(gn.latitude.roundTo(places: 4)), \(result.latitude)")
+//            }
+//        }
+//        return true
+//    }
+
+extension Double {
+    func roundTo(places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
     }
 }

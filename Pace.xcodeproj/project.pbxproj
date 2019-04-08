@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10862652088C59101950E3BF /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		10862652088C59101950E3BF /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		119A0BC5BB7EAA25EE7513E5 /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490807CC3ECB2045B2A6315F /* Pods_PaceTests.framework */; };
 		5C5124BB225316FB00B8A15C /* RouteStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BA225316FB00B8A15C /* RouteStats.swift */; };
 		5C751F0E223CD7650082BC93 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C751F0D223CD7650082BC93 /* Constants.swift */; };
@@ -47,12 +47,11 @@
 		8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */; };
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
 		8BDFFF8A224F4AC400F3BB3A /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF89224F4AC400F3BB3A /* ModelTests.swift */; };
-		DB5C4B241B44C608D65AF3FA /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6414F8B051D411B79379B99 /* Pods_PaceTests.framework */; };
-		EB22D7FB2258D91C00D0F69D /* GridMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7FA2258D91C00D0F69D /* GridMap.swift */; };
 		D1C3EA3B700D6CDDC9CC72BE /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD971726116FC6305B41635 /* Pods_Pace.framework */; };
-		DB5C4B241B44C608D65AF3FA /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		DB5C4B241B44C608D65AF3FA /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		EB22D7F622564FC300D0F69D /* RunnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */; };
 		EB22D7F82257393600D0F69D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7F72257393600D0F69D /* MapView.swift */; };
+		EB22D7FB2258D91C00D0F69D /* GridMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7FA2258D91C00D0F69D /* GridMap.swift */; };
 		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
 		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
@@ -68,6 +67,7 @@
 		EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BDA2238066800AFF868 /* PaceTests.swift */; };
 		EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */; };
 		EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */; };
+		EBD0D94D225B1919006C3924 /* GeoHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0D94C225B1919006C3924 /* GeoHash.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,12 +123,10 @@
 		8BDED012223FB9CC00CD778D /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		8BDFFF87224F482000F3BB3A /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		8BDFFF89224F4AC400F3BB3A /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
-		9425A08F60F1A7AEACC6B14B /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6414F8B051D411B79379B99 /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB22D7FA2258D91C00D0F69D /* GridMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMap.swift; sourceTree = "<group>"; };
 		C33F9507A06AE79E186ED123 /* Pods-PaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.debug.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTableViewCell.swift; sourceTree = "<group>"; };
 		EB22D7F72257393600D0F69D /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		EB22D7FA2258D91C00D0F69D /* GridMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMap.swift; sourceTree = "<group>"; };
 		EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
@@ -148,6 +146,7 @@
 		EB931BDC2238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySummaryViewController.swift; sourceTree = "<group>"; };
 		EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Render.swift"; sourceTree = "<group>"; };
+		EBD0D94C225B1919006C3924 /* GeoHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoHash.swift; sourceTree = "<group>"; };
 		FCEF38FC04B5DDA627F3D935 /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,7 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10862652088C59101950E3BF /* BuildFile in Frameworks */,
+				10862652088C59101950E3BF /* (null) in Frameworks */,
 				D1C3EA3B700D6CDDC9CC72BE /* Pods_Pace.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,7 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB5C4B241B44C608D65AF3FA /* BuildFile in Frameworks */,
+				DB5C4B241B44C608D65AF3FA /* (null) in Frameworks */,
 				119A0BC5BB7EAA25EE7513E5 /* Pods_PaceTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				EB22D7FA2258D91C00D0F69D /* GridMap.swift */,
+				EBD0D94C225B1919006C3924 /* GeoHash.swift */,
 			);
 			name = GridMapPod;
 			sourceTree = "<group>";
@@ -645,6 +645,7 @@
 				EB22D7FB2258D91C00D0F69D /* GridMap.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */,
+				EBD0D94D225B1919006C3924 /* GeoHash.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */,
