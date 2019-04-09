@@ -38,7 +38,7 @@ class RouteCollectionViewCell: UICollectionViewCell {
             routeStats.endingLocation.address { address in
                 self.endLocation.text = address
             }
-            distance.text = String(routeStats.totalDistance) + "km"
+            distance.text = String(format: "%.2fkm", arguments: [routeStats.totalDistance / 1000])
             pacesAvailable.text = "Paces: " + String(currentRoute.paces.count)
             numRunners.text = "Runners: " + String(routeStats.numOfRunners)
         }

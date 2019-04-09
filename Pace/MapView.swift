@@ -27,10 +27,21 @@ class MapView: GMSMapView {
         return marker
     }
 
-    func drawPath(path: GMSPath) {
+    func drawPath(path: GMSPath, _ color: UIColor = .blue) {
         let mapPaths = GMSPolyline(path: path)
-        mapPaths.strokeColor = .blue
+        mapPaths.strokeColor = color
         mapPaths.strokeWidth = 5
         mapPaths.map = self
+    }
+    
+    func drawRun(_ run: Run, _ color: UIColor = .blue) {
+        let path = GMSMutablePath()
+        for checkpoint in run.checkpoints {
+            guard let coordinate = checkpoint.location?.coordinate else {
+                continue
+            }
+            path.add(coordinate)
+        }
+        drawPath(path: path, color)
     }
 }

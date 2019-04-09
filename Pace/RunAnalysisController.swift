@@ -9,10 +9,10 @@
 import UIKit
 import GoogleMaps
 
-class RunAnalysisController: UIViewController {
+class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     weak var run: Run?
     @IBOutlet private var runGraph: RunGraphView!
-    @IBOutlet private var googleMapView: GMSMapView!
+    @IBOutlet private var googleMapView: MapView!
     private var marker: GMSMarker?
 
     override func viewDidLoad() {
@@ -20,8 +20,9 @@ class RunAnalysisController: UIViewController {
         self.navigationItem.title = Titles.run
         setupMapView()
         setupGestureRecognizers()
+        setupPullupController()
         if let run = run {
-            googleMapView.draw(run: run)
+            googleMapView.drawRun(run)
             runGraph.currentRun = run
             runGraph.setNeedsDisplay()
         }
@@ -59,8 +60,28 @@ class RunAnalysisController: UIViewController {
         googleMapView.delegate = self
         googleMapView.setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
     }
+
+    private func setupPullupController() {
+        let puvc: RunCollectionController = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
+            .instantiateViewController(withIdentifier: Identifiers.runCollectionController) as! RunCollectionController
+//        puvc.route = run?.route
+//        puvc.currentRun = run
+        _ = puvc.view
+        puvc.initialOffset = tabBarController?.tabBar.frame.height ?? 0
+        print("initialOffset: ", puvc.initialOffset)
+        puvc.height = UIScreen.main.bounds.height - googleMapView.frame.height
+        puvc.delegate = self
+        addPullUpController(puvc, initialStickyPointOffset: puvc.initialHeight, animated: true)
+    }
 }
 
-extension RunAnalysisController: GMSMapViewDelegate {
-
+extension RunAnalysisController: RunCollectionControllerDelegate {
+    func onClickCallback(run: Run) {
+        if runGraph.compareRun == run {
+            runGraph.compareRun = nil
+        } else {
+            runGraph.compareRun = run
+        }
+        runGraph.setNeedsDisplay()
+    }
 }

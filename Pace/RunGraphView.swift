@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-enum GraphComparisonMode {
+enum GraphComparisonMode: String, CaseIterable {
     case speed
 }
 
@@ -29,16 +29,28 @@ class RunGraphView: UIView {
     var currentRun: Run?
     var compareRun: Run?
 
+    var mode: GraphComparisonMode {
+        get {
+            return comparisonMode
+        }
+        set {
+            comparisonMode = newValue
+            setNeedsDisplay()
+        }
+    }
+
     override func draw(_ rect: CGRect) {
         let drawContext = UIGraphicsGetCurrentContext()
         guard let currentRun = currentRun else {
             return
         }
-        draw(run: currentRun, with: drawContext)
+        setUpperBound()
+        draw(run: currentRun, color: .blue, with: drawContext)
         guard let compareRun = compareRun else {
             return
         }
-        draw(run: compareRun, with: drawContext)
+        draw(run: compareRun, color: .red, with: drawContext)
+        label.text = nil
         super.draw(rect)
     }
 
@@ -70,13 +82,23 @@ class RunGraphView: UIView {
         }
     }
 
-    private func draw(run: Run, with drawContext: CGContext?) {
+    /// Based on the currentRun and compareRun, sets an upperbound that bounds the checkpoints for both runs
+    /// The upperBound is the maximum y-value of the graph
+    /// which is set to 8/7 of the highest value of either graph
+    private func setUpperBound() {
         // Sets up the upperbound y-value
-        let maxCp = run.checkpoints.max(by: { cp1, cp2 -> Bool in
+        let maxCp1 = currentRun?.checkpoints.max(by: { cp1, cp2 -> Bool in
             return compare(cp1, cp2)
         })
-        let maxY = resolveModeValue(maxCp?.location)
-        upperBound = maxY * 8 / 7
+        let maxY1 = resolveModeValue(maxCp1?.location)
+        let maxCp2 = compareRun?.checkpoints.max(by: { cp1, cp2 -> Bool in
+            return compare(cp1, cp2)
+        })
+        let maxY2 = resolveModeValue(maxCp2?.location)
+        upperBound = max(maxY1, maxY2) * 8 / 7
+    }
+    
+    private func draw(run: Run, color: UIColor, with drawContext: CGContext?) {
         // Draws the run based on the upperbound
         guard let drawContext = drawContext else {
             return
@@ -84,7 +106,7 @@ class RunGraphView: UIView {
         var iterator = run.checkpoints.makeIterator()
         drawContext.setLineJoin(.round)
         drawContext.setLineWidth(2.0)
-        drawContext.setStrokeColor(UIColor.blue.cgColor)
+        drawContext.setStrokeColor(color.cgColor)
 
         var leftCp = iterator.next()
         var rightCp = iterator.next()
@@ -132,17 +154,16 @@ class RunGraphView: UIView {
         yLineWidthConstraint = newYLineConstraint
         content.addConstraint(newYLineConstraint)
 
-        // Render intersection label
+        // Render and move intersection label
         guard let run = currentRun,
             let upperBound = upperBound else {
             return
         }
-        // Distance - Rounded to 2 d.p
-        let xValue = Double(100 * round(Double(xMultiplier) * run.distance / 1_000))
+        let xValue = Double(xMultiplier) * run.distance / 1000
         let yValue = resolveModeValue(location)
-        let labelText = String(xValue) + "km, " + String(100 * round(yValue / 100)) + "m"
+        let labelText = String(format: "%.2fkm, %.2fm/s", arguments: [xValue, yValue])
         label.text = labelText
-        let yHeight = graphArea.frame.height - graphArea.frame.height * CGFloat(yValue / upperBound)
+        let yHeight = graphArea.frame.height * CGFloat(yValue / upperBound)
         let newLabelConstraint =
             NSLayoutConstraint(item: labelYCoordConstraint.firstItem as Any,
                                attribute: labelYCoordConstraint.firstAttribute,
@@ -150,7 +171,7 @@ class RunGraphView: UIView {
                                toItem: labelYCoordConstraint.secondItem,
                                attribute: labelYCoordConstraint.secondAttribute,
                                multiplier: labelYCoordConstraint.multiplier,
-                               constant: -20 + yHeight)
+                               constant: -yHeight)
         content.removeConstraint(labelYCoordConstraint)
         labelYCoordConstraint = newLabelConstraint
         content.addConstraint(newLabelConstraint)

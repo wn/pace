@@ -15,12 +15,14 @@ class ProfileViewController: UIViewController {
 
     var runs = [Run]()
     @IBOutlet private var runHistory: UICollectionView!
+    @IBOutlet private var userStats: UserStatsView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = Titles.profile
         // Dummy Data
         var checkpoints = [CheckPoint]()
+        var route: Route?
         let c1 = CLLocationCoordinate2D(latitude: 1.308_22, longitude: 103.773_131)
         let l1 = CLLocation(coordinate: c1, altitude: 0, horizontalAccuracy: 25, verticalAccuracy: 25, course: 0, speed: 5, timestamp: Date())
         let c2 = CLLocationCoordinate2D(latitude: 1.307_71, longitude: 103.770_719)
@@ -42,9 +44,16 @@ class ProfileViewController: UIViewController {
         checkpoints.append(
             CheckPoint(location: l5, time: 15, actualDistance: 2_053, routeDistance: 2_053))
 
-        for _ in 0...5 {
-            runs.append(Run(runner: Dummy.user, checkpoints: checkpoints))
+        for idx in 0...5 {
+            let run = Run(runner: Dummy.user, checkpoints: checkpoints)
+            if idx == 0 {
+                route = Route(creator: Dummy.user, name: "Fun Run", creatorRun: run)
+            } else {
+                route?.addNewRun(run)
+            }
+            runs.append(run)
         }
+        userStats.setStats(with: User())
         runHistory.reloadData()
     }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -50,7 +50,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j6l-Ld-9rl" userLabel="y-line">
-                    <rect key="frame" x="-1" y="-1" width="435.5" height="168"/>
+                    <rect key="frame" x="-1" y="-1" width="1.5" height="168"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -61,8 +61,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gd9-aa-qIq">
-                    <rect key="frame" x="392" y="105" width="42" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gd9-aa-qIq">
+                    <rect key="frame" x="0.5" y="126" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -75,7 +75,7 @@
                 <constraint firstItem="IoK-cs-DiC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="-1" id="E9V-Nc-sda"/>
                 <constraint firstItem="j6l-Ld-9rl" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="-1" id="GOb-6U-tNK"/>
                 <constraint firstItem="9LW-GL-7sd" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="0.5" id="JKC-Zt-1y0"/>
-                <constraint firstItem="j6l-Ld-9rl" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="0.5" id="JNu-aJ-CED"/>
+                <constraint firstItem="j6l-Ld-9rl" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" multiplier="0.0001" constant="0.5" id="JNu-aJ-CED"/>
                 <constraint firstItem="gd9-aa-qIq" firstAttribute="bottom" secondItem="IoK-cs-DiC" secondAttribute="bottom" constant="-20" id="ONX-BY-0oQ"/>
                 <constraint firstItem="IoK-cs-DiC" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="1" id="UXU-v5-7v0"/>
                 <constraint firstItem="9LW-GL-7sd" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="b0G-Ru-tVX"/>
@@ -89,7 +89,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="126.40000000000001" y="379.61019490254876"/>
+            <point key="canvasLocation" x="-90" y="427"/>
         </view>
     </objects>
 </document>
