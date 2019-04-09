@@ -68,6 +68,7 @@
 		EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BDA2238066800AFF868 /* PaceTests.swift */; };
 		EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */; };
 		EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */; };
+		EBF87D78225CE9F0001B4056 /* SignalStrengthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF87D77225CE9F0001B4056 /* SignalStrengthIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		EB931BDC2238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySummaryViewController.swift; sourceTree = "<group>"; };
 		EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Render.swift"; sourceTree = "<group>"; };
+		EBF87D77225CE9F0001B4056 /* SignalStrengthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthIndicator.swift; sourceTree = "<group>"; };
 		FCEF38FC04B5DDA627F3D935 /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -269,6 +271,7 @@
 			children = (
 				8B2638DA225B979B004B52AB /* GridMap.swift */,
 				8B2638D8225B978F004B52AB /* GeoHash.swift */,
+				EBF87D77225CE9F0001B4056 /* SignalStrengthIndicator.swift */,
 			);
 			name = GridMapPod;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				62FF752E22495B54008847CC /* RunCollectionViewCell.swift in Sources */,
 				8BD4C596225680C600D0CEC7 /* RealmCLLocation+Firebase.swift in Sources */,
+				EBF87D78225CE9F0001B4056 /* SignalStrengthIndicator.swift in Sources */,
 				8BD4C5942256808000D0CEC7 /* Route+Firebase.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
@@ -842,7 +846,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P4SYV2WJ27;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -863,7 +867,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P4SYV2WJ27;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

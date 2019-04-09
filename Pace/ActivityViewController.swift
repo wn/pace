@@ -27,6 +27,9 @@ class ActivityViewController: UIViewController {
     @IBAction func endRunButton(_ sender: UIButton) {
         endRun(sender)
     }
+
+    @IBOutlet var gpsIndicator: UIView!
+    @IBOutlet var statsPanel: UIStackView!
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var pace: UILabel!
     @IBOutlet var time: UILabel!
@@ -241,7 +244,7 @@ extension ActivityViewController: GMSMapViewDelegate {
             // If run has started, we do not perform any action.
             return
         }
-        // googleMapView.clear()
+        googleMapView.clear()
         guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
             print("ZOOM LEVEL: \(googleMapView.camera.zoom) | ZOOM IN TO VIEW MARKERS")
             return
@@ -402,7 +405,8 @@ class RouteMarkers {
             return
         }
         let marker = GMSMarker(position: location.coordinate)
-        marker.icon = UIImage(named: "\(17)") // TODO
+
+        marker.icon = UIImage(named: "\(routes.count + 16)") // TODO
         routesInMarker[marker] = routes
         markers.insert(marker)
     }
