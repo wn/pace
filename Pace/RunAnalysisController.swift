@@ -40,12 +40,15 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
         let xVal = recognizer.location(in: runGraph).x
         let runPercentage = (xVal == 0) ? CGFloat.leastNormalMagnitude : (xVal / runGraph.bounds.width)
         guard let run = run,
-            let location = run.getLocationAt(percentage: Double(runPercentage)) else {
+            let checkpoint = run.getCheckpointAt(percentage: Double(runPercentage)) else {
                 return
         }
-        runGraph.moveYLine(to: runPercentage, location: location)
+        runGraph.moveYLine(to: runPercentage, checkpoint: checkpoint)
+        guard let coordinate = checkpoint.location?.coordinate else {
+            return
+        }
         marker?.map = nil
-        marker = GMSMarker(position: location.coordinate)
+        marker = GMSMarker(position: coordinate)
         marker?.map = googleMapView
     }
 
@@ -68,7 +71,6 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
 //        puvc.currentRun = run
         _ = puvc.view
         puvc.initialOffset = tabBarController?.tabBar.frame.height ?? 0
-        print("initialOffset: ", puvc.initialOffset)
         puvc.height = UIScreen.main.bounds.height - googleMapView.frame.height
         puvc.delegate = self
         addPullUpController(puvc, initialStickyPointOffset: puvc.initialHeight, animated: true)

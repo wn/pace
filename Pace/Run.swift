@@ -93,12 +93,13 @@ class Run: IdentifiableObject {
         }
     }
 
-    /// Gets the location of the runner based on the percentage progress of the run
+    /// Gets the Checkpoint of the runner based on the percentage progress of the run
+    /// If the run percentage falls between two Checkpoints, returns an interpolated Checkpoint
     /// - Parameter percentage: percentage of the run completed
-    /// - Returns: the CLLocation of the runner at the run percentage
-    func getLocationAt(percentage: Double) -> CLLocation? {
+    /// - Returns: the Checkpoint of the runner at the run percentage
+    func getCheckpointAt(percentage: Double) -> CheckPoint? {
         guard percentage <= 1 else {
-            return checkpoints.last?.location
+            return checkpoints.last
         }
         let distanceAtPercentage = distance * percentage
         var leftIdx = 0
@@ -111,16 +112,14 @@ class Run: IdentifiableObject {
             } else if checkpoints[idx].routeDistance > distanceAtPercentage {
                 rightIdx = idx
             } else {
-                return checkpoints[idx].location
+                return checkpoints[idx]
             }
         }
 
         // Interpolate to get the CLLocation between the left and right checkpoints
-        let segmentDistance = distanceAtPercentage - checkpoints[leftIdx].routeDistance
-        guard let leftLoc = checkpoints[leftIdx].location,
-            let rightLoc = checkpoints[rightIdx].location else {
-                return nil
-        }
-        return CLLocation.interpolate(distance: segmentDistance, between: leftLoc, and: rightLoc)
+        return CheckPoint.interpolate(with: distanceAtPercentage,
+                                      between: checkpoints[leftIdx],
+                                      and: checkpoints[rightIdx],
+                                      on: nil)
     }
 }

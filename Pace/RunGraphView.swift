@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 enum GraphComparisonMode: String, CaseIterable {
-    case speed
+    case speed, altitude, timeSpent
 }
 
 class RunGraphView: UIView {
@@ -71,14 +71,22 @@ class RunGraphView: UIView {
         switch comparisonMode {
         case .speed:
             return (cp1.location?.speed ?? 0) < (cp2.location?.speed ?? 0)
+        case .altitude:
+            return (cp1.location?.altitude ?? 0) < (cp2.location?.altitude ?? 0)
+        case .timeSpent:
+            return cp1.time < cp2.time
         }
     }
 
-    /// Returns a property of the CLLocation representing the mode of the graph
-    private func resolveModeValue(_ location: CLLocation?) -> Double {
+    /// Returns a property of a Checkpoint representing the mode of the graph
+    private func resolveModeValue(_ checkpoint: CheckPoint?) -> Double {
         switch comparisonMode {
         case .speed:
-            return location?.speed ?? 0
+            return checkpoint?.location?.speed ?? 0
+        case .altitude:
+            return checkpoint?.location?.altitude ?? 0
+        case .timeSpent:
+            return checkpoint?.time ?? 0
         }
     }
 
@@ -90,11 +98,11 @@ class RunGraphView: UIView {
         let maxCp1 = currentRun?.checkpoints.max(by: { cp1, cp2 -> Bool in
             return compare(cp1, cp2)
         })
-        let maxY1 = resolveModeValue(maxCp1?.location)
+        let maxY1 = resolveModeValue(maxCp1)
         let maxCp2 = compareRun?.checkpoints.max(by: { cp1, cp2 -> Bool in
             return compare(cp1, cp2)
         })
-        let maxY2 = resolveModeValue(maxCp2?.location)
+        let maxY2 = resolveModeValue(maxCp2)
         upperBound = max(maxY1, maxY2) * 8 / 7
     }
     
@@ -128,7 +136,7 @@ class RunGraphView: UIView {
             return CGPoint()
         }
         let xVal = graphArea.frame.width * CGFloat(checkpoint.routeDistance / run.distance)
-        let yVal = graphArea.frame.height - graphArea.frame.height * CGFloat(resolveModeValue(checkpoint.location) / upperBound)
+        let yVal = graphArea.frame.height - graphArea.frame.height * CGFloat(resolveModeValue(checkpoint) / upperBound)
         return CGPoint(x: xVal, y: yVal)
     }
 
@@ -141,7 +149,7 @@ class RunGraphView: UIView {
 
     /// Removes the width constraint from the yLine and moves creates a new constraint
     /// based on the new x-multiplier (of the width)
-    func moveYLine(to xMultiplier: CGFloat, location: CLLocation) {
+    func moveYLine(to xMultiplier: CGFloat, checkpoint: CheckPoint) {
         let newYLineConstraint =
             NSLayoutConstraint(item: yLineWidthConstraint.firstItem as Any,
                                attribute: yLineWidthConstraint.firstAttribute,
@@ -160,7 +168,7 @@ class RunGraphView: UIView {
             return
         }
         let xValue = Double(xMultiplier) * run.distance / 1000
-        let yValue = resolveModeValue(location)
+        let yValue = resolveModeValue(checkpoint)
         let labelText = String(format: "%.2fkm, %.2fm/s", arguments: [xValue, yValue])
         label.text = labelText
         let yHeight = graphArea.frame.height * CGFloat(yValue / upperBound)
