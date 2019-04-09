@@ -21,12 +21,29 @@ extension ActivityViewController {
     }
 
     func startingRun() {
-        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
+        guard let startLocation = coreLocationManager.location else {
+            fatalError("Should have location here.")
+        }
         clearMap() // Clear route markers
+        initiateRunPlot(at: startLocation)
+        startRunningSession(at: startLocation)
+        // TODO: update running stats here
+        updateValues()
+    }
+
+    private func initiateRunPlot(at location: CLLocation) {
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
+        path.add(location.coordinate)
+        addMarker(Constants.startFlag, position: location.coordinate)
+    }
+
+    private func startRunningSession(at location: CLLocation) {
         VoiceAssistant.say("Starting run")
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
-        updateValues()
+        // TODO: add follow run
+        // TODO: allow user to run without signing in
+        ongoingRun = OngoingRun(runner: userSession!.currentUser!, startingLocation: location)
     }
 
     @objc

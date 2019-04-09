@@ -33,12 +33,12 @@ class ActivityViewController: UIViewController {
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     // MARK: Running variables
-    var currentRoute: Route?
-    var currentRun: Run?
     var path = GMSMutablePath()
+    var currentMapPath: GMSPolyline?
     var lastMarkedPosition: CLLocation?
     var distance: CLLocationDistance = 0
     let stopwatch = StopwatchTimer()
+    var ongoingRun: OngoingRun?
     var runStarted: Bool {
         return stopwatch.isPlaying
     }
@@ -319,22 +319,20 @@ extension ActivityViewController: CLLocationManagerDelegate {
             let distanceMoved = location.distance(from: lastMarkedPosition)
             print("Distance =  \(distanceMoved)")
             distance += distanceMoved
-        } else {
-            // First time getting a location
-            addMarker(Constants.startFlag, position: location.coordinate)
         }
         lastMarkedPosition = location
 
         let coordinate = location.coordinate
-        path.add(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        path.add(location.coordinate)
 
         // TODO: We redraw the whole map again. is this good?
         // Or can we dynamically generate the map without mutablepath
         //googleMapView.clear()
-        let mapPaths = GMSPolyline(path: path)
-        mapPaths.strokeColor = .blue
-        mapPaths.strokeWidth = 5
-        mapPaths.map = googleMapView
+        currentMapPath?.map = nil
+        currentMapPath = GMSPolyline(path: path)
+        currentMapPath?.strokeColor = .blue
+        currentMapPath?.strokeWidth = 5
+        currentMapPath?.map = googleMapView
 
         // position.text = "lat: \(coordinate.latitude), long: \(coordinate.longitude)"
     }
