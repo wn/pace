@@ -48,10 +48,11 @@ extension ActivityViewController {
 
     @objc
     func endRun(_ sender: UIButton) {
-        guard runStarted else {
-            return
-        }
-        guard let endPos = lastMarkedPosition?.coordinate else {
+        guard
+            runStarted,
+            let ongoingRun = ongoingRun,
+            let endPos = lastMarkedPosition?.coordinate
+        else {
             return
         }
         addMarker(Constants.endFlag, position: endPos)
@@ -65,7 +66,7 @@ extension ActivityViewController {
             storyBoard.instantiateViewController(
                 withIdentifier: "summaryVC")
                 as! ActivitySummaryViewController
-        summaryVC.setStats(distance: distance, time: stopwatch.timeElapsed)
+        summaryVC.setStats(createdRun: ongoingRun, distance: distance, time: stopwatch.timeElapsed)
         renderChildController(summaryVC)
 
         VoiceAssistant.say("Run completed")
@@ -73,11 +74,6 @@ extension ActivityViewController {
         distance = 0
         coreLocationManager.stopUpdatingLocation()
         updateLabels()
-
-        let newRoute = ongoingRun?.toNewRoute()
-        routesManager?.saveNewRoute(newRoute!) { error in
-            print("ERROR \(error)")
-        }
     }
 
     func updateValues() {
