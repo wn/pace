@@ -32,6 +32,12 @@ protocol RealmStorageManager {
 
     /// Saves a new run.
     func saveNewRun(_ run: Run, toRoute: Route, _ completion: ErrorHandler?)
+
+    /// Adds a route to a user's favourites
+    func addFavouriteRoute(_ route: Route, toUser user: User)
+
+    /// Removes a route from a user
+    func removeFavouriteRoute(_ route: Route, fromUser user: User)
 }
 
 class CachingStorageManager: RealmStorageManager {
@@ -114,4 +120,30 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
+    func addFavouriteRoute(_ route: Route, toUser user: User) {
+        do {
+            if user.favouriteRoutes.contains(where: { $0.id == route.id }) {
+                return
+            }
+            try persistentRealm.write {
+                let newRoute = persistentRealm.create(Route.self, value: route, update: true)
+                user.favouriteRoutes.append(newRoute)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    func removeFavouriteRoute(_ route: Route, fromUser user: User) {
+        do {
+            guard let indexToRemove = user.favouriteRoutes.firstIndex(where: { $0.id == route.id }) else {
+                return
+            }
+            try persistentRealm.write {
+                user.favouriteRoutes.remove(at: indexToRemove)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
