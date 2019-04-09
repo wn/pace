@@ -227,14 +227,11 @@ extension ActivityViewController: GMSMapViewDelegate {
         guard
             let gridNumber = gridMapManager?.getGridId(marker.position),
             let routeMarkers = routesInGrid[gridNumber],
-            let route = routeMarkers.getRoutes(marker)
+            let routes = routeMarkers.getRoutes(marker)
             else {
                 fatalError("Created marker should be associated to a route.")
         }
-        // TODO: send correct stats to drawer
-        print("MARKER PRESSED: \(route.first)")
-        // TODO: GET ROUTE associated to marker
-        renderDrawer()
+        renderRoute(routes)
         return true
     }
 
