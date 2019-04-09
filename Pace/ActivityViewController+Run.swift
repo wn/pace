@@ -51,6 +51,10 @@ extension ActivityViewController {
         guard runStarted else {
             return
         }
+        guard let endPos = lastMarkedPosition?.coordinate else {
+            return
+        }
+        addMarker(Constants.endFlag, position: endPos)
         // TODO: TAKE A SCREENSHOT HERE!
 
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
@@ -69,10 +73,11 @@ extension ActivityViewController {
         distance = 0
         coreLocationManager.stopUpdatingLocation()
         updateLabels()
-        guard let endPos = lastMarkedPosition?.coordinate else {
-            return
+
+        let newRoute = ongoingRun?.toNewRoute()
+        routesManager?.saveNewRoute(newRoute!) { error in
+            print("ERROR \(error)")
         }
-        addMarker(Constants.endFlag, position: endPos)
     }
 
     func updateValues() {
