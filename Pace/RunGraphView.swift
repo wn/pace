@@ -19,8 +19,8 @@ class RunGraphView: UIView {
     @IBOutlet private var graphArea: UIView!
     @IBOutlet private var yLine: UIView!
     @IBOutlet private var yLineWidthConstraint: NSLayoutConstraint!
-    @IBOutlet private var label: UILabel!
-    @IBOutlet private var labelYCoordConstraint: NSLayoutConstraint!
+    @IBOutlet private var higherLabel: UILabel!
+    @IBOutlet private var lowerLabel: UILabel!
 
     private var drawContext: CGContext?
     private var comparisonMode: GraphComparisonMode = .speed
@@ -28,6 +28,14 @@ class RunGraphView: UIView {
 
     var currentRun: Run?
     var compareRun: Run?
+
+    var currentRunColor: UIColor {
+        return .blue
+    }
+
+    var compareRunColor: UIColor {
+        return .red
+    }
 
     var mode: GraphComparisonMode {
         get {
@@ -45,12 +53,12 @@ class RunGraphView: UIView {
             return
         }
         setUpperBound()
-        draw(run: currentRun, color: .blue, with: drawContext)
+        draw(run: currentRun, color: currentRunColor, with: drawContext)
         guard let compareRun = compareRun else {
             return
         }
-        draw(run: compareRun, color: .red, with: drawContext)
-        label.text = nil
+        draw(run: compareRun, color: compareRunColor, with: drawContext)
+        lowerLabel.text = nil
         super.draw(rect)
     }
 
@@ -66,6 +74,10 @@ class RunGraphView: UIView {
         self.layer.masksToBounds = true
     }
 
+    private var maxDistance: Double {
+        return max(currentRun?.distance ?? 0, compareRun?.distance ?? 0)
+    }
+    
     /// Compares two checkpoints based on the comparison mode of the graph
     private func compare(_ cp1: CheckPoint, _ cp2: CheckPoint) -> Bool {
         switch comparisonMode {
@@ -135,7 +147,7 @@ class RunGraphView: UIView {
             let upperBound = upperBound else {
             return CGPoint()
         }
-        let xVal = graphArea.frame.width * CGFloat(checkpoint.routeDistance / run.distance)
+        let xVal = graphArea.frame.width * CGFloat(checkpoint.routeDistance / maxDistance)
         let yVal = graphArea.frame.height - graphArea.frame.height * CGFloat(resolveModeValue(checkpoint) / upperBound)
         return CGPoint(x: xVal, y: yVal)
     }
@@ -149,22 +161,52 @@ class RunGraphView: UIView {
 
     /// Removes the width constraint from the yLine and moves creates a new constraint
     /// based on the new x-multiplier (of the width)
-    func moveYLine(to xMultiplier: CGFloat, checkpoint: CheckPoint) {
+    /// - Parameter xMultiplier: percentage of the width of the graph
+    /// - Parameter currentCheckpoint: (interpolated) checkpoint of the current run
+    /// - Parameter compareCheckpoint: (interpolated) checkpoint of the run being compared
+    func moveYLine(to xMultiplier: CGFloat, currentCheckpoint: CheckPoint, compareCheckpoint: CheckPoint?) {
         let newYLineConstraint = yLineWidthConstraint.replace(newMultiplier: xMultiplier)
         content.removeConstraint(yLineWidthConstraint)
         yLineWidthConstraint = newYLineConstraint
         content.addConstraint(newYLineConstraint)
 
         // Render and move intersection label
-        guard let run = currentRun,
-            let upperBound = upperBound else {
+        let xCurrentValue = currentCheckpoint.routeDistance / 1000
+        let yCurrentValue = resolveModeValue(currentCheckpoint)
+        let currentLabelText = generateLabel(x: xCurrentValue, y: yCurrentValue)
+        guard let compareCheckpoint = compareCheckpoint else {
+            lowerLabel.text = currentLabelText
+            lowerLabel.textColor = currentRunColor
+            higherLabel.text = nil
             return
         }
-        let xValue = Double(xMultiplier) * run.distance / 1000
-        let yValue = resolveModeValue(checkpoint)
-        let labelText = String(format: "%.2fkm, %.2fm/s", arguments: [xValue, yValue])
-        label.text = labelText
-        let yHeight = graphArea.frame.height * CGFloat(yValue / upperBound)
-        labelYCoordConstraint.constant = -yHeight
+        let xCompareValue = compareCheckpoint.routeDistance / 1000
+        let yCompareValue = resolveModeValue(compareCheckpoint)
+        let compareLabelText = generateLabel(x: xCompareValue, y: yCompareValue)
+
+        if yCompareValue > yCurrentValue {
+            lowerLabel.text = currentLabelText
+            lowerLabel.textColor = currentRunColor
+            higherLabel.text = compareLabelText
+            higherLabel.textColor = compareRunColor
+        } else {
+            higherLabel.text = currentLabelText
+            higherLabel.textColor = currentRunColor
+            lowerLabel.text = compareLabelText
+            lowerLabel.textColor = compareRunColor
+        }
+    }
+
+    private func generateLabel(x: Double, y: Double) -> String {
+        let yMetric: String
+        switch comparisonMode {
+        case .speed:
+            yMetric = "m/s"
+        case .altitude:
+            yMetric = "m"
+        case .timeSpent:
+            yMetric = "min"
+        }
+        return String(format: "%.2fkm, %.2f\(yMetric)", arguments: [x, y])
     }
 }

@@ -11,6 +11,8 @@ import GoogleMaps
 
 class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     weak var run: Run?
+    var compareRun: Run?
+    var compareLine: GMSPolyline?
     @IBOutlet private var runGraph: RunGraphView!
     @IBOutlet private var googleMapView: MapView!
     private var marker: GMSMarker?
@@ -22,7 +24,7 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
         setupGestureRecognizers()
         setupPullupController()
         if let run = run {
-            googleMapView.drawRun(run)
+            googleMapView.drawRun(run, runGraph.currentRunColor)
             runGraph.currentRun = run
             runGraph.setNeedsDisplay()
         }
@@ -40,11 +42,13 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
         let xVal = recognizer.location(in: runGraph).x
         let runPercentage = (xVal == 0) ? CGFloat.leastNormalMagnitude : (xVal / runGraph.bounds.width)
         guard let run = run,
-            let checkpoint = run.getCheckpointAt(percentage: Double(runPercentage)) else {
+            let currentCheckpoint = run.getCheckpointAt(percentage: Double(runPercentage)) else {
                 return
         }
-        runGraph.moveYLine(to: runPercentage, checkpoint: checkpoint)
-        guard let coordinate = checkpoint.location?.coordinate else {
+        let compareCheckpoint = compareRun?.getCheckpointAt(percentage: Double(runPercentage))
+        runGraph.moveYLine(to: runPercentage, currentCheckpoint: currentCheckpoint, compareCheckpoint: compareCheckpoint)
+
+        guard let coordinate = currentCheckpoint.location?.coordinate else {
             return
         }
         marker?.map = nil
@@ -81,8 +85,12 @@ extension RunAnalysisController: RunCollectionControllerDelegate {
     func onClickCallback(run: Run) {
         if runGraph.compareRun == run {
             runGraph.compareRun = nil
+            compareRun = nil
+            compareLine?.map = nil
         } else {
             runGraph.compareRun = run
+            compareRun = run
+            compareLine = googleMapView.drawRun(compareRun, runGraph.compareRunColor)
         }
         runGraph.setNeedsDisplay()
     }

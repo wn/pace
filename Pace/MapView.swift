@@ -27,14 +27,18 @@ class MapView: GMSMapView {
         return marker
     }
 
-    func drawPath(path: GMSPath, _ color: UIColor = .blue) {
+    func drawPath(path: GMSPath, _ color: UIColor = .blue) -> GMSPolyline? {
         let mapPaths = GMSPolyline(path: path)
         mapPaths.strokeColor = color
         mapPaths.strokeWidth = 5
         mapPaths.map = self
+        return mapPaths
     }
     
-    func drawRun(_ run: Run, _ color: UIColor = .blue) {
+    func drawRun(_ run: Run?, _ color: UIColor = .blue) -> GMSPolyline? {
+        guard let run = run else {
+            return nil
+        }
         let path = GMSMutablePath()
         for checkpoint in run.checkpoints {
             guard let coordinate = checkpoint.location?.coordinate else {
@@ -42,6 +46,6 @@ class MapView: GMSMapView {
             }
             path.add(coordinate)
         }
-        drawPath(path: path, color)
+        return drawPath(path: path, color)
     }
 }
