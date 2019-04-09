@@ -47,8 +47,13 @@ class OngoingRun {
         guard let lastPoint = checkpoints.last, let lastLocation = lastPoint.location else {
             fatalError("There should already be exisiting location in this ongoing run.")
         }
+        let distanceApart = location.distance(from: lastLocation)
+        guard distanceApart > 0 else {
+            // make sure adjacent points have different locations to avoid NaN issue in normalization
+            return
+        }
         // caliberate the actual distance
-        let newActualDistance = lastPoint.actualDistance + location.distance(from: lastLocation)
+        let newActualDistance = lastPoint.actualDistance + distanceApart
         // handle new run case
         guard paceRun != nil else {
             let newPoint = CheckPoint(location: location, time: time, actualDistance: newActualDistance, routeDistance: newActualDistance)
