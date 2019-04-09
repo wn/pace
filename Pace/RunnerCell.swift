@@ -14,7 +14,6 @@ class RunnerTableViewCell: UITableViewCell {
     @IBOutlet var runnerName: UILabel!
     @IBOutlet var timeLabel: UILabel!
 
-
     func setupCell(pos: Int, name: String, time: Int) {
         var posString = "\(pos)"
         switch pos {

@@ -78,7 +78,7 @@ class FavouriteViewController: RequireLoginController {
             }
             return randomRoute
         }
-        let manager = RealmStorageManager()
+        let manager = CachingStorageManager()
         manager.saveNewRoute(createRouteStartingAt(lat: 1, long: 2)) { if $0 == nil { print("lol") } }
         manager.fetchRoutesWithin(latitudeMin: 1.0, latitudeMax: 3.0, longitudeMin: 1.0, longitudeMax: 3.0) {
             print($0)
