@@ -14,13 +14,13 @@ class ActivitySummaryViewController: UIViewController {
     @IBOutlet private var paceLabel: UILabel!
     @IBOutlet private var timeLabel: UILabel!
 
-    var distance: Int = 0
+    var distance: Double = 0
     var pace: Int = 0
-    var time: Int = 0
+    var time: Double = 0
 
-    func setStats(distance: CLLocationDistance, time: Int) {
-        self.distance = Int(distance)
-        self.pace = distance == 0 ? 0 : Int(time / Int(distance))
+    func setStats(distance: CLLocationDistance, time: Double) {
+        self.distance = distance
+        self.pace = distance == 0 ? 0 : Int(time / distance)
         self.time = time
     }
 

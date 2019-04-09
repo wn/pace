@@ -61,7 +61,7 @@ extension ActivityViewController {
             storyBoard.instantiateViewController(
                 withIdentifier: "summaryVC")
                 as! ActivitySummaryViewController
-        summaryVC.setStats(distance: distance, time: stopwatch.timeElapsed())
+        summaryVC.setStats(distance: distance, time: stopwatch.timeElapsed)
         renderChildController(summaryVC)
 
         VoiceAssistant.say("Run completed")
@@ -98,11 +98,11 @@ extension ActivityViewController {
     }
 
     func updateTimer() {
-        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed()) secs"
+        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed) secs"
     }
 
     func updatePace() {
-        let paceValue = distance != 0 ? 1_000 * stopwatch.timeElapsed() / Int(distance) : 0
+        let paceValue = distance != 0 ? 1_000 * stopwatch.timeElapsed / distance : 0
         pace.text = "Pace: \(paceValue) seconds /km"
     }
 

@@ -315,6 +315,9 @@ extension ActivityViewController: CLLocationManagerDelegate {
             return
         }
         isConnected = true
+        ongoingRun?.addNewLocation(location, atTime: stopwatch.timeElapsed)
+
+        // TODO: abstract distance to ongoingRun
         if let lastMarkedPosition = lastMarkedPosition {
             let distanceMoved = location.distance(from: lastMarkedPosition)
             print("Distance =  \(distanceMoved)")
@@ -322,7 +325,6 @@ extension ActivityViewController: CLLocationManagerDelegate {
         }
         lastMarkedPosition = location
 
-        let coordinate = location.coordinate
         path.add(location.coordinate)
 
         // TODO: We redraw the whole map again. is this good?
