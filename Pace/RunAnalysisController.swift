@@ -70,10 +70,10 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
 //        puvc.route = run?.route
 //        puvc.currentRun = run
         _ = puvc.view
-        puvc.initialOffset = tabBarController?.tabBar.frame.height ?? 0
+        let tabBarHeight = tabBarController?.tabBar.frame.height ?? 0
         puvc.height = UIScreen.main.bounds.height - googleMapView.frame.height
         puvc.delegate = self
-        addPullUpController(puvc, initialStickyPointOffset: puvc.initialHeight, animated: true)
+        addPullUpController(puvc, initialStickyPointOffset: puvc.initialHeight + tabBarHeight, animated: true)
     }
 }
 

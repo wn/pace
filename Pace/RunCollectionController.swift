@@ -63,41 +63,34 @@ class RunCollectionController: PullUpController {
         }
         set {
             maxHeight = newValue
-            print("maxHeight: ", maxHeight)
-            print("collectionHeight: ", collectionHeight)
-            let newHeightConstraint = collectionHeightConstraint.replace(newConstant: collectionHeight)
-            runCollectionView.removeConstraint(collectionHeightConstraint)
-            runCollectionView.addConstraint(newHeightConstraint)
-            collectionHeightConstraint = newHeightConstraint
+            collectionHeightConstraint.constant = collectionHeight
         }
     }
 
-    var initialOffset: CGFloat {
-        get {
-            return initOffset ?? 0
-        }
-        set {
-            initOffset = newValue
-        }
+    override var initialDisplayOffset: CGFloat {
+        return parent?.tabBarController?.tabBar.frame.height ?? 0
     }
-    
+
+    override var includeInitialStickyPoint: Bool {
+        return false
+    }
+
     /// Height from bottom when first displayed
     var initialHeight: CGFloat {
-        return initialDisplay.frame.height + initialOffset
+        return initialDisplay.frame.height
     }
 
     /// Height of the run collection
     var collectionHeight: CGFloat {
-        return height - initialOffset
+        return height - initialHeight
     }
 
     override var pullUpControllerMiddleStickyPoints: [CGFloat] {
-        /// - TODO: currently sticking in the middle
-        return [initialOffset]
+        return [initialHeight]
     }
-    
+
     override var pullUpControllerPreferredSize: CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: height)
+        return CGSize(width: UIScreen.main.bounds.width, height: runCollectionView.frame.maxY)
     }
 }
 

@@ -83,6 +83,22 @@ open class PullUpController: UIViewController {
         return 700
     }
 
+    /**
+     A CGFloat value that represents the initial display point of the drawer (relative to bottom anchor).
+     Defaults to 0 - pullup controller will be below the bottom anchor
+     If overriden and set to greater than 0 - pullup controller will be displayed above the bottom anchor
+    */
+    open var initialDisplayOffset: CGFloat {
+        return 0
+    }
+
+    /**
+     Include the initial sticky point (initialStickyPointOffset)
+    */
+    open var includeInitialStickyPoint: Bool {
+        return true
+    }
+    
     // MARK: - Public properties
 
     /**
@@ -231,7 +247,9 @@ open class PullUpController: UIViewController {
     // MARK: - Setup
 
     fileprivate func setup(superview: UIView, initialStickyPointOffset: CGFloat) {
-        self.initialStickyPointOffset = initialStickyPointOffset
+        if includeInitialStickyPoint {
+            self.initialStickyPointOffset = initialStickyPointOffset
+        }
         view.translatesAutoresizingMaskIntoConstraints = false
         superview.addSubview(view)
         view.frame = CGRect(origin: CGPoint(x: view.frame.origin.x,
@@ -264,7 +282,7 @@ open class PullUpController: UIViewController {
         widthConstraint = view.widthAnchor.constraint(equalToConstant: pullUpControllerPreferredSize.width)
         heightConstraint = view.heightAnchor.constraint(equalToConstant: pullUpControllerPreferredSize.height)
         heightConstraint?.priority = .defaultLow
-        bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -initialDisplayOffset)
 
         let constraintsToActivate = [topConstraint,
                                      leftConstraint,
@@ -435,7 +453,7 @@ open class PullUpController: UIViewController {
         widthConstraint?.constant = pullUpControllerPreferredSize.width
         heightConstraint?.constant = pullUpControllerPreferredSize.height
         heightConstraint?.priority = .defaultLow
-        bottomConstraint?.constant = 0
+        bottomConstraint?.constant = -initialDisplayOffset
     }
 
     private func setLandscapeConstraints() {

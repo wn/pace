@@ -150,14 +150,7 @@ class RunGraphView: UIView {
     /// Removes the width constraint from the yLine and moves creates a new constraint
     /// based on the new x-multiplier (of the width)
     func moveYLine(to xMultiplier: CGFloat, checkpoint: CheckPoint) {
-        let newYLineConstraint =
-            NSLayoutConstraint(item: yLineWidthConstraint.firstItem as Any,
-                               attribute: yLineWidthConstraint.firstAttribute,
-                               relatedBy: yLineWidthConstraint.relation,
-                               toItem: yLineWidthConstraint.secondItem,
-                               attribute: yLineWidthConstraint.secondAttribute,
-                               multiplier: xMultiplier,
-                               constant: yLineWidthConstraint.constant)
+        let newYLineConstraint = yLineWidthConstraint.replace(newMultiplier: xMultiplier)
         content.removeConstraint(yLineWidthConstraint)
         yLineWidthConstraint = newYLineConstraint
         content.addConstraint(newYLineConstraint)
@@ -172,16 +165,6 @@ class RunGraphView: UIView {
         let labelText = String(format: "%.2fkm, %.2fm/s", arguments: [xValue, yValue])
         label.text = labelText
         let yHeight = graphArea.frame.height * CGFloat(yValue / upperBound)
-        let newLabelConstraint =
-            NSLayoutConstraint(item: labelYCoordConstraint.firstItem as Any,
-                               attribute: labelYCoordConstraint.firstAttribute,
-                               relatedBy: labelYCoordConstraint.relation,
-                               toItem: labelYCoordConstraint.secondItem,
-                               attribute: labelYCoordConstraint.secondAttribute,
-                               multiplier: labelYCoordConstraint.multiplier,
-                               constant: -yHeight)
-        content.removeConstraint(labelYCoordConstraint)
-        labelYCoordConstraint = newLabelConstraint
-        content.addConstraint(newLabelConstraint)
+        labelYCoordConstraint.constant = -yHeight
     }
 }
