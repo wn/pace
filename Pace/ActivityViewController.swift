@@ -13,30 +13,28 @@ import AVFoundation
 import RealmSwift
 
 class ActivityViewController: UIViewController {
+    // MARK: Realm variables
     var userSession: UserSessionManager?
-    var routesManager: StorageManager?
-    var originalPullUpControllerViewSize: CGSize = .zero
-    let coreLocationManager = CLLocationManager()
+    var routesManager: RealmStorageManager?
     var routes: Results<Route>?
     var notificationToken: NotificationToken?
+    var isConnectedToInternet = true
 
-    var currentRoute: Route? = nil
-    var currentRun: Run? = nil
+    // MARK: Drawer variable
+    var originalPullUpControllerViewSize: CGSize = .zero
 
+    // MARK: UIVariable
     @IBAction func endRunButton(_ sender: UIButton) {
         endRun(sender)
     }
-
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var pace: UILabel!
     @IBOutlet var time: UILabel!
+    let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
-    @IBOutlet private var googleMapView: GMSMapView!
-    // Keep track of all markers in the map
-    // Int to change to run details instead.
-    var markers: [GMSMarker: Int] = [:]
-
-    // MARK: - Running variables
+    // MARK: Running variables
+    var currentRoute: Route?
+    var currentRun: Run?
     var path = GMSMutablePath()
     var lastMarkedPosition: CLLocation?
     var distance: CLLocationDistance = 0
@@ -66,15 +64,74 @@ class ActivityViewController: UIViewController {
         }
     }
 
+    // MARK: Map variables
+    let coreLocationManager = CLLocationManager()
+    var gridMapManager = Constants.defaultGridManager
+    @IBOutlet private var googleMapView: GMSMapView!
+    // routesInGrid keeps track of all routes in a grid
+    // markers keeps track of all created markers. Each markers represent
+    // a certain number of routes that it represents, depending on how the routes are aggregated.
+    // When there is new routes created in a grid, we recalculate the GMSMarker
+    // locations.
+    // TODO: Abstract it to GMSView
+    var routesInGrid: [GridNumber: RouteMarkers] = [:]
+    var markers: [GMSMarker: Int] = [:]
+    // Put in map
+    var viewingGrids: [GridNumber] {
+        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
+            return []
+        }
+        return gridMapManager?.getBoundedGrid(projectedMapBound) ?? []
+    }
+
+    var projectedMapBound: GridBound {
+        let topLeft = googleMapView.projection.visibleRegion().farLeft
+        let topRight = googleMapView.projection.visibleRegion().farRight
+        let bottomLeft = googleMapView.projection.visibleRegion().nearLeft
+        let bottomRight = googleMapView.projection.visibleRegion().nearRight
+        return GridBound(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
         setupMapView()
-        routesManager = RealmStorageManager.default
+        // Init in variable? @julius
+        routesManager = CachingStorageManager.default
         userSession = RealmUserSessionManager.forDefaultRealm
-        routes = Realm.inMemory.objects(Route.self)
-        notificationToken = routes?.observe { _ in
-            self.redrawMarkers()
+        routes = routesManager?.inMemoryRealm.objects(Route.self)
+        notificationToken = routes?.observe { [weak self]changes in
+            guard let map = self?.googleMapView else {
+                print("MAP NOT RENDERED YET")
+                return
+            }
+            switch changes {
+            case .initial:
+                break
+            case .update(_, _, let insertions, _):
+                // For each new route
+                // 1. Get route from the index in `insertions`.
+                // 2. Insert route into the specific gridNumber
+                // 3. Create a marker for the route and insert into the specific gridNumber
+                for routeIndex in insertions {
+                    guard
+                        let newRoute = self?.routes?[routeIndex],
+                        let startLocation = newRoute.startingLocation?.coordinate,
+                        let gridNumberForRoute = self?.gridMapManager?.getGridId(startLocation)
+                        else {
+                            continue
+                    }
+                    if self?.routesInGrid[gridNumberForRoute] == nil {
+                        self?.routesInGrid[gridNumberForRoute] = RouteMarkers(map: map)
+                    }
+                    guard let routeMarkers = self?.routesInGrid[gridNumberForRoute] else {
+                        return
+                    }
+                    routeMarkers.insertRoute(newRoute)
+                }
+            case .error:
+                print("FUCKING ERROR")
+            }
         }
     }
 
@@ -83,8 +140,6 @@ class ActivityViewController: UIViewController {
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
     }
-
-    let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     /// Set up mapView view.
     private func setupMapView() {
@@ -104,78 +159,48 @@ class ActivityViewController: UIViewController {
         coreLocationManager.requestAlwaysAuthorization()
         coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         coreLocationManager.requestLocation()
-//        while locationManager.location == nil {
-//            // Wait 1 second and check if location has been loaded.
-//            // If location cannot be loaded, code here will never terminate
-//            // TODO: FIX ABOVE
-//            sleep(1)
-//        }
-//        guard let location = locationManager.location else {
-//            fatalError("While loop should have captured nil value!")
-//        }
-//        googleMapView.setCameraPosition(location.coordinate)
+        while coreLocationManager.location == nil {
+            // Wait 1 second and check if location has been loaded.
+            // If location cannot be loaded, code here will never terminate
+            // TODO: FIX ABOVE
+            sleep(1)
+        }
+        guard let location = coreLocationManager.location else {
+            fatalError("While loop should have captured nil value!")
+        }
+        googleMapView.setCameraPosition(location.coordinate)
     }
 
-    func fetchNearbyRoutes() {
-        let topLeft = googleMapView.projection.visibleRegion().farLeft
-        let bottomRight = googleMapView.projection.visibleRegion().nearRight
+    func renderMarkers(_ gridNumbers: [GridNumber]) {
+        for gridNumber in gridNumbers {
+            guard let routeMarker = routesInGrid[gridNumber] else {
+                print("NO markers rendered in gridNumber")
+                continue
+            }
+            routeMarker.renderMarkers()
+        }
+    }
 
-        // Bounds of maps to retrieve
-        let top = topLeft.latitude
-        let bottom = bottomRight.latitude
-        let left = topLeft.longitude
-        let right = bottomRight.longitude
-
-        // TODO: Fake data. To draw real data here instead
-        /*
-        let one = CLLocation(latitude: bottom + 0.001, longitude: left)
-        let two = CLLocation(latitude: bottom + 0.000_5, longitude: left)
-        let three = CLLocation(latitude: top - 0.001, longitude: right)
-        let four = CLLocation(latitude: top - 0.000_5, longitude: right)
-        return [one, two, three, four]
-         */
-
-        routesManager?.fetchRoutesWithin(latitudeMin: top, latitudeMax: bottom, longitudeMin: left, longitudeMax: right) {
-            if let error = $0 {
-                print(error.localizedDescription)
+    func fetchNearbyRoutes(_ gridNumbers: [GridNumber]) {
+        for gridNumber in gridNumbers where routesInGrid[gridNumber] == nil {
+            guard let bound = gridMapManager?.getBounds(gridId: gridNumber) else {
+                continue
+            }
+            routesManager?.fetchRoutesWithin(
+                latitudeMin: bound.minLat,
+                latitudeMax: bound.maxLat,
+                longitudeMin: bound.minLong,
+                longitudeMax: bound.maxLong) {
+                if let error = $0 {
+                    print(error.localizedDescription)
+                }
             }
         }
     }
 
     func redrawMarkers() {
-        guard !runStarted else {
-            return
-        }
-        googleMapView.clear()
-        markers = [:]
-        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
-            return
-        }
-
-        // TODO: Get all potential markers and generate them.
-        // Get marker nearby location
-
-        // BELOW IS THE REAL CODE FOR GET NEARBY ROUTES.
-        //        routesManager.getRoutesNear(location: location) { (routes, error) -> Void in
-        //            self?.markers = [:]
-        //            for index in 0..<routes.count {
-        //                // Count is the number of routes that the marker represents
-        //                // Set as 17 as that is the name of the image
-        //                let count = 17
-        //                let marker = self.generateRouteMarker(location: routes[index], count: count)
-        //                self.markers[marker] = index
-        //            }
-        //        }
-
-        // TODO: STUB - TO REMOVE
-        guard let routes = routes else {
-            return
-        }
-        let count = 17
-        let routeMarkers = Array(routes.compactMap { route in
-            self.generateRouteMarker(location: route.startingLocation, count: count)
-        })
-        markers = Dictionary(uniqueKeysWithValues: zip(routeMarkers, [Int](0..<routeMarkers.count)))
+        renderMarkers(viewingGrids)
+        fetchNearbyRoutes(viewingGrids)
     }
 }
 
@@ -199,19 +224,32 @@ extension ActivityViewController: GMSMapViewDelegate {
 
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         // TODO: On tap with marker, pop up route description
-        guard let markerID = markers[marker] else {
-            redrawMarkers()
-            return false
+        guard
+            let gridNumber = gridMapManager?.getGridId(marker.position),
+            let routeMarkers = routesInGrid[gridNumber],
+            let route = routeMarkers.getRoutes(marker)
+            else {
+                fatalError("Created marker should be associated to a route.")
         }
         // TODO: send correct stats to drawer
-        print("MARKER PRESSED: \(markerID)")
+        print("MARKER PRESSED: \(route.first)")
         // TODO: GET ROUTE associated to marker
         renderDrawer()
         return true
     }
 
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        fetchNearbyRoutes()
+        print("ZOOM LEVEL: \(googleMapView.camera.zoom)")
+        guard !runStarted else {
+            // If run has started, we do not perform any action.
+            return
+        }
+        // googleMapView.clear()
+        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
+            print("ZOOM LEVEL: \(googleMapView.camera.zoom) | ZOOM IN TO VIEW MARKERS")
+            return
+        }
+        redrawMarkers()
     }
 
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
@@ -223,24 +261,19 @@ extension ActivityViewController: GMSMapViewDelegate {
         return true
     }
 
-    func addMarker(_ image: String, position: CLLocationCoordinate2D) {
-        let marker = GMSMarker(position: position)
-        marker.map = googleMapView
-        marker.icon = UIImage(named: image)
-    }
-
     func clearMap() {
         googleMapView.clear()
     }
 
-    func generateRouteMarker(location: CLLocation?, count: Int) -> GMSMarker? {
-        guard let location = location else {
-            return nil
-        }
-        let marker = GMSMarker(position: location.coordinate)
+    /// Add an image to the map. Required to plot start and end flag.
+    ///
+    /// - Parameters:
+    ///   - image: Image of marker.
+    ///   - position: position to plot the image.
+    func addMarker(_ image: String, position: CLLocationCoordinate2D) {
+        let marker = GMSMarker(position: position)
         marker.map = googleMapView
-        marker.icon = UIImage(named: "\(count)")
-        return marker
+        marker.icon = UIImage(named: image)
     }
 }
 
@@ -268,10 +301,7 @@ extension ActivityViewController: CLLocationManagerDelegate {
     ///   - manager: The location manager for the view-controller.
     ///   - locations: The array of location updates that is not handled yet.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard runStarted else {
-            return
-        }
-        guard let location = locations.last else {
+        guard runStarted, let location = locations.last else {
             return
         }
         //        if isMapLock {
@@ -318,5 +348,65 @@ extension ActivityViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
         isConnected = false
+    }
+}
+
+class RouteMarkers {
+    var routes = Set<Route>()
+    var markers = Set<GMSMarker>()
+    var routesInMarker: [GMSMarker: Set<Route>] = [:]
+    let map: GMSMapView
+
+    init(map: GMSMapView) {
+        self.map = map
+    }
+
+    func insertRoute(_ route: Route) {
+        routes.insert(route)
+        guard markers.count < 20 else {
+            recalibrateMarkers()
+            return
+        }
+        var newRoutes = Set<Route>()
+        newRoutes.insert(route)
+        generateRouteMarker(routes: newRoutes)
+    }
+
+    func getRoutes(_ marker: GMSMarker) -> Set<Route>? {
+        return routesInMarker[marker]
+    }
+
+    /// Derender all markers and resplit them
+    func recalibrateMarkers() {
+        for marker in markers {
+            marker.map = nil
+        }
+        routesInMarker = [:]
+        markers = Set()
+
+        // recalibration
+        for route in routes {
+            var newRoutes = Set<Route>()
+            newRoutes.insert(route)
+            generateRouteMarker(routes: newRoutes)
+        }
+    }
+
+    func derenderMarkers() {
+        markers.forEach { $0.map = nil }
+    }
+
+    func renderMarkers() {
+        markers.forEach { $0.map = map }
+    }
+
+    func generateRouteMarker(routes: Set<Route>) {
+        guard let location = routes.first?.startingLocation else {
+            return
+        }
+        let marker = GMSMarker(position: location.coordinate)
+        marker.icon = UIImage(named: "\(17)") // TODO
+        routesInMarker[marker] = routes
+        markers.insert(marker)
     }
 }

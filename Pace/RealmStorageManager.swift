@@ -9,9 +9,15 @@
 import RealmSwift
 import CoreLocation
 
-protocol StorageManager {
+protocol RealmStorageManager {
     /// A Typealias for handling errors.
     typealias ErrorHandler = (Error?) -> Void
+
+    /// The default (persistent) realm for this manager.
+    var persistentRealm: Realm { get }
+
+    /// The default in-memory realm for this manager.
+    var inMemoryRealm: Realm { get }
 
     /// Attempts to fetch a route within this area.
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
@@ -28,22 +34,20 @@ protocol StorageManager {
     func saveNewRun(_ run: Run, toRoute: Route, _ completion: ErrorHandler?)
 }
 
-class RealmStorageManager: StorageManager {
+class CachingStorageManager: RealmStorageManager {
 
     /// The default RealmStorageManager
-    static let `default` = RealmStorageManager()
+    static let `default` = CachingStorageManager()
 
     /// The API used by this manager to store items.
     private var storageAPI: PaceStorageAPI
 
-    /// The default (persistent) realm for this manager.
-    private var realm: Realm
+    private(set) var persistentRealm: Realm
 
-    /// The in-memory realm for this manager.
-    private var inMemoryRealm: Realm
+    private(set) var inMemoryRealm: Realm
 
     private init(persistentRealm: Realm, inMemoryRealm: Realm, storageAPI: PaceStorageAPI) {
-        self.realm = persistentRealm
+        self.persistentRealm = persistentRealm
         self.inMemoryRealm = inMemoryRealm
         self.storageAPI = storageAPI
     }
@@ -56,7 +60,7 @@ class RealmStorageManager: StorageManager {
     // TODO: complete the implementation
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ errorHandler: @escaping ErrorHandler) {
-        storageAPI.fetchRoutesWithin(latitudeMin: longitudeMax, latitudeMax: latitudeMax, longitudeMin: longitudeMin, longitudeMax: longitudeMax) { routes, error in
+        storageAPI.fetchRoutesWithin(latitudeMin: latitudeMin, latitudeMax: latitudeMax, longitudeMin: longitudeMin, longitudeMax: longitudeMax) { routes, error in
             guard error == nil, let routes = routes else {
                 if let error = error {
                     errorHandler(error)
@@ -87,8 +91,8 @@ class RealmStorageManager: StorageManager {
 
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?) {
         do {
-            try realm.write {
-                realm.add(route)
+            try persistentRealm.write {
+                persistentRealm.add(route)
             }
             storageAPI.uploadRoute(route, completion)
         } catch {
@@ -98,8 +102,8 @@ class RealmStorageManager: StorageManager {
 
     func saveNewRun(_ run: Run, toRoute route: Route, _ completion: ErrorHandler?) {
         do {
-            try realm.write {
-                realm.add(run)
+            try persistentRealm.write {
+                persistentRealm.add(run)
             }
             storageAPI.uploadRun(run, forRoute: route, completion)
         } catch {

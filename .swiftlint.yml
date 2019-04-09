@@ -46,3 +46,4 @@ excluded:
   - Pace/AppDelegate.swift
   - PaceUITests/*
   - Pods/*
+  - Pace/CustomPods/*

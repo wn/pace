@@ -15,9 +15,9 @@ struct Constants {
     static let initialZoom: Float = 17.5
     // Horizontal accuracy must be greater than guardDistance for map to update
     static let guardAccuracy: CLLocationDistance = 25
-    static let minZoom: Float = 11.5
+    static let minZoom: Float = 1.5
     static let maxZoom: Float = 18.5
-    static let minZoomToShowRoutes: Float = 17.1
+    static let minZoomToShowRoutes: Float = 15
 
     // MARK: - Run constants
     static let startFlag = "start-flag.png"
@@ -25,11 +25,10 @@ struct Constants {
     static let startButton = "start-icon.png"
     static let endButton = "end-icon.png"
 
-    // MARK: - Realm constants
-    static let paceCloudInstanceAddress = "pace.us1.cloud.realm.io"
-
-    static let AuthURL = "https://\(paceCloudInstanceAddress)"
-    static let RealmURL = "https://\(paceCloudInstanceAddress)/pace"
+    // MARK: - Default objects
+    static var defaultGridManager: GridMap? {
+        return GridMap(width: 300, height: 300)
+    }
 
     // MARK: Locale variables
     static let locale = "en_SG"

@@ -8,11 +8,11 @@
 
 extension Route: FirebaseStorable {
     var asDictionary: [String: Any] {
+        let startingLocation = creatorRun!.startingLocation!
         return [
             "name": name,
             "creator": creator?.id ?? "",
-            "startingLongitude": startingLocation?.longitude ?? 0.0,
-            "startingLatitude": startingLocation?.latitude ?? 0.0,
+            "startingGeohash": Constants.defaultGridManager!.getGridId(startingLocation.coordinate).code,
             "creatorRun": creatorRun?.asDictionary ?? [:],
             "creatorRunId": creatorRun?.id ?? "",
             "runs": Array(paces.map { $0.id })

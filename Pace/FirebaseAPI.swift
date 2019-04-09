@@ -8,6 +8,7 @@
 
 import Firebase
 import RealmSwift
+import CoreLocation
 
 protocol PaceStorageAPI {
     /// A typealias for the
@@ -30,16 +31,16 @@ protocol PaceStorageAPI {
 class PaceFirestoreAPI: PaceStorageAPI {
 
     private static let rootRef = Firestore.firestore()
-    private static let routesRef = rootRef.collection("routes")
+    private static let routesRef = rootRef.collection("pace_routes")
 
     private static func docRefFor(route: Route) -> DocumentReference {
         return routesRef.document(route.id)
     }
 
-    private static let runsRef = rootRef.collection("runs")
+    private static let runsRef = rootRef.collection("pace_runs")
 
     private static func docRefFor(run: Run) -> DocumentReference {
-        return routesRef.document(run.route.id).collection("runs").document(run.id)
+        return runsRef.document(run.id)
     }
 
     private var persistentRealm: Realm
@@ -52,12 +53,10 @@ class PaceFirestoreAPI: PaceStorageAPI {
 
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: @escaping RouteResultsHandler) {
+        let geohash = Constants.defaultGridManager!.getGridId(CLLocationCoordinate2D(latitude: latitudeMin, longitude: longitudeMin)).code
+        print("getting documents for: \n longitude: \(longitudeMin), latitude: \(latitudeMin) \n geohash: \(geohash)")
         let query = PaceFirestoreAPI.routesRef
-            .whereField("startingLatitude", isGreaterThanOrEqualTo: Int(latitudeMin))
-            .whereField("startingLatitude", isLessThanOrEqualTo: Int(latitudeMax))
-        // TODO: make different call and merge with DispatchGroup
-            //.whereField("startingLongitude", isGreaterThanOrEqualTo: longitudeMin)
-            //.whereField("startingLongitude", isLessThanOrEqualTo: longitudeMax)
+            .whereField("startingGeohash", isEqualTo: geohash)
         query.getDocuments { snapshot, err in
             guard err == nil else {
                 completion(nil, err)
@@ -88,13 +87,11 @@ class PaceFirestoreAPI: PaceStorageAPI {
     }
 
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {
-        let routeId = route.id
         let batch = PaceFirestoreAPI.rootRef.batch()
-        let routeDocument = PaceFirestoreAPI.routesRef.document(routeId)
+        let routeDocument = PaceFirestoreAPI.docRefFor(route: route)
         batch.setData(route.asDictionary, forDocument: routeDocument, merge: true)
         route.paces.forEach { run in
-            let runId = run.id
-            let runDocument = routeDocument.collection("runs").document(runId)
+            let runDocument = PaceFirestoreAPI.docRefFor(run: run)
             batch.setData(run.asDictionary, forDocument: runDocument, merge: true)
         }
         batch.commit(completion: completion)
