@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		10862652088C59101950E3BF /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		119A0BC5BB7EAA25EE7513E5 /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490807CC3ECB2045B2A6315F /* Pods_PaceTests.framework */; };
-		10862652088C59101950E3BF /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9425A08F60F1A7AEACC6B14B /* Pods_Pace.framework */; };
 		5C5124BB225316FB00B8A15C /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BA225316FB00B8A15C /* Stats.swift */; };
 		5C5124BD2254EE3F00B8A15C /* OngoingRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */; };
 		5C751F0E223CD7650082BC93 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C751F0D223CD7650082BC93 /* Constants.swift */; };
@@ -86,7 +85,6 @@
 		0879B8A5F52896270AE5C2D6 /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
 		490807CC3ECB2045B2A6315F /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FD971726116FC6305B41635 /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		03C11157F7CEB9999E084193 /* Pods-PaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.release.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.release.xcconfig"; sourceTree = "<group>"; };
 		5C5124BA225316FB00B8A15C /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingRun.swift; sourceTree = "<group>"; };
 		5C751F0D223CD7650082BC93 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -848,7 +846,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P4SYV2WJ27;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -869,7 +867,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P4SYV2WJ27;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -11,10 +11,11 @@ import UIKit
 // MARK: - Extension for drawer
 extension ActivityViewController {
     private var pullUpDrawer: DrawerViewController {
-        let currentPullUpController = children
-            .filter({ $0 is DrawerViewController })
-            .first as? DrawerViewController
-        let pullUpController: DrawerViewController = currentPullUpController ?? UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! DrawerViewController
+        let currentPullUpController = children.first { $0 is DrawerViewController } as? DrawerViewController
+        let pullUpController = currentPullUpController ??
+            UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "SearchViewController")
+            as! DrawerViewController
         if originalPullUpControllerViewSize == .zero {
             originalPullUpControllerViewSize = pullUpController.view.bounds.size
         }

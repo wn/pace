@@ -24,12 +24,12 @@ class ActivityViewController: UIViewController {
     var originalPullUpControllerViewSize: CGSize = .zero
 
     // MARK: UIVariable
-    @IBAction func endRunButton(_ sender: UIButton) {
+    @IBAction private func endRunButton(_ sender: UIButton) {
         endRun(sender)
     }
-    @IBOutlet var distanceLabel: UILabel!
-    @IBOutlet var pace: UILabel!
-    @IBOutlet var time: UILabel!
+    @IBOutlet private var distanceLabel: UILabel!
+    @IBOutlet private var pace: UILabel!
+    @IBOutlet private var time: UILabel!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     // MARK: Running variables
@@ -179,6 +179,19 @@ class ActivityViewController: UIViewController {
             }
             routeMarker.renderMarkers()
         }
+    }
+
+    func updateDistanceTravelled() {
+        distanceLabel.text = "Distance: \(Int(distance)) metres"
+    }
+
+    func updateTimer() {
+        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed) secs"
+    }
+
+    func updatePace() {
+        let paceValue = distance != 0 ? 1_000 * stopwatch.timeElapsed / distance : 0
+        pace.text = "Pace: \(paceValue) seconds /km"
     }
 
     func fetchNearbyRoutes(_ gridNumbers: [GridNumber]) {

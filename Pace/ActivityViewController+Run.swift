@@ -94,19 +94,6 @@ extension ActivityViewController {
         //        horizontalAccuracy.text = "Horizontal accuracy: \(accuracy) meters"
     }
 
-    func updateDistanceTravelled() {
-        distanceLabel.text = "Distance: \(Int(distance)) metres"
-    }
-
-    func updateTimer() {
-        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed) secs"
-    }
-
-    func updatePace() {
-        let paceValue = distance != 0 ? 1_000 * stopwatch.timeElapsed / distance : 0
-        pace.text = "Pace: \(paceValue) seconds /km"
-    }
-
     func updateLabels() {
         updatePace()
         updateTimer()
