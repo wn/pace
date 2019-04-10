@@ -46,7 +46,7 @@ class RunCollectionController: PullUpController {
         checkpoints.append(
             CheckPoint(location: l4, time: 13, actualDistance: 1_607, routeDistance: 1_607))
         checkpoints.append(
-            CheckPoint(location: l5, time: 15, actualDistance: 2_053, routeDistance: 2_053))
+            CheckPoint(location: l5, time: 15, actualDistance: 2_100, routeDistance: 2_100))
         let run = Run(runner: Dummy.user, checkpoints: checkpoints)
         runs.append(run)
         runs.append(run)

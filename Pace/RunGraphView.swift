@@ -49,14 +49,8 @@ class RunGraphView: UIView {
 
     override func draw(_ rect: CGRect) {
         let drawContext = UIGraphicsGetCurrentContext()
-        guard let currentRun = currentRun else {
-            return
-        }
         setUpperBound()
         draw(run: currentRun, color: currentRunColor, with: drawContext)
-        guard let compareRun = compareRun else {
-            return
-        }
         draw(run: compareRun, color: compareRunColor, with: drawContext)
         lowerLabel.text = nil
         super.draw(rect)
@@ -74,7 +68,7 @@ class RunGraphView: UIView {
         self.layer.masksToBounds = true
     }
 
-    private var maxDistance: Double {
+    var maxDistance: Double {
         return max(currentRun?.distance ?? 0, compareRun?.distance ?? 0)
     }
     
@@ -118,14 +112,17 @@ class RunGraphView: UIView {
         upperBound = max(maxY1, maxY2) * 8 / 7
     }
     
-    private func draw(run: Run, color: UIColor, with drawContext: CGContext?) {
+    private func draw(run: Run?, color: UIColor, with drawContext: CGContext?) {
         // Draws the run based on the upperbound
-        guard let drawContext = drawContext else {
+        guard let run = run,
+            let drawContext = drawContext else {
             return
         }
         var iterator = run.checkpoints.makeIterator()
         drawContext.setLineJoin(.round)
         drawContext.setLineWidth(2.0)
+        drawContext.setAlpha(0.7)
+        drawContext.setLineCap(.round)
         drawContext.setStrokeColor(color.cgColor)
 
         var leftCp = iterator.next()

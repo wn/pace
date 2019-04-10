@@ -10,7 +10,8 @@ import UIKit
 import GoogleMaps
 
 class RunAnalysisController: UIViewController, GMSMapViewDelegate {
-    weak var run: Run?
+    var run: Run?
+    var line: GMSPolyline?
     var compareRun: Run?
     var compareLine: GMSPolyline?
     @IBOutlet private var runGraph: RunGraphView!
@@ -24,7 +25,7 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
         setupGestureRecognizers()
         setupPullupController()
         if let run = run {
-            googleMapView.drawRun(run, runGraph.currentRunColor)
+            line = googleMapView.drawRun(run, runGraph.currentRunColor)
             runGraph.currentRun = run
             runGraph.setNeedsDisplay()
         }
@@ -40,13 +41,14 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     @objc
     func handlePan(_ recognizer: UIPanGestureRecognizer) {
         let xVal = recognizer.location(in: runGraph).x
-        let runPercentage = (xVal == 0) ? CGFloat.leastNormalMagnitude : (xVal / runGraph.bounds.width)
+        let xMultiplier = (xVal == 0) ? CGFloat.leastNormalMagnitude : (xVal / runGraph.bounds.width)
+        let runDistance = Double(xMultiplier) * runGraph.maxDistance
         guard let run = run,
-            let currentCheckpoint = run.getCheckpointAt(percentage: Double(runPercentage)) else {
+            let currentCheckpoint = run.getCheckpointAt(distance: runDistance) else {
                 return
         }
-        let compareCheckpoint = compareRun?.getCheckpointAt(percentage: Double(runPercentage))
-        runGraph.moveYLine(to: runPercentage, currentCheckpoint: currentCheckpoint, compareCheckpoint: compareCheckpoint)
+        let compareCheckpoint = compareRun?.getCheckpointAt(distance: runDistance)
+        runGraph.moveYLine(to: xMultiplier, currentCheckpoint: currentCheckpoint, compareCheckpoint: compareCheckpoint)
 
         guard let coordinate = currentCheckpoint.location?.coordinate else {
             return
@@ -91,6 +93,9 @@ extension RunAnalysisController: RunCollectionControllerDelegate {
             runGraph.compareRun = run
             compareRun = run
             compareLine = googleMapView.drawRun(compareRun, runGraph.compareRunColor)
+            // Draw the original line again over the line to compare
+            line?.map = nil
+            line?.map = googleMapView
         }
         runGraph.setNeedsDisplay()
     }

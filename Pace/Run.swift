@@ -93,23 +93,22 @@ class Run: IdentifiableObject {
         }
     }
 
-    /// Gets the Checkpoint of the runner based on the percentage progress of the run
-    /// If the run percentage falls between two Checkpoints, returns an interpolated Checkpoint
-    /// - Parameter percentage: percentage of the run completed
+    /// Gets the Checkpoint of the runner based on the distance run by the runner
+    /// - Parameter distance: distance completed by the runner at the point in time
     /// - Returns: the Checkpoint of the runner at the run percentage
-    func getCheckpointAt(percentage: Double) -> CheckPoint? {
-        guard percentage <= 1 else {
+    func getCheckpointAt(distance distanceCompleted: Double) -> CheckPoint? {
+        guard let totalDist = totalDistance,
+            distanceCompleted < totalDist else {
             return checkpoints.last
         }
-        let distanceAtPercentage = distance * percentage
         var leftIdx = 0
         var rightIdx = checkpoints.count - 1
         // Binary search to find segment which bounds timeAtPercentage
         while leftIdx + 1 < rightIdx {
             let idx = Int((rightIdx + leftIdx) / 2)
-            if checkpoints[idx].routeDistance < distanceAtPercentage {
+            if checkpoints[idx].routeDistance < distanceCompleted {
                 leftIdx = idx
-            } else if checkpoints[idx].routeDistance > distanceAtPercentage {
+            } else if checkpoints[idx].routeDistance > distanceCompleted {
                 rightIdx = idx
             } else {
                 return checkpoints[idx]
@@ -117,7 +116,7 @@ class Run: IdentifiableObject {
         }
 
         // Interpolate to get the CLLocation between the left and right checkpoints
-        return CheckPoint.interpolate(with: distanceAtPercentage,
+        return CheckPoint.interpolate(with: distanceCompleted,
                                       between: checkpoints[leftIdx],
                                       and: checkpoints[rightIdx],
                                       on: nil)
