@@ -4,11 +4,13 @@ import RealmSwift
 
 struct Constants {
 
+    // MARK: - Model constants
     // Threshold distance value to determine whether two locations should be considered as same
     static let sameLocationThreshold = 5.0
-
     // The default distance interval between two Checkpoints
     static let checkPointDistanceInterval = 20.0
+    // Covered checkpoints percentage threshold to determine whether can be the same route
+    static let sameRoutePercentageOverlapThreshold = 0.8
 
     // MARK: - MapView location constants
     // googleMapView constants

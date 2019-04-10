@@ -21,19 +21,41 @@ extension ActivityViewController {
     }
 
     func startingRun() {
-        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
+        guard let startLocation = coreLocationManager.location else {
+            fatalError("Should have location here.")
+        }
         clearMap() // Clear route markers
+        initiateRunPlot(at: startLocation)
+        startRunningSession(at: startLocation)
+        // TODO: update running stats here
+        updateValues()
+    }
+
+    private func initiateRunPlot(at location: CLLocation) {
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
+        path.add(location.coordinate)
+        addMarker(Constants.startFlag, position: location.coordinate)
+    }
+
+    private func startRunningSession(at location: CLLocation) {
         VoiceAssistant.say("Starting run")
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
-        updateValues()
+        // TODO: add follow run
+        // TODO: allow user to run without signing in
+        ongoingRun = OngoingRun(runner: userSession!.currentUser!, startingLocation: location)
     }
 
     @objc
     func endRun(_ sender: UIButton) {
-        guard runStarted else {
+        guard
+            runStarted,
+            let ongoingRun = ongoingRun,
+            let endPos = lastMarkedPosition?.coordinate
+        else {
             return
         }
+        addMarker(Constants.endFlag, position: endPos)
         // TODO: TAKE A SCREENSHOT HERE!
 
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
@@ -44,7 +66,7 @@ extension ActivityViewController {
             storyBoard.instantiateViewController(
                 withIdentifier: "summaryVC")
                 as! ActivitySummaryViewController
-        summaryVC.setStats(distance: distance, time: stopwatch.timeElapsed())
+        summaryVC.setStats(createdRun: ongoingRun, distance: distance, time: stopwatch.timeElapsed)
         renderChildController(summaryVC)
 
         VoiceAssistant.say("Run completed")
@@ -52,10 +74,6 @@ extension ActivityViewController {
         distance = 0
         coreLocationManager.stopUpdatingLocation()
         updateLabels()
-        guard let endPos = lastMarkedPosition?.coordinate else {
-            return
-        }
-        addMarker(Constants.endFlag, position: endPos)
     }
 
     func updateValues() {
@@ -81,11 +99,11 @@ extension ActivityViewController {
     }
 
     func updateTimer() {
-        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed()) secs"
+        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed) secs"
     }
 
     func updatePace() {
-        let paceValue = distance != 0 ? 1_000 * stopwatch.timeElapsed() / Int(distance) : 0
+        let paceValue = distance != 0 ? 1_000 * stopwatch.timeElapsed / distance : 0
         pace.text = "Pace: \(paceValue) seconds /km"
     }
 

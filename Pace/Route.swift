@@ -58,7 +58,8 @@ class Route: IdentifiableObject {
     ///   - runnerRecord: The pre-normalized checkpoints representing the run.
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
         let initialRun = Run(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
-        self.init(creator: runner, name: "blabla", creatorRun: initialRun)
+        // TODO: use real name for route
+        self.init(creator: runner, name: Date().debugDescription, creatorRun: initialRun)
     }
 
     /// Add a new run to this Route.
