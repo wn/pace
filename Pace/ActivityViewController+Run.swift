@@ -46,14 +46,9 @@ extension ActivityViewController {
 
     @objc
     func endRun(_ sender: UIButton) {
-        guard
-            runStarted,
-            let ongoingRun = ongoingRun,
-            let endPos = lastMarkedPosition?.coordinate
-        else {
+        guard runStarted else {
             return
         }
-
         VoiceAssistant.say("Run completed")
 
         // TODO: ALL OUR ENDRUN LOGIC SHOULD BE DONE HERE
@@ -64,11 +59,22 @@ extension ActivityViewController {
         // 5. Show the map in the summary page. Cannot just be screenshot
         //    because of runAnalysis.
         // 6. When we press "exit summary", clean up flag drawings.
-        googleMapView.addMarker(Constants.endFlag, position: endPos)
+        googleMapView.addMarker(Constants.endFlag, position: coreLocationManager.location!.coordinate)
         googleMapView.completeRun()
 
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
 
+        showSummary()
+
+        stopwatch.reset()
+        coreLocationManager.stopUpdatingLocation()
+        updateLabels()
+    }
+
+    func showSummary() {
+        guard let ongoingRun = ongoingRun else {
+                return
+        }
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let summaryVC =
             storyBoard.instantiateViewController(
@@ -76,10 +82,6 @@ extension ActivityViewController {
                 as! ActivitySummaryViewController
         summaryVC.setStats(createdRun: ongoingRun, distance: distance, time: stopwatch.timeElapsed)
         renderChildController(summaryVC)
-
-        stopwatch.reset()
-        coreLocationManager.stopUpdatingLocation()
-        updateLabels()
     }
 
     func updateValues() {
