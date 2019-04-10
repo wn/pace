@@ -210,8 +210,11 @@ extension ActivityViewController: GMSMapViewDelegate {
             // If run has started, we do not perform any action.
             return
         }
-        googleMapView.clear()
         guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
+            googleMapView.clear()
+            if let drawer = currentDrawer {
+                removePullUpController(drawer, animated: true)
+            }
             print("ZOOM LEVEL: \(googleMapView.zoom) | ZOOM IN TO VIEW MARKERS")
             return
         }
@@ -280,4 +283,5 @@ extension ActivityViewController: CLLocationManagerDelegate {
                          didFailWithError error: Error) {
         isConnected = false
    
+    }
 }

@@ -38,30 +38,35 @@ class MapView: GMSMapView {
     public func addPositionToRoute(_ position: CLLocationCoordinate2D) {
         path.add(position)
         currentMapPath?.map = nil
-        currentMapPath = routeDrawing(path)
+        drawRoute(path)
     }
 
-    private func routeDrawing(_ path: GMSMutablePath) -> GMSPolyline {
+    private func drawRoute(_ path: GMSMutablePath) {
         let drawing = GMSPolyline(path: path)
 
         drawing.strokeColor = .blue
         drawing.strokeWidth = 5
         drawing.map = self
 
-        return drawing
+        currentMapPath = drawing
     }
 
     public func startRun(at position: CLLocationCoordinate2D) {
+        clearRoutes()
         clear()
         path.add(position)
         addMarker(Constants.startFlag, position: position)
     }
 
     public func completeRun() {
+        clearRoutes()
+        clear() // Required to clear flags
+    }
+
+    private func clearRoutes() {
         path.removeAllCoordinates()
         currentMapPath?.map = nil
         currentMapPath = nil
-        clear()
     }
 
     var viewingGrids: [GridNumber] {
@@ -81,5 +86,17 @@ class MapView: GMSMapView {
         let bottomLeft = projection.visibleRegion().nearLeft
         let bottomRight = projection.visibleRegion().nearRight
         return GridBound(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
+    }
+
+    func renderRoute(_ route: Route) {
+        clearRoutes()
+        guard let locations = route.creatorRun?.locations else {
+            print("No points exist in the route")
+            return
+        }
+        for point in locations {
+            path.add(point.coordinate)
+        }
+        drawRoute(path)
     }
 }
