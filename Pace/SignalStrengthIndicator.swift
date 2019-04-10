@@ -76,13 +76,13 @@ public class SignalStrengthIndicator: UIView {
         let barHeight = rect.height - edgeInsets.top - edgeInsets.bottom
 
         for index in 0...indicatorsCount - 1 {
-            let i = CGFloat(index)
+            let CGFloatIndex = CGFloat(index)
             let width = barWidth
-            let height = barHeight - (((barHeight * 0.5) / barsCount) * (barsCount - i))
-            let x: CGFloat = edgeInsets.left + i * barWidth + i * spacing
-            let y: CGFloat = barHeight - height
+            let height = barHeight - (((barHeight * 0.5) / barsCount) * (barsCount - CGFloatIndex))
+            let xPos: CGFloat = edgeInsets.left + CGFloatIndex * barWidth + CGFloatIndex * spacing
+            let yPos: CGFloat = barHeight - height
             let cornerRadius: CGFloat = barWidth * 0.25
-            let barRect = CGRect(x: x, y: y, width: width, height: height)
+            let barRect = CGRect(x: xPos, y: yPos, width: width, height: height)
             let clipPath: CGPath = UIBezierPath(roundedRect: barRect, cornerRadius: cornerRadius).cgPath
 
             ctx.addPath(clipPath)
@@ -90,8 +90,7 @@ public class SignalStrengthIndicator: UIView {
             if index + 1 > levelValue {
                 ctx.setFillColor(UIColor.gray.cgColor)
                 ctx.fillPath()
-            }
-            else {
+            } else {
                 ctx.setFillColor(_level.getColor().cgColor)
                 ctx.fillPath()
             }
