@@ -408,33 +408,42 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FcL-eT-xpd">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgQ-IK-0JR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65.5" height="62.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgQ-IK-0JR">
+                                                        <rect key="frame" x="0.0" y="0.0" width="65.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="pace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U35-40-Yta">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ucs-du-ve9" customClass="SignalStrengthIndicator" customModule="Pace" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="28.5" width="375" height="34"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U35-40-Yta">
                                                         <rect key="frame" x="0.0" y="70.5" width="37.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W94-c5-fax">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W94-c5-fax">
                                                         <rect key="frame" x="0.0" y="99" width="33.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Ucs-du-ve9" secondAttribute="trailing" id="FXN-wg-ubS"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="FcL-eT-xpd" secondAttribute="trailing" id="2Wi-tK-2ui"/>
                                             <constraint firstAttribute="bottom" secondItem="FcL-eT-xpd" secondAttribute="bottom" id="6hf-eO-oKG"/>
                                             <constraint firstItem="FcL-eT-xpd" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="7qc-Gt-aAG"/>
                                             <constraint firstAttribute="trailing" secondItem="FcL-eT-xpd" secondAttribute="trailing" id="VVG-JX-h6d"/>
                                             <constraint firstItem="FcL-eT-xpd" firstAttribute="leading" secondItem="CIc-JA-d14" secondAttribute="leading" id="VYi-ox-SbT"/>
+                                            <constraint firstItem="FcL-eT-xpd" firstAttribute="leading" secondItem="CIc-JA-d14" secondAttribute="leading" id="yqy-ZD-Wdi"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orD-GP-Arf" customClass="MapView" customModule="Pace" customModuleProvider="target">
@@ -473,6 +482,8 @@
                         <outlet property="googleMapView" destination="orD-GP-Arf" id="Bjl-QF-XAF"/>
                         <outlet property="paceLabel" destination="U35-40-Yta" id="IQF-xc-0FX"/>
                         <outlet property="timeLabel" destination="W94-c5-fax" id="1RO-qG-Uhr"/>
+                        <outlet property="gpsIndicator" destination="Ucs-du-ve9" id="cHn-MX-NSC"/>
+                        <outlet property="statsPanel" destination="FcL-eT-xpd" id="Q6V-QO-c8v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SzY-tw-3QV" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -23,6 +23,8 @@ class ActivityViewController: UIViewController {
     @IBOutlet private var distanceLabel: UILabel!
     @IBOutlet private var paceLabel: UILabel!
     @IBOutlet private var timeLabel: UILabel!
+    @IBOutlet var gpsIndicator: UIView!
+    @IBOutlet var statsPanel: UIStackView!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     // MARK: Running variables
@@ -195,14 +197,11 @@ extension ActivityViewController: GMSMapViewDelegate {
         let gridNumber = gridMapManager.getGridId(marker.position)
         guard
             let routeMarkers = routesInGrid[gridNumber],
-            let route = routeMarkers.getRoutes(marker)
+            let routes = routeMarkers.getRoutes(marker)
             else {
                 fatalError("Created marker should be associated to a route.")
         }
-        // TODO: send correct stats to drawer
-        print("MARKER PRESSED: \(route.first)")
-        // TODO: GET ROUTE associated to marker
-        renderDrawer()
+        renderRoute(routes)
         return true
     }
 
@@ -280,5 +279,5 @@ extension ActivityViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
         isConnected = false
-    }
+   
 }
