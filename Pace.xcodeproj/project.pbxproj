@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		10862652088C59101950E3BF /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		119A0BC5BB7EAA25EE7513E5 /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490807CC3ECB2045B2A6315F /* Pods_PaceTests.framework */; };
-		5C5124BB225316FB00B8A15C /* RouteStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BA225316FB00B8A15C /* RouteStats.swift */; };
+		10862652088C59101950E3BF /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9425A08F60F1A7AEACC6B14B /* Pods_Pace.framework */; };
+		5C5124BB225316FB00B8A15C /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BA225316FB00B8A15C /* Stats.swift */; };
+		5C5124BD2254EE3F00B8A15C /* OngoingRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */; };
 		5C751F0E223CD7650082BC93 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C751F0D223CD7650082BC93 /* Constants.swift */; };
 		5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */; };
 		5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E42D9223CCA0D00DEC2F4 /* User.swift */; };
@@ -84,7 +86,9 @@
 		0879B8A5F52896270AE5C2D6 /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
 		490807CC3ECB2045B2A6315F /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FD971726116FC6305B41635 /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C5124BA225316FB00B8A15C /* RouteStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStats.swift; sourceTree = "<group>"; };
+		03C11157F7CEB9999E084193 /* Pods-PaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.release.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.release.xcconfig"; sourceTree = "<group>"; };
+		5C5124BA225316FB00B8A15C /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingRun.swift; sourceTree = "<group>"; };
 		5C751F0D223CD7650082BC93 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
 		5C8E42D9223CCA0D00DEC2F4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -179,8 +183,9 @@
 				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
 				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
 				8B044D34223F7C0600AA8449 /* Route.swift */,
-				5C5124BA225316FB00B8A15C /* RouteStats.swift */,
+				5C5124BA225316FB00B8A15C /* Stats.swift */,
 				8BDFFF87224F482000F3BB3A /* Run.swift */,
+				5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */,
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
 				8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
 				8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */,
@@ -637,11 +642,12 @@
 				62FF753222495E36008847CC /* ViewDelegate.swift in Sources */,
 				625596752254AE050036C2B9 /* RouteCollectionViewCell.swift in Sources */,
 				8BD4C5922256806200D0CEC7 /* CheckPoint+Firebase.swift in Sources */,
-				5C5124BB225316FB00B8A15C /* RouteStats.swift in Sources */,
+				5C5124BB225316FB00B8A15C /* Stats.swift in Sources */,
 				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
 				EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */,
 				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
+				5C5124BD2254EE3F00B8A15C /* OngoingRun.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				8B2638DB225B979B004B52AB /* GridMap.swift in Sources */,
 				8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */,
