@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = Titles.profile
+        setupNavigation()
         // Dummy Data
         var checkpoints = [CheckPoint]()
         var route: Route?
@@ -55,6 +55,24 @@ class ProfileViewController: UIViewController {
         }
         userStats.setStats(with: User())
         runHistory.reloadData()
+    }
+
+    @objc
+    private func popupSettings() {
+        print("popup settings!")
+    }
+    
+    private func setupNavigation() {
+        navigationItem.title = Titles.profile
+        let image = UIImage(named: "settings.png")?.withRenderingMode(.alwaysOriginal)
+        let settingsButton = UIButton(type: .system)
+        let widthConstraint = settingsButton.widthAnchor.constraint(equalToConstant: 30)
+        let heightConstraint = settingsButton.heightAnchor.constraint(equalToConstant: 30)
+        widthConstraint.isActive = true
+        heightConstraint.isActive = true
+        settingsButton.setImage(image, for: .normal)
+        settingsButton.addTarget(self, action: #selector(popupSettings), for: .allTouchEvents)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
     }
 }
 

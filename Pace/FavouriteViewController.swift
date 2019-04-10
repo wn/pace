@@ -29,6 +29,10 @@ class FavouriteViewController: RequireLoginController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard isUserLoggedIn() else {
+            return
+        }
+
         navigationItem.title = Titles.favourites
 //        favouriteRoutes = userSession?.getFavouriteRoutes()
         guard let currentUser = userSession?.currentUser,

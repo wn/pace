@@ -10,14 +10,18 @@ import Foundation
 import UIKit
 import RealmSwift
 import FacebookLogin
+import FacebookCore
 
-class RequireLoginController: UIViewController {
+class RequireLoginController: UIViewController, LoginButtonDelegate {
+    
+    var fbLoginButton: LoginButton?
     var userSession: UserSessionManager?
     var user: User?
     
     override func viewDidLoad() {
+        super.viewDidLoad()
 //        userSession = RealmUserSessionManager.forDefaultRealm
-        if !isUserLoggedIn(false) {
+        if !isUserLoggedIn() {
             renderLoginButton()
         }
     }
@@ -29,36 +33,79 @@ class RequireLoginController: UIViewController {
     private var loginButtonFrame: CGRect {
         return CGRect(origin: view.center, size: CGSize(width: 100, height: 50))
     }
-    
+
     func renderLoginButton() {
-        let fbLoginButton = LoginButton(frame: loginButtonFrame, readPermissions: [.publicProfile])
+        fbLoginButton = LoginButton(frame: loginButtonFrame, readPermissions: [.publicProfile])
+        fbLoginButton?.delegate = self
+        guard let fbLoginButton = fbLoginButton else {
+            return
+        }
         view.addSubview(fbLoginButton)
     }
 
-    func isUserLoggedIn(_ temp: Bool) -> Bool {
-        /// - TODO: integrate API
-        return temp
+    func hideLoginButton() {
+        guard let fbLoginButton = fbLoginButton else {
+            return
+        }
+        fbLoginButton.removeFromSuperview()
     }
 
-//    private func presentUserPrompt() {
-//        let alertController = UIAlertController(title: "Login", message: "Supply a nice nickname!", preferredStyle: .alert)
-//
-//        alertController.addAction(UIAlertAction(title: "Login", style: .default, handler: { [unowned self] _ -> Void in
-//            let textField = alertController.textFields![0]
-//            let newUser = self.userSession?.findUserWith(name: textField.text!, orSignUp: true)
-//            self.userSession?.signInAs(user: newUser)
-////            self.favouriteRoutes = newUser?.favouriteRoutes
-////            self.notificationToken?.invalidate()
-////            guard let favouriteRoutes = self.favouriteRoutes else {
-////                return
-////            }
-////            self.notificationToken = favouriteRoutes.observe { [unowned self] _ in self.favourites.reloadData() }
-////            self.userDidLogin()
-//        }))
-//        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-//        alertController.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
-//            textField.placeholder = "A Name for your user"
-//        })
-//        self.present(alertController, animated: true, completion: nil)
-//    }
+    func isUserLoggedIn() -> Bool {
+        // If the token exists, load the user
+        guard let token = AccessToken.current,
+            let facebookId = token.userId else {
+            return false
+        }
+        loadUser(facebookId: facebookId)
+        return true
+    }
+
+    
+    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
+        switch result {
+        case let .success(_, _, token):
+            guard let facebookId = token.userId else {
+                return
+            }
+            loadUser(facebookId: facebookId)
+        default:
+            break
+        }
+    }
+
+    /// - TODO: Find-or-create firebase for existing user and load Realm user reference.
+    func loadUser(facebookId: String) {
+        guard !findUser(facebookId: facebookId) else {
+            hideLoginButton()
+            return
+        }
+        // If user does not exist, request FB for user data (name)
+        GraphRequest(graphPath: "me", parameters: ["fields": "id, name"]).start({ _, result in
+            switch result {
+            case .success(let response):
+                guard let name = response.dictionaryValue?["name"] as? String else {
+                    return
+                }
+                self.createUser(facebookId: facebookId, name: name)
+                self.hideLoginButton()
+            case .failed(let error):
+                print("Graph Request failed: \(error)")
+            }
+        })
+    }
+
+    /// - TODO: Replace with API call
+    /// Create user in firebase and load user reference into this controller
+    func createUser(facebookId: String, name: String) {
+        
+    }
+
+    /// - TODO: Replace with API call
+    /// Find user in firebase and load user reference into this controller
+    func findUser(facebookId: String) -> Bool {
+        return false
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: LoginButton) {
+    }
 }
