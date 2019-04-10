@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 // MARK: - Extension for drawer
 extension ActivityViewController {
@@ -32,8 +33,18 @@ extension ActivityViewController {
                             animated: true)
     }
 
-    func renderDrawer(/*route: Route*/) {
+    func renderRoute(_ routes: Set<Route>) {
+        // TODO: Render route here
+        let route = routes.first!
+        path.removeAllCoordinates()
+        guard let locations = route.creatorRun?.locations else {
+            print("No points exist in the route")
+            return
+        }
+        for point in locations {
+            path.add(point.coordinate)
+        }
         showPullUpController()
-        pullUpDrawer.routeStats(/*route: route*/)
+        pullUpDrawer.routeStats(route)
     }
 }

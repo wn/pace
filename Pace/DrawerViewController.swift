@@ -11,6 +11,8 @@ import FaveButton
 import RealmSwift
 
 class DrawerViewController: PullUpController {
+    var userSession: UserSessionManager?
+
     @IBOutlet var favouriteButton: FaveButton!
     @IBOutlet var numOfRunners: UILabel!
     var initialState: InitialState = .expanded
@@ -23,44 +25,12 @@ class DrawerViewController: PullUpController {
     var viewingRoute: Route?
 
     @IBOutlet var runnersTableView: UITableView!
-    var paces = List<Run>()
+    var paces: [Run] = []
     let runnerCellIdentifier = "runnerCell"
 
     enum InitialState {
         case contracted
         case expanded
-    }
-
-    func routeStats(/*route: Route*/) {
-        //label.text = stat
-        /*
-         number of runners
-         distance
-         start point
-         end point
-         created by
-         add_to_favourite
-         */
-
-//        guard let stats = route.generateStats() else {
-//            return
-//        }
-//        viewingRoute = route
-//        paces = route.paces
-//
-//        startPoint.text = "START: \(stats.startingLocation)"
-//        endPoint.text = "END: \(stats.endingLocation)"
-//        createdBy.text = "Created by: \(route.creator?.name ?? ""))"
-//        distance.text = "Distance: \(stats.totalDistance)"
-
-        // IF ROUTES IN FAVOURITE: SET SELECTED TO TRUE
-        favouriteButton.setSelected(selected: true, animated: false)
-        numOfRunners.text = "\(paces.count) 🏃🏻‍♂️"
-
-        // Add tap gesture to drawer
-        routeStatsContainerView.gestureRecognizers?.removeAll()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(startRoute(_:)))
-        routeStatsContainerView.addGestureRecognizer(tapGesture)
     }
 
     @objc
@@ -93,6 +63,7 @@ class DrawerViewController: PullUpController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        userSession = RealmUserSessionManager.forDefaultRealm
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
                               height: min(UIScreen.main.bounds.height - 75, expandedView.frame.maxY))
     }
@@ -155,15 +126,49 @@ class DrawerViewController: PullUpController {
     }
 }
 
+extension DrawerViewController {
+    func routeStats(_ route: Route) {
+        guard let stats = route.generateStats() else {
+            return
+        }
+
+        viewingRoute = route
+
+        startPoint.text = "START: \(stats.startingLocation.coordinate)"
+        endPoint.text = "END: \(stats.endingLocation.coordinate)"
+        createdBy.text = "Created by: \(route.creator?.name ?? "NO NAME SET!")"
+        distance.text = "Distance: \(stats.totalDistance)"
+
+        paces = route.paces.sorted { $0.timeSpent < $1.timeSpent }
+        numOfRunners.text = "\(paces.count) 🏃🏻‍♂️"
+
+        // Add tap gesture to drawer
+        routeStatsContainerView.gestureRecognizers?.removeAll()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(startRoute(_:)))
+        routeStatsContainerView.addGestureRecognizer(tapGesture)
+
+        runnersTableView.reloadData()
+
+        // Set favourite flag
+//        guard let isFavourite = userSession?.currentUser?.containsFavouriteRoute(route) else {
+//            return
+//        }
+        favouriteButton.setSelected(selected: false, animated: false)
+    }
+}
+
+/// MARK: - Runner's table configuration
 extension DrawerViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return paces.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: runnerCellIdentifier, for: indexPath) as! RunnerTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: runnerCellIdentifier, for: indexPath)
+            as! RunnerTableViewCell
         let row = indexPath.row
-        cell.setupCell(pos: row + 1, name: "John Tan", time: 100 * row)
+        let pace = paces[indexPath.row]
+        cell.setupCell(pos: row + 1, name: pace.runner?.name ?? "No name", time: Int(pace.timeSpent))
         return cell
     }
 
@@ -195,11 +200,44 @@ extension DrawerViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension DrawerViewController: FaveButtonDelegate {
     func faveButton(_ faveButton: FaveButton, didSelected selected: Bool) {
-        switch selected {
-        case true:
-            print("SELECTED BUTTON: ADD TO FAVOURITE")
-        case false:
-            print("DELECTED BUTTON: REMOVE FROM FAVOURITE")
+        guard let currentRoute = viewingRoute else {
+            return
         }
+        guard let user = userSession?.currentUser else {
+            let alert = UIAlertController(
+                title: "Not logged in",
+                message: "You need to be logged in to favourite a route.",
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true)
+            faveButton.isSelected = false
+            return
+        }
+//        if selected {
+//            print("FAVOURITE-ED")
+//            guard user.addFavouriteRoute(currentRoute) else {
+//                let alert = UIAlertController(
+//                    title: "No connection",
+//                    message: "Can't connect to the internet now, try again later.",
+//                    preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//                present(alert, animated: true)
+//                return
+//            }
+//            print(user.containsFavouriteRoute(currentRoute))
+//        } else {
+//            // WE REMOVE FROM FAVOURITE
+//            print("UN-FAVOURITE-ED")
+//            guard user.removeFavouriteRoute(currentRoute) else {
+//                let alert = UIAlertController(
+//                    title: "No connection",
+//                    message: "Can't connect to the internet now, try again later.",
+//                    preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//                present(alert, animated: true)
+//                return
+//            }
+//            print(user.containsFavouriteRoute(currentRoute))
+//        }
     }
 }

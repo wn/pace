@@ -27,6 +27,9 @@ class ActivityViewController: UIViewController {
     @IBAction func endRunButton(_ sender: UIButton) {
         endRun(sender)
     }
+
+    @IBOutlet var gpsIndicator: UIView!
+    @IBOutlet var statsPanel: UIStackView!
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var pace: UILabel!
     @IBOutlet var time: UILabel!
@@ -227,14 +230,11 @@ extension ActivityViewController: GMSMapViewDelegate {
         guard
             let gridNumber = gridMapManager?.getGridId(marker.position),
             let routeMarkers = routesInGrid[gridNumber],
-            let route = routeMarkers.getRoutes(marker)
+            let routes = routeMarkers.getRoutes(marker)
             else {
                 fatalError("Created marker should be associated to a route.")
         }
-        // TODO: send correct stats to drawer
-        print("MARKER PRESSED: \(route.first)")
-        // TODO: GET ROUTE associated to marker
-        renderDrawer()
+        renderRoute(routes)
         return true
     }
 
@@ -244,7 +244,7 @@ extension ActivityViewController: GMSMapViewDelegate {
             // If run has started, we do not perform any action.
             return
         }
-        // googleMapView.clear()
+        googleMapView.clear()
         guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
             print("ZOOM LEVEL: \(googleMapView.camera.zoom) | ZOOM IN TO VIEW MARKERS")
             return
@@ -405,7 +405,8 @@ class RouteMarkers {
             return
         }
         let marker = GMSMarker(position: location.coordinate)
-        marker.icon = UIImage(named: "\(17)") // TODO
+
+        marker.icon = UIImage(named: "\(routes.count + 16)") // TODO
         routesInMarker[marker] = routes
         markers.insert(marker)
     }
