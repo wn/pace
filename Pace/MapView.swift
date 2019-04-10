@@ -10,7 +10,11 @@ import UIKit
 import GoogleMaps
 
 class MapView: GMSMapView {
-    func setup() {
+    private var gridMapManager = Constants.defaultGridManager
+    private var path = GMSMutablePath()
+    private var currentMapPath: GMSPolyline?
+
+    public func setup() {
         animate(toZoom: Constants.initialZoom)
         isMyLocationEnabled = true
         settings.myLocationButton = true
@@ -20,17 +24,62 @@ class MapView: GMSMapView {
         setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
     }
 
-    func generateRouteMarker(location: CLLocation, count: Int) -> GMSMarker {
-        let marker = GMSMarker(position: location.coordinate)
+    /// Add an image to the map. Required to plot start and end flag.
+    ///
+    /// - Parameters:
+    ///   - image: Image of marker.
+    ///   - position: position to plot the image.
+    public func addMarker(_ image: String, position: CLLocationCoordinate2D) {
+        let marker = GMSMarker(position: position)
         marker.map = self
-        marker.icon = UIImage(named: "\(count)")
-        return marker
+        marker.icon = UIImage(named: image)
     }
 
-    func drawPath(path: GMSPath) {
-        let mapPaths = GMSPolyline(path: path)
-        mapPaths.strokeColor = .blue
-        mapPaths.strokeWidth = 5
-        mapPaths.map = self
+    public func addPositionToRoute(_ position: CLLocationCoordinate2D) {
+        path.add(position)
+        currentMapPath?.map = nil
+        currentMapPath = routeDrawing(path)
+    }
+
+    private func routeDrawing(_ path: GMSMutablePath) -> GMSPolyline {
+        let drawing = GMSPolyline(path: path)
+
+        drawing.strokeColor = .blue
+        drawing.strokeWidth = 5
+        drawing.map = self
+
+        return drawing
+    }
+
+    public func startRun(at position: CLLocationCoordinate2D) {
+        clear()
+        path.add(position)
+        addMarker(Constants.startFlag, position: position)
+    }
+
+    public func completeRun() {
+        path.removeAllCoordinates()
+        currentMapPath?.map = nil
+        currentMapPath = nil
+        clear()
+    }
+
+    var viewingGrids: [GridNumber] {
+        guard zoom > Constants.minZoomToShowRoutes else {
+            return []
+        }
+        return gridMapManager.getBoundedGrid(projectedMapBound)
+    }
+
+    var zoom: Float {
+        return camera.zoom
+    }
+
+    var projectedMapBound: GridBound {
+        let topLeft = projection.visibleRegion().farLeft
+        let topRight = projection.visibleRegion().farRight
+        let bottomLeft = projection.visibleRegion().nearLeft
+        let bottomRight = projection.visibleRegion().nearRight
+        return GridBound(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
     }
 }

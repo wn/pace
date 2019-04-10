@@ -24,7 +24,6 @@ extension ActivityViewController {
         guard let startLocation = coreLocationManager.location else {
             fatalError("Should have location here.")
         }
-        clearMap() // Clear route markers
         initiateRunPlot(at: startLocation)
         startRunningSession(at: startLocation)
         // TODO: update running stats here
@@ -33,8 +32,7 @@ extension ActivityViewController {
 
     private func initiateRunPlot(at location: CLLocation) {
         setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
-        path.add(location.coordinate)
-        addMarker(Constants.startFlag, position: location.coordinate)
+        googleMapView.startRun(at: location.coordinate)
     }
 
     private func startRunningSession(at location: CLLocation) {
@@ -43,7 +41,7 @@ extension ActivityViewController {
         stopwatch.start()
         // TODO: add follow run
         // TODO: allow user to run without signing in
-        ongoingRun = OngoingRun(runner: userSession!.currentUser!, startingLocation: location)
+        ongoingRun = OngoingRun(runner: userSession.currentUser!, startingLocation: location)
     }
 
     @objc
@@ -55,11 +53,21 @@ extension ActivityViewController {
         else {
             return
         }
-        addMarker(Constants.endFlag, position: endPos)
-        // TODO: TAKE A SCREENSHOT HERE!
+
+        VoiceAssistant.say("Run completed")
+
+        // TODO: ALL OUR ENDRUN LOGIC SHOULD BE DONE HERE
+        // 1. Start loading animation
+        // 2. Perform normalisation shit here
+        // 3. Add end flag
+        // 4. Rerender the normalized-map and take a screenshot
+        // 5. Show the map in the summary page. Cannot just be screenshot
+        //    because of runAnalysis.
+        // 6. When we press "exit summary", clean up flag drawings.
+        googleMapView.addMarker(Constants.endFlag, position: endPos)
+        googleMapView.completeRun()
 
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
-        clearMap()
 
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let summaryVC =
@@ -69,9 +77,7 @@ extension ActivityViewController {
         summaryVC.setStats(createdRun: ongoingRun, distance: distance, time: stopwatch.timeElapsed)
         renderChildController(summaryVC)
 
-        VoiceAssistant.say("Run completed")
         stopwatch.reset()
-        distance = 0
         coreLocationManager.stopUpdatingLocation()
         updateLabels()
     }
