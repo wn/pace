@@ -27,18 +27,21 @@ class ActivityViewController: UIViewController {
     @IBAction func endRunButton(_ sender: UIButton) {
         endRun(sender)
     }
+
+    @IBOutlet var gpsIndicator: UIView!
+    @IBOutlet var statsPanel: UIStackView!
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var pace: UILabel!
     @IBOutlet var time: UILabel!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     // MARK: Running variables
-    var currentRoute: Route?
-    var currentRun: Run?
     var path = GMSMutablePath()
+    var currentMapPath: GMSPolyline?
     var lastMarkedPosition: CLLocation?
     var distance: CLLocationDistance = 0
     let stopwatch = StopwatchTimer()
+    var ongoingRun: OngoingRun?
     var runStarted: Bool {
         return stopwatch.isPlaying
     }
@@ -227,14 +230,11 @@ extension ActivityViewController: GMSMapViewDelegate {
         guard
             let gridNumber = gridMapManager?.getGridId(marker.position),
             let routeMarkers = routesInGrid[gridNumber],
-            let route = routeMarkers.getRoutes(marker)
+            let routes = routeMarkers.getRoutes(marker)
             else {
                 fatalError("Created marker should be associated to a route.")
         }
-        // TODO: send correct stats to drawer
-        print("MARKER PRESSED: \(route.first)")
-        // TODO: GET ROUTE associated to marker
-        renderDrawer()
+        renderRoute(routes)
         return true
     }
 
@@ -244,7 +244,7 @@ extension ActivityViewController: GMSMapViewDelegate {
             // If run has started, we do not perform any action.
             return
         }
-        // googleMapView.clear()
+        googleMapView.clear()
         guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
             print("ZOOM LEVEL: \(googleMapView.camera.zoom) | ZOOM IN TO VIEW MARKERS")
             return
@@ -315,26 +315,26 @@ extension ActivityViewController: CLLocationManagerDelegate {
             return
         }
         isConnected = true
+        ongoingRun?.addNewLocation(location, atTime: stopwatch.timeElapsed)
+
+        // TODO: abstract distance to ongoingRun
         if let lastMarkedPosition = lastMarkedPosition {
             let distanceMoved = location.distance(from: lastMarkedPosition)
             print("Distance =  \(distanceMoved)")
             distance += distanceMoved
-        } else {
-            // First time getting a location
-            addMarker(Constants.startFlag, position: location.coordinate)
         }
         lastMarkedPosition = location
 
-        let coordinate = location.coordinate
-        path.add(CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        path.add(location.coordinate)
 
         // TODO: We redraw the whole map again. is this good?
         // Or can we dynamically generate the map without mutablepath
         //googleMapView.clear()
-        let mapPaths = GMSPolyline(path: path)
-        mapPaths.strokeColor = .blue
-        mapPaths.strokeWidth = 5
-        mapPaths.map = googleMapView
+        currentMapPath?.map = nil
+        currentMapPath = GMSPolyline(path: path)
+        currentMapPath?.strokeColor = .blue
+        currentMapPath?.strokeWidth = 5
+        currentMapPath?.map = googleMapView
 
         // position.text = "lat: \(coordinate.latitude), long: \(coordinate.longitude)"
     }
@@ -405,7 +405,8 @@ class RouteMarkers {
             return
         }
         let marker = GMSMarker(position: location.coordinate)
-        marker.icon = UIImage(named: "\(17)") // TODO
+
+        marker.icon = UIImage(named: "\(routes.count + 16)") // TODO
         routesInMarker[marker] = routes
         markers.insert(marker)
     }

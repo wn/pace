@@ -9,7 +9,7 @@
 import UIKit
 
 class StopwatchTimer {
-    var counter = 0.0
+    var timeElapsed = 0.0
     var timer = Timer()
     var isPlaying = false
 
@@ -35,15 +35,11 @@ class StopwatchTimer {
     func reset() {
         timer.invalidate()
         isPlaying = false
-        counter = 0.0
+        timeElapsed = 0.0
     }
 
     @objc
     func update() {
-        counter += 0.1
-    }
-
-    func timeElapsed() -> Int {
-        return Int(counter)
+        timeElapsed += 0.1
     }
 }

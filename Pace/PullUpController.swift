@@ -47,8 +47,10 @@ open class PullUpController: UIViewController {
      A list of y values, in screen units expressed in the pull up controller coordinate system.
      At the end of the gestures the pull up controller will scroll to the nearest point in the list.
 
-     Please keep in mind that this array should contains only sticky points in the middle of the pull up controller's view;
-     There is therefore no need to add the fist one (pullUpControllerPreviewOffset), and/or the last one (pullUpControllerPreferredSize.height).
+     Please keep in mind that this array should contains only sticky points in the middle of the pull up controller's
+     view;
+     There is therefore no need to add the fist one (pullUpControllerPreviewOffset), and/or the last one
+     (pullUpControllerPreferredSize.height).
 
      For a complete list of all the sticky points you can use `pullUpControllerAllStickyPoints`.
      */
@@ -79,7 +81,7 @@ open class PullUpController: UIViewController {
      A CGFloat value that represent the vertical velocity threshold (expressed in points/sec) beyond wich
      the target sticky point is skippend and the view is positioned to the next one.
      */
-    open var pullUpControllerSkipPointVerticalVelocityThreshold: CGFloat {
+    open var skipVerticalVelocityThreshold: CGFloat {
         return 700
     }
 
@@ -131,7 +133,9 @@ open class PullUpController: UIViewController {
     private var currentStickyPointIndex: Int {
         let stickyPointTreshold = (self.parent?.view.frame.height ?? 0) - (topConstraint?.constant ?? 0)
         let stickyPointsLessCurrentPosition = pullUpControllerAllStickyPoints.map { abs($0 - stickyPointTreshold) }
-        guard let minStickyPointDifference = stickyPointsLessCurrentPosition.min() else { return 0 }
+        guard let minStickyPointDifference = stickyPointsLessCurrentPosition.min() else {
+            return 0
+        }
         return stickyPointsLessCurrentPosition.index(of: minStickyPointDifference) ?? 0
     }
 
@@ -162,9 +166,11 @@ open class PullUpController: UIViewController {
      This method will move the pull up controller's view in order to show the provided visible point.
 
      You may use on of `pullUpControllerAllStickyPoints` item to provide a valid visible point.
-     - parameter visiblePoint: the y value to make visible, in screen units expressed in the pull up controller coordinate system.
+     - parameter visiblePoint: the y value to make visible, in screen units expressed in the pull up controller
+     coordinate system.
      - parameter animated: Pass true to animate the move; otherwise, pass false.
-     - parameter completion: The closure to execute after the animation is completed. This block has no return value and takes no parameters. You may specify nil for this parameter.
+     - parameter completion: The closure to execute after the animation is completed. This block has no return
+     value and takes no parameters. You may specify nil for this parameter.
      */
     open func pullUpControllerMoveToVisiblePoint(_ visiblePoint: CGFloat, animated: Bool, completion: (() -> Void)?) {
         guard
@@ -186,8 +192,10 @@ open class PullUpController: UIViewController {
     }
 
     /**
-     This method update the pull up controller's view size according to `pullUpControllerPreferredSize` and `pullUpControllerPreferredLandscapeFrame`.
-     If the device is in portrait, the pull up controller's view will be attached to the nearest sticky point after the resize.
+     This method update the pull up controller's view size according to `pullUpControllerPreferredSize` and
+     `pullUpControllerPreferredLandscapeFrame`.
+     If the device is in portrait, the pull up controller's view will be attached to the nearest sticky
+     point after the resize.
      - parameter animated: Pass true to animate the resize; otherwise, pass false.
      */
     open func updatePreferredFrameIfNeeded(animated: Bool) {
@@ -209,9 +217,11 @@ open class PullUpController: UIViewController {
     /**
      This method will be called when an animation needs to be performed.
      You can consider override this method and customize the animation using the method
-     `UIView.animate(withDuration:, delay:, usingSpringWithDamping:, initialSpringVelocity:, options:, animations:, completion:)`
+     `UIView.animate(withDuration:, delay:, usingSpringWithDamping:, initialSpringVelocity:, options:, animations:,
+     completion:)`
      - parameter action: The action that is about to be performed, see `PullUpController.Action` for more info
-     - parameter duration: The total duration of the animations, measured in seconds. If you specify a negative value or 0, the changes are made without animating them.
+     - parameter duration: The total duration of the animations, measured in seconds. If you specify a negative
+     value or 0, the changes are made without animating them.
      - parameter animations: A block object containing the changes to commit to the views.
      - parameter completion: A block object to be executed when the animation sequence ends.
      */
@@ -230,8 +240,7 @@ open class PullUpController: UIViewController {
             portraitPreviousStickyPointIndex = currentStickyPointIndex
         } else if
             let portraitPreviousStickyPointIndex = portraitPreviousStickyPointIndex,
-            portraitPreviousStickyPointIndex < pullUpControllerAllStickyPoints.count
-        {
+            portraitPreviousStickyPointIndex < pullUpControllerAllStickyPoints.count {
             targetStickyPoint = pullUpControllerAllStickyPoints[portraitPreviousStickyPointIndex]
             self.portraitPreviousStickyPointIndex = nil
         }
@@ -263,7 +272,9 @@ open class PullUpController: UIViewController {
     }
 
     private func setupPanGestureRecognizer() {
-        internalScrollView?.panGestureRecognizer.addTarget(self, action: #selector(handleScrollViewGestureRecognizer(_:)))
+        internalScrollView?
+            .panGestureRecognizer
+            .addTarget(self, action: #selector(handleScrollViewGestureRecognizer(_:)))
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGestureRecognizer(_:)))
         panGestureRecognizer?.minimumNumberOfTouches = 1
         panGestureRecognizer?.maximumNumberOfTouches = 1
@@ -302,7 +313,7 @@ open class PullUpController: UIViewController {
 
     private func nearestStickyPointY(yVelocity: CGFloat) -> CGFloat {
         var currentStickyPointIndex = self.currentStickyPointIndex
-        if abs(yVelocity) > pullUpControllerSkipPointVerticalVelocityThreshold {
+        if abs(yVelocity) > skipVerticalVelocityThreshold {
             if yVelocity > 0 {
                 currentStickyPointIndex = max(currentStickyPointIndex - 1, 0)
             } else {
@@ -313,7 +324,8 @@ open class PullUpController: UIViewController {
         return (parent?.view.frame.height ?? 0) - pullUpControllerAllStickyPoints[currentStickyPointIndex]
     }
 
-    @objc private func handleScrollViewGestureRecognizer(_ gestureRecognizer: UIPanGestureRecognizer) {
+    @objc
+    private func handleScrollViewGestureRecognizer(_ gestureRecognizer: UIPanGestureRecognizer) {
         guard
             isPortrait,
             let scrollView = internalScrollView,
@@ -367,7 +379,8 @@ open class PullUpController: UIViewController {
 
     }
 
-    @objc private func handlePanGestureRecognizer(_ gestureRecognizer: UIPanGestureRecognizer) {
+    @objc
+    private func handlePanGestureRecognizer(_ gestureRecognizer: UIPanGestureRecognizer) {
         guard
             isPortrait,
             let topConstraint = topConstraint
@@ -449,7 +462,8 @@ open class PullUpController: UIViewController {
         } else {
             topConstraint?.constant = nearestStickyPointY(yVelocity: 0)
         }
-        leftConstraint?.constant = (parentViewSize.width - min(pullUpControllerPreferredSize.width, parentViewSize.width)) / 2
+        leftConstraint?.constant = (parentViewSize.width - min(pullUpControllerPreferredSize.width,
+                                                               parentViewSize.width)) / 2
         widthConstraint?.constant = pullUpControllerPreferredSize.width
         heightConstraint?.constant = pullUpControllerPreferredSize.height
         heightConstraint?.priority = .defaultLow
@@ -489,7 +503,9 @@ extension UIViewController {
     open func addPullUpController(_ pullUpController: PullUpController,
                                   initialStickyPointOffset: CGFloat,
                                   animated: Bool) {
-        assert(!(self is UITableViewController), "It's not possible to attach a PullUpController to a UITableViewController. Check this issue for more information: https://github.com/MarioIannotta/PullUpController/issues/14")
+        assert(!(self is UITableViewController),
+               "It's not possible to attach a PullUpController to a UITableViewController. Check this issue for more " +
+            "information: https://github.com/MarioIannotta/PullUpController/issues/14")
         addChild(pullUpController)
         pullUpController.setup(superview: view, initialStickyPointOffset: initialStickyPointOffset)
         pullUpController.pullUpControllerAnimate(

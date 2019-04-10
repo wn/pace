@@ -61,6 +61,16 @@ extension CLLocation {
     }
 
     /// Interpolates a new CLLocation between the given two CLLocations, where the new CLLocation is of the
+    /// Checks whether this location is within the distance of another location
+    /// - Parameters:
+    ///   - other: The other CLLocation to check against.
+    ///   - distance: The distance threshold to check within.
+    /// - Returns: true if the two locations are near each other.
+    func isNear(_ other: CLLocation, within distance: Double) -> Bool {
+        return self.distance(from: other) <= distance
+    }
+
+    /// Interpolates a new Location between the given two Locations, where the new Location is of the
     /// given distance away from the left Location.
     /// All properties of CLLocation are interpolated
     /// - Parameters:
