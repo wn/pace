@@ -20,7 +20,8 @@ extension Run: FirebaseStorable {
 
     static func fromDictionary(objectId: String?, value: [String: Any]) -> Run? {
         guard
-            let _ = value["runnerId"] as? String,
+            let runnerId = value["runnerId"] as? String,
+            let runnerName = value["runnerName"] as? String,
             let checkPoints = value["checkPoints"] as? [[String: Any]],
             let dateCreated = value["dateCreated"] as? Timestamp,
             let objectId = objectId

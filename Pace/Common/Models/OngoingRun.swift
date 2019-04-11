@@ -134,7 +134,7 @@ class OngoingRun {
             fatalError("This OngoingRun should be classified as a valid follow run to the Route followed.")
         }
         let normalizedPoints = paceRun.normalize(checkpoints)
-        return Run(runner: runner, checkpoints: normalizedPoints)
+        return Run(runner: UserReference(fromUser: runner), checkpoints: normalizedPoints)
     }
 
     /// Converts the OngoingRun to a new Route.

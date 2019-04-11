@@ -53,7 +53,7 @@ class Run: IdentifiableObject {
     /// - Parameters:
     ///   - runner: The runner of this Run.
     ///   - checkpoints: The array of normalized checkpoints for this Run.
-    convenience init(runner: User, checkpoints: [CheckPoint], thumbnail: Data? = nil) {
+    convenience init(runner: UserReference, checkpoints: [CheckPoint], thumbnail: Data? = nil) {
         self.init()
         guard let lastPoint = checkpoints.last else {
             return

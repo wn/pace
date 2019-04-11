@@ -41,7 +41,7 @@ struct RouteStats {
 }
 
 struct PacingStats {
-    let pacer: User
+    let pacer: UserReference
     // pacer timing minus runner timing
     let timeDifference: Double
 }

@@ -22,7 +22,8 @@ extension Route: FirebaseStorable {
     static func fromDictionary(objectId: String?, value: [String: Any]) -> Route? {
         guard
             let name = value["name"] as? String,
-            let _ = value["creator"],
+            let creatorName = value["creatorName"] as? String,
+            let creatorId = value["creator"] as? String,
             let creatorRun = value["creatorRun"] as? [String: Any],
             let creatorRunId = value["creatorRunId"] as? String,
             let objectId = objectId
