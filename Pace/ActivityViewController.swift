@@ -6,9 +6,9 @@ import RealmSwift
 
 class ActivityViewController: UIViewController {
     // MARK: Realm variables
-    var userSession = RealmUserSessionManager.forDefaultRealm
-    var routesManager = CachingStorageManager.default
-    var routes: Results<Route>?
+    let userSession = RealmUserSessionManager.forDefaultRealm
+    let routesManager = CachingStorageManager.default
+    let routes = CachingStorageManager.default.inMemoryRealm.objects(Route.self)
     var notificationToken: NotificationToken?
     var isConnectedToInternet = true
 
@@ -23,41 +23,21 @@ class ActivityViewController: UIViewController {
     @IBOutlet private var distanceLabel: UILabel!
     @IBOutlet private var paceLabel: UILabel!
     @IBOutlet private var timeLabel: UILabel!
-    @IBOutlet var gpsIndicator: UIView!
+    @IBOutlet var gpsIndicator: GpsStrengthIndicator!
     @IBOutlet var statsPanel: UIStackView!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     // MARK: Running variables
     var lastMarkedPosition: CLLocation?
-    var distance: CLLocationDistance = 0
-    let stopwatch = StopwatchTimer()
+    var distance: CLLocationDistance = 0 // TODO: REMOVE
+    let stopwatch = StopwatchTimer() // TODO: REMOVE
     var ongoingRun: OngoingRun?
     var runStarted: Bool {
-        return stopwatch.isPlaying
+        return ongoingRun != nil
     }
 
     // Location Manager
     let coreLocationManager = CLLocationManager()
-    private var _isConnected = true
-    var isConnected: Bool {
-        // Make into a GPS symbol instead
-        get {
-            return _isConnected
-        }
-        set (value) {
-            let connected = _isConnected == false && value == true
-            let disconnected = _isConnected == true && value == false
-
-            if connected {
-                VoiceAssistant.say("Reconnected to GPS!")
-                print("CONNECTED")
-            } else if disconnected {
-                VoiceAssistant.say("GPS signal lost!")
-                print("DISCONNECTED")
-            }
-            _isConnected = value
-        }
-    }
 
     // MARK: Map variables
     @IBOutlet var googleMapView: MapView!
@@ -67,12 +47,8 @@ class ActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
-        googleMapView.setup()
-        googleMapView.delegate = self
-
-        // Init in variable? @julius
-        routes = routesManager.inMemoryRealm.objects(Route.self)
-        notificationToken = routes?.observe { [weak self]changes in
+        googleMapView.setup(self)
+        notificationToken = routes.observe { [weak self]changes in
             guard let map = self?.googleMapView else {
                 print("MAP NOT RENDERED YET")
                 return
@@ -87,7 +63,7 @@ class ActivityViewController: UIViewController {
                 // 3. Create a marker for the route and insert into the specific gridNumber
                 for routeIndex in insertions {
                     guard
-                        let newRoute = self?.routes?[routeIndex],
+                        let newRoute = self?.routes[routeIndex],
                         let startLocation = newRoute.startingLocation?.coordinate,
                         let gridNumberForRoute = self?.gridMapManager.getGridId(startLocation)
                         else {
@@ -247,13 +223,6 @@ extension ActivityViewController: CLLocationManagerDelegate {
         coreLocationManager.requestWhenInUseAuthorization()
     }
 
-    /// Function from CLLocationManagerDelegate.
-    /// Empty function as we do not do anything about the
-    /// location result.
-    ///
-    /// - Parameters:
-    ///   - manager: The location manager for the view-controller.
-    ///   - locations: The array of location updates that is not handled yet.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard runStarted, let location = locations.last else {
             return
@@ -263,12 +232,11 @@ extension ActivityViewController: CLLocationManagerDelegate {
         //            googleMapView.setCameraPosition(location.coordinate)
         //            googleMapView.animate(toZoom: Constants.initialZoom)
         //        }
-        guard let acc = coreLocationManager.location?.horizontalAccuracy, acc < Constants.guardAccuracy else {
-            // Our accuracy is too poor, assume connection has failed.
-            isConnected = false
+        let accuracy = location.horizontalAccuracy
+        gpsIndicator.setStrength(accuracy)
+        guard accuracy < Constants.guardAccuracy else {
             return
         }
-        isConnected = true
         ongoingRun?.addNewLocation(location, atTime: stopwatch.timeElapsed)
         googleMapView.addPositionToRoute(location.coordinate)
     }
@@ -281,7 +249,6 @@ extension ActivityViewController: CLLocationManagerDelegate {
     ///   - error: Error message.
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
-        isConnected = false
-   
+        gpsIndicator.setStrength(-1)
     }
 }

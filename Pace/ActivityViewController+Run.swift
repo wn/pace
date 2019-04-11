@@ -66,6 +66,7 @@ extension ActivityViewController {
 
         showSummary()
 
+        ongoingRun = nil
         stopwatch.reset()
         coreLocationManager.stopUpdatingLocation()
         updateLabels()
@@ -92,14 +93,6 @@ extension ActivityViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.updateValues()
         }
-    }
-
-    func updateGPS() {
-        //        guard let accuracy = coreLocationManager.location?.horizontalAccuracy else {
-        //            horizontalAccuracy.text = "Disconnected"
-        //            return
-        //        }
-        //        horizontalAccuracy.text = "Horizontal accuracy: \(accuracy) meters"
     }
 
     func updateLabels() {
