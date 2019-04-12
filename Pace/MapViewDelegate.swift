@@ -12,5 +12,4 @@ import GoogleMaps
 class ActivityMapViewDelegate: UIViewController, GMSMapViewDelegate {
     let delegate: ActivityViewController? = nil
 
-
 }

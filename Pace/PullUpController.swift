@@ -99,7 +99,7 @@ open class PullUpController: UIViewController {
     open var includeInitialStickyPoint: Bool {
         return true
     }
-    
+
     // MARK: - Public properties
 
     /**

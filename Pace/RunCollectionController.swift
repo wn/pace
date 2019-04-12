@@ -55,7 +55,7 @@ class RunCollectionController: PullUpController {
         runs.append(run)
         runCollectionView.reloadData()
     }
-    
+
     // Maximum height of the pullup view
     var height: CGFloat {
         get {
@@ -98,7 +98,7 @@ extension RunCollectionController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return runs.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = runCollectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CompareRunCollectionViewCell
         cell.run = runs[indexPath.item]

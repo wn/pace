@@ -271,13 +271,6 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
-		8BD4C5842252026700D0CEC7 /* LoginViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = LoginViews;
-			sourceTree = "<group>";
-		};
 		8BD4C58A2255050800D0CEC7 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,7 +312,6 @@
 				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
 				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
 				EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */,
-				EB22D7F72257393600D0F69D /* MapView.swift */,
 				EBF87D7B225E36F9001B4056 /* RouteMarkers.swift */,
 			);
 			name = SelectActivityView;
@@ -357,7 +349,6 @@
 				62667BE7225A02A5001561EF /* GraphModePickerController.swift */,
 				62667BE9225B4FE6001561EF /* RunCollectionController.swift */,
 				8BD4C58A2255050800D0CEC7 /* API */,
-				8BD4C5842252026700D0CEC7 /* LoginViews */,
 				EBAF2CB622492BB9000FCE0E /* Activity */,
 				8B59BE5A223CE59600C2E9E7 /* Helpers */,
 				5C8E42D0223CC7E900DEC2F4 /* Models */,

@@ -13,7 +13,7 @@ import FacebookLogin
 import FacebookCore
 
 class RequireLoginController: UIViewController, LoginButtonDelegate {
-    
+
     var fbLoginButton: LoginButton?
     var userSession: UserSessionManager?
     var user: User?
@@ -60,7 +60,6 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
         return true
     }
 
-    
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
         case let .success(_, _, token):
@@ -108,7 +107,7 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
     func findAndLoadUser(facebookId: String) -> Bool {
         return false
     }
-    
+
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
     }
 }

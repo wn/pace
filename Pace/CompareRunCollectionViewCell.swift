@@ -30,7 +30,7 @@ class CompareRunCollectionViewCell: UICollectionViewCell {
             runTime.text = Formatter.formatTime(currentRun.timeSpent)
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadXib()

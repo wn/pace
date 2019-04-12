@@ -71,7 +71,7 @@ class RunGraphView: UIView {
     var maxDistance: Double {
         return max(currentRun?.distance ?? 0, compareRun?.distance ?? 0)
     }
-    
+
     /// Compares two checkpoints based on the comparison mode of the graph
     private func compare(_ cp1: CheckPoint, _ cp2: CheckPoint) -> Bool {
         switch comparisonMode {
@@ -111,7 +111,7 @@ class RunGraphView: UIView {
         let maxY2 = resolveModeValue(maxCp2)
         upperBound = max(maxY1, maxY2) * 8 / 7
     }
-    
+
     private func draw(run: Run?, color: UIColor, with drawContext: CGContext?) {
         // Draws the run based on the upperbound
         guard let run = run,
@@ -168,7 +168,7 @@ class RunGraphView: UIView {
         content.addConstraint(newYLineConstraint)
 
         // Render and move intersection label
-        let xCurrentValue = currentCheckpoint.routeDistance / 1000
+        let xCurrentValue = currentCheckpoint.routeDistance / 1_000
         let yCurrentValue = resolveModeValue(currentCheckpoint)
         let currentLabelText = generateLabel(x: xCurrentValue, y: yCurrentValue)
         guard let compareCheckpoint = compareCheckpoint else {
@@ -177,7 +177,7 @@ class RunGraphView: UIView {
             higherLabel.text = nil
             return
         }
-        let xCompareValue = compareCheckpoint.routeDistance / 1000
+        let xCompareValue = compareCheckpoint.routeDistance / 1_000
         let yCompareValue = resolveModeValue(compareCheckpoint)
         let compareLabelText = generateLabel(x: xCompareValue, y: yCompareValue)
 

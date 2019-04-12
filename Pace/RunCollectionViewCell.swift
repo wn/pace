@@ -27,7 +27,7 @@ class RunCollectionViewCell: UICollectionViewCell {
                 return
             }
             runDate.text = Formatter.formatDate(currentRun.dateCreated)
-            runDistance.text = String(format: "%.2fkm", arguments: [currentRun.distance / 1000])
+            runDistance.text = String(format: "%.2fkm", arguments: [currentRun.distance / 1_000])
             runTiming.text = Formatter.formatTime(currentRun.timeSpent)
             thumbnail.image = currentRun.thumbnail
         }

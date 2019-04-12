@@ -9,7 +9,7 @@
 import UIKit
 
 class GraphModePickerController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
+
     @IBOutlet private var picker: UIPickerView!
 //    private var pickerOptions = GraphComparisonMode.AllCases.map { mode in String(mode) }
 
@@ -18,7 +18,7 @@ class GraphModePickerController: UIViewController, UIPickerViewDelegate, UIPicke
         picker.delegate = self
         picker.dataSource = self
     }
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -26,8 +26,8 @@ class GraphModePickerController: UIViewController, UIPickerViewDelegate, UIPicke
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 0
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+
     }
 }
