@@ -17,22 +17,15 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
     var fbLoginButton: LoginButton?
     var userSession: UserSessionManager?
     var user: User?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        userSession = RealmUserSessionManager.forDefaultRealm
+
+    /// Handles requirement for user to be logged in
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if !isUserLoggedIn() {
             renderLoginButton()
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if !isUserLoggedIn() {
-            renderLoginButton()
-        }
-    }
-    
     private var loginButtonFrame: CGRect {
         return CGRect(origin: view.center, size: CGSize(width: 100, height: 50))
     }
@@ -60,6 +53,7 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
         // If the token exists, load the user
         guard let token = AccessToken.current,
             let facebookId = token.userId else {
+            user = nil
             return false
         }
         loadUser(facebookId: facebookId)
@@ -81,8 +75,7 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
 
     /// - TODO: Find-or-create firebase for existing user and load Realm user reference.
     func loadUser(facebookId: String) {
-        guard !findUser(facebookId: facebookId) else {
-            viewDidLoad()
+        guard !findAndLoadUser(facebookId: facebookId) else {
             hideLoginButton()
             return
         }
@@ -93,24 +86,26 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
                 guard let name = response.dictionaryValue?["name"] as? String else {
                     return
                 }
-                self.createUser(facebookId: facebookId, name: name)
+                self.createAndLoadUser(facebookId: facebookId, name: name)
                 self.hideLoginButton()
-                self.viewDidLoad()
             case .failed(let error):
                 print("Graph Request failed: \(error)")
             }
         })
+        // Handle if graph request fails 
+        user = Dummy.user
+        hideLoginButton()
     }
 
     /// - TODO: Replace with API call
     /// Create user in firebase and load user reference into this controller
-    func createUser(facebookId: String, name: String) {
-        
+    func createAndLoadUser(facebookId: String, name: String) {
+        user = Dummy.user
     }
 
     /// - TODO: Replace with API call
     /// Find user in firebase and load user reference into this controller
-    func findUser(facebookId: String) -> Bool {
+    func findAndLoadUser(facebookId: String) -> Bool {
         return false
     }
     
