@@ -11,12 +11,19 @@ import RealmSwift
 
 class User: IdentifiableObject {
     @objc dynamic var name: String = ""
+    @objc dynamic var uid: String = ""
     var favouriteRoutes = List<Route>()
     var routesCreated = LinkingObjects(fromType: Route.self, property: "creator")
 
     convenience init(name: String) {
         self.init()
         self.name = name
+    }
+
+    convenience init(name: String, uid: String) {
+        self.init()
+        self.name = name
+        self.uid = uid
     }
 
     // MARK: - Hashable

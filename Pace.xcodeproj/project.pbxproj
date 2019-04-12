@@ -45,6 +45,7 @@
 		8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B59BE58223CD81100C2E9E7 /* Secrets.swift */; };
 		8B9E8C2622606E790067A556 /* StorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C2522606E790067A556 /* StorageAPI.swift */; };
 		8B9E8C282260713E0067A556 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C272260713E0067A556 /* UserAPI.swift */; };
+		8B9E8C2B226074D70067A556 /* User+FIrebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C2A226074D70067A556 /* User+FIrebase.swift */; };
 		8BA19E9A225CDFDF009104F2 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA19E99225CDFDF009104F2 /* Observable.swift */; };
 		8BA19EA2225E5B7A009104F2 /* UserReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA19EA1225E5B7A009104F2 /* UserReference.swift */; };
 		8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */; };
@@ -134,6 +135,7 @@
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		8B9E8C2522606E790067A556 /* StorageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
 		8B9E8C272260713E0067A556 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		8B9E8C2A226074D70067A556 /* User+FIrebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+FIrebase.swift"; path = "Pace/User+FIrebase.swift"; sourceTree = SOURCE_ROOT; };
 		8BA19E99225CDFDF009104F2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		8BA19EA1225E5B7A009104F2 /* UserReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReference.swift; sourceTree = "<group>"; };
 		8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableObject.swift; sourceTree = "<group>"; };
@@ -345,13 +347,9 @@
 		62E626D22261BD13009079F5 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				8B9E8C29226074A70067A556 /* Model Extensions */,
 				8B9E8C2422606E4E0067A556 /* Protocol */,
-				8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */,
 				8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */,
-				8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */,
-				8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */,
-				8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */,
-				8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -785,6 +783,7 @@
 				8BD4C5942256808000D0CEC7 /* Route+Firebase.swift in Sources */,
 				8B9E8C2622606E790067A556 /* StorageAPI.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
+				8B9E8C2B226074D70067A556 /* User+FIrebase.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */,
 				8B2638D9225B978F004B52AB /* GeoHash.swift in Sources */,

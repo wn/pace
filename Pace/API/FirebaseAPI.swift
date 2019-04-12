@@ -12,21 +12,21 @@ import CoreLocation
 
 class PaceFirebaseAPI: PaceStorageAPI {
 
-    private static let rootRef = Firestore.firestore()
-    private static let routesRef = rootRef.collection("pace_routes")
+    fileprivate static let rootRef = Firestore.firestore()
+    fileprivate static let routesRef = rootRef.collection("pace_routes")
 
     private static func docRefFor(route: Route) -> DocumentReference {
         return routesRef.document(route.objectId)
     }
 
-    private static let runsRef = rootRef.collection("pace_runs")
+    fileprivate static let runsRef = rootRef.collection("pace_runs")
 
     private static func docRefFor(run: Run) -> DocumentReference {
         return runsRef.document(run.objectId)
     }
 
-    private var persistentRealm: Realm
-    private var inMemoryRealm: Realm
+    fileprivate var persistentRealm: Realm
+    fileprivate var inMemoryRealm: Realm
 
     init(persistentRealm: Realm, inMemoryRealm: Realm) {
         self.persistentRealm = persistentRealm
@@ -90,5 +90,32 @@ class PaceFirebaseAPI: PaceStorageAPI {
         batch.updateData(["runs": FieldValue.arrayUnion([run.objectId])], forDocument: routeDocumentRef)
         batch.commit(completion: completion)
     }
+}
 
+extension PaceFirebaseAPI: PaceUserAPI {
+    fileprivate static let usersRef = rootRef.collection("pace_users")
+
+    private static func docRefFor(userId: String) -> DocumentReference {
+        return usersRef.document(userId)
+    }
+
+    private static func docRefFor(user: User) -> DocumentReference {
+        return usersRef.document(user.id)
+    }
+
+    func authenticate(withFbToken: String) {
+        
+    }
+
+    func findUser(withUID: String, orElseCreateWithName: String, _ completion: @escaping UserResultHandler) {
+        <#code#>
+    }
+
+    func fetchFavourites(userId: String, _ completion: @escaping RouteResultsHandler) {
+        <#code#>
+    }
+    
+    func fetchHistory(userId: String, _ completion: @escaping RunResultsHandler) {
+        <#code#>
+    }
 }
