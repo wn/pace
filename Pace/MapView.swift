@@ -10,7 +10,7 @@ class MapView: GMSMapView {
     /// Setup the view
     ///
     /// - Parameter delegate: delegate of this view
-    public func setup(_ delegate: GMSMapViewDelegate) {
+    func setup(_ delegate: GMSMapViewDelegate) {
         animate(toZoom: Constants.initialZoom)
         isMyLocationEnabled = true
         settings.myLocationButton = true
@@ -35,7 +35,7 @@ class MapView: GMSMapView {
     /// Add a position to the route and render it
     ///
     /// - Parameter position: the position to add to the route.
-    public func addPositionToRoute(_ position: CLLocationCoordinate2D) {
+    func addPositionToRoute(_ position: CLLocationCoordinate2D) {
         path.add(position)
         currentMapPath?.map = nil
         drawRoute(path)
@@ -44,7 +44,7 @@ class MapView: GMSMapView {
     /// Function to prepare view to start the run.
     ///
     /// - Parameter position: the starting position of the run.
-    public func startRun(at position: CLLocationCoordinate2D) {
+    func startRun(at position: CLLocationCoordinate2D) {
         clearRoutes()
         clear()
         path.add(position)
@@ -52,7 +52,7 @@ class MapView: GMSMapView {
     }
 
     /// Function to prepare view to end the run.
-    public func completeRun() {
+    func completeRun() {
         clearRoutes()
         clear() // Required for clearing flags
     }
