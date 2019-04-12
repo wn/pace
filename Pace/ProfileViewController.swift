@@ -59,7 +59,8 @@ class ProfileViewController: UIViewController {
 
     @objc
     private func popupSettings() {
-        print("popup settings!")
+        let loginManager = LoginManager()
+        loginManager.logOut()
     }
     
     private func setupNavigation() {

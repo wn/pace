@@ -28,6 +28,9 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if !isUserLoggedIn() {
+            renderLoginButton()
+        }
     }
     
     private var loginButtonFrame: CGRect {
@@ -35,6 +38,9 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
     }
 
     func renderLoginButton() {
+        if let existingButton = fbLoginButton {
+            existingButton.removeFromSuperview()
+        }
         fbLoginButton = LoginButton(frame: loginButtonFrame, readPermissions: [.publicProfile])
         fbLoginButton?.delegate = self
         guard let fbLoginButton = fbLoginButton else {
@@ -76,6 +82,7 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
     /// - TODO: Find-or-create firebase for existing user and load Realm user reference.
     func loadUser(facebookId: String) {
         guard !findUser(facebookId: facebookId) else {
+            viewDidLoad()
             hideLoginButton()
             return
         }
@@ -88,6 +95,7 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
                 }
                 self.createUser(facebookId: facebookId, name: name)
                 self.hideLoginButton()
+                self.viewDidLoad()
             case .failed(let error):
                 print("Graph Request failed: \(error)")
             }
