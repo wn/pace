@@ -41,15 +41,12 @@ class PaceFirebaseAPI: PaceStorageAPI {
         let query = PaceFirebaseAPI.routesRef
             .whereField("startingGeohash", isEqualTo: geohash)
         query.getDocuments { snapshot, err in
-            guard err == nil else {
-                completion(nil, err)
-                return
-            }
-            let routes = snapshot?.documents
-                .compactMap {
+            let routes = snapshot.map {
+                $0.documents.compactMap {
                     Route.fromDictionary(objectId: $0.documentID, value: $0.data())
                 }
-            completion(routes, nil)
+            }
+            completion(routes, err)
         }
     }
 
@@ -57,15 +54,12 @@ class PaceFirebaseAPI: PaceStorageAPI {
         let query = PaceFirestoreAPI.runsRef
             .whereField("routeId", isEqualTo: route.objectId)
         query.getDocuments { snapshot, err in
-            guard err == nil else {
-                completion(nil, err)
-                return
-            }
-            let runs = snapshot?.documents
-                .compactMap {
+            let runs = snapshot.map {
+                $0.documents.compactMap {
                     Run.fromDictionary(objectId: $0.documentID, value: $0.data())
                 }
-            completion(runs, nil)
+            }
+            completion(runs, err)
         }
     }
 
@@ -107,15 +101,49 @@ extension PaceFirebaseAPI: PaceUserAPI {
         
     }
 
-    func findUser(withUID: String, orElseCreateWithName: String, _ completion: @escaping UserResultHandler) {
-        <#code#>
+    func findUser(withUID uid: String, orElseCreateWithName name: String, _ completion: @escaping UserResultHandler) {
+        func createUserWith(name: String) {
+            let user = User(name: name, uid: uid)
+            PaceFirebaseAPI.usersRef.document(user.id).setData(user.asDictionary)
+            completion(user, nil)
+        }
+
+        let query = PaceFirebaseAPI.usersRef.whereField("uid", isEqualTo: uid)
+        query.getDocuments { snapshot, error in
+            guard let snapshot = snapshot, error != nil else {
+                completion(nil, error)
+                return
+            }
+            guard let userDoc = snapshot.documents.first else {
+                createUserWith(name: name)
+                return
+            }
+            let user = User.fromDictionary(id: userDoc.documentID, value: userDoc.data())
+            completion(user, nil)
+        }
     }
 
     func fetchFavourites(userId: String, _ completion: @escaping RouteResultsHandler) {
-        <#code#>
+        let query = PaceFirebaseAPI.routesRef.whereField("favouritedBy", arrayContains: userId)
+        query.getDocuments { snapshot, error in
+            let routes = snapshot.map {
+                $0.documents.compactMap {
+                    Route.fromDictionary(id: $0.documentID, value: $0.data())
+                }
+            }
+            completion(routes, error)
+        }
     }
     
     func fetchHistory(userId: String, _ completion: @escaping RunResultsHandler) {
-        <#code#>
+        let query = PaceFirebaseAPI.runsRef.whereField("creator", isEqualTo: userId)
+        query.getDocuments { snapshot, error in
+            let history = snapshot.map {
+                $0.documents.compactMap {
+                    Run.fromDictionary(id: $0.documentID, value: $0.data())
+                }
+            }
+            completion(history, error)
+        }
     }
 }
