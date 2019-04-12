@@ -19,7 +19,7 @@ extension ActivityViewController {
     var pullUpDrawer: DrawerViewController {
         let currentPullUpController = children.first { $0 is DrawerViewController } as? DrawerViewController
         let pullUpController = currentPullUpController ??
-            UIStoryboard(name: "Main", bundle: nil)
+            UIStoryboard(name: Constants.mainStoryboard, bundle: nil)
             .instantiateViewController(withIdentifier: "SearchViewController")
             as! DrawerViewController
         if originalPullUpControllerViewSize == .zero {

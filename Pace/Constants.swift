@@ -4,6 +4,9 @@ import RealmSwift
 
 struct Constants {
 
+    // MARK: - Storyboard constants
+    static let mainStoryboard = "Main"
+
     // MARK: - Model constants
     // Threshold distance value to determine whether two locations should be considered as same
     static let sameLocationThreshold = 5.0

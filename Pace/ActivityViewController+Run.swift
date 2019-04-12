@@ -76,7 +76,7 @@ extension ActivityViewController {
         guard let ongoingRun = ongoingRun else {
                 return
         }
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard: UIStoryboard = UIStoryboard(name: Constants.mainStoryboard, bundle: nil)
         let summaryVC =
             storyBoard.instantiateViewController(
                 withIdentifier: "summaryVC")

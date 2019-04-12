@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController, ViewDelegate {
     }
 
     func buttonTapped(_ run: Run) {
-        guard let runAnalysis = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Identifiers.runAnalysisController) as? RunAnalysisController else {
+        guard let runAnalysis = UIStoryboard(name: Constants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: Identifiers.runAnalysisController) as? RunAnalysisController else {
             return
         }
         runAnalysis.run = run
