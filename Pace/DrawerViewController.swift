@@ -57,7 +57,7 @@ class DrawerViewController: PullUpController {
         return routeStatsContainerView.frame.maxY
     }
 
-    public var portraitSize: CGSize = .zero
+    private var portraitSize: CGSize = .zero
 
     // MARK: - Lifecycle
 

@@ -17,10 +17,11 @@ class ActivitySummaryViewController: UIViewController {
     var routesManager: RealmStorageManager?
 
     @IBAction func endRun(_ sender: UIButton) {
-        guard distance >= Constants.checkPointDistanceInterval else {
-            print("CANT SAVE THIS SHIT")
-            return
-        }
+        // TODO: Check that we have sufficient distance to save!!
+//        guard distance >= Constants.checkPointDistanceInterval else {
+//            print("CANT SAVE THIS SHIT")
+//            return
+//        }
         routesManager?.saveNewRoute(createdRun!.toNewRoute(), nil)
     }
     var distance: Double = 0

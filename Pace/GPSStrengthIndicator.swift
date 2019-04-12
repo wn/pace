@@ -8,7 +8,7 @@
 import UIKit
 import CoreLocation
 
-public class GPSStrengthIndicator: UIView {
+public class GpsStrengthIndicator: UIView {
     // MARK: - Customization
 
     public var edgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)

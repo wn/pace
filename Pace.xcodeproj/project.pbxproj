@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		10862652088C59101950E3BF /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		119A0BC5BB7EAA25EE7513E5 /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490807CC3ECB2045B2A6315F /* Pods_PaceTests.framework */; };
-		10862652088C59101950E3BF /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9425A08F60F1A7AEACC6B14B /* Pods_Pace.framework */; };
 		5C5124BB225316FB00B8A15C /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BA225316FB00B8A15C /* Stats.swift */; };
 		5C5124BD2254EE3F00B8A15C /* OngoingRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */; };
 		5C751F0E223CD7650082BC93 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C751F0D223CD7650082BC93 /* Constants.swift */; };
@@ -70,7 +69,8 @@
 		EB931BDB2238066800AFF868 /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BDA2238066800AFF868 /* PaceTests.swift */; };
 		EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */; };
 		EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */; };
-		EBF87D78225CE9F0001B4056 /* SignalStrengthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF87D77225CE9F0001B4056 /* SignalStrengthIndicator.swift */; };
+		EBF87D78225CE9F0001B4056 /* GPSStrengthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF87D77225CE9F0001B4056 /* GPSStrengthIndicator.swift */; };
+		EBF87D7C225E36F9001B4056 /* RouteMarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF87D7B225E36F9001B4056 /* RouteMarkers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +87,6 @@
 		0879B8A5F52896270AE5C2D6 /* Pods-Pace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.release.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.release.xcconfig"; sourceTree = "<group>"; };
 		490807CC3ECB2045B2A6315F /* Pods_PaceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FD971726116FC6305B41635 /* Pods_Pace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		03C11157F7CEB9999E084193 /* Pods-PaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.release.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.release.xcconfig"; sourceTree = "<group>"; };
 		5C5124BA225316FB00B8A15C /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingRun.swift; sourceTree = "<group>"; };
 		5C751F0D223CD7650082BC93 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -152,7 +151,8 @@
 		EB931BDC2238066800AFF868 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySummaryViewController.swift; sourceTree = "<group>"; };
 		EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Render.swift"; sourceTree = "<group>"; };
-		EBF87D77225CE9F0001B4056 /* SignalStrengthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalStrengthIndicator.swift; sourceTree = "<group>"; };
+		EBF87D77225CE9F0001B4056 /* GPSStrengthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSStrengthIndicator.swift; sourceTree = "<group>"; };
+		EBF87D7B225E36F9001B4056 /* RouteMarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMarkers.swift; sourceTree = "<group>"; };
 		FCEF38FC04B5DDA627F3D935 /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,7 +276,7 @@
 			children = (
 				8B2638DA225B979B004B52AB /* GridMap.swift */,
 				8B2638D8225B978F004B52AB /* GeoHash.swift */,
-				EBF87D77225CE9F0001B4056 /* SignalStrengthIndicator.swift */,
+				EBF87D77225CE9F0001B4056 /* GPSStrengthIndicator.swift */,
 			);
 			name = GridMapPod;
 			sourceTree = "<group>";
@@ -291,6 +291,7 @@
 				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
 				EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */,
 				EB22D7F72257393600D0F69D /* MapView.swift */,
+				EBF87D7B225E36F9001B4056 /* RouteMarkers.swift */,
 			);
 			name = SelectActivityView;
 			sourceTree = "<group>";
@@ -652,6 +653,7 @@
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				5C5124BD2254EE3F00B8A15C /* OngoingRun.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
+				EBF87D7C225E36F9001B4056 /* RouteMarkers.swift in Sources */,
 				8B2638DB225B979B004B52AB /* GridMap.swift in Sources */,
 				8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+Render.swift in Sources */,
@@ -672,7 +674,7 @@
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				62FF752E22495B54008847CC /* RunCollectionViewCell.swift in Sources */,
 				8BD4C596225680C600D0CEC7 /* RealmCLLocation+Firebase.swift in Sources */,
-				EBF87D78225CE9F0001B4056 /* SignalStrengthIndicator.swift in Sources */,
+				EBF87D78225CE9F0001B4056 /* GPSStrengthIndicator.swift in Sources */,
 				8BD4C5942256808000D0CEC7 /* Route+Firebase.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,

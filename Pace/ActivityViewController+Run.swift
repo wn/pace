@@ -24,7 +24,6 @@ extension ActivityViewController {
         guard let startLocation = coreLocationManager.location else {
             fatalError("Should have location here.")
         }
-        clearMap() // Clear route markers
         initiateRunPlot(at: startLocation)
         startRunningSession(at: startLocation)
         // TODO: update running stats here
@@ -33,8 +32,7 @@ extension ActivityViewController {
 
     private func initiateRunPlot(at location: CLLocation) {
         setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
-        path.add(location.coordinate)
-        addMarker(Constants.startFlag, position: location.coordinate)
+        googleMapView.startRun(at: location.coordinate)
     }
 
     private func startRunningSession(at location: CLLocation) {
@@ -43,37 +41,48 @@ extension ActivityViewController {
         stopwatch.start()
         // TODO: add follow run
         // TODO: allow user to run without signing in
-        ongoingRun = OngoingRun(runner: userSession!.currentUser!, startingLocation: location)
+        ongoingRun = OngoingRun(runner: userSession.currentUser!, startingLocation: location)
     }
 
     @objc
     func endRun(_ sender: UIButton) {
-        guard
-            runStarted,
-            let ongoingRun = ongoingRun,
-            let endPos = lastMarkedPosition?.coordinate
-        else {
+        guard runStarted else {
             return
         }
-        addMarker(Constants.endFlag, position: endPos)
-        // TODO: TAKE A SCREENSHOT HERE!
+        VoiceAssistant.say("Run completed")
+
+        // TODO: ALL OUR ENDRUN LOGIC SHOULD BE DONE HERE
+        // 1. Start loading animation
+        // 2. Perform normalisation shit here
+        // 3. Add end flag
+        // 4. Rerender the normalized-map and take a screenshot
+        // 5. Show the map in the summary page. Cannot just be screenshot
+        //    because of runAnalysis.
+        // 6. When we press "exit summary", clean up flag drawings.
+        googleMapView.addMarker(Constants.endFlag, position: coreLocationManager.location!.coordinate)
+        googleMapView.completeRun()
 
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
-        clearMap()
 
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        showSummary()
+
+        ongoingRun = nil
+        stopwatch.reset()
+        coreLocationManager.stopUpdatingLocation()
+        updateLabels()
+    }
+
+    func showSummary() {
+        guard let ongoingRun = ongoingRun else {
+                return
+        }
+        let storyBoard: UIStoryboard = UIStoryboard(name: Constants.mainStoryboard, bundle: nil)
         let summaryVC =
             storyBoard.instantiateViewController(
                 withIdentifier: "summaryVC")
                 as! ActivitySummaryViewController
         summaryVC.setStats(createdRun: ongoingRun, distance: distance, time: stopwatch.timeElapsed)
         renderChildController(summaryVC)
-
-        VoiceAssistant.say("Run completed")
-        stopwatch.reset()
-        distance = 0
-        coreLocationManager.stopUpdatingLocation()
-        updateLabels()
     }
 
     func updateValues() {
@@ -84,27 +93,6 @@ extension ActivityViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.updateValues()
         }
-    }
-
-    func updateGPS() {
-        //        guard let accuracy = coreLocationManager.location?.horizontalAccuracy else {
-        //            horizontalAccuracy.text = "Disconnected"
-        //            return
-        //        }
-        //        horizontalAccuracy.text = "Horizontal accuracy: \(accuracy) meters"
-    }
-
-    func updateDistanceTravelled() {
-        distanceLabel.text = "Distance: \(Int(distance)) metres"
-    }
-
-    func updateTimer() {
-        self.time.text = "time elapsed: \(self.stopwatch.timeElapsed) secs"
-    }
-
-    func updatePace() {
-        let paceValue = distance != 0 ? 1_000 * stopwatch.timeElapsed / distance : 0
-        pace.text = "Pace: \(paceValue) seconds /km"
     }
 
     func updateLabels() {

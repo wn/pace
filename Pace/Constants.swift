@@ -4,6 +4,9 @@ import RealmSwift
 
 struct Constants {
 
+    // MARK: - Storyboard constants
+    static let mainStoryboard = "Main"
+
     // MARK: - Model constants
     // Threshold distance value to determine whether two locations should be considered as same
     static let sameLocationThreshold = 5.0
@@ -27,9 +30,15 @@ struct Constants {
     static let startButton = "start-icon.png"
     static let endButton = "end-icon.png"
 
+    static let gridWidth: Double = 300
+    static let gridHeight: Double = 300
+
     // MARK: - Default objects
-    static var defaultGridManager: GridMap? {
-        return GridMap(width: 300, height: 300)
+    static var defaultGridManager: GridMap {
+        guard let result = GridMap(width: Constants.gridWidth, height: Constants.gridHeight) else {
+            fatalError("Width or height of grid must be greater than 0.")
+        }
+        return result
     }
 
     // MARK: Locale variables

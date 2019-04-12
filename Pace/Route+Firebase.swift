@@ -12,7 +12,7 @@ extension Route: FirebaseStorable {
         return [
             "name": name,
             "creator": creator?.id ?? "",
-            "startingGeohash": Constants.defaultGridManager!.getGridId(startingLocation.coordinate).code,
+            "startingGeohash": Constants.defaultGridManager.getGridId(startingLocation.coordinate).code,
             "creatorRun": creatorRun?.asDictionary ?? [:],
             "creatorRunId": creatorRun?.id ?? "",
             "runs": Array(paces.map { $0.id })
