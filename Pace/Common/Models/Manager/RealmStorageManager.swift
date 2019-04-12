@@ -60,7 +60,7 @@ class CachingStorageManager: RealmStorageManager {
 
     convenience init() {
         self.init(persistentRealm: .persistent, inMemoryRealm: .inMemory,
-                  storageAPI: PaceFirestoreAPI(persistentRealm: .persistent, inMemoryRealm: .inMemory))
+                  storageAPI: PaceFirebaseAPI(persistentRealm: .persistent, inMemoryRealm: .inMemory))
     }
 
     // TODO: complete the implementation

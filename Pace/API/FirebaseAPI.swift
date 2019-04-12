@@ -10,25 +10,7 @@ import Firebase
 import RealmSwift
 import CoreLocation
 
-protocol PaceStorageAPI {
-    /// A typealias for the
-    typealias RouteResultsHandler = ([Route]?, Error?) -> Void
-    typealias RunResultsHandler = ([Run]?, Error?) -> Void
-
-    /// Fetches the routes stored in the cloud that start within this region.
-    func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                           _ completion: @escaping RouteResultsHandler)
-    /// Fetched the runs for this route.
-    func fetchRunsForRoute(_ route: Route, _ completion: @escaping RunResultsHandler)
-
-    /// Adds the route upload action into the queue, and attempts it.
-    func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
-
-    /// Adds the run upload action into the queue, and attempts it.
-    func uploadRun(_ run: Run, forRoute: Route, _ completion: ((Error?) -> Void)?)
-}
-
-class PaceFirestoreAPI: PaceStorageAPI {
+class PaceFirebaseAPI: PaceStorageAPI {
 
     private static let rootRef = Firestore.firestore()
     private static let routesRef = rootRef.collection("pace_routes")
@@ -56,7 +38,7 @@ class PaceFirestoreAPI: PaceStorageAPI {
         let geohash = Constants.defaultGridManager
             .getGridId(CLLocationCoordinate2D(latitude: latitudeMin, longitude: longitudeMin)).code
         print("getting documents for: \n longitude: \(longitudeMin), latitude: \(latitudeMin) \n geohash: \(geohash)")
-        let query = PaceFirestoreAPI.routesRef
+        let query = PaceFirebaseAPI.routesRef
             .whereField("startingGeohash", isEqualTo: geohash)
         query.getDocuments { snapshot, err in
             guard err == nil else {
@@ -88,18 +70,18 @@ class PaceFirestoreAPI: PaceStorageAPI {
     }
 
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?) {
-        let batch = PaceFirestoreAPI.rootRef.batch()
-        let routeDocument = PaceFirestoreAPI.docRefFor(route: route)
+        let batch = PaceFirebaseAPI.rootRef.batch()
+        let routeDocument = PaceFirebaseAPI.docRefFor(route: route)
         batch.setData(route.asDictionary, forDocument: routeDocument, merge: true)
         route.paces.forEach { run in
-            let runDocument = PaceFirestoreAPI.docRefFor(run: run)
+            let runDocument = PaceFirebaseAPI.docRefFor(run: run)
             batch.setData(run.asDictionary, forDocument: runDocument, merge: true)
         }
         batch.commit(completion: completion)
     }
 
     func uploadRun(_ run: Run, forRoute route: Route, _ completion: ((Error?) -> Void)?) {
-        let batch = PaceFirestoreAPI.rootRef.batch()
+        let batch = PaceFirebaseAPI.rootRef.batch()
         // Set the data for the new run.
         let runDocumentRef = PaceFirestoreAPI.runsRef.document(run.objectId)
         batch.setData(run.asDictionary, forDocument: runDocumentRef, merge: true)
