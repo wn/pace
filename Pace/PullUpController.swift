@@ -9,7 +9,6 @@
 import UIKit
 
 open class PullUpController: UIViewController {
-
     public enum Action {
         /**
          The action used when the pull up controller's view is added to its parent view

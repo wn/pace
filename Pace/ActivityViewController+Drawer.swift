@@ -11,11 +11,17 @@ import GoogleMaps
 
 // MARK: - Extension for drawer
 extension ActivityViewController {
-    private var pullUpDrawer: DrawerViewController {
-        let currentPullUpController = children
-            .filter({ $0 is DrawerViewController })
-            .first as? DrawerViewController
-        let pullUpController: DrawerViewController = currentPullUpController ?? UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! DrawerViewController
+
+    var currentDrawer: DrawerViewController? {
+        return children.first { $0 is DrawerViewController } as? DrawerViewController
+    }
+
+    var pullUpDrawer: DrawerViewController {
+        let currentPullUpController = children.first { $0 is DrawerViewController } as? DrawerViewController
+        let pullUpController = currentPullUpController ??
+            UIStoryboard(name: Constants.mainStoryboard, bundle: nil)
+            .instantiateViewController(withIdentifier: "SearchViewController")
+            as! DrawerViewController
         if originalPullUpControllerViewSize == .zero {
             originalPullUpControllerViewSize = pullUpController.view.bounds.size
         }
@@ -36,14 +42,7 @@ extension ActivityViewController {
     func renderRoute(_ routes: Set<Route>) {
         // TODO: Render route here
         let route = routes.first!
-        path.removeAllCoordinates()
-        guard let locations = route.creatorRun?.locations else {
-            print("No points exist in the route")
-            return
-        }
-        for point in locations {
-            path.add(point.coordinate)
-        }
+        googleMapView.renderRoute(route)
         showPullUpController()
         pullUpDrawer.routeStats(route)
     }

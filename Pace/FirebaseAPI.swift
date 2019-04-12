@@ -53,7 +53,7 @@ class PaceFirestoreAPI: PaceStorageAPI {
 
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: @escaping RouteResultsHandler) {
-        let geohash = Constants.defaultGridManager!.getGridId(CLLocationCoordinate2D(latitude: latitudeMin, longitude: longitudeMin)).code
+        let geohash = Constants.defaultGridManager.getGridId(CLLocationCoordinate2D(latitude: latitudeMin, longitude: longitudeMin)).code
         print("getting documents for: \n longitude: \(longitudeMin), latitude: \(latitudeMin) \n geohash: \(geohash)")
         let query = PaceFirestoreAPI.routesRef
             .whereField("startingGeohash", isEqualTo: geohash)

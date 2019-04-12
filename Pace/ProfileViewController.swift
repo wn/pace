@@ -62,7 +62,7 @@ class ProfileViewController: UIViewController {
         let loginManager = LoginManager()
         loginManager.logOut()
     }
-    
+
     private func setupNavigation() {
         navigationItem.title = Titles.profile
         let image = UIImage(named: "settings.png")?.withRenderingMode(.alwaysOriginal)
