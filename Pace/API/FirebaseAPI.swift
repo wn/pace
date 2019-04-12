@@ -97,8 +97,9 @@ extension PaceFirebaseAPI: PaceUserAPI {
         return usersRef.document(user.id)
     }
 
-    func authenticate(withFbToken: String) {
-        
+    func authenticate(withFbToken: String, _ completion: @escaping AuthDataResultCallback) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: withFbToken)
+        Auth.auth().signInAndRetrieveData(with: credential, completion: completion)
     }
 
     func findUser(withUID uid: String, orElseCreateWithName name: String, _ completion: @escaping UserResultHandler) {

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10862652088C59101950E3BF /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		10862652088C59101950E3BF /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		119A0BC5BB7EAA25EE7513E5 /* Pods_PaceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 490807CC3ECB2045B2A6315F /* Pods_PaceTests.framework */; };
 		5C5124BB225316FB00B8A15C /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BA225316FB00B8A15C /* Stats.swift */; };
 		5C5124BD2254EE3F00B8A15C /* OngoingRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */; };
@@ -63,7 +63,7 @@
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
 		8BDFFF8A224F4AC400F3BB3A /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF89224F4AC400F3BB3A /* ModelTests.swift */; };
 		D1C3EA3B700D6CDDC9CC72BE /* Pods_Pace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD971726116FC6305B41635 /* Pods_Pace.framework */; };
-		DB5C4B241B44C608D65AF3FA /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		DB5C4B241B44C608D65AF3FA /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		EB22D7F622564FC300D0F69D /* RunnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */; };
 		EB22D7F82257393600D0F69D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7F72257393600D0F69D /* MapView.swift */; };
 		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
@@ -183,7 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10862652088C59101950E3BF /* (null) in Frameworks */,
+				10862652088C59101950E3BF /* BuildFile in Frameworks */,
 				D1C3EA3B700D6CDDC9CC72BE /* Pods_Pace.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,7 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB5C4B241B44C608D65AF3FA /* (null) in Frameworks */,
+				DB5C4B241B44C608D65AF3FA /* BuildFile in Frameworks */,
 				119A0BC5BB7EAA25EE7513E5 /* Pods_PaceTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -672,6 +672,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/FaveButton/FaveButton.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
@@ -694,6 +695,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FaveButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",

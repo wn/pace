@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import Firebase
 
 protocol PaceUserAPI {
     typealias RouteResultsHandler = ([Route]?, Error?) -> Void
     typealias RunResultsHandler = ([Run]?, Error?) -> Void
     typealias UserResultHandler = (User?, Error?) -> Void
     /// Authenticates this user
-    func authenticate(withFbToken: String)
+    func authenticate(withFbToken: String, _ completion: @escaping AuthDataResultCallback)
     /// Finds a user object or creates a new user object with this name
     func findUser(withUID: String, orElseCreateWithName: String, _ completion: @escaping UserResultHandler)
     /// Fetches the favourites of the user with this id
