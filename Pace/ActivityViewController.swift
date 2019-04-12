@@ -4,7 +4,7 @@ import GooglePlaces
 import AVFoundation
 import RealmSwift
 
-class ActivityViewController: UIViewController {
+class ActivityViewController: UIViewController, MapViewiable {
     // MARK: Realm variables
     let userSession = RealmUserSessionManager.forDefaultRealm
     let routesManager = CachingStorageManager.default
@@ -38,16 +38,17 @@ class ActivityViewController: UIViewController {
 
     // Location Manager
     let coreLocationManager = CLLocationManager()
+    var gridMapManager = Constants.defaultGridManager
+    var routesInGrid: [GridNumber: RouteMarkers] = [:]
 
     // MARK: Map variables
     @IBOutlet var googleMapView: MapView!
-    var gridMapManager = Constants.defaultGridManager
-    var routesInGrid: [GridNumber: RouteMarkers] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
-        googleMapView.setup(self)
+        let mapViewDelegate = MapViewDelegate(self)
+        googleMapView.setup(mapViewDelegate)
         notificationToken = routes.observe { [weak self]changes in
             guard let map = self?.googleMapView else {
                 print("MAP NOT RENDERED YET")
@@ -95,16 +96,16 @@ class ActivityViewController: UIViewController {
         coreLocationManager.requestAlwaysAuthorization()
         coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         coreLocationManager.requestLocation()
-        while coreLocationManager.location == nil {
-            // Wait 1 second and check if location has been loaded.
-            // If location cannot be loaded, code here will never terminate
-            // TODO: FIX ABOVE
-            sleep(1)
-        }
-        guard let location = coreLocationManager.location else {
-            fatalError("While loop should have captured nil value!")
-        }
-        googleMapView.setCameraPosition(location.coordinate)
+//        while coreLocationManager.location == nil {
+//            // Wait 1 second and check if location has been loaded.
+//            // If location cannot be loaded, code here will never terminate
+//            // TODO: FIX ABOVE
+//            sleep(1)
+//        }
+//        guard let location = coreLocationManager.location else {
+//            fatalError("While loop should have captured nil value!")
+//        }
+//        googleMapView.setCameraPosition(location.coordinate)
     }
 
     func updateDistanceTravelled() {
@@ -120,7 +121,7 @@ class ActivityViewController: UIViewController {
         paceLabel.text = "Pace: \(paceValue) seconds /km"
     }
 
-    private func redrawMarkers() {
+    func redrawMarkers() {
         let grids = googleMapView.viewingGrids
         renderRouteMarkers(grids)
         fetchRoutes(grids)
@@ -153,7 +154,7 @@ class ActivityViewController: UIViewController {
 }
 
 // MARK: - GMSMapViewDelegate
-extension ActivityViewController: GMSMapViewDelegate {
+extension ActivityViewController {
     private func renderMapButton() {
         let startXPos = googleMapView.layer.frame.midX
         let startYPos = googleMapView.frame.height - mapButton.frame.height
@@ -167,43 +168,6 @@ extension ActivityViewController: GMSMapViewDelegate {
         let startImage = UIImage(named: imageUrl)
         mapButton.setImage(startImage, for: .normal)
         mapButton.addTarget(self, action: action, for: .touchUpInside)
-    }
-
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        let gridNumber = gridMapManager.getGridId(marker.position)
-        guard
-            let routeMarkers = routesInGrid[gridNumber],
-            let routes = routeMarkers.getRoutes(marker)
-            else {
-                fatalError("Created marker should be associated to a route.")
-        }
-        renderRoute(routes)
-        return true
-    }
-
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        guard !runStarted else {
-            // If run has started, we do not perform any action.
-            return
-        }
-        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
-            googleMapView.clear()
-            if let drawer = currentDrawer {
-                removePullUpController(drawer, animated: true)
-            }
-            print("ZOOM LEVEL: \(googleMapView.zoom) | ZOOM IN TO VIEW MARKERS")
-            return
-        }
-        redrawMarkers()
-    }
-
-    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        guard let location = coreLocationManager.location else {
-            return false
-        }
-        mapView.setCameraPosition(location.coordinate)
-        mapView.animate(toZoom: Constants.initialZoom)
-        return true
     }
 }
 
