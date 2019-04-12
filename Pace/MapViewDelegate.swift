@@ -1,28 +1,30 @@
 import UIKit
 import GoogleMaps
 
-class MapViewDelegate: NSObject, GMSMapViewDelegate {
+class MapViewDelegate: NSObject {
     var gridMapManager = Constants.defaultGridManager
-    let delegate: MapViewiable
+    weak var delegate: MapViewiable? = nil
 
-    init(_ delegate: MapViewiable) {
-        self.delegate = delegate
+    var location: CLLocation? {
+        return delegate?.coreLocationManager.location
     }
+}
 
+extension MapViewDelegate: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         let gridNumber = gridMapManager.getGridId(marker.position)
         guard
-            let routeMarkers = delegate.routesInGrid[gridNumber],
+            let routeMarkers = delegate?.routesInGrid[gridNumber],
             let routes = routeMarkers.getRoutes(marker)
             else {
                 fatalError("Created marker should be associated to a route.")
         }
-        delegate.renderRoute(routes)
+        delegate?.renderRoute(routes)
         return true
     }
 
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        guard !delegate.runStarted else {
+        guard delegate?.runStarted == false else {
             print(1)
             // If run has started, we do not perform any action.
             return
@@ -30,14 +32,14 @@ class MapViewDelegate: NSObject, GMSMapViewDelegate {
         guard mapView.camera.zoom > Constants.minZoomToShowRoutes else {
             print(2)
             mapView.clear()
-            if let drawer = delegate.currentDrawer {
+            if let drawer = delegate?.currentDrawer {
                 print(3)
-                delegate.removePullUpController(drawer, animated: true)
+                delegate?.removePullUpController(drawer, animated: true)
             }
             print("ZOOM LEVEL: \(mapView.camera.zoom) | ZOOM IN TO VIEW MARKERS")
             return
         }
-        delegate.redrawMarkers()
+        delegate?.redrawMarkers()
     }
 
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
@@ -49,13 +51,9 @@ class MapViewDelegate: NSObject, GMSMapViewDelegate {
         mapView.animate(toZoom: Constants.initialZoom)
         return true
     }
-
-    var location: CLLocation? {
-        return delegate.coreLocationManager.location
-    }
 }
 
-protocol MapViewiable {
+protocol MapViewiable: class {
     var runStarted: Bool {get}
     func renderRoute(_ routes: Set<Route>)
     func redrawMarkers()

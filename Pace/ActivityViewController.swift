@@ -47,8 +47,13 @@ class ActivityViewController: UIViewController, MapViewiable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocationManager()
-        let mapViewDelegate = MapViewDelegate(self)
+        let mapViewDelegate = MapViewDelegate()
+        mapViewDelegate.delegate = self
         googleMapView.setup(mapViewDelegate)
+        googleMapView.delegate = mapViewDelegate
+        print("FUCK")
+        print(googleMapView.delegate)
+        print(mapViewDelegate.delegate)
         notificationToken = routes.observe { [weak self]changes in
             guard let map = self?.googleMapView else {
                 print("MAP NOT RENDERED YET")

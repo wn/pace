@@ -278,6 +278,7 @@
 			children = (
 				8B2638DA225B979B004B52AB /* GridMap.swift */,
 				8B2638D8225B978F004B52AB /* GeoHash.swift */,
+				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
 				EBF87D77225CE9F0001B4056 /* GPSStrengthIndicator.swift */,
 			);
 			name = GridMapPod;
@@ -289,7 +290,6 @@
 				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
 				EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */,
 				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
-				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
 				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
 				EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */,
 				EB22D7F72257393600D0F69D /* MapView.swift */,
