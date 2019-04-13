@@ -18,9 +18,10 @@ struct Constants {
     static let mapAspectRatio: Double = 4 / 3
     // Horizontal accuracy must be greater than guardDistance for map to update
     static let guardAccuracy: CLLocationDistance = 25
-    static let minZoom: Float = 1.5
-    static let maxZoom: Float = 18.5
+    static let minZoom: Int = 2
+    static let maxZoom: Int = 19
     static let minZoomToShowRoutes: Float = 15
+    static let zoomLevels = [5,8,11,14,17,Constants.maxZoom]
 
     // MARK: - Run constants
     static let startFlag = "start-flag.png"
