@@ -14,7 +14,7 @@ import Firebase
 
 class Run: IdentifiableObject {
     @objc dynamic var realmCameraPosition: RealmGMSCameraPosition?
-    @objc dynamic var runner: User?
+    @objc dynamic var runner: UserReference?
     @objc dynamic var dateCreated = Date()
     @objc dynamic var timeSpent: Double = 0.0
     @objc dynamic var distance: Double = 0.0
@@ -53,7 +53,7 @@ class Run: IdentifiableObject {
     /// - Parameters:
     ///   - runner: The runner of this Run.
     ///   - checkpoints: The array of normalized checkpoints for this Run.
-    convenience init(runner: User, checkpoints: [CheckPoint], thumbnail: Data? = nil) {
+    convenience init(runner: UserReference, checkpoints: [CheckPoint], thumbnail: Data? = nil) {
         self.init()
         guard let lastPoint = checkpoints.last else {
             return

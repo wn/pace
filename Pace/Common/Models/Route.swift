@@ -11,7 +11,7 @@ import CoreLocation
 import RealmSwift
 
 class Route: IdentifiableObject {
-    @objc dynamic var creator: User?
+    @objc dynamic var creator: UserReference?
     @objc dynamic var name: String = ""
     @objc dynamic var thumbnailData: Data?
     @objc dynamic var creatorRun: Run?
@@ -32,7 +32,7 @@ class Route: IdentifiableObject {
     ///   - creator: The creator of the route.
     ///   - name: The name of the route.
     ///   - creatorRun: The first run in the route (made by creator).
-    convenience init(creator: User, name: String, thumbnail: Data? = nil, creatorRun: Run, paces: List<Run>) {
+    convenience init(creator: UserReference, name: String, thumbnail: Data? = nil, creatorRun: Run, paces: List<Run>) {
         assert(paces.contains(creatorRun))
         self.init()
         self.creator = creator
@@ -47,7 +47,7 @@ class Route: IdentifiableObject {
     ///   - creator: The creator of the route.
     ///   - name: The name of the route.
     ///   - creatorRun: The first run in the route (made by creator).
-    convenience init(creator: User, name: String, thumbnail: Data? = nil, creatorRun: Run) {
+    convenience init(creator: UserReference, name: String, thumbnail: Data? = nil, creatorRun: Run) {
         self.init(creator: creator, name: name, thumbnail: thumbnail, creatorRun: creatorRun, paces: List(creatorRun))
     }
 
@@ -57,9 +57,10 @@ class Route: IdentifiableObject {
     ///   - runner: The runner of these records.
     ///   - runnerRecord: The pre-normalized checkpoints representing the run.
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
-        let initialRun = Run(runner: runner, checkpoints: Route.initialNormalize(runnerRecords))
+        let creator = UserReference(fromUser: runner)
+        let initialRun = Run(runner: creator, checkpoints: Route.initialNormalize(runnerRecords))
         // TODO: use real name for route
-        self.init(creator: runner, name: Date().debugDescription, creatorRun: initialRun)
+        self.init(creator: creator, name: Date().debugDescription, creatorRun: initialRun)
     }
 
     /// Add a new run to this Route.
@@ -73,7 +74,7 @@ class Route: IdentifiableObject {
     /// Generates stats for this route.
     /// - Returns: The RouteStats if all stats can be obtained; nil otherwise.
     func generateStats() -> RouteStats? {
-        var runners = Set<User>()
+        var runners = Set<UserReference>()
         for run in paces {
             guard let runner = run.runner else {
                 fatalError("A run should have a runner.")

@@ -13,9 +13,7 @@ import FacebookLogin
 import FacebookCore
 
 class RequireLoginController: UIViewController, LoginButtonDelegate {
-
     var fbLoginButton: LoginButton?
-    var userSession: UserSessionManager?
     var user: User?
 
     /// Handles requirement for user to be logged in

@@ -10,11 +10,20 @@ import RealmSwift
 
 protocol UserSessionManager {
     typealias BooleanHandler = (Bool) -> Void
+    /// The current user in thie session.
     var currentUser: User? { get }
-    func signInAs(user: User?)
+    /// The callback to perform when signed in
+    func onSignedInAs(user: User?)
+    /// Finds a user with an identifies, or optionally signs up the user/
     func findUserWith(name: String, orSignUp: Bool) -> User?
+
     func getFavouriteRoutes() -> List<Route>?
+
+    /// Adds to the favourites of the current user.
     func addToFavourites(route: Route, _ completion: BooleanHandler?)
+
+    /// Removes the favourites from the current user.
+    func removeFromFavourites(route: Route, _ completion: BooleanHandler?)
 }
 
 class RealmUserSessionManager: UserSessionManager {
@@ -22,15 +31,19 @@ class RealmUserSessionManager: UserSessionManager {
 
     private(set) var currentUser: User?
 
-    private var realm: Realm
+    private var storageManager: RealmStorageManager
 
-    init(realm: Realm = .persistent) {
-        self.realm = realm
-        // TODO: Proper persistence. Should be able to be handled with Realm Sync.
-        signInAs(user: realm.objects(User.self).first)
+    private var realm: Realm {
+        return storageManager.persistentRealm
     }
 
-    func signInAs(user: User?) {
+    init(storageManager: RealmStorageManager = CachingStorageManager.default) {
+        self.storageManager = storageManager
+        // TODO: Proper persistence. Should be able to be handled with Realm Sync.
+        onSignedInAs(user: storageManager.persistentRealm.objects(User.self).first)
+    }
+
+    func onSignedInAs(user: User?) {
         currentUser = user
     }
 
@@ -53,17 +66,32 @@ class RealmUserSessionManager: UserSessionManager {
     }
 
     func addToFavourites(route: Route, _ completion: BooleanHandler?) {
+        var success = true
         do {
-            guard let userFavourites = getFavouriteRoutes() else {
+            guard let currentUser = currentUser else {
+                print("user not found")
                 throw NSError()
             }
-            try Realm.persistent.write {
-                userFavourites.append(route)
-            }
-            completion?(true)
+            storageManager.addFavouriteRoute(route, toUser: currentUser)
         } catch {
             print("Operation unsuccessful: \(error.localizedDescription)")
-            completion?(false)
+            success = false
         }
+        completion?(success)
+    }
+
+    func removeFromFavourites(route: Route, _ completion: BooleanHandler?) {
+        var success = true
+        do {
+            guard let currentUser = currentUser else {
+                print("user not found")
+                throw NSError()
+            }
+            storageManager.removeFavouriteRoute(route, fromUser: currentUser)
+        } catch {
+            print("Operation unsuccessful: \(error.localizedDescription)")
+            success = false
+        }
+        completion?(success)
     }
 }

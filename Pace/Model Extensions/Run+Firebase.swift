@@ -11,28 +11,28 @@ import Firebase
 extension Run: FirebaseStorable {
     var asDictionary: [String: Any] {
         return [
-            "runnerId": runner?.objectId ?? "",
             "runnerName": runner?.name ?? "",
-            "routeId": route.objectId,
+            "runnerId": runner?.id ?? "",
+            "routeId": route.id,
             "dateCreated": Timestamp(date: dateCreated),
             "checkPoints": Array(checkpoints.map { $0.asDictionary })
         ]
     }
 
-    static func fromDictionary(objectId: String?, value: [String: Any]) -> Run? {
+    static func fromDictionary(id: String?, value: [String: Any]) -> Run? {
         guard
             let runnerId = value["runnerId"] as? String,
             let runnerName = value["runnerName"] as? String,
             let checkPoints = value["checkPoints"] as? [[String: Any]],
             let dateCreated = value["dateCreated"] as? Timestamp,
-            let objectId = objectId
+            let id = id
             else {
                 return nil
         }
-        let realmCheckpoints = checkPoints.compactMap { CheckPoint.fromDictionary(objectId: nil, value: $0) }
+        let realmCheckpoints = checkPoints.compactMap { CheckPoint.fromDictionary(id: nil, value: $0) }
         let run = Run(runner: UserReference(name: runnerName, id: runnerId), checkpoints: realmCheckpoints)
         run.dateCreated = dateCreated.dateValue()
-        run.objectId = objectId
+        run.id = id
         return run
     }
 }

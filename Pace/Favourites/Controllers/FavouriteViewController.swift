@@ -50,9 +50,9 @@ class FavouriteViewController: RequireLoginController {
                                actualDistance: 1.2,
                                routeDistance: 1.2)
         for _ in 0...4 {
-            let route = Route(creator: user,
+            let route = Route(creator: UserReference(fromUser: user),
                               name: "Random name",
-                              creatorRun: Run(runner: user, checkpoints: [startCp, endCp]))
+                              creatorRun: Run(runner: UserReference(fromUser: user), checkpoints: [startCp, endCp]))
             routes.append(route)
         }
         //        notificationToken = favouriteRoutes.observe { [unowned self] _ in

@@ -43,17 +43,23 @@
 		8B2638D9225B978F004B52AB /* GeoHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2638D8225B978F004B52AB /* GeoHash.swift */; };
 		8B2638DB225B979B004B52AB /* GridMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2638DA225B979B004B52AB /* GridMap.swift */; };
 		8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B59BE58223CD81100C2E9E7 /* Secrets.swift */; };
+		8B9E8C2B226074D70067A556 /* User+FIrebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C2A226074D70067A556 /* User+FIrebase.swift */; };
+		8B9E8C3A2261E3FE0067A556 /* Route+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C352261E3FD0067A556 /* Route+Firebase.swift */; };
+		8B9E8C3B2261E3FE0067A556 /* FirebaseStorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C362261E3FD0067A556 /* FirebaseStorable.swift */; };
+		8B9E8C3C2261E3FE0067A556 /* Run+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C372261E3FE0067A556 /* Run+Firebase.swift */; };
+		8B9E8C3D2261E3FE0067A556 /* RealmCLLocation+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C382261E3FE0067A556 /* RealmCLLocation+Firebase.swift */; };
+		8B9E8C3E2261E3FE0067A556 /* CheckPoint+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C392261E3FE0067A556 /* CheckPoint+Firebase.swift */; };
+		8B9E8C422261E4C40067A556 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C412261E4C40067A556 /* UserAPI.swift */; };
+		8B9E8C452261EB2D0067A556 /* UserReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C442261EB2C0067A556 /* UserReference.swift */; };
+		8B9E8C472261F66F0067A556 /* StorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C462261F66F0067A556 /* StorageAPI.swift */; };
+		8B9E8C49226210A30067A556 /* User+FIrebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C48226210A30067A556 /* User+FIrebase.swift */; };
+		8B9E8C4B226211E60067A556 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C4A226211E60067A556 /* Observable.swift */; };
 		8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */; };
 		8BD4C56F224F68BB00D0CEC7 /* List+Constructors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */; };
 		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
 		8BD4C5802250FAB200D0CEC7 /* RealmStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C57F2250FAB200D0CEC7 /* RealmStorageManager.swift */; };
 		8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */; };
 		8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */; };
-		8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */; };
-		8BD4C5902256802100D0CEC7 /* Run+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */; };
-		8BD4C5922256806200D0CEC7 /* CheckPoint+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */; };
-		8BD4C5942256808000D0CEC7 /* Route+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */; };
-		8BD4C596225680C600D0CEC7 /* RealmCLLocation+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */; };
 		8BD4C59A2257B4BF00D0CEC7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BD4C5992257B4BF00D0CEC7 /* GoogleService-Info.plist */; };
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
 		8BDFFF8A224F4AC400F3BB3A /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF89224F4AC400F3BB3A /* ModelTests.swift */; };
@@ -128,6 +134,21 @@
 		8B2638D8225B978F004B52AB /* GeoHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoHash.swift; sourceTree = "<group>"; };
 		8B2638DA225B979B004B52AB /* GridMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridMap.swift; sourceTree = "<group>"; };
 		8B59BE58223CD81100C2E9E7 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		8B9E8C2522606E790067A556 /* StorageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
+		8B9E8C272260713E0067A556 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		8B9E8C2A226074D70067A556 /* User+FIrebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+FIrebase.swift"; path = "Pace/User+FIrebase.swift"; sourceTree = SOURCE_ROOT; };
+		8B9E8C352261E3FD0067A556 /* Route+Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Route+Firebase.swift"; sourceTree = "<group>"; };
+		8B9E8C362261E3FD0067A556 /* FirebaseStorable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorable.swift; sourceTree = "<group>"; };
+		8B9E8C372261E3FE0067A556 /* Run+Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Run+Firebase.swift"; sourceTree = "<group>"; };
+		8B9E8C382261E3FE0067A556 /* RealmCLLocation+Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RealmCLLocation+Firebase.swift"; sourceTree = "<group>"; };
+		8B9E8C392261E3FE0067A556 /* CheckPoint+Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CheckPoint+Firebase.swift"; sourceTree = "<group>"; };
+		8B9E8C412261E4C40067A556 /* UserAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAPI.swift; path = Pace/API/Protocol/UserAPI.swift; sourceTree = SOURCE_ROOT; };
+		8B9E8C442261EB2C0067A556 /* UserReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserReference.swift; path = Pace/Common/Models/UserReference.swift; sourceTree = SOURCE_ROOT; };
+		8B9E8C462261F66F0067A556 /* StorageAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
+		8B9E8C48226210A30067A556 /* User+FIrebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+FIrebase.swift"; path = "Pace/API/User+FIrebase.swift"; sourceTree = SOURCE_ROOT; };
+		8B9E8C4A226211E60067A556 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Observable.swift; path = Pace/Common/Helpers/Observable.swift; sourceTree = SOURCE_ROOT; };
+		8BA19E99225CDFDF009104F2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		8BA19EA1225E5B7A009104F2 /* UserReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReference.swift; sourceTree = "<group>"; };
 		8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableObject.swift; sourceTree = "<group>"; };
 		8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+Constructors.swift"; sourceTree = "<group>"; };
 		8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
@@ -232,6 +253,7 @@
 		62E626C62261BA58009079F5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				8B9E8C4A226211E60067A556 /* Observable.swift */,
 				62FF753122495E36008847CC /* ViewDelegate.swift */,
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
@@ -337,12 +359,14 @@
 		62E626D22261BD13009079F5 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */,
+				8B9E8C432261E9BE0067A556 /* Protocol */,
+				8B9E8C392261E3FE0067A556 /* CheckPoint+Firebase.swift */,
+				8B9E8C362261E3FD0067A556 /* FirebaseStorable.swift */,
+				8B9E8C382261E3FE0067A556 /* RealmCLLocation+Firebase.swift */,
+				8B9E8C352261E3FD0067A556 /* Route+Firebase.swift */,
+				8B9E8C372261E3FE0067A556 /* Run+Firebase.swift */,
+				8B9E8C48226210A30067A556 /* User+FIrebase.swift */,
 				8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */,
-				8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */,
-				8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */,
-				8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */,
-				8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -351,16 +375,17 @@
 			isa = PBXGroup;
 			children = (
 				62E626D42261BD60009079F5 /* Manager */,
-				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
-				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
-				8B044D34223F7C0600AA8449 /* Route.swift */,
-				5C5124BA225316FB00B8A15C /* Stats.swift */,
-				8BDFFF87224F482000F3BB3A /* Run.swift */,
-				5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */,
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
+				62FF750B22413F73008847CC /* CLLocation+Extension.swift */,
+				62FAA7382258797200906B32 /* GMSCameraPosition+Extension.swift */,
 				8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
 				8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */,
-				62FAA7382258797200906B32 /* GMSCameraPosition+Extension.swift */,
+				5C5124BC2254EE3F00B8A15C /* OngoingRun.swift */,
+				8B044D34223F7C0600AA8449 /* Route.swift */,
+				8BDFFF87224F482000F3BB3A /* Run.swift */,
+				5C5124BA225316FB00B8A15C /* Stats.swift */,
+				5C8E42D9223CCA0D00DEC2F4 /* User.swift */,
+				8B9E8C442261EB2C0067A556 /* UserReference.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -398,6 +423,32 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8B9E8C342261E2D10067A556 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				8BD4C5912256806200D0CEC7 /* CheckPoint+Firebase.swift */,
+				8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */,
+				8BA19EA1225E5B7A009104F2 /* UserReference.swift */,
+				8BA19E99225CDFDF009104F2 /* Observable.swift */,
+				8B9E8C272260713E0067A556 /* UserAPI.swift */,
+				8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */,
+				8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */,
+				8B9E8C2522606E790067A556 /* StorageAPI.swift */,
+				8B9E8C2A226074D70067A556 /* User+FIrebase.swift */,
+				8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		8B9E8C432261E9BE0067A556 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				8B9E8C462261F66F0067A556 /* StorageAPI.swift */,
+				8B9E8C412261E4C40067A556 /* UserAPI.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		B43B53A6159F85956675C522 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +466,7 @@
 				EB931BC02238066500AFF868 /* Products */,
 				81E8E91CCDCB9BB312FAC8AB /* Pods */,
 				B43B53A6159F85956675C522 /* Frameworks */,
+				8B9E8C342261E2D10067A556 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -735,50 +787,56 @@
 				62559671225492C90036C2B9 /* StopwatchTimer.swift in Sources */,
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
 				EB22D7F82257393600D0F69D /* MapView.swift in Sources */,
+				8B9E8C3D2261E3FE0067A556 /* RealmCLLocation+Firebase.swift in Sources */,
 				62FF753222495E36008847CC /* ViewDelegate.swift in Sources */,
 				625596752254AE050036C2B9 /* RouteCollectionViewCell.swift in Sources */,
-				8BD4C5922256806200D0CEC7 /* CheckPoint+Firebase.swift in Sources */,
 				5C5124BB225316FB00B8A15C /* Stats.swift in Sources */,
 				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
 				EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */,
 				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
+				8B9E8C452261EB2D0067A556 /* UserReference.swift in Sources */,
+				8B9E8C472261F66F0067A556 /* StorageAPI.swift in Sources */,
 				5C5124BD2254EE3F00B8A15C /* OngoingRun.swift in Sources */,
+				8B9E8C4B226211E60067A556 /* Observable.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				EBF87D7C225E36F9001B4056 /* RouteMarkers.swift in Sources */,
 				8B2638DB225B979B004B52AB /* GridMap.swift in Sources */,
-				8BD4C58E2255213D00D0CEC7 /* FirebaseStorable.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+TransitioningDelegate.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */,
+				8B9E8C49226210A30067A556 /* User+FIrebase.swift in Sources */,
 				8BD4C5802250FAB200D0CEC7 /* RealmStorageManager.swift in Sources */,
 				8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */,
 				62667BEA225B4FE6001561EF /* RunCollectionController.swift in Sources */,
+				8B9E8C3B2261E3FE0067A556 /* FirebaseStorable.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
 				EB5E42DC2253CEF400A60207 /* DrawerViewController.swift in Sources */,
 				62FAA73122579C3B00906B32 /* UIView+Extensions.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
+				8B9E8C3A2261E3FE0067A556 /* Route+Firebase.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
+				8B9E8C422261E4C40067A556 /* UserAPI.swift in Sources */,
 				EB22D7F622564FC300D0F69D /* RunnerTableViewCell.swift in Sources */,
 				EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,
 				62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */,
+				8B9E8C3E2261E3FE0067A556 /* CheckPoint+Firebase.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				62FF752E22495B54008847CC /* RunCollectionViewCell.swift in Sources */,
 				62667BE8225A02A5001561EF /* GraphModePickerController.swift in Sources */,
 				62FAA7372257F33D00906B32 /* RunnerMarker.swift in Sources */,
-				8BD4C596225680C600D0CEC7 /* RealmCLLocation+Firebase.swift in Sources */,
 				EBF87D78225CE9F0001B4056 /* GPSStrengthIndicator.swift in Sources */,
-				8BD4C5942256808000D0CEC7 /* Route+Firebase.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
+				8B9E8C2B226074D70067A556 /* User+FIrebase.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */,
 				8B2638D9225B978F004B52AB /* GeoHash.swift in Sources */,
+				8B9E8C3C2261E3FE0067A556 /* Run+Firebase.swift in Sources */,
 				EB5E42E12255015A00A60207 /* ActivityViewController+Drawer.swift in Sources */,
 				8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */,
 				62A7C5C0224F4D32009585D3 /* RunAnalysisController.swift in Sources */,
-				8BD4C5902256802100D0CEC7 /* Run+Firebase.swift in Sources */,
 				62FAA72D2257548D00906B32 /* RunGraphView.swift in Sources */,
 				8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */,
 				6255967322549B2D0036C2B9 /* Formatter.swift in Sources */,
@@ -950,7 +1008,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -971,7 +1029,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

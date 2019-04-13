@@ -45,9 +45,9 @@ class ProfileViewController: UIViewController {
             CheckPoint(location: loc5, time: 15, actualDistance: 2_053, routeDistance: 2_053))
 
         for idx in 0...5 {
-            let run = Run(runner: Dummy.user, checkpoints: checkpoints)
+            let run = Run(runner: UserReference(fromUser: Dummy.user), checkpoints: checkpoints)
             if idx == 0 {
-                route = Route(creator: Dummy.user, name: "Fun Run", creatorRun: run)
+                route = Route(creator: UserReference(fromUser: Dummy.user), name: "Fun Run", creatorRun: run)
             } else {
                 route?.addNewRun(run)
             }
