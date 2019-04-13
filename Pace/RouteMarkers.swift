@@ -7,7 +7,9 @@ import GoogleMaps
 /// view controller.
 class RouteMarkers {
     var routes = Set<Route>()
-    var markers = Set<GMSMarker>()
+    var markers: [GMSMarker] {
+        return Array(routesInMarker.keys)
+    }
     var routesInMarker: [GMSMarker: Set<Route>] = [:]
     let map: MapView
 
@@ -17,13 +19,10 @@ class RouteMarkers {
 
     func insertRoute(_ route: Route) {
         routes.insert(route)
-        guard markers.count < 20 else { // TODO
-            recalibrateMarkers()
-            return
-        }
         var newRoutes = Set<Route>()
         newRoutes.insert(route)
         generateRouteMarker(routes: newRoutes)
+        recalibrateMarkers()
     }
 
     func getRoutes(_ marker: GMSMarker) -> Set<Route>? {
@@ -34,20 +33,56 @@ class RouteMarkers {
     func recalibrateMarkers() {
         resetMarkers()
         calibrateMarkers()
+        setImage()
+        print("Recalibrated")
+    }
+
+    private func setImage() {
+        for (marker, routes) in routesInMarker {
+            let count = routes.count
+            if count < 18 {
+                marker.icon = UIImage(named: "\(routes.count)")
+            } else {
+                marker.icon = UIImage(named: Constants.startFlag)
+            }
+        }
     }
 
     private func resetMarkers() {
         derenderMarkers()
+        map.clear()
         routesInMarker = [:]
-        markers = Set()
     }
 
     private func calibrateMarkers() {
+        let collapseLength = map.diameter / 20
+        print(collapseLength)
         for route in routes {
-            var newRoutes = Set<Route>()
-            newRoutes.insert(route)
-            generateRouteMarker(routes: newRoutes)
+            if let nearestMarker = getNearestMarker(route.startingLocation!.coordinate, dist: collapseLength) {
+                routesInMarker[nearestMarker]!.insert(route)
+                print("YAY")
+            } else {
+                var newRoutes = Set<Route>()
+                newRoutes.insert(route)
+                generateRouteMarker(routes: newRoutes)
+            }
         }
+    }
+
+    private func getNearestMarker(_ point: CLLocationCoordinate2D, dist minDist: CLLocationDegrees) -> GMSMarker? {
+        var nearestMarker: GMSMarker? = nil
+        var distance: CLLocationDegrees = Double.infinity
+        for (marker, _) in routesInMarker {
+            let currentDistance = marker.position.distance(point)
+            if currentDistance < distance {
+                nearestMarker = marker
+                distance = currentDistance
+            }
+        }
+        guard distance < minDist else {
+            return nil
+        }
+        return nearestMarker
     }
 
     func renderMarkers() {
@@ -63,8 +98,14 @@ class RouteMarkers {
             return
         }
         let marker = GMSMarker(position: location.coordinate)
-        marker.icon = UIImage(named: "\(17)") // TODO
         routesInMarker[marker] = routes
-        markers.insert(marker)
+    }
+}
+
+extension CLLocationCoordinate2D {
+    func distance(_ point: CLLocationCoordinate2D) -> CLLocationDistance {
+        let locationX = CLLocation(latitude: latitude, longitude: longitude)
+        let locationY = CLLocation(latitude: point.latitude, longitude: point.longitude)
+        return locationX.distance(from: locationY)
     }
 }

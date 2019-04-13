@@ -11,6 +11,7 @@ class ActivityViewController: UIViewController {
     let routes = CachingStorageManager.default.inMemoryRealm.objects(Route.self)
     var notificationToken: NotificationToken?
     var isConnectedToInternet = true
+    var loadedData = false
 
     // MARK: Drawer variable
     var originalPullUpControllerViewSize: CGSize = .zero
@@ -76,6 +77,7 @@ class ActivityViewController: UIViewController {
                         return
                     }
                     routeMarkers.insertRoute(newRoute)
+                    print(1)
                 }
             case .error:
                 print("FUCKING ERROR")
@@ -127,28 +129,45 @@ class ActivityViewController: UIViewController {
     }
 
     private func fetchRoutes(_ gridNumbers: [GridNumber]) {
-        for gridNumber in gridNumbers where routesInGrid[gridNumber] == nil {
-            let bound = gridMapManager.getBounds(gridId: gridNumber)
-            routesManager.fetchRoutesWithin(
-                latitudeMin: bound.minLat,
-                latitudeMax: bound.maxLat,
-                longitudeMin: bound.minLong,
-                longitudeMax: bound.maxLong) {
+        guard loadedData == false else {
+            return
+        }
+        routesManager.fetchRoutesWithin(
+            latitudeMin: -90,
+            latitudeMax: 90,
+            longitudeMin: -180,
+            longitudeMax: 180) {
                 if let error = $0 {
                     print(error.localizedDescription)
                 }
-            }
         }
+//
+//        for gridNumber in gridNumbers where routesInGrid[gridNumber] == nil {
+//            let bound = gridMapManager.getBounds(gridId: gridNumber)
+//            routesManager.fetchRoutesWithin(
+//                latitudeMin: bound.minLat,
+//                latitudeMax: bound.maxLat,
+//                longitudeMin: bound.minLong,
+//                longitudeMax: bound.maxLong) {
+//                if let error = $0 {
+//                    print(error.localizedDescription)
+//                }
+//            }
+//        }
     }
 
     private func renderRouteMarkers(_ gridNumbers: [GridNumber]) {
-        for gridNumber in gridNumbers {
-            guard let routeMarker = routesInGrid[gridNumber] else {
-                print("NO markers rendered in gridNumber")
-                continue
-            }
-            routeMarker.renderMarkers()
+        for (_, rm) in routesInGrid {
+            rm.recalibrateMarkers()
+            rm.renderMarkers()
         }
+//        for gridNumber in gridNumbers {
+//            guard let routeMarker = routesInGrid[gridNumber] else {
+//                // print("NO markers rendered in gridNumber")
+//                continue
+//            }
+//            routeMarker.renderMarkers()
+//        }
     }
 }
 
@@ -186,14 +205,14 @@ extension ActivityViewController: GMSMapViewDelegate {
             // If run has started, we do not perform any action.
             return
         }
-        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
-            googleMapView.clear()
-            if let drawer = currentDrawer {
-                removePullUpController(drawer, animated: true)
-            }
-            print("ZOOM LEVEL: \(googleMapView.zoom) | ZOOM IN TO VIEW MARKERS")
-            return
-        }
+//        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
+//            googleMapView.clear()
+//            if let drawer = currentDrawer {
+//                removePullUpController(drawer, animated: true)
+//            }
+//            print("ZOOM LEVEL: \(googleMapView.zoom) | ZOOM IN TO VIEW MARKERS")
+//            return
+//        }
         redrawMarkers()
     }
 

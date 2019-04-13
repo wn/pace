@@ -30,8 +30,8 @@ struct Constants {
     static let startButton = "start-icon.png"
     static let endButton = "end-icon.png"
 
-    static let gridWidth: Double = 300
-    static let gridHeight: Double = 300
+    static let gridWidth: Double = 100000
+    static let gridHeight: Double = 1000000
 
     // MARK: - Default objects
     static var defaultGridManager: GridMap {

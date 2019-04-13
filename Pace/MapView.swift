@@ -93,9 +93,10 @@ class MapView: GMSMapView {
     }
 
     var viewingGrids: [GridNumber] {
-        guard zoom > Constants.minZoomToShowRoutes else {
-            return []
-        }
+//        guard zoom > Constants.minZoomToShowRoutes else {
+//            return []
+//        }
+        return []
         return gridMapManager.getBoundedGrid(projectedMapBound)
     }
 
@@ -109,5 +110,9 @@ class MapView: GMSMapView {
         let bottomLeft = projection.visibleRegion().nearLeft
         let bottomRight = projection.visibleRegion().nearRight
         return GridBound(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
+    }
+
+    var diameter: CLLocationDistance {
+        return projectedMapBound.diameter
     }
 }
