@@ -14,11 +14,11 @@ protocol PaceUserAPI {
     typealias RunResultsHandler = ([Run]?, Error?) -> Void
     typealias UserResultsHandler = (User?, Error?) -> Void
     /// Fetches the favourite routes for the user.
-    func fetchFavouriteRoutesForUser(_ user: User, _ completion: @escaping RouteResultsHandler)
+    func fetchFavourites(userId: String, _ completion: @escaping RouteResultsHandler)
     /// Fetches the run history for this user.
-    func fetchUserHistory(_ user: User, _ completion: @escaping RunResultsHandler)
+    func fetchHistory(userId: String, _ completion: @escaping RunResultsHandler)
     /// Finds or creates a user object on the cloud storage.
     func findUser(withUID userId: String, orCreateWithName name: String, _ completion: @escaping UserResultsHandler)
     /// Authenticate
-    func authenticate(withFbToken: String)
 }
+

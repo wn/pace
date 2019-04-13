@@ -51,7 +51,7 @@ class PaceFirebaseAPI: PaceStorageAPI {
     }
 
     func fetchRunsForRoute(_ route: Route, _ completion: @escaping RunResultsHandler) {
-        let query = PaceFirestoreAPI.runsRef
+        let query = PaceFirebaseAPI.runsRef
             .whereField("routeId", isEqualTo: route.objectId)
         query.getDocuments { snapshot, err in
             let runs = snapshot.map {
@@ -77,10 +77,10 @@ class PaceFirebaseAPI: PaceStorageAPI {
     func uploadRun(_ run: Run, forRoute route: Route, _ completion: ((Error?) -> Void)?) {
         let batch = PaceFirebaseAPI.rootRef.batch()
         // Set the data for the new run.
-        let runDocumentRef = PaceFirestoreAPI.runsRef.document(run.objectId)
+        let runDocumentRef = PaceFirebaseAPI.runsRef.document(run.objectId)
         batch.setData(run.asDictionary, forDocument: runDocumentRef, merge: true)
         // Add the pace into the route.
-        let routeDocumentRef = PaceFirestoreAPI.routesRef.document(route.objectId)
+        let routeDocumentRef = PaceFirebaseAPI.routesRef.document(route.objectId)
         batch.updateData(["runs": FieldValue.arrayUnion([run.objectId])], forDocument: routeDocumentRef)
         batch.commit(completion: completion)
     }
@@ -94,13 +94,13 @@ extension PaceFirebaseAPI: PaceUserAPI {
     }
 
     private static func docRefFor(user: User) -> DocumentReference {
-        return usersRef.document(user.id)
+        return usersRef.document(user.objectId)
     }
 
-    func findUser(withUID uid: String, orElseCreateWithName name: String, _ completion: @escaping UserResultHandler) {
+    func findUser(withUID uid: String, orCreateWithName name: String, _ completion: @escaping UserResultsHandler) {
         func createUserWith(name: String) {
             let user = User(name: name, uid: uid)
-            PaceFirebaseAPI.usersRef.document(user.id).setData(user.asDictionary)
+            PaceFirebaseAPI.usersRef.document(user.objectId).setData(user.asDictionary)
             completion(user, nil)
         }
 
@@ -114,7 +114,7 @@ extension PaceFirebaseAPI: PaceUserAPI {
                 createUserWith(name: name)
                 return
             }
-            let user = User.fromDictionary(id: userDoc.documentID, value: userDoc.data())
+            let user = User.fromDictionary(objectId: userDoc.documentID, value: userDoc.data())
             completion(user, nil)
         }
     }
@@ -124,7 +124,7 @@ extension PaceFirebaseAPI: PaceUserAPI {
         query.getDocuments { snapshot, error in
             let routes = snapshot.map {
                 $0.documents.compactMap {
-                    Route.fromDictionary(id: $0.documentID, value: $0.data())
+                    Route.fromDictionary(objectId: $0.documentID, value: $0.data())
                 }
             }
             completion(routes, error)
@@ -136,7 +136,7 @@ extension PaceFirebaseAPI: PaceUserAPI {
         query.getDocuments { snapshot, error in
             let history = snapshot.map {
                 $0.documents.compactMap {
-                    Run.fromDictionary(id: $0.documentID, value: $0.data())
+                    Run.fromDictionary(objectId: $0.documentID, value: $0.data())
                 }
             }
             completion(history, error)

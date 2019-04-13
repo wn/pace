@@ -6,8 +6,6 @@
 //  Copyright © 2019 nus.cs3217.pace. All rights reserved.
 //
 
-import Foundation
-
 /// Represents a model/object that can be stored and retrieve from Firebase.
 protocol FirebaseStorable {
     associatedtype OwnType = Self

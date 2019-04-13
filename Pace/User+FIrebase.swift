@@ -16,16 +16,16 @@ extension User: FirebaseStorable {
         ]
     }
 
-    static func fromDictionary(id: String?, value: [String: Any]) -> User? {
+    static func fromDictionary(objectId: String?, value: [String: Any]) -> User? {
         guard
             let name = value["name"] as? String,
             let uid = value["uid"] as? String,
-            let id = id
+            let id = objectId
             else {
                 return nil
         }
         let user = User(name: name, uid: uid)
-        user.id = id
+        user.objectId = id
         return user
     }
 }

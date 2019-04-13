@@ -14,7 +14,7 @@ import Firebase
 
 class Run: IdentifiableObject {
     @objc dynamic var realmCameraPosition: RealmGMSCameraPosition?
-    @objc dynamic var runner: User?
+    @objc dynamic var runner: UserReference?
     @objc dynamic var dateCreated = Date()
     @objc dynamic var timeSpent: Double = 0.0
     @objc dynamic var distance: Double = 0.0

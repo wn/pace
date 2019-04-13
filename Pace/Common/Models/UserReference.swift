@@ -14,15 +14,15 @@ class UserReference: Object {
     /// The name of the user this is referring to.
     @objc dynamic var name: String = ""
     /// The id of the user this is referring to.
-    @objc dynamic var id: String = ""
+    @objc dynamic var objectId: String = ""
 
     convenience init(name: String, id: String) {
         self.init()
         self.name = name
-        self.id = id
+        self.objectId = id
     }
 
     convenience init(fromUser user: User) {
-        self.init(name: user.name, id: user.id)
+        self.init(name: user.name, id: user.uid)
     }
 }

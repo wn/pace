@@ -122,7 +122,7 @@ class CachingStorageManager: RealmStorageManager {
 
     func addFavouriteRoute(_ route: Route, toUser user: User) {
         do {
-            if user.favouriteRoutes.contains(where: { $0.id == route.id }) {
+            if user.favouriteRoutes.contains(where: { $0.objectId == route.objectId }) {
                 return
             }
             try persistentRealm.write {
@@ -136,7 +136,7 @@ class CachingStorageManager: RealmStorageManager {
 
     func removeFavouriteRoute(_ route: Route, fromUser user: User) {
         do {
-            guard let indexToRemove = user.favouriteRoutes.firstIndex(where: { $0.id == route.id }) else {
+            guard let indexToRemove = user.favouriteRoutes.firstIndex(where: { $0.objectId == route.objectId }) else {
                 return
             }
             try persistentRealm.write {

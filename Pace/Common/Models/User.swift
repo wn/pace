@@ -13,7 +13,6 @@ class User: IdentifiableObject {
     @objc dynamic var name: String = ""
     @objc dynamic var uid: String = ""
     var favouriteRoutes = List<Route>()
-    var routesCreated = LinkingObjects(fromType: Route.self, property: "creator")
 
     convenience init(name: String) {
         self.init()

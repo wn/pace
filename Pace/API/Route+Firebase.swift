@@ -12,6 +12,7 @@ extension Route: FirebaseStorable {
         return [
             "name": name,
             "creator": creator?.objectId ?? "",
+            "creatorName": creator?.name ?? "",
             "startingGeohash": Constants.defaultGridManager.getGridId(startingLocation.coordinate).code,
             "creatorRun": creatorRun?.asDictionary ?? [:],
             "creatorRunId": creatorRun?.objectId ?? "",
@@ -30,7 +31,7 @@ extension Route: FirebaseStorable {
             else {
                 return nil
         }
-        let route = Route(creator: User(name: "newguy"),
+        let route = Route(creator: UserReference(name: "newguy", id: objectId),
                           name: name,
                           creatorRun: Run.fromDictionary(objectId: creatorRunId, value: creatorRun)!)
         route.objectId = objectId
