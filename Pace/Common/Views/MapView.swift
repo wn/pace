@@ -93,10 +93,9 @@ class MapView: GMSMapView {
     }
 
     var viewingGrids: [GridNumber] {
-        guard zoom > Constants.minZoomToShowRoutes else {
-            return []
-        }
-        return gridMapManager.getBoundedGrid(projectedMapBound)
+        let zoomLevels = [5,8,11,14,17,20]
+        let nearestZoom = Array(zoomLevels).filter({ $0 > Int(zoom)}).min()
+        return gridMapManagers[nearestZoom!]!.getBoundedGrid(projectedMapBound)
     }
 
     var zoom: Float {
@@ -132,4 +131,18 @@ class MapView: GMSMapView {
         let bottomRight = projection.visibleRegion().nearRight
         return GridBound(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
     }
+
+    var diameter: CLLocationDistance {
+        return projectedMapBound.diameter
+    }
+
+    var gridMapManagers: [Int: GridMap] = [
+        5: GridMap(width: 10000000, height: 10000000)!,
+        8: GridMap(width: 10000000, height: 10000000)!,
+        11: GridMap(width: 10000000, height: 10000000)!,
+        14: GridMap(width: 10000000, height: 10000000)!,
+        17: GridMap(width: 400, height: 300)!,
+        20: GridMap(width: 400, height: 300)!,
+    ]
+
 }

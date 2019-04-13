@@ -136,6 +136,16 @@ public struct GridBound {
         self.maxLat = maxLat
         self.maxLong = maxLong
     }
+
+    public var maxSide: CLLocationDegrees {
+        return max(maxLat - minLat, maxLong - minLong)
+    }
+
+    public var diameter: CLLocationDistance {
+        let pointX = CLLocationCoordinate2D(latitude: minLat, longitude: minLong)
+        let pointY = CLLocationCoordinate2D(latitude: maxLat, longitude: maxLong)
+        return pointX.distance(pointY)
+    }
 }
 
 public struct GridNumber: Hashable {

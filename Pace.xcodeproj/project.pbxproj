@@ -66,6 +66,7 @@
 		DB5C4B241B44C608D65AF3FA /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		EB22D7F622564FC300D0F69D /* RunnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */; };
 		EB22D7F82257393600D0F69D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB22D7F72257393600D0F69D /* MapView.swift */; };
+		EB25E8C02261EF3200D42CEC /* RouteCounterMarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB25E8BF2261EF3200D42CEC /* RouteCounterMarkers.swift */; };
 		EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */; };
 		EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */; };
 		EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */; };
@@ -164,6 +165,7 @@
 		C33F9507A06AE79E186ED123 /* Pods-PaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaceTests.debug.xcconfig"; path = "Target Support Files/Pods-PaceTests/Pods-PaceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTableViewCell.swift; sourceTree = "<group>"; };
 		EB22D7F72257393600D0F69D /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		EB25E8BF2261EF3200D42CEC /* RouteCounterMarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCounterMarkers.swift; sourceTree = "<group>"; };
 		EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extension.swift"; sourceTree = "<group>"; };
 		EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAssistant.swift; sourceTree = "<group>"; };
@@ -231,11 +233,11 @@
 		62E626C42261B9BF009079F5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
 				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
 				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
 				EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */,
 				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
+				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -244,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				EBF87D7B225E36F9001B4056 /* RouteMarkers.swift */,
+				EB25E8BF2261EF3200D42CEC /* RouteCounterMarkers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				EB22D7F82257393600D0F69D /* MapView.swift in Sources */,
 				8B9E8C3D2261E3FE0067A556 /* RealmCLLocation+Firebase.swift in Sources */,
 				62FF753222495E36008847CC /* ViewDelegate.swift in Sources */,
+				EB25E8C02261EF3200D42CEC /* RouteCounterMarkers.swift in Sources */,
 				625596752254AE050036C2B9 /* RouteCollectionViewCell.swift in Sources */,
 				5C5124BB225316FB00B8A15C /* Stats.swift in Sources */,
 				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
