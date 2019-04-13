@@ -25,13 +25,16 @@ extension Route: FirebaseStorable {
             let name = value["name"] as? String,
             let creatorName = value["creatorName"] as? String,
             let creatorId = value["creator"] as? String,
-            let creatorRun = value["creatorRun"] as? [String: Any],
+            var creatorRun = value["creatorRun"] as? [String: Any],
             let creatorRunId = value["creatorRunId"] as? String,
             let objectId = objectId
             else {
                 return nil
         }
-        let route = Route(creator: UserReference(name: "newguy", id: objectId),
+        if creatorRun["runnerName"] == nil {
+            creatorRun["runnerName"] = creatorName
+        }
+        let route = Route(creator: UserReference(name: creatorName, id: creatorId),
                           name: name,
                           creatorRun: Run.fromDictionary(objectId: creatorRunId, value: creatorRun)!)
         route.objectId = objectId
