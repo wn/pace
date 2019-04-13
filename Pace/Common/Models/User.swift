@@ -17,6 +17,7 @@ class User: IdentifiableObject {
     convenience init(name: String) {
         self.init()
         self.name = name
+        self.objectId = objectId
     }
 
     func addFavouriteRoute(_ route: Route) -> Bool {

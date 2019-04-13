@@ -21,6 +21,8 @@ protocol PaceStorageAPI {
     /// Fetched the runs for this route.
     func fetchRunsForRoute(_ route: Route, _ completion: @escaping RunResultsHandler)
 
+    func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler)
+
     /// Adds the route upload action into the queue, and attempts it.
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
 
@@ -74,6 +76,22 @@ class PaceFirestoreAPI: PaceStorageAPI {
     func fetchRunsForRoute(_ route: Route, _ completion: @escaping RunResultsHandler) {
         let query = PaceFirestoreAPI.runsRef
             .whereField("routeId", isEqualTo: route.objectId)
+        query.getDocuments { snapshot, err in
+            guard err == nil else {
+                completion(nil, err)
+                return
+            }
+            let runs = snapshot?.documents
+                .compactMap {
+                    Run.fromDictionary(objectId: $0.documentID, value: $0.data())
+                }
+            completion(runs, nil)
+        }
+    }
+
+    func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
+        let query = PaceFirestoreAPI.runsRef.order(by: "dateCreated", descending: true)
+            .whereField("runnerId", isEqualTo: "3FAEDBA4-2D9B-4B74-8C9C-4D148FF9607D")
         query.getDocuments { snapshot, err in
             guard err == nil else {
                 completion(nil, err)
