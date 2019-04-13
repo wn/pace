@@ -6,7 +6,7 @@
 //  Copyright © 2019 nus.cs3217.pace. All rights reserved.
 //
 
-import Firebase
+import FirebaseFirestore
 import RealmSwift
 import CoreLocation
 
@@ -64,7 +64,7 @@ class PaceFirebaseAPI: PaceStorageAPI {
     }
 
     func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
-        let query = PaceFirestoreAPI.runsRef.order(by: "dateCreated", descending: true)
+        let query = PaceFirebaseAPI.runsRef.order(by: "dateCreated", descending: true)
             .whereField("runnerId", isEqualTo: "3FAEDBA4-2D9B-4B74-8C9C-4D148FF9607D")
         query.getDocuments { snapshot, err in
             guard err == nil else {
