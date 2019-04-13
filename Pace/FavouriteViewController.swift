@@ -60,36 +60,6 @@ class FavouriteViewController: RequireLoginController {
         //        }
         self.favourites.reloadData()
     }
-
-//    @IBAction func addFavourite() {
-//        guard let currentUser = userSession?.currentUser else {
-//            return
-//        }
-//        func createCP(lat: Double, long: Double) -> CheckPoint {
-//            return CheckPoint(location: CLLocation(latitude: lat, longitude: long), time: 0.0, actualDistance: 0.0, routeDistance: 0.0)
-//        }
-//        let imageNames = ["cat.jpeg", "dog.jpeg", "seal.jpeg"]
-//        func createRouteStartingAt(lat: Double, long: Double) -> Route {
-//            let uuidString = UUID().uuidString
-//            let index = uuidString.firstIndex(of: "-") ?? uuidString.endIndex
-//            let randomString = uuidString[..<index]
-//            let randomImage = imageNames[[Int](0..<3).randomElement()!]
-//            let checkpoints = [Int](0..<6).map { createCP(lat: lat + Double($0), long: long + Double($0)) }
-//            let randomRoute = Route(creator: currentUser,
-//                                    name: String(randomString),
-//                                    thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
-//                                    creatorRun: Run(runner: currentUser, checkpoints: checkpoints))
-//            [Int](0..<5).forEach { _ in
-//                randomRoute.addNewRun(Run(runner: currentUser, checkpoints: [createCP(lat: 1.1, long: 2.1)]))
-//            }
-//            return randomRoute
-//        }
-//        let manager = CachingStorageManager()
-//        manager.saveNewRoute(createRouteStartingAt(lat: 1, long: 2)) { if $0 == nil { print("lol") } }
-//        manager.fetchRoutesWithin(latitudeMin: 1.0, latitudeMax: 3.0, longitudeMin: 1.0, longitudeMax: 3.0) {
-//            print($0)
-//        }
-//    }
 }
 
 // MARK: - UICollectionViewDataSource

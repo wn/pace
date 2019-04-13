@@ -170,7 +170,7 @@ class RunGraphView: UIView {
         // Render and move intersection label
         let xCurrentValue = currentCheckpoint.routeDistance / 1_000
         let yCurrentValue = resolveModeValue(currentCheckpoint)
-        let currentLabelText = generateLabel(x: xCurrentValue, y: yCurrentValue)
+        let currentLabelText = generateLabel(xCurrentValue, yCurrentValue)
         guard let compareCheckpoint = compareCheckpoint else {
             lowerLabel.text = currentLabelText
             lowerLabel.textColor = currentRunColor
@@ -179,7 +179,7 @@ class RunGraphView: UIView {
         }
         let xCompareValue = compareCheckpoint.routeDistance / 1_000
         let yCompareValue = resolveModeValue(compareCheckpoint)
-        let compareLabelText = generateLabel(x: xCompareValue, y: yCompareValue)
+        let compareLabelText = generateLabel(xCompareValue, yCompareValue)
 
         if yCompareValue > yCurrentValue {
             lowerLabel.text = currentLabelText
@@ -194,7 +194,7 @@ class RunGraphView: UIView {
         }
     }
 
-    private func generateLabel(x: Double, y: Double) -> String {
+    private func generateLabel(_ xLabel: Double, _ yLabel: Double) -> String {
         let yMetric: String
         switch comparisonMode {
         case .speed:
@@ -204,6 +204,6 @@ class RunGraphView: UIView {
         case .timeSpent:
             yMetric = "min"
         }
-        return String(format: "%.2fkm, %.2f\(yMetric)", arguments: [x, y])
+        return String(format: "%.2fkm, %.2f\(yMetric)", arguments: [xLabel, yLabel])
     }
 }

@@ -21,7 +21,7 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = Titles.run
-        setupMapView()
+        googleMapView.setup(self)
         setupGestureRecognizers()
         setupPullupController()
         if let run = run {
@@ -56,18 +56,6 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
         marker?.map = nil
         marker = GMSMarker(position: coordinate)
         marker?.map = googleMapView
-    }
-
-    private func setupMapView() {
-        googleMapView.animate(toZoom: Constants.initialZoom)
-        /// - TODO: Remove my location once we load the GMSCameraPosition of the run
-        googleMapView.isMyLocationEnabled = true
-        googleMapView.settings.myLocationButton = true
-
-        // Required to activate gestures in googleMapView
-        googleMapView.settings.consumesGesturesInView = false
-        googleMapView.delegate = self
-        googleMapView.setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
     }
 
     private func setupPullupController() {

@@ -23,6 +23,8 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
         super.viewWillAppear(animated)
         if !isUserLoggedIn() {
             renderLoginButton()
+        } else {
+            hideLoginButton()
         }
     }
 
@@ -30,7 +32,7 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
         return CGRect(origin: view.center, size: CGSize(width: 100, height: 50))
     }
 
-    func renderLoginButton() {
+    private func renderLoginButton() {
         if let existingButton = fbLoginButton {
             existingButton.removeFromSuperview()
         }
@@ -42,7 +44,7 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
         view.addSubview(fbLoginButton)
     }
 
-    func hideLoginButton() {
+    private func hideLoginButton() {
         guard let fbLoginButton = fbLoginButton else {
             return
         }
