@@ -79,7 +79,7 @@ class ProfileViewController: RequireLoginController {
             switch changes {
             case .initial:
                 break
-            case .update(_, _, _, _):
+            case .update:
                 break
             case .error(let error):
                 print("Error loading past runs: \(error)")
