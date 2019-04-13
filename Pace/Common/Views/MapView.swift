@@ -18,7 +18,7 @@ class MapView: GMSMapView {
         // Required to activate gestures in googleMapView
         settings.consumesGesturesInView = false
         self.delegate = delegate
-        setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
+        setMinZoom(Float(Constants.minZoom), maxZoom: Float(Constants.maxZoom))
     }
 
     /// Add an image to the map. Required to plot start and end flag.
@@ -92,8 +92,9 @@ class MapView: GMSMapView {
         currentMapPath = nil
     }
 
+    let zoomLevels = [5,8,11,14,17,20]
+
     var viewingGrids: [GridNumber] {
-        let zoomLevels = [5,8,11,14,17,20]
         let nearestZoom = Array(zoomLevels).filter({ $0 > Int(zoom)}).min()
         return gridMapManagers[nearestZoom!]!.getBoundedGrid(projectedMapBound)
     }
@@ -138,10 +139,10 @@ class MapView: GMSMapView {
 
     var gridMapManagers: [Int: GridMap] = [
         5: GridMap(width: 10000000, height: 10000000)!,
-        8: GridMap(width: 10000000, height: 10000000)!,
-        11: GridMap(width: 10000000, height: 10000000)!,
-        14: GridMap(width: 10000000, height: 10000000)!,
-        17: GridMap(width: 400, height: 300)!,
+        8: GridMap(width: 100000, height: 100000)!,
+        11: GridMap(width: 40000, height: 40000)!,
+        14: GridMap(width: 5000, height: 5000)!,
+        17: GridMap(width: 800, height: 800)!,
         20: GridMap(width: 400, height: 300)!,
     ]
 
