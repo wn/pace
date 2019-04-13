@@ -15,6 +15,7 @@ struct Constants {
     // MARK: - MapView location constants
     // googleMapView constants
     static let initialZoom: Float = 17.5
+    static let mapAspectRatio: Double = 4 / 3
     // Horizontal accuracy must be greater than guardDistance for map to update
     static let guardAccuracy: CLLocationDistance = 25
     static let minZoom: Float = 1.5

@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         GMSServices.provideAPIKey(Secrets.mapsToken)
         GMSPlacesClient.provideAPIKey(Secrets.mapsToken)
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)

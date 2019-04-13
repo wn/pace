@@ -11,6 +11,7 @@ class ActivityViewController: UIViewController {
     let routes = CachingStorageManager.default.inMemoryRealm.objects(Route.self)
     var notificationToken: NotificationToken?
     var isConnectedToInternet = true
+    var renderedRouteMarkers: [RouteMarkerHandler] = []
 
     // MARK: Drawer variable
     var originalPullUpControllerViewSize: CGSize = .zero
@@ -42,7 +43,54 @@ class ActivityViewController: UIViewController {
     // MARK: Map variables
     @IBOutlet var googleMapView: MapView!
     var gridMapManager = Constants.defaultGridManager
-    var routesInGrid: [GridNumber: RouteMarkers] = [:]
+    // var routesInGrid: [GridNumber: RouteMarkerHandler] = [:] // Only for zoom level 17 and above
+    let zoomLevels: [Int: [GridNumber: RouteMarkerHandler]] = [
+        5: [:],
+        8: [:],
+        11: [:],
+        14: [:],
+        17: [:],
+        20: [:]
+    ]
+
+    var getRouteMarkers: [GridNumber: RouteMarkers] {
+        return zoomLevels[20]! as! [GridNumber: RouteMarkers]
+    }
+
+    func getGridsNumbers(at zoomLevel: Float) -> [GridNumber: RouteMarkerHandler] {
+        guard
+            let nearestZoom = Array(zoomLevels.keys).filter({ $0 > Int(zoomLevel)}).min(),
+            let result = zoomLevels[nearestZoom] else {
+            fatalError()
+        }
+        return result
+    }
+
+    private func insertRoute(route: Route) {
+        // we insert the route to every zoom level for aggregated viewing of routes.
+        Array(zoomLevels.keys).forEach { insertRouteToZoomLevel(route: route, zoomLevel: $0) }
+    }
+
+    private func insertRouteToZoomLevel(route: Route, zoomLevel: Int) {
+        guard
+            var routesInZoomGrids = zoomLevels[zoomLevel],
+            let startPoint = route.startingLocation?.coordinate,
+            let gridManager = googleMapView.gridMapManagers[zoomLevel] else {
+            return
+        }
+        let gridId = gridManager.getGridId(startPoint)
+        if routesInZoomGrids[gridId] == nil {
+            if zoomLevel == 20 {
+                routesInZoomGrids[gridId] = RouteMarkers(map: googleMapView)
+            } else {
+                routesInZoomGrids[gridId] = RouteCounterMarkers(position: startPoint, map: googleMapView)
+            }
+        }
+        guard let routeCountMarker = routesInZoomGrids[gridId] else {
+            fatalError("gridId must exist in routesInZoomGrids, based on above if-statement!")
+        }
+        routeCountMarker.insertRoute(route)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +98,6 @@ class ActivityViewController: UIViewController {
         setupLocationManager()
         googleMapView.setup(self)
         notificationToken = routes.observe { [weak self]changes in
-            guard let map = self?.googleMapView else {
-                print("MAP NOT RENDERED YET")
-                return
-            }
             switch changes {
             case .initial:
                 break
@@ -63,20 +107,10 @@ class ActivityViewController: UIViewController {
                 // 2. Insert route into the specific gridNumber
                 // 3. Create a marker for the route and insert into the specific gridNumber
                 for routeIndex in insertions {
-                    guard
-                        let newRoute = self?.routes[routeIndex],
-                        let startLocation = newRoute.startingLocation?.coordinate,
-                        let gridNumberForRoute = self?.gridMapManager.getGridId(startLocation)
-                        else {
-                            continue
+                    guard let newRoute = self?.routes[routeIndex] else {
+                        continue
                     }
-                    if self?.routesInGrid[gridNumberForRoute] == nil {
-                        self?.routesInGrid[gridNumberForRoute] = RouteMarkers(map: map)
-                    }
-                    guard let routeMarkers = self?.routesInGrid[gridNumberForRoute] else {
-                        return
-                    }
-                    routeMarkers.insertRoute(newRoute)
+                    self?.insertRoute(route: newRoute)
                 }
             case .error:
                 print("FUCKING ERROR")
@@ -90,9 +124,13 @@ class ActivityViewController: UIViewController {
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
     }
 
-    private func renderRoute(_ routes: Set<Route>) {
-        // TODO: Render route here
+    private func renderRoutes(_ routes: Set<Route>) {
+        // TODO: Render routes as a tableview
         let route = routes.first!
+        renderRoute(route)
+    }
+
+    private func renderRoute(_ route: Route) {
         googleMapView.renderRoute(route)
         showPullUpController()
         pullUpDrawer.routeStats(route)
@@ -135,29 +173,66 @@ class ActivityViewController: UIViewController {
         fetchRoutes(grids)
     }
 
+    /// We only request for routes above our zoom level!
+    /// We should not request for routes below our zoom level as it will bloat our
+    /// memory when we zoom out to the whole world.
     private func fetchRoutes(_ gridNumbers: [GridNumber]) {
-        for gridNumber in gridNumbers where routesInGrid[gridNumber] == nil {
-            let bound = gridMapManager.getBounds(gridId: gridNumber)
-            routesManager.fetchRoutesWithin(
-                latitudeMin: bound.minLat,
-                latitudeMax: bound.maxLat,
-                longitudeMin: bound.minLong,
-                longitudeMax: bound.maxLong) {
-                if let error = $0 {
-                    print(error.localizedDescription)
-                }
+        routesManager.fetchRoutesWithin(
+            latitudeMin: -90,
+            latitudeMax: 90,
+            longitudeMin: -180,
+            longitudeMax: 180) {
+            if let error = $0 {
+                print(error.localizedDescription)
             }
         }
+
+//        for gridNumber in gridNumbers where routesInGrid[gridNumber] == nil {
+//            let bound = gridMapManager.getBounds(gridId: gridNumber)
+//            routesManager.fetchRoutesWithin(
+//                latitudeMin: bound.minLat,
+//                latitudeMax: bound.maxLat,
+//                longitudeMin: bound.minLong,
+//                longitudeMax: bound.maxLong) {
+//                if let error = $0 {
+//                    print(error.localizedDescription)
+//                }
+//            }
+//        }
     }
 
     private func renderRouteMarkers(_ gridNumbers: [GridNumber]) {
+        renderedRouteMarkers.forEach { $0.derender() }
+        renderedRouteMarkers = []
+        let zoomLevel = googleMapView.zoom
+        let allGridNumbers = getGridsNumbers(at: zoomLevel)
         for gridNumber in gridNumbers {
-            guard let routeMarker = routesInGrid[gridNumber] else {
-                print("NO markers rendered in gridNumber")
+            guard let routeMarker = allGridNumbers[gridNumber] else {
                 continue
             }
-            routeMarker.renderMarkers()
+            print("EXIST")
+            routeMarker.render()
+            renderedRouteMarkers.append(routeMarker)
         }
+
+
+
+
+
+
+
+
+
+
+
+
+//        for gridNumber in gridNumbers {
+//            guard let routeMarker = routesInGrid[gridNumber] else {
+//                print("NO markers rendered in gridNumber")
+//                continue
+//            }
+//            routeMarker.render()
+//        }
     }
 }
 
@@ -181,12 +256,12 @@ extension ActivityViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         let gridNumber = gridMapManager.getGridId(marker.position)
         guard
-            let routeMarkers = routesInGrid[gridNumber],
+            let routeMarkers = getRouteMarkers[gridNumber],
             let routes = routeMarkers.getRoutes(marker)
             else {
                 fatalError("Created marker should be associated to a route.")
         }
-        renderRoute(routes)
+        renderRoutes(routes)
         return true
     }
 
@@ -195,14 +270,14 @@ extension ActivityViewController: GMSMapViewDelegate {
             // If run has started, we do not perform any action.
             return
         }
-        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
-            googleMapView.clear()
-            if let drawer = currentDrawer {
-                removePullUpController(drawer, animated: true)
-            }
-            print("ZOOM LEVEL: \(googleMapView.zoom) | ZOOM IN TO VIEW MARKERS")
-            return
-        }
+//        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
+//            googleMapView.clear()
+//            if let drawer = currentDrawer {
+//                removePullUpController(drawer, animated: true)
+//            }
+//            print("ZOOM LEVEL: \(googleMapView.zoom) | ZOOM IN TO VIEW MARKERS")
+//            return
+//        }
         redrawMarkers()
     }
 
