@@ -101,13 +101,13 @@ class RunGraphView: UIView {
     /// which is set to 8/7 of the highest value of either graph
     private func setUpperBound() {
         // Sets up the upperbound y-value
-        let maxCp1 = currentRun?.checkpoints.max(by: { cp1, cp2 -> Bool in
+        let maxCp1 = currentRun?.checkpoints.max { cp1, cp2 -> Bool in
             return compare(cp1, cp2)
-        })
+        }
         let maxY1 = resolveModeValue(maxCp1)
-        let maxCp2 = compareRun?.checkpoints.max(by: { cp1, cp2 -> Bool in
+        let maxCp2 = compareRun?.checkpoints.max { cp1, cp2 -> Bool in
             return compare(cp1, cp2)
-        })
+        }
         let maxY2 = resolveModeValue(maxCp2)
         upperBound = max(maxY1, maxY2) * 8 / 7
     }

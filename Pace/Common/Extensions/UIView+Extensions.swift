@@ -10,8 +10,7 @@ import UIKit
 
 /// Adds additional fields to interface builder
 extension UIView {
-    @IBInspectable
-    var borderWidth: CGFloat {
+    @IBInspectable var borderWidth: CGFloat {
         get {
             return layer.borderWidth
         }
@@ -20,8 +19,7 @@ extension UIView {
         }
     }
 
-    @IBInspectable
-    var borderColor: UIColor? {
+    @IBInspectable var borderColor: UIColor? {
         get {
             guard let color = layer.borderColor else {
                 return nil

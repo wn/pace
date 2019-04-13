@@ -19,8 +19,8 @@ extension ActivityViewController {
     var pullUpDrawer: DrawerViewController {
         let currentPullUpController = children.first { $0 is DrawerViewController } as? DrawerViewController
         let pullUpController = currentPullUpController ??
-            UIStoryboard(name: Constants.mainStoryboard, bundle: nil)
-            .instantiateViewController(withIdentifier: "SearchViewController")
+            UIStoryboard(name: Identifiers.storyboard, bundle: nil)
+            .instantiateViewController(withIdentifier: Identifiers.searchViewController)
             as! DrawerViewController
         if originalPullUpControllerViewSize == .zero {
             originalPullUpControllerViewSize = pullUpController.view.bounds.size
@@ -28,7 +28,7 @@ extension ActivityViewController {
         return pullUpController
     }
 
-    private func showPullUpController() {
+    func showPullUpController() {
         guard children.filter({ $0 is DrawerViewController }).isEmpty else {
             return
         }
@@ -37,13 +37,5 @@ extension ActivityViewController {
         addPullUpController(pullUpController,
                             initialStickyPointOffset: pullUpController.initialPointOffset,
                             animated: true)
-    }
-
-    func renderRoute(_ routes: Set<Route>) {
-        // TODO: Render route here
-        let route = routes.first!
-        googleMapView.renderRoute(route)
-        showPullUpController()
-        pullUpDrawer.routeStats(route)
     }
 }

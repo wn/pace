@@ -70,7 +70,6 @@ public struct GridMap {
         latitudeLength =  GridMap.getLatitudeLength(gridHeight)
     }
 
-
     /// Get the id of the grid that `position` is in.
     ///
     /// - Parameter position: The position to look up.
@@ -116,7 +115,10 @@ public struct GridBound {
     public let maxLat: CLLocationDegrees
     public let maxLong: CLLocationDegrees
 
-    public init(topLeft: CLLocationCoordinate2D, topRight: CLLocationCoordinate2D, bottomLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D) {
+    public init(topLeft: CLLocationCoordinate2D,
+                topRight: CLLocationCoordinate2D,
+                bottomLeft: CLLocationCoordinate2D,
+                bottomRight: CLLocationCoordinate2D) {
         let latitudes = [topLeft.latitude, topRight.latitude, bottomLeft.latitude, bottomRight.latitude]
         let longitudes = [topLeft.longitude, topRight.longitude, bottomLeft.longitude, bottomRight.longitude]
         minLat = latitudes.min() ?? 0
@@ -125,7 +127,10 @@ public struct GridBound {
         maxLong = longitudes.max() ?? 0
     }
 
-    public init(minLat: CLLocationDegrees, minLong: CLLocationDegrees, maxLat: CLLocationDegrees, maxLong: CLLocationDegrees) {
+    public init(minLat: CLLocationDegrees,
+                minLong: CLLocationDegrees,
+                maxLat: CLLocationDegrees,
+                maxLong: CLLocationDegrees) {
         self.minLat = minLat
         self.minLong = minLong
         self.maxLat = maxLat
@@ -144,20 +149,22 @@ public struct GridNumber: Hashable {
         code = GridNumber.encode(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
     }
 
-    public init(_ s: String) {
-        code = s
-        let position = GridNumber.decode(s)
+    public init(_ str: String) {
+        code = str
+        let position = GridNumber.decode(str)
         latitude = position.latitude
         longitude = position.longitude
     }
 
     static func encode(_ position: CLLocationCoordinate2D) -> String {
-        return CLLocationCoordinate2D(latitude: position.latitude, longitude: position.longitude).geohash(precision: .twoHundredFourtyCentimeters)
+        return CLLocationCoordinate2D(latitude: position.latitude,
+                                      longitude: position.longitude).geohash(precision: .twoHundredFourtyCentimeters)
     }
 
-    static func decode(_ s: String) -> CLLocationCoordinate2D {
-        let result = CLLocationCoordinate2D.init(geohash: s)
-        return CLLocationCoordinate2D(latitude: result.latitude.roundTo(places: 4), longitude: result.longitude.roundTo(places: 4))
+    static func decode(_ str: String) -> CLLocationCoordinate2D {
+        let result = CLLocationCoordinate2D.init(geohash: str)
+        return CLLocationCoordinate2D(latitude: result.latitude.roundTo(places: 4),
+                                      longitude: result.longitude.roundTo(places: 4))
     }
 }
 //    public static func test() -> Bool {
@@ -177,7 +184,7 @@ public struct GridNumber: Hashable {
 //    }
 
 extension Double {
-    func roundTo(places:Int) -> Double {
+    func roundTo(places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
     }

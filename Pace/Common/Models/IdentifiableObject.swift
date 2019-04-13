@@ -11,9 +11,9 @@ import RealmSwift
 
 /// Represents a Realm Object that can be identifiable through its primary key.
 class IdentifiableObject: Object {
-    @objc dynamic var id: String = UUID().uuidString
+    @objc dynamic var objectId: String = UUID().uuidString
 
     override static func primaryKey() -> String? {
-        return "id"
+        return "objectId"
     }
 }

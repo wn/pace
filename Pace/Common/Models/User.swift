@@ -33,7 +33,7 @@ class User: IdentifiableObject {
 
     // MARK: - Hashable
     static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.id == rhs.id && lhs.name == rhs.name
+        return lhs.objectId == rhs.objectId && lhs.name == rhs.name
     }
 
     // MARK: - Testing functions

@@ -13,14 +13,14 @@ import RealmSwift
 class DrawerViewController: PullUpController {
     var userSession: UserSessionManager?
 
-    @IBOutlet var favouriteButton: FaveButton!
-    @IBOutlet var numOfRunners: UILabel!
+    @IBOutlet private var favouriteButton: FaveButton!
+    @IBOutlet private var numOfRunners: UILabel!
     var initialState: InitialState = .expanded
 
-    @IBOutlet var startPoint: UILabel!
-    @IBOutlet var endPoint: UILabel!
-    @IBOutlet var createdBy: UILabel!
-    @IBOutlet var distance: UILabel!
+    @IBOutlet private var startPoint: UILabel!
+    @IBOutlet private var endPoint: UILabel!
+    @IBOutlet private var createdBy: UILabel!
+    @IBOutlet private var distance: UILabel!
 
     var viewingRoute: Route?
 

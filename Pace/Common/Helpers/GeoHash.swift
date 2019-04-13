@@ -40,9 +40,9 @@ struct Geohash {
         // lat = [1,1,0,1,0,0,0,1,1,1,1,1,1,1,0,1,0,1,1,0,0,1,1,0,1,0,0]
         // lon = [1,0,0,0,0,1,1,1,0,1,1,0,0,1,1,0,1,0,0,1,1,1,0,1,1,1,0,1]
 
-        func combiner(array a: (min: Double, max: Double), value: Character) -> (Double, Double) {
-            let mean = (a.min + a.max) / 2
-            return value == "1" ? (mean, a.max) : (a.min, mean)
+        func combiner(array: (min: Double, max: Double), value: Character) -> (Double, Double) {
+            let mean = (array.min + array.max) / 2
+            return value == "1" ? (mean, array.max) : (array.min, mean)
         }
 
         let latRange = lat.reduce((-90.0, 90.0), combiner)
@@ -57,20 +57,24 @@ struct Geohash {
     static func encode(latitude: Double, longitude: Double, length: Int) -> String {
         // For example: (latitude, longitude) = (57.6491106301546, 10.4074396938086)
 
-        func combiner(array a: (min: Double, max: Double, array: [String]), value: Double) -> (Double, Double, [String]) {
-            let mean = (a.min + a.max) / 2
+        func combiner(array: (min: Double, max: Double, array: [String]), value: Double) -> (Double, Double, [String]) {
+            let mean = (array.min + array.max) / 2
             if value < mean {
-                return (a.min, mean, a.array + "0")
+                return (array.min, mean, array.array + "0")
             } else {
-                return (mean, a.max, a.array + "1")
+                return (mean, array.max, array.array + "1")
             }
         }
 
-        let lat = Array(repeating: latitude, count: length*5).reduce((-90.0, 90.0, [String]()), combiner)
-        // lat = (57.64911063015461, 57.649110630154766, [1,1,0,1,0,0,0,1,1,1,1,1,1,1,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,0,...])
+        let lat = Array(repeating: latitude, count: length * 5)
+            .reduce((-90.0, 90.0, [String]()), combiner)
+        // lat = (57.64911063015461, 57.649110630154766,
+        // [1,1,0,1,0,0,0,1,1,1,1,1,1,1,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,0,...])
 
-        let lon = Array(repeating: longitude, count: length*5).reduce((-180.0, 180.0, [String]()), combiner)
-        // lon = (10.407439693808236, 10.407439693808556, [1,0,0,0,0,1,1,1,0,1,1,0,0,1,1,0,1,0,0,1,1,1,0,1,1,1,0,1,0,1,..])
+        let lon = Array(repeating: longitude, count: length * 5)
+            .reduce((-180.0, 180.0, [String]()), combiner)
+        // lon = (10.407439693808236, 10.407439693808556,
+        // [1,0,0,0,0,1,1,1,0,1,1,0,0,1,1,0,1,0,0,1,1,1,0,1,1,1,0,1,0,1,..])
 
         let latlon = lon.2.enumerated().flatMap { [$1, lat.2[$0]] }
         // latlon - [1,1,0,1,0,0,0,1,0,0,1,0,1,0,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,...]
@@ -121,10 +125,10 @@ extension Geohash {
 }
 
 private extension String {
-    init(integer n: Int, radix: Int, padding: Int) {
-        let s = String(n, radix: radix)
-        let pad = (padding - s.count % padding) % padding
-        self = Array(repeating: "0", count: pad).joined(separator: "") + s
+    init(integer num: Int, radix: Int, padding: Int) {
+        let str = String(num, radix: radix)
+        let pad = (padding - str.count % padding) % padding
+        self = Array(repeating: "0", count: pad).joined(separator: "") + str
     }
 }
 
@@ -136,9 +140,9 @@ private func + (left: [String], right: String) -> [String] {
 
 private func << (left: [String], right: String) -> [String] {
     var arr = left
-    var s = arr.popLast()!
-    s += right
-    arr.append(s)
+    var val = arr.popLast()!
+    val += right
+    arr.append(val)
     return arr
 }
 
@@ -167,4 +171,3 @@ extension CLLocationCoordinate2D {
 }
 
 #endif
-

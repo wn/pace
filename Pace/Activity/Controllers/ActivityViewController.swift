@@ -23,8 +23,8 @@ class ActivityViewController: UIViewController {
     @IBOutlet private var distanceLabel: UILabel!
     @IBOutlet private var paceLabel: UILabel!
     @IBOutlet private var timeLabel: UILabel!
-    @IBOutlet var gpsIndicator: GpsStrengthIndicator!
-    @IBOutlet var statsPanel: UIStackView!
+    @IBOutlet private var gpsIndicator: GpsStrengthIndicator!
+    @IBOutlet private var statsPanel: UIStackView!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
 
     // MARK: Running variables
@@ -46,6 +46,7 @@ class ActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = Titles.activity
         setupLocationManager()
         googleMapView.setup(self)
         notificationToken = routes.observe { [weak self]changes in
@@ -87,6 +88,14 @@ class ActivityViewController: UIViewController {
         super.viewDidAppear(animated)
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
+    }
+
+    private func renderRoute(_ routes: Set<Route>) {
+        // TODO: Render route here
+        let route = routes.first!
+        googleMapView.renderRoute(route)
+        showPullUpController()
+        pullUpDrawer.routeStats(route)
     }
 
     /// Set up location manager from CoreLocation.

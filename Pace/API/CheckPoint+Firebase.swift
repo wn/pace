@@ -17,7 +17,7 @@ extension CheckPoint: FirebaseStorable {
         ]
     }
 
-    static func fromDictionary(id: String?, value: [String: Any]) -> CheckPoint? {
+    static func fromDictionary(objectId: String?, value: [String: Any]) -> CheckPoint? {
         guard
             let time = value["time"] as? Double,
             let location = value["location"] as? [String: Any],
@@ -26,7 +26,10 @@ extension CheckPoint: FirebaseStorable {
             else {
                 return nil
         }
-        let locationAsCL = RealmCLLocation.fromDictionary(id: nil, value: location)!.asCLLocation
-        return CheckPoint(location: locationAsCL, time: time, actualDistance: actualDistance, routeDistance: routeDistance)
+        let locationAsCL = RealmCLLocation.fromDictionary(objectId: nil, value: location)!.asCLLocation
+        return CheckPoint(location: locationAsCL,
+                          time: time,
+                          actualDistance: actualDistance,
+                          routeDistance: routeDistance)
     }
 }

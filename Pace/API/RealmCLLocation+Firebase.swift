@@ -14,7 +14,7 @@ extension RealmCLLocation: FirebaseStorable {
         ]
     }
 
-    static func fromDictionary(id: String?, value: [String: Any]) -> RealmCLLocation? {
+    static func fromDictionary(objectId: String?, value: [String: Any]) -> RealmCLLocation? {
         guard
             let latitude = value["latitude"] as? Double,
             let longitude = value["longitude"] as? Double

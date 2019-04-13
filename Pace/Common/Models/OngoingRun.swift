@@ -56,7 +56,10 @@ class OngoingRun {
         let newActualDistance = lastPoint.actualDistance + distanceApart
         // handle new run case
         guard paceRun != nil else {
-            let newPoint = CheckPoint(location: location, time: time, actualDistance: newActualDistance, routeDistance: newActualDistance)
+            let newPoint = CheckPoint(location: location,
+                                      time: time,
+                                      actualDistance: newActualDistance,
+                                      routeDistance: newActualDistance)
             checkpoints.append(newPoint)
             return
         }
@@ -85,7 +88,8 @@ class OngoingRun {
             fatalError("There should be existing points travelled.")
         }
         // interpolate from the most recent pace point and its next point
-        guard let lastPassedPointIndex = pacePoints.firstIndex(where: { $0.routeDistance == lastTravelledPoint.routeDistance }) else {
+        guard let lastPassedPointIndex = pacePoints
+            .firstIndex(where: { $0.routeDistance == lastTravelledPoint.routeDistance }) else {
             fatalError("Should be able to find a point with same routeDistance.")
         }
         let pastPacePoint = pacePoints[lastPassedPointIndex]

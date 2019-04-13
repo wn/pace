@@ -85,8 +85,10 @@ extension CLLocation {
         let newSpeed = left.speed + (right.speed - left.speed) * interpolationFraction
         let newAltitude = left.altitude + (right.altitude - left.altitude) * interpolationFraction
         let newCourse = left.course + (right.course - left.course) * interpolationFraction
-        let newHorizontalAcc = left.horizontalAccuracy + (right.horizontalAccuracy - left.horizontalAccuracy) * interpolationFraction
-        let newVerticalAcc = left.verticalAccuracy + (right.verticalAccuracy - left.verticalAccuracy) * interpolationFraction
+        let newHorizontalAcc = left.horizontalAccuracy + (right.horizontalAccuracy - left.horizontalAccuracy)
+            * interpolationFraction
+        let newVerticalAcc = left.verticalAccuracy + (right.verticalAccuracy - left.verticalAccuracy)
+            * interpolationFraction
 //        let newTimestamp = left.timestamp + (right.timestamp - left.timestamp) * interpolationFraction
         return CLLocation(coordinate: CLLocationCoordinate2D(latitude: newLatitude, longitude: newLongitude),
                           altitude: newAltitude,

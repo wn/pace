@@ -4,9 +4,6 @@ import RealmSwift
 
 struct Constants {
 
-    // MARK: - Storyboard constants
-    static let mainStoryboard = "Main"
-
     // MARK: - Model constants
     // Threshold distance value to determine whether two locations should be considered as same
     static let sameLocationThreshold = 5.0
@@ -55,12 +52,15 @@ struct Identifiers {
     static let runCell = "runCell"
     static let routeCell = "routeCell"
     static let userStats = "userStatsIdentifier"
+    static let summaryViewController = "SummaryVC"
+    static let searchViewController = "SearchViewController"
     static let runAnalysisController = "runAnalysisController"
     static let runCollectionController = "RunCollectionController"
     static let compareRunCell = "compareRunCell"
 }
 
 struct Titles {
+    static let activity = "Activity"
     static let profile = "Profile"
     static let favourites = "Favourites"
     static let run = "Run"

@@ -34,13 +34,13 @@ class PaceFirestoreAPI: PaceStorageAPI {
     private static let routesRef = rootRef.collection("pace_routes")
 
     private static func docRefFor(route: Route) -> DocumentReference {
-        return routesRef.document(route.id)
+        return routesRef.document(route.objectId)
     }
 
     private static let runsRef = rootRef.collection("pace_runs")
 
     private static func docRefFor(run: Run) -> DocumentReference {
-        return runsRef.document(run.id)
+        return runsRef.document(run.objectId)
     }
 
     private var persistentRealm: Realm
@@ -53,7 +53,8 @@ class PaceFirestoreAPI: PaceStorageAPI {
 
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: @escaping RouteResultsHandler) {
-        let geohash = Constants.defaultGridManager.getGridId(CLLocationCoordinate2D(latitude: latitudeMin, longitude: longitudeMin)).code
+        let geohash = Constants.defaultGridManager
+            .getGridId(CLLocationCoordinate2D(latitude: latitudeMin, longitude: longitudeMin)).code
         print("getting documents for: \n longitude: \(longitudeMin), latitude: \(latitudeMin) \n geohash: \(geohash)")
         let query = PaceFirestoreAPI.routesRef
             .whereField("startingGeohash", isEqualTo: geohash)
@@ -64,7 +65,7 @@ class PaceFirestoreAPI: PaceStorageAPI {
             }
             let routes = snapshot?.documents
                 .compactMap {
-                    Route.fromDictionary(id: $0.documentID, value: $0.data())
+                    Route.fromDictionary(objectId: $0.documentID, value: $0.data())
                 }
             completion(routes, nil)
         }
@@ -72,7 +73,7 @@ class PaceFirestoreAPI: PaceStorageAPI {
 
     func fetchRunsForRoute(_ route: Route, _ completion: @escaping RunResultsHandler) {
         let query = PaceFirestoreAPI.runsRef
-            .whereField("routeId", isEqualTo: route.id)
+            .whereField("routeId", isEqualTo: route.objectId)
         query.getDocuments { snapshot, err in
             guard err == nil else {
                 completion(nil, err)
@@ -80,7 +81,7 @@ class PaceFirestoreAPI: PaceStorageAPI {
             }
             let runs = snapshot?.documents
                 .compactMap {
-                    Run.fromDictionary(id: $0.documentID, value: $0.data())
+                    Run.fromDictionary(objectId: $0.documentID, value: $0.data())
                 }
             completion(runs, nil)
         }
@@ -100,11 +101,11 @@ class PaceFirestoreAPI: PaceStorageAPI {
     func uploadRun(_ run: Run, forRoute route: Route, _ completion: ((Error?) -> Void)?) {
         let batch = PaceFirestoreAPI.rootRef.batch()
         // Set the data for the new run.
-        let runDocumentRef = PaceFirestoreAPI.runsRef.document(run.id)
+        let runDocumentRef = PaceFirestoreAPI.runsRef.document(run.objectId)
         batch.setData(run.asDictionary, forDocument: runDocumentRef, merge: true)
         // Add the pace into the route.
-        let routeDocumentRef = PaceFirestoreAPI.routesRef.document(route.id)
-        batch.updateData(["runs": FieldValue.arrayUnion([run.id])], forDocument: routeDocumentRef)
+        let routeDocumentRef = PaceFirestoreAPI.routesRef.document(route.objectId)
+        batch.updateData(["runs": FieldValue.arrayUnion([run.objectId])], forDocument: routeDocumentRef)
         batch.commit(completion: completion)
     }
 

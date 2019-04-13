@@ -76,10 +76,10 @@ extension ActivityViewController {
         guard let ongoingRun = ongoingRun else {
                 return
         }
-        let storyBoard: UIStoryboard = UIStoryboard(name: Constants.mainStoryboard, bundle: nil)
+        let storyBoard: UIStoryboard = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
         let summaryVC =
             storyBoard.instantiateViewController(
-                withIdentifier: "summaryVC")
+                withIdentifier: Identifiers.summaryViewController)
                 as! ActivitySummaryViewController
         summaryVC.setStats(createdRun: ongoingRun, distance: distance, time: stopwatch.timeElapsed)
         renderChildController(summaryVC)
