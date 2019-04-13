@@ -80,7 +80,7 @@ class CheckPoint: Object {
         }
         // location is not known, calculate it from interpolation
         let distanceFromLeft = currentDistance - left.routeDistance
-        let newLocation = CLLocation.interpolate(with: distanceFromLeft,
+        let newLocation = CLLocation.interpolate(distance: distanceFromLeft,
                                                  between: leftLocation,
                                                  and: rightLocation)
         return CheckPoint(location: newLocation, time: newTime,

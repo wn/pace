@@ -60,6 +60,7 @@ extension CLLocation {
             && timestamp == other.timestamp
     }
 
+    /// Interpolates a new CLLocation between the given two CLLocations, where the new CLLocation is of the
     /// Checks whether this location is within the distance of another location
     /// - Parameters:
     ///   - other: The other CLLocation to check against.
@@ -71,16 +72,29 @@ extension CLLocation {
 
     /// Interpolates a new Location between the given two Locations, where the new Location is of the
     /// given distance away from the left Location.
+    /// All properties of CLLocation are interpolated
     /// - Parameters:
     ///     - distance: the distance between the new Location and the left Location.
-    ///     - left: the left Location.
-    ///     - right: the right Location.
+    ///     - left: left Location.
+    ///     - right: right Location.
     /// - Returns: the interpolated Location.
-    static func interpolate(with distance: Double, between left: CLLocation, and right: CLLocation) -> CLLocation {
+    static func interpolate(distance: Double, between left: CLLocation, and right: CLLocation) -> CLLocation {
         let interpolationFraction = distance / left.distance(from: right)
         let newLongitude = left.longitude + (right.longitude - left.longitude) * interpolationFraction
         let newLatitude = left.latitude + (right.latitude - left.latitude) * interpolationFraction
-        return CLLocation(latitude: newLatitude, longitude: newLongitude)
+        let newSpeed = left.speed + (right.speed - left.speed) * interpolationFraction
+        let newAltitude = left.altitude + (right.altitude - left.altitude) * interpolationFraction
+        let newCourse = left.course + (right.course - left.course) * interpolationFraction
+        let newHorizontalAcc = left.horizontalAccuracy + (right.horizontalAccuracy - left.horizontalAccuracy) * interpolationFraction
+        let newVerticalAcc = left.verticalAccuracy + (right.verticalAccuracy - left.verticalAccuracy) * interpolationFraction
+//        let newTimestamp = left.timestamp + (right.timestamp - left.timestamp) * interpolationFraction
+        return CLLocation(coordinate: CLLocationCoordinate2D(latitude: newLatitude, longitude: newLongitude),
+                          altitude: newAltitude,
+                          horizontalAccuracy: newHorizontalAcc,
+                          verticalAccuracy: newVerticalAcc,
+                          course: newCourse,
+                          speed: newSpeed,
+                          timestamp: Date())
     }
 }
 

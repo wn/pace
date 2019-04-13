@@ -9,9 +9,9 @@ import UIKit
 
 class RunnerTableViewCell: UITableViewCell {
 
-    @IBOutlet var runnerPosition: UILabel!
-    @IBOutlet var runnerName: UILabel!
-    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet private var runnerPosition: UILabel!
+    @IBOutlet private var runnerName: UILabel!
+    @IBOutlet private var timeLabel: UILabel!
 
     func setupCell(pos: Int, name: String, time: Int) {
         var posString = "\(pos)"

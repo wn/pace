@@ -51,10 +51,13 @@ struct Dummy {
 }
 
 struct Identifiers {
+    static let storyboard = "Main"
     static let runCell = "runCell"
     static let routeCell = "routeCell"
     static let userStats = "userStatsIdentifier"
     static let runAnalysisController = "runAnalysisController"
+    static let runCollectionController = "RunCollectionController"
+    static let compareRunCell = "compareRunCell"
 }
 
 struct Titles {
@@ -65,6 +68,8 @@ struct Titles {
 
 struct Xibs {
     static let runCollectionViewCell = "RunCollectionViewCell"
+    static let compareRunCollectionViewCell = "CompareRunCollectionViewCell"
     static let routeCollectionViewCell = "RouteCollectionViewCell"
+    static let runGraphView = "RunGraphView"
     static let userStatsView = "UserStatsView"
 }

@@ -30,9 +30,15 @@ class FavouriteViewController: RequireLoginController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = Titles.favourites
-//        favouriteRoutes = userSession?.getFavouriteRoutes()
-        guard let currentUser = userSession?.currentUser,
-            let favouriteRoutes = favouriteRoutes else {
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let user = user,
+            let routes = favouriteRoutes else {
+            // Reset data
+            favouriteRoutes = List<Route>()
+            favourites.reloadData()
             return
         }
         let startCp = CheckPoint(location: CLLocation(latitude: 1.308_012, longitude: 103.773_094),
@@ -40,49 +46,19 @@ class FavouriteViewController: RequireLoginController {
                                  actualDistance: 0,
                                  routeDistance: 0)
         let endCp = CheckPoint(location: CLLocation(latitude: 1.308_012, longitude: 103.773_094),
-                                 time: 100,
-                                 actualDistance: 1.2,
-                                 routeDistance: 1.2)
+                               time: 100,
+                               actualDistance: 1.2,
+                               routeDistance: 1.2)
         for _ in 0...4 {
-            let route = Route(creator: currentUser,
+            let route = Route(creator: user,
                               name: "Random name",
-                              creatorRun: Run(runner: currentUser, checkpoints: [startCp, endCp]))
-            favouriteRoutes.append(route)
+                              creatorRun: Run(runner: user, checkpoints: [startCp, endCp]))
+            routes.append(route)
         }
+        //        notificationToken = favouriteRoutes.observe { [unowned self] _ in
+        //            self.favourites.reloadData()
+        //        }
         self.favourites.reloadData()
-//        notificationToken = favouriteRoutes.observe { [unowned self] _ in
-//            self.favourites.reloadData()
-//        }
-    }
-
-    @IBAction func addFavourite() {
-        guard let currentUser = userSession?.currentUser else {
-            return
-        }
-        func createCP(lat: Double, long: Double) -> CheckPoint {
-            return CheckPoint(location: CLLocation(latitude: lat, longitude: long), time: 0.0, actualDistance: 0.0, routeDistance: 0.0)
-        }
-        let imageNames = ["cat.jpeg", "dog.jpeg", "seal.jpeg"]
-        func createRouteStartingAt(lat: Double, long: Double) -> Route {
-            let uuidString = UUID().uuidString
-            let index = uuidString.firstIndex(of: "-") ?? uuidString.endIndex
-            let randomString = uuidString[..<index]
-            let randomImage = imageNames[[Int](0..<3).randomElement()!]
-            let checkpoints = [Int](0..<6).map { createCP(lat: lat + Double($0), long: long + Double($0)) }
-            let randomRoute = Route(creator: currentUser,
-                                    name: String(randomString),
-                                    thumbnail: UIImage(named: randomImage)?.jpegData(compressionQuality: 0.8),
-                                    creatorRun: Run(runner: currentUser, checkpoints: checkpoints))
-            [Int](0..<5).forEach { _ in
-                randomRoute.addNewRun(Run(runner: currentUser, checkpoints: [createCP(lat: 1.1, long: 2.1)]))
-            }
-            return randomRoute
-        }
-        let manager = CachingStorageManager()
-        manager.saveNewRoute(createRouteStartingAt(lat: 1, long: 2)) { if $0 == nil { print("lol") } }
-        manager.fetchRoutesWithin(latitudeMin: 1.0, latitudeMax: 3.0, longitudeMin: 1.0, longitudeMax: 3.0) {
-            print($0)
-        }
     }
 }
 

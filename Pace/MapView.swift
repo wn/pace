@@ -103,6 +103,28 @@ class MapView: GMSMapView {
         return camera.zoom
     }
 
+    func drawPath(path: GMSPath, _ color: UIColor = .blue) -> GMSPolyline? {
+        let mapPaths = GMSPolyline(path: path)
+        mapPaths.strokeColor = color
+        mapPaths.strokeWidth = 5
+        mapPaths.map = self
+        return mapPaths
+    }
+
+    func drawRun(_ run: Run?, _ color: UIColor = .blue) -> GMSPolyline? {
+        guard let run = run else {
+            return nil
+        }
+        let path = GMSMutablePath()
+        for checkpoint in run.checkpoints {
+            guard let coordinate = checkpoint.location?.coordinate else {
+                continue
+            }
+            path.add(coordinate)
+        }
+        return drawPath(path: path, color)
+    }
+
     var projectedMapBound: GridBound {
         let topLeft = projection.visibleRegion().farLeft
         let topRight = projection.visibleRegion().farRight

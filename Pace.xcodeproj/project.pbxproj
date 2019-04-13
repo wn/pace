@@ -19,11 +19,21 @@
 		6255967322549B2D0036C2B9 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6255967222549B2D0036C2B9 /* Formatter.swift */; };
 		625596752254AE050036C2B9 /* RouteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625596742254AE050036C2B9 /* RouteCollectionViewCell.swift */; };
 		625596772254AE200036C2B9 /* RouteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 625596762254AE200036C2B9 /* RouteCollectionViewCell.xib */; };
+		62667BE8225A02A5001561EF /* GraphModePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62667BE7225A02A5001561EF /* GraphModePickerController.swift */; };
+		62667BEA225B4FE6001561EF /* RunCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62667BE9225B4FE6001561EF /* RunCollectionController.swift */; };
+		62667BEC225BB187001561EF /* NSLayoutConstraint+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62667BEB225BB187001561EF /* NSLayoutConstraint+Extension.swift */; };
+		62667BEE225BC8AA001561EF /* CompareRunCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62667BED225BC8AA001561EF /* CompareRunCollectionViewCell.swift */; };
+		62667BF0225BC8B9001561EF /* CompareRunCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62667BEF225BC8B9001561EF /* CompareRunCollectionViewCell.xib */; };
 		62A7C5BE224EB087009585D3 /* NavigableController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7C5BD224EB087009585D3 /* NavigableController .swift */; };
 		62A7C5C0224F4D32009585D3 /* RunAnalysisController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7C5BF224F4D32009585D3 /* RunAnalysisController.swift */; };
 		62A7C5C2224F6041009585D3 /* UserStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A7C5C1224F6041009585D3 /* UserStatsView.xib */; };
 		62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7C5C3224F6053009585D3 /* UserStatsView.swift */; };
 		62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */; };
+		62FAA72D2257548D00906B32 /* RunGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FAA72C2257548D00906B32 /* RunGraphView.swift */; };
+		62FAA72F225754B300906B32 /* RunGraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FAA72E225754B300906B32 /* RunGraphView.xib */; };
+		62FAA73122579C3B00906B32 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FAA73022579C3B00906B32 /* UIView+Extensions.swift */; };
+		62FAA7372257F33D00906B32 /* RunnerMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FAA7362257F33D00906B32 /* RunnerMarker.swift */; };
+		62FAA7392258797200906B32 /* GMSCameraPosition+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FAA7382258797200906B32 /* GMSCameraPosition+Extension.swift */; };
 		62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF750B22413F73008847CC /* CLLocation+Extension.swift */; };
 		62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75212244CE8F008847CC /* ProfileViewController.swift */; };
 		62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF75222244CE8F008847CC /* FavouriteViewController.swift */; };
@@ -97,11 +107,21 @@
 		6255967222549B2D0036C2B9 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		625596742254AE050036C2B9 /* RouteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionViewCell.swift; sourceTree = "<group>"; };
 		625596762254AE200036C2B9 /* RouteCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteCollectionViewCell.xib; sourceTree = "<group>"; };
+		62667BE7225A02A5001561EF /* GraphModePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphModePickerController.swift; sourceTree = "<group>"; };
+		62667BE9225B4FE6001561EF /* RunCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunCollectionController.swift; sourceTree = "<group>"; };
+		62667BEB225BB187001561EF /* NSLayoutConstraint+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Extension.swift"; sourceTree = "<group>"; };
+		62667BED225BC8AA001561EF /* CompareRunCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareRunCollectionViewCell.swift; sourceTree = "<group>"; };
+		62667BEF225BC8B9001561EF /* CompareRunCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompareRunCollectionViewCell.xib; sourceTree = "<group>"; };
 		62A7C5BD224EB087009585D3 /* NavigableController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigableController .swift"; sourceTree = "<group>"; };
 		62A7C5BF224F4D32009585D3 /* RunAnalysisController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAnalysisController.swift; sourceTree = "<group>"; };
 		62A7C5C1224F6041009585D3 /* UserStatsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserStatsView.xib; sourceTree = "<group>"; };
 		62A7C5C3224F6053009585D3 /* UserStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsView.swift; sourceTree = "<group>"; };
 		62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequireLoginController.swift; sourceTree = "<group>"; };
+		62FAA72C2257548D00906B32 /* RunGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunGraphView.swift; sourceTree = "<group>"; };
+		62FAA72E225754B300906B32 /* RunGraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunGraphView.xib; sourceTree = "<group>"; };
+		62FAA73022579C3B00906B32 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		62FAA7362257F33D00906B32 /* RunnerMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerMarker.swift; sourceTree = "<group>"; };
+		62FAA7382258797200906B32 /* GMSCameraPosition+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSCameraPosition+Extension.swift"; sourceTree = "<group>"; };
 		62FF750B22413F73008847CC /* CLLocation+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
 		62FF75212244CE8F008847CC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		62FF75222244CE8F008847CC /* FavouriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +211,7 @@
 				5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */,
 				8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */,
 				8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */,
+				62FAA7382258797200906B32 /* GMSCameraPosition+Extension.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -198,12 +219,19 @@
 		62097179223CDB2B00BD26E1 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				EB22D7F72257393600D0F69D /* MapView.swift */,
 				62FF752D22495B54008847CC /* RunCollectionViewCell.swift */,
 				62FF752F22495BB6008847CC /* RunCollectionViewCell.xib */,
 				62A7C5C3224F6053009585D3 /* UserStatsView.swift */,
 				62A7C5C1224F6041009585D3 /* UserStatsView.xib */,
 				625596742254AE050036C2B9 /* RouteCollectionViewCell.swift */,
 				625596762254AE200036C2B9 /* RouteCollectionViewCell.xib */,
+				62FAA72C2257548D00906B32 /* RunGraphView.swift */,
+				62FAA72E225754B300906B32 /* RunGraphView.xib */,
+				62FAA73022579C3B00906B32 /* UIView+Extensions.swift */,
+				62FAA7362257F33D00906B32 /* RunnerMarker.swift */,
+				62667BEF225BC8B9001561EF /* CompareRunCollectionViewCell.xib */,
+				62667BED225BC8AA001561EF /* CompareRunCollectionViewCell.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -228,6 +256,7 @@
 				8B59BE58223CD81100C2E9E7 /* Secrets.swift */,
 				EBAF2CB922492E7C000FCE0E /* UIViewController+Render.swift */,
 				EB29FAED224BC72B00DF2CE6 /* GMSMapView+Extension.swift */,
+				62667BEB225BB187001561EF /* NSLayoutConstraint+Extension.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -240,13 +269,6 @@
 				8BD4C57F2250FAB200D0CEC7 /* RealmStorageManager.swift */,
 			);
 			name = Managers;
-			sourceTree = "<group>";
-		};
-		8BD4C5842252026700D0CEC7 /* LoginViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = LoginViews;
 			sourceTree = "<group>";
 		};
 		8BD4C58A2255050800D0CEC7 /* API */ = {
@@ -290,7 +312,6 @@
 				EB5E42DD2253CF4A00A60207 /* PullUpController.swift */,
 				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
 				EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */,
-				EB22D7F72257393600D0F69D /* MapView.swift */,
 				EBF87D7B225E36F9001B4056 /* RouteMarkers.swift */,
 			);
 			name = SelectActivityView;
@@ -325,8 +346,9 @@
 				62FF75222244CE8F008847CC /* FavouriteViewController.swift */,
 				62FF75212244CE8F008847CC /* ProfileViewController.swift */,
 				62A7C5BF224F4D32009585D3 /* RunAnalysisController.swift */,
+				62667BE7225A02A5001561EF /* GraphModePickerController.swift */,
+				62667BE9225B4FE6001561EF /* RunCollectionController.swift */,
 				8BD4C58A2255050800D0CEC7 /* API */,
-				8BD4C5842252026700D0CEC7 /* LoginViews */,
 				EBAF2CB622492BB9000FCE0E /* Activity */,
 				8B59BE5A223CE59600C2E9E7 /* Helpers */,
 				5C8E42D0223CC7E900DEC2F4 /* Models */,
@@ -467,11 +489,13 @@
 			files = (
 				EB931BD02238066800AFF868 /* LaunchScreen.storyboard in Resources */,
 				EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */,
+				62FAA72F225754B300906B32 /* RunGraphView.xib in Resources */,
 				625596772254AE200036C2B9 /* RouteCollectionViewCell.xib in Resources */,
 				62A7C5C2224F6041009585D3 /* UserStatsView.xib in Resources */,
 				EB931BC82238066500AFF868 /* Main.storyboard in Resources */,
 				62FF753022495BB6008847CC /* RunCollectionViewCell.xib in Resources */,
 				8BD4C59A2257B4BF00D0CEC7 /* GoogleService-Info.plist in Resources */,
+				62667BF0225BC8B9001561EF /* CompareRunCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +663,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BD4C56F224F68BB00D0CEC7 /* List+Constructors.swift in Sources */,
+				62667BEC225BB187001561EF /* NSLayoutConstraint+Extension.swift in Sources */,
 				62559671225492C90036C2B9 /* StopwatchTimer.swift in Sources */,
 				8B4F948A224BD472004500CA /* LoginViewController.swift in Sources */,
 				8B59BE59223CD81100C2E9E7 /* Secrets.swift in Sources */,
@@ -661,8 +686,10 @@
 				8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */,
 				8BD4C5802250FAB200D0CEC7 /* RealmStorageManager.swift in Sources */,
 				8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */,
+				62667BEA225B4FE6001561EF /* RunCollectionController.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
 				EB5E42DC2253CEF400A60207 /* DrawerViewController.swift in Sources */,
+				62FAA73122579C3B00906B32 /* UIView+Extensions.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
 				8B044D36223F7C0600AA8449 /* Route.swift in Sources */,
 				62A7C5BE224EB087009585D3 /* NavigableController .swift in Sources */,
@@ -673,6 +700,8 @@
 				62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
 				62FF752E22495B54008847CC /* RunCollectionViewCell.swift in Sources */,
+				62667BE8225A02A5001561EF /* GraphModePickerController.swift in Sources */,
+				62FAA7372257F33D00906B32 /* RunnerMarker.swift in Sources */,
 				8BD4C596225680C600D0CEC7 /* RealmCLLocation+Firebase.swift in Sources */,
 				EBF87D78225CE9F0001B4056 /* GPSStrengthIndicator.swift in Sources */,
 				8BD4C5942256808000D0CEC7 /* Route+Firebase.swift in Sources */,
@@ -686,8 +715,11 @@
 				8BD4C5902256802100D0CEC7 /* Run+Firebase.swift in Sources */,
 				EB931BCB2238066500AFF868 /* Pace.xcdatamodeld in Sources */,
 				8BDED013223FB9CC00CD778D /* RouteMenuViewController.swift in Sources */,
+				62FAA72D2257548D00906B32 /* RunGraphView.swift in Sources */,
 				8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */,
 				6255967322549B2D0036C2B9 /* Formatter.swift in Sources */,
+				62667BEE225BC8AA001561EF /* CompareRunCollectionViewCell.swift in Sources */,
+				62FAA7392258797200906B32 /* GMSCameraPosition+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

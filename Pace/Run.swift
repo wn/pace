@@ -9,9 +9,11 @@
 import Foundation
 import CoreLocation
 import RealmSwift
+import GoogleMaps
 import Firebase
 
 class Run: IdentifiableObject {
+    @objc dynamic var realmCameraPosition: RealmGMSCameraPosition?
     @objc dynamic var runner: User?
     @objc dynamic var dateCreated = Date()
     @objc dynamic var timeSpent: Double = 0.0
@@ -24,6 +26,9 @@ class Run: IdentifiableObject {
         return UIImage(data: thumbnailData)
     }
     var checkpoints = List<CheckPoint>()
+    var cameraPosition: GMSCameraPosition? {
+        return realmCameraPosition?.asGMSCameraPosition
+    }
     var routes: LinkingObjects<Route> = LinkingObjects(fromType: Route.self, property: "paces")
     var route: Route {
         return routes.first!
@@ -86,5 +91,34 @@ class Run: IdentifiableObject {
         return checkpoints.map { basePoint in
             basePoint.extractNormalizedPoint(from: runnerRecords)
         }
+    }
+
+    /// Gets the Checkpoint of the runner based on the distance run by the runner
+    /// - Parameter distance: distance completed by the runner at the point in time
+    /// - Returns: the Checkpoint of the runner at the run percentage
+    func getCheckpointAt(distance distanceCompleted: Double) -> CheckPoint? {
+        guard let totalDist = totalDistance,
+            distanceCompleted < totalDist else {
+            return checkpoints.last
+        }
+        var leftIdx = 0
+        var rightIdx = checkpoints.count - 1
+        // Binary search to find segment which bounds timeAtPercentage
+        while leftIdx + 1 < rightIdx {
+            let idx = Int((rightIdx + leftIdx) / 2)
+            if checkpoints[idx].routeDistance < distanceCompleted {
+                leftIdx = idx
+            } else if checkpoints[idx].routeDistance > distanceCompleted {
+                rightIdx = idx
+            } else {
+                return checkpoints[idx]
+            }
+        }
+
+        // Interpolate to get the CLLocation between the left and right checkpoints
+        return CheckPoint.interpolate(with: distanceCompleted,
+                                      between: checkpoints[leftIdx],
+                                      and: checkpoints[rightIdx],
+                                      on: nil)
     }
 }
