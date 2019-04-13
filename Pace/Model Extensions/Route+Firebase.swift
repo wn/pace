@@ -11,30 +11,28 @@ extension Route: FirebaseStorable {
         let startingLocation = creatorRun!.startingLocation!
         return [
             "name": name,
-            "creator": creator?.objectId ?? "",
             "creatorName": creator?.name ?? "",
-            "startingGeohash": Constants.defaultGridManager.getGridId(startingLocation.coordinate).code,
+            "creator": creator?.id ?? "",
+            "startingGeohash": Constants.defaultGridManager!.getGridId(startingLocation.coordinate).code,
             "creatorRun": creatorRun?.asDictionary ?? [:],
-            "creatorRunId": creatorRun?.objectId ?? "",
-            "runs": Array(paces.map { $0.objectId })
+            "creatorRunId": creatorRun?.id ?? "",
+            "runs": Array(paces.map { $0.id })
         ]
     }
 
-    static func fromDictionary(objectId: String?, value: [String: Any]) -> Route? {
+    static func fromDictionary(id: String?, value: [String: Any]) -> Route? {
         guard
             let name = value["name"] as? String,
             let creatorName = value["creatorName"] as? String,
             let creatorId = value["creator"] as? String,
             let creatorRun = value["creatorRun"] as? [String: Any],
             let creatorRunId = value["creatorRunId"] as? String,
-            let objectId = objectId
+            let id = id
             else {
                 return nil
         }
-        let route = Route(creator: UserReference(name: "newguy", id: objectId),
-                          name: name,
-                          creatorRun: Run.fromDictionary(objectId: creatorRunId, value: creatorRun)!)
-        route.objectId = objectId
+        let route = Route(creator: UserReference(name: creatorName, id: creatorId), name: name, creatorRun: Run.fromDictionary(id: creatorRunId, value: creatorRun)!)
+        route.id = id
         return route
     }
 }
