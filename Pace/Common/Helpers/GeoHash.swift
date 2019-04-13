@@ -26,7 +26,7 @@ struct Geohash {
     static func decode(hash: String) -> (latitude: (min: Double, max: Double), longitude: (min: Double, max: Double))? {
         // For example: hash = u4pruydqqvj
 
-        let bits = hash.map { bitmap[$0] ?? "?" }.joined(separator: "")
+        let bits = hash.map { bitmap[$0] ?? "?" }.joined()
         guard bits.count % 5 == 0 else { return nil }
         // bits = 1101000100101011011111010111100110010110101101101110001
 
@@ -96,12 +96,12 @@ struct Geohash {
         }
         .reduce(into: [Character: String]()) {
             $0[$1.0] = $1.1
-    }
+        }
 
     private static let charmap = bitmap
         .reduce(into: [String: Character]()) {
             $0[$1.1] = $1.0
-    }
+        }
 }
 
 extension Geohash {
@@ -128,7 +128,7 @@ private extension String {
     init(integer num: Int, radix: Int, padding: Int) {
         let str = String(num, radix: radix)
         let pad = (padding - str.count % padding) % padding
-        self = Array(repeating: "0", count: pad).joined(separator: "") + str
+        self = Array(repeating: "0", count: pad).joined() + str
     }
 }
 
