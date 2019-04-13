@@ -35,7 +35,7 @@ class PaceFirebaseAPI: PaceStorageAPI {
 
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: @escaping RouteResultsHandler) {
-        PaceFirestoreAPI.routesRef.getDocuments { snapshot, err in
+        PaceFirebaseAPI.routesRef.getDocuments { snapshot, err in
             guard err == nil else {
                 completion(nil, err)
                 return
@@ -44,7 +44,6 @@ class PaceFirebaseAPI: PaceStorageAPI {
                 .compactMap {
                     Route.fromDictionary(objectId: $0.documentID, value: $0.data())
                 }
-            }
             completion(routes, err)
         }
     }
