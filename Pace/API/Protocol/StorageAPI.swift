@@ -9,8 +9,10 @@
 import Foundation
 
 protocol PaceStorageAPI {
-    /// A typealias for the
+    /// A typealias for the routes handler for this protocol.
     typealias RouteResultsHandler = ([Route]?, Error?) -> Void
+
+    /// A typealias for the runs handler for this protocol.
     typealias RunResultsHandler = ([Run]?, Error?) -> Void
 
     /// Fetches the routes stored in the cloud that start within this region.
@@ -19,8 +21,11 @@ protocol PaceStorageAPI {
     /// Fetched the runs with the specific routeId
     func fetchRunsForRoute(_ routeId: String, _ completion: @escaping RunResultsHandler)
 
-    /// Fetched the runs for this route.
+    /// Fetches the runs for this route.
     func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler)
+
+    /// Fetches the count of runs in this area.
+    func fetchAreaRoutesCount(areaCode: String, _ completion: @escaping ((Int?, Error?) -> Void))
 
     /// Adds the route upload action into the queue, and attempts it.
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
@@ -33,4 +38,7 @@ protocol PaceStorageAPI {
 
     /// Remove this route from the user's favourites
     func removeFavourite(_ route: Route, fromUser: User, _ completion: ((Error?) -> Void)?)
+
+    /// Increments the count of runs in this area.
+    func incrementAreaRoutesCount(areaCode: String, _ completion: ((Error?) -> Void)?)
 }
