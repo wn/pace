@@ -54,6 +54,8 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         statsPanel.bringSubviewToFront(gpsIndicator)
         navigationItem.title = Titles.activity
+        // Set the gpx file for MockCLLocationManager
+        MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
         setupWifiImage()
         googleMapView.setup(self)
