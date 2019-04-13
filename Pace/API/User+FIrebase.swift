@@ -12,7 +12,7 @@ extension User: FirebaseStorable {
     var asDictionary: [String: Any] {
         return [
             "name": name,
-            "uid": uid,
+            "uid": uid
         ]
     }
 

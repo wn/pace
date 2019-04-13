@@ -130,7 +130,7 @@ extension PaceFirebaseAPI: PaceUserAPI {
             completion(routes, error)
         }
     }
-    
+
     func fetchHistory(userId: String, _ completion: @escaping RunResultsHandler) {
         let query = PaceFirebaseAPI.runsRef.whereField("creator", isEqualTo: userId)
         query.getDocuments { snapshot, error in

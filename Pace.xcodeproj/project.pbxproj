@@ -53,6 +53,7 @@
 		8B9E8C452261EB2D0067A556 /* UserReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C442261EB2C0067A556 /* UserReference.swift */; };
 		8B9E8C472261F66F0067A556 /* StorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C462261F66F0067A556 /* StorageAPI.swift */; };
 		8B9E8C49226210A30067A556 /* User+FIrebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C48226210A30067A556 /* User+FIrebase.swift */; };
+		8B9E8C4B226211E60067A556 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C4A226211E60067A556 /* Observable.swift */; };
 		8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */; };
 		8BD4C56F224F68BB00D0CEC7 /* List+Constructors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */; };
 		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
@@ -144,7 +145,8 @@
 		8B9E8C412261E4C40067A556 /* UserAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAPI.swift; path = Pace/API/Protocol/UserAPI.swift; sourceTree = SOURCE_ROOT; };
 		8B9E8C442261EB2C0067A556 /* UserReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserReference.swift; path = Pace/Common/Models/UserReference.swift; sourceTree = SOURCE_ROOT; };
 		8B9E8C462261F66F0067A556 /* StorageAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
-		8B9E8C48226210A30067A556 /* User+FIrebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+FIrebase.swift"; path = "Pace/User+FIrebase.swift"; sourceTree = SOURCE_ROOT; };
+		8B9E8C48226210A30067A556 /* User+FIrebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+FIrebase.swift"; path = "Pace/API/User+FIrebase.swift"; sourceTree = SOURCE_ROOT; };
+		8B9E8C4A226211E60067A556 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Observable.swift; path = Pace/Common/Helpers/Observable.swift; sourceTree = SOURCE_ROOT; };
 		8BA19E99225CDFDF009104F2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		8BA19EA1225E5B7A009104F2 /* UserReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReference.swift; sourceTree = "<group>"; };
 		8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableObject.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 		62E626C62261BA58009079F5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				8B9E8C4A226211E60067A556 /* Observable.swift */,
 				62FF753122495E36008847CC /* ViewDelegate.swift */,
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
 				EB408D3A2244AD1100F9C561 /* VoiceAssistant.swift */,
@@ -795,6 +798,7 @@
 				8B9E8C452261EB2D0067A556 /* UserReference.swift in Sources */,
 				8B9E8C472261F66F0067A556 /* StorageAPI.swift in Sources */,
 				5C5124BD2254EE3F00B8A15C /* OngoingRun.swift in Sources */,
+				8B9E8C4B226211E60067A556 /* Observable.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				EBF87D7C225E36F9001B4056 /* RouteMarkers.swift in Sources */,
 				8B2638DB225B979B004B52AB /* GridMap.swift in Sources */,

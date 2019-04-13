@@ -21,4 +21,3 @@ protocol PaceUserAPI {
     func findUser(withUID userId: String, orCreateWithName name: String, _ completion: @escaping UserResultsHandler)
     /// Authenticate
 }
-
