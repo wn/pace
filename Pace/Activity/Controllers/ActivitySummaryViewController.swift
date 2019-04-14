@@ -15,13 +15,15 @@ class ActivitySummaryViewController: UIViewController {
     @IBOutlet private var timeLabel: UILabel!
     var createdRun: OngoingRun?
     var routesManager: RealmStorageManager?
+    @IBOutlet var statsView: RunStatsView!
 
-    @IBAction func endRun(_ sender: UIButton) {
+
+    @IBAction func saveRun(_ sender: UIButton) {
         // TODO: Check that we have sufficient distance to save!!
-//        guard distance >= Constants.checkPointDistanceInterval else {
-//            print("CANT SAVE THIS SHIT")
-//            return
-//        }
+        guard distance >= Constants.checkPointDistanceInterval else {
+            print("CANT SAVE THIS SHIT cause distance not long enuff")
+            return
+        }
         routesManager?.saveNewRoute(createdRun!.toNewRoute(), nil)
     }
     var distance: Double = 0
@@ -35,14 +37,18 @@ class ActivitySummaryViewController: UIViewController {
         self.createdRun = createdRun
     }
 
+    func showStats() {
+        statsView.setStats(distance: distance, time: time)
+    }
+
     override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = Titles.runSummary
         routesManager = CachingStorageManager.default
-        distanceLabel.text = "distance: \(distance) meters"
-        paceLabel.text = "pace: \(pace)"
-        timeLabel.text = "time: \(time) seconds"
-        VoiceAssistant.say("Distance: \(distance) meters")
-        VoiceAssistant.say("Duration: \(time) seconds")
-        VoiceAssistant.say("Pace: \(pace) seconds per kilometer")
+        showStats()
+        VoiceAssistant.say("Distance: \(Int(distance)) meters")
+        VoiceAssistant.say("Duration: \(Int(time)) seconds")
+        VoiceAssistant.say("Pace: \(Int(pace)) seconds per kilometer")
     }
 
     @IBAction private func exit(_ sender: UIButton) {

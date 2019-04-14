@@ -41,7 +41,7 @@ extension ActivityViewController {
         stopwatch.start()
         // TODO: add follow run
         // TODO: allow user to run without signing in
-        ongoingRun = OngoingRun(runner: userSession.getRealmUser(nil)!, startingLocation: location)
+        ongoingRun = OngoingRun(runner: Dummy.user, startingLocation: location)
     }
 
     @objc
@@ -82,7 +82,7 @@ extension ActivityViewController {
                 withIdentifier: Identifiers.summaryViewController)
                 as! ActivitySummaryViewController
         summaryVC.setStats(createdRun: ongoingRun, distance: distance, time: stopwatch.timeElapsed)
-        renderChildController(summaryVC)
+        self.navigationController?.pushViewController(summaryVC, animated: true)
     }
 
     func updateValues() {
@@ -93,11 +93,5 @@ extension ActivityViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.updateValues()
         }
-    }
-
-    func updateLabels() {
-        updatePace()
-        updateTimer()
-        updateDistanceTravelled()
     }
 }
