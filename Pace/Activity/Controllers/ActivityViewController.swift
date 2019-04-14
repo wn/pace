@@ -6,7 +6,7 @@ import RealmSwift
 
 class ActivityViewController: UIViewController {
     // MARK: Realm variables
-    let userSession = RealmUserSessionManager.forDefaultRealm
+    let userSession = RealmUserSessionManager.default
     let routesManager = CachingStorageManager.default
     let routes = CachingStorageManager.default.inMemoryRealm.objects(Route.self)
     var notificationToken: NotificationToken?

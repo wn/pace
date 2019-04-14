@@ -432,7 +432,6 @@
 				8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */,
 				8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */,
 				8B9E8C2522606E790067A556 /* StorageAPI.swift */,
-				8B9E8C2A226074D70067A556 /* User+Firebase.swift */,
 				8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */,
 			);
 			name = "Recovered References";
@@ -827,7 +826,6 @@
 				62FAA7372257F33D00906B32 /* RunnerMarker.swift in Sources */,
 				EBF87D78225CE9F0001B4056 /* GPSStrengthIndicator.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
-				8B9E8C2B226074D70067A556 /* User+FIrebase.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */,
 				8B2638D9225B978F004B52AB /* GeoHash.swift in Sources */,

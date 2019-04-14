@@ -7,29 +7,34 @@
 //
 
 import RealmSwift
+import FacebookCore
 
 protocol UserSessionManager {
     typealias BooleanHandler = (Bool) -> Void
-    /// The current user in thie session.
-    var currentUser: User? { get }
-    /// The callback to perform when signed in
-    func onSignedInAs(user: User?)
-    /// Finds a user with an identifies, or optionally signs up the user/
-    func findUserWith(name: String, orSignUp: Bool) -> User?
+    typealias UserResultsHandler = (User?, Error?) -> Void
 
-    func getFavouriteRoutes() -> List<Route>?
+    /// Gets the user from its facebook uid
+    func getRealmUser(_ uid: String?) -> User?
+
+    /// Finds a user with an identifies, or optionally signs up the user/
+    func findOrCreateUser(with uid: String, _ completion: @escaping UserResultsHandler)
+
+    func getFavouriteRoutes(of user: User)
 
     /// Adds to the favourites of the current user.
-    func addToFavourites(route: Route, _ completion: BooleanHandler?)
+    func addToFavourites(route: Route, to user: User?, _ completion: BooleanHandler?)
 
     /// Removes the favourites from the current user.
-    func removeFromFavourites(route: Route, _ completion: BooleanHandler?)
+    func removeFromFavourites(route: Route, from user: User?, _ completion: BooleanHandler?)
 }
 
 class RealmUserSessionManager: UserSessionManager {
-    static let forDefaultRealm = RealmUserSessionManager()
 
-    private(set) var currentUser: User?
+    static let `default` = RealmUserSessionManager()
+
+    private(set) var isLoading: Bool = false
+
+    private(set) var storageAPI: PaceUserAPI
 
     private var storageManager: RealmStorageManager
 
@@ -37,42 +42,61 @@ class RealmUserSessionManager: UserSessionManager {
         return storageManager.persistentRealm
     }
 
-    init(storageManager: RealmStorageManager = CachingStorageManager.default) {
+    convenience init() {
+        self.init(storageManager: CachingStorageManager.default, storageAPI: PaceFirebaseAPI())
+    }
+
+    init(storageManager: RealmStorageManager, storageAPI: PaceUserAPI) {
         self.storageManager = storageManager
-        // TODO: Proper persistence. Should be able to be handled with Realm Sync.
-        onSignedInAs(user: storageManager.persistentRealm.objects(User.self).first)
+        self.storageAPI = storageAPI
     }
 
-    func onSignedInAs(user: User?) {
-        currentUser = user
-    }
-
-    func findUserWith(name: String, orSignUp signUp: Bool = false) -> User? {
-        var user = realm.objects(User.self).first {
-            $0.name == name
+    /// Gets the realm user based on the uid in the current AccessToken
+    /// Optionally can input a uid as an argument to override the access token
+    func getRealmUser(_ uid: String?) -> User? {
+        guard let currentUid = uid ?? AccessToken.current?.userId else {
+            return nil
         }
-        if user == nil, signUp {
-            let newUser = User(name: name)
-            try! realm.write {
-                realm.add(newUser)
+ 
+        return storageManager.persistentRealm.objects(User.self)
+            .filter { $0.uid == currentUid }.first
+    }
+
+    func findOrCreateUser(with uid: String, _ completion: @escaping UserResultsHandler) {
+        self.isLoading = true
+        storageAPI.findOrCreateFirebaseUser(with: uid) { user, error in
+            guard let user = user else {
+                return
             }
-            user = Realm.persistent.objects(User.self).first
+            try! self.realm.write {
+                self.realm.add(user, update: true)
+            }
+            self.isLoading = false
+            completion(user, error)
         }
-        return user
     }
 
-    func getFavouriteRoutes() -> List<Route>? {
-        return currentUser?.favouriteRoutes
+    func getFavouriteRoutes(of user: User) {
+        storageAPI.fetchFavourites(userId: user.objectId) { routes, error in
+            guard let routes = routes else {
+                return
+            }
+            try! self.realm.write {
+                self.realm.add(routes, update: true)
+                user.favouriteRoutes.removeAll()
+                user.favouriteRoutes.append(objectsIn: routes)
+            }
+        }
     }
 
-    func addToFavourites(route: Route, _ completion: BooleanHandler?) {
+    func addToFavourites(route: Route, to user: User?, _ completion: BooleanHandler?) {
         var success = true
         do {
-            guard let currentUser = currentUser else {
+            guard let user = user else {
                 print("user not found")
                 throw NSError()
             }
-            storageManager.addFavouriteRoute(route, toUser: currentUser)
+            storageManager.addFavouriteRoute(route, toUser: user)
         } catch {
             print("Operation unsuccessful: \(error.localizedDescription)")
             success = false
@@ -80,14 +104,14 @@ class RealmUserSessionManager: UserSessionManager {
         completion?(success)
     }
 
-    func removeFromFavourites(route: Route, _ completion: BooleanHandler?) {
+    func removeFromFavourites(route: Route, from user: User?, _ completion: BooleanHandler?) {
         var success = true
         do {
-            guard let currentUser = currentUser else {
+            guard let user = user else {
                 print("user not found")
                 throw NSError()
             }
-            storageManager.removeFavouriteRoute(route, fromUser: currentUser)
+            storageManager.removeFavouriteRoute(route, fromUser: user)
         } catch {
             print("Operation unsuccessful: \(error.localizedDescription)")
             success = false

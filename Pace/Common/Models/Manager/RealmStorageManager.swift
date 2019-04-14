@@ -46,7 +46,7 @@ class CachingStorageManager: RealmStorageManager {
     static let `default` = CachingStorageManager()
 
     /// The API used by this manager to store items.
-    private var storageAPI: PaceStorageAPI
+    private(set) var storageAPI: PaceStorageAPI
 
     private(set) var persistentRealm: Realm
 
@@ -59,8 +59,9 @@ class CachingStorageManager: RealmStorageManager {
     }
 
     convenience init() {
-        self.init(persistentRealm: .persistent, inMemoryRealm: .inMemory,
-                  storageAPI: PaceFirebaseAPI(persistentRealm: .persistent, inMemoryRealm: .inMemory))
+        self.init(persistentRealm: .persistent,
+                  inMemoryRealm: .inMemory,
+                  storageAPI: PaceFirebaseAPI())
     }
 
     // TODO: complete the implementation
@@ -106,8 +107,8 @@ class CachingStorageManager: RealmStorageManager {
                 }
                 return
             }
-            try! self.persistentRealm.write {
-                self.persistentRealm.add(runs)
+            try! self.inMemoryRealm.write {
+                self.inMemoryRealm.add(runs, update: true)
             }
         }
     }

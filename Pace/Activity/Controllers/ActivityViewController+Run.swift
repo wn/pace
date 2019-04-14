@@ -41,7 +41,7 @@ extension ActivityViewController {
         stopwatch.start()
         // TODO: add follow run
         // TODO: allow user to run without signing in
-        ongoingRun = OngoingRun(runner: userSession.currentUser!, startingLocation: location)
+        ongoingRun = OngoingRun(runner: userSession.getRealmUser(nil)!, startingLocation: location)
     }
 
     @objc

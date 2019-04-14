@@ -49,14 +49,15 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
         fbLoginButton.removeFromSuperview()
     }
 
+    /// Checks if the user is logged in by checking for the presence of the AccessToken
+    /// Loads the user if the user exists
     func isUserLoggedIn() -> Bool {
-        // If the token exists, load the user
         guard let token = AccessToken.current,
             let facebookId = token.userId else {
             user = nil
             return false
         }
-        loadUser(facebookId: facebookId)
+        loadUser(with: facebookId)
         return true
     }
 
@@ -66,40 +67,19 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
             guard let facebookId = token.userId else {
                 return
             }
-            loadUser(facebookId: facebookId)
+            loadUser(with: facebookId)
         default:
             break
         }
     }
 
-    /// - TODO: Find-or-create firebase for existing user and load Realm user reference.
-    func loadUser(facebookId: String) {
-        guard !findAndLoadUser(facebookId: facebookId) else {
-            hideLoginButton()
-            return
+    /// Gets the current User from Realm and assigns it
+    /// Makes a request to query Firebase to update
+    func loadUser(with uid: String) {
+        user = RealmUserSessionManager.default.getRealmUser(uid)
+        RealmUserSessionManager.default.findOrCreateUser(with: uid) { user, error in
+            /// - TODO: Reload view?
         }
-        // If user does not exist, request FB for user data (name)
-        GraphRequest(graphPath: "me", parameters: ["fields": "id, name"]).start({ _, result in
-            switch result {
-            case .success(let response):
-                guard let name = response.dictionaryValue?["name"] as? String else {
-                    return
-                }
-                self.createAndLoadUser(facebookId: facebookId, name: name)
-                self.hideLoginButton()
-            case .failed(let error):
-                print("Graph Request failed: \(error)")
-            }
-        })
-        // Handle if graph request fails 
-        user = Dummy.user
-        hideLoginButton()
-    }
-
-    /// - TODO: Replace with API call
-    /// Create user in firebase and load user reference into this controller
-    func createAndLoadUser(facebookId: String, name: String) {
-        user = Dummy.user
     }
 
     /// - TODO: Replace with API call
