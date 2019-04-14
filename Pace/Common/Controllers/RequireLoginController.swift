@@ -12,6 +12,10 @@ import RealmSwift
 import FacebookLogin
 import FacebookCore
 
+protocol LateUserInitializable {
+    func loadData()
+}
+
 class RequireLoginController: UIViewController, LoginButtonDelegate {
     var fbLoginButton: LoginButton?
     var user: User?
@@ -61,6 +65,16 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
         return true
     }
 
+    /// Gets the current User from Realm and assigns it
+    /// Makes a request to query Firebase to update
+    func loadUser(with uid: String) {
+        user = RealmUserSessionManager.default.getRealmUser(uid)
+        RealmUserSessionManager.default.findOrCreateUser(with: uid) { user, error in
+            self.user = user
+            self.loadData()
+        }
+    }
+
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
         case let .success(_, _, token):
@@ -73,21 +87,9 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
         }
     }
 
-    /// Gets the current User from Realm and assigns it
-    /// Makes a request to query Firebase to update
-    func loadUser(with uid: String) {
-        user = RealmUserSessionManager.default.getRealmUser(uid)
-        RealmUserSessionManager.default.findOrCreateUser(with: uid) { user, error in
-            /// - TODO: Reload view?
-        }
-    }
-
-    /// - TODO: Replace with API call
-    /// Find user in firebase and load user reference into this controller
-    func findAndLoadUser(facebookId: String) -> Bool {
-        return false
-    }
-
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
     }
+
+    /// To be overriden by subclass
+    func loadData() {}
 }
