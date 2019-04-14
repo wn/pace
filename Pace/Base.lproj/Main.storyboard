@@ -367,45 +367,27 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CIc-JA-d14" userLabel="Center Panel">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="217.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FcL-eT-xpd">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="217.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgQ-IK-0JR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65.5" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ucs-du-ve9" customClass="GpsStrengthIndicator" customModule="Pace" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28.5" width="414" height="132"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U35-40-Yta">
-                                                        <rect key="frame" x="0.0" y="168.5" width="37.5" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W94-c5-fax">
-                                                        <rect key="frame" x="0.0" y="197" width="33.5" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ucs-du-ve9" customClass="GpsStrengthIndicator" customModule="Pace" customModuleProvider="target">
+                                                <rect key="frame" x="384" y="0.0" width="30" height="30"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="Ucs-du-ve9" secondAttribute="trailing" id="FXN-wg-ubS"/>
+                                                    <constraint firstAttribute="height" constant="30" id="Eop-2h-tKq"/>
+                                                    <constraint firstAttribute="width" constant="30" id="vOK-JQ-EFb"/>
                                                 </constraints>
-                                            </stackView>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eH6-HT-w4G" customClass="RunStatsView" customModule="Pace" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="217.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="FcL-eT-xpd" secondAttribute="trailing" id="2Wi-tK-2ui"/>
-                                            <constraint firstAttribute="bottom" secondItem="FcL-eT-xpd" secondAttribute="bottom" id="6hf-eO-oKG"/>
-                                            <constraint firstItem="FcL-eT-xpd" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="7qc-Gt-aAG"/>
-                                            <constraint firstAttribute="trailing" secondItem="FcL-eT-xpd" secondAttribute="trailing" id="VVG-JX-h6d"/>
-                                            <constraint firstItem="FcL-eT-xpd" firstAttribute="leading" secondItem="CIc-JA-d14" secondAttribute="leading" id="VYi-ox-SbT"/>
-                                            <constraint firstItem="FcL-eT-xpd" firstAttribute="leading" secondItem="CIc-JA-d14" secondAttribute="leading" id="yqy-ZD-Wdi"/>
+                                            <constraint firstItem="eH6-HT-w4G" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="CiB-Sh-9gt"/>
+                                            <constraint firstItem="eH6-HT-w4G" firstAttribute="leading" secondItem="CIc-JA-d14" secondAttribute="leading" id="Dti-B7-2HX"/>
+                                            <constraint firstAttribute="bottom" secondItem="eH6-HT-w4G" secondAttribute="bottom" id="Lhi-fV-fqR"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ucs-du-ve9" secondAttribute="trailing" id="Pqi-9U-eji"/>
+                                            <constraint firstItem="Ucs-du-ve9" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="Uwq-ua-pkZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="eH6-HT-w4G" secondAttribute="trailing" id="hug-T9-7N8"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orD-GP-Arf" customClass="MapView" customModule="Pace" customModuleProvider="target">
@@ -425,7 +407,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="F8R-Vb-fXz" secondAttribute="bottom" id="GkW-8T-bPM"/>
                             <constraint firstItem="F8R-Vb-fXz" firstAttribute="leading" secondItem="gES-eM-n92" secondAttribute="leading" id="LgT-fU-V7y"/>
@@ -436,80 +418,74 @@
                     </view>
                     <navigationItem key="navigationItem" id="hez-9w-lLK"/>
                     <connections>
-                        <outlet property="distanceLabel" destination="QgQ-IK-0JR" id="Yen-pu-hDG"/>
                         <outlet property="googleMapView" destination="orD-GP-Arf" id="Bjl-QF-XAF"/>
                         <outlet property="gpsIndicator" destination="Ucs-du-ve9" id="cHn-MX-NSC"/>
-                        <outlet property="paceLabel" destination="U35-40-Yta" id="IQF-xc-0FX"/>
-                        <outlet property="statsPanel" destination="FcL-eT-xpd" id="Q6V-QO-c8v"/>
-                        <outlet property="timeLabel" destination="W94-c5-fax" id="1RO-qG-Uhr"/>
+                        <outlet property="runStats" destination="eH6-HT-w4G" id="sWR-oQ-2aQ"/>
+                        <outlet property="statsPanel" destination="CIc-JA-d14" id="Wue-Mw-F2n"/>
+                        <segue destination="xC9-Rd-j1i" kind="show" id="xaX-Sn-iQB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SzY-tw-3QV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2530.434782608696" y="-1224.1071428571429"/>
+            <point key="canvasLocation" x="2480" y="-1224"/>
         </scene>
         <!--Activity Summary View Controller-->
         <scene sceneID="liK-rk-ZQh">
             <objects>
                 <viewController storyboardIdentifier="summaryVC" id="xC9-Rd-j1i" customClass="ActivitySummaryViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cm9-DN-0rm">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="CzE-2p-SeH">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBF-1g-pWF">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance travelled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVi-vM-Us2">
-                                        <rect key="frame" x="0.0" y="0.0" width="137" height="163.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkw-pu-Nvy">
-                                        <rect key="frame" x="0.0" y="163.5" width="38" height="163.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goE-VL-BAo">
-                                        <rect key="frame" x="0.0" y="327" width="38" height="164"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIK-0g-Tub">
-                                        <rect key="frame" x="0.0" y="491" width="53" height="163.5"/>
-                                        <state key="normal" title="end run"/>
-                                        <connections>
-                                            <action selector="endRun:" destination="xC9-Rd-j1i" eventType="touchUpInside" id="c0p-FD-f3w"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFU-bh-McZ">
-                                        <rect key="frame" x="0.0" y="654.5" width="30" height="163.5"/>
-                                        <state key="normal" title="Exit"/>
-                                        <connections>
-                                            <action selector="exit:" destination="xC9-Rd-j1i" eventType="touchUpInside" id="yFJ-cY-Ka9"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="284" translatesAutoresizingMaskIntoConstraints="NO" id="mf4-uq-zoj">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dnz-ga-EZn" customClass="RunStatsView" customModule="Pace" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="217.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vkq-mQ-ZUx">
+                                                <rect key="frame" x="0.0" y="501.5" width="414" height="223.5"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Vkq-mQ-ZUx" firstAttribute="width" secondItem="mf4-uq-zoj" secondAttribute="width" id="GqU-Ps-FKB"/>
+                                            <constraint firstItem="Vkq-mQ-ZUx" firstAttribute="centerX" secondItem="mf4-uq-zoj" secondAttribute="centerX" id="Ju5-hM-7qW"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vkq-mQ-ZUx" secondAttribute="bottom" id="N2B-t5-g4T"/>
+                                            <constraint firstItem="dnz-ga-EZn" firstAttribute="height" secondItem="mf4-uq-zoj" secondAttribute="height" multiplier="0.3" id="WiY-gN-bg4"/>
+                                            <constraint firstItem="dnz-ga-EZn" firstAttribute="width" secondItem="mf4-uq-zoj" secondAttribute="width" id="XHr-sB-Laj"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vkq-mQ-ZUx" secondAttribute="trailing" id="g2m-aN-0q5"/>
+                                            <constraint firstItem="Vkq-mQ-ZUx" firstAttribute="leading" secondItem="mf4-uq-zoj" secondAttribute="leading" id="h3D-c4-UtK"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="mf4-uq-zoj" firstAttribute="leading" secondItem="aBF-1g-pWF" secondAttribute="leading" id="7ce-01-KNO"/>
+                                    <constraint firstItem="mf4-uq-zoj" firstAttribute="centerX" secondItem="aBF-1g-pWF" secondAttribute="centerX" id="AJ6-t5-qVy"/>
+                                    <constraint firstItem="mf4-uq-zoj" firstAttribute="centerY" secondItem="aBF-1g-pWF" secondAttribute="centerY" id="PMR-5g-50l"/>
+                                    <constraint firstItem="mf4-uq-zoj" firstAttribute="top" secondItem="aBF-1g-pWF" secondAttribute="top" id="YV7-uf-Ita"/>
+                                    <constraint firstAttribute="trailing" secondItem="mf4-uq-zoj" secondAttribute="trailing" id="jCx-jb-IOL"/>
+                                    <constraint firstAttribute="bottom" secondItem="mf4-uq-zoj" secondAttribute="bottom" id="qwA-cL-pGQ"/>
+                                    <constraint firstItem="mf4-uq-zoj" firstAttribute="width" secondItem="aBF-1g-pWF" secondAttribute="width" id="wHY-Vv-Fbe"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="CzE-2p-SeH" firstAttribute="leading" secondItem="mYZ-xs-OrO" secondAttribute="leading" id="43v-h4-oCb"/>
-                            <constraint firstItem="CzE-2p-SeH" firstAttribute="top" secondItem="mYZ-xs-OrO" secondAttribute="top" id="DHk-TB-9m7"/>
-                            <constraint firstItem="CzE-2p-SeH" firstAttribute="trailing" secondItem="mYZ-xs-OrO" secondAttribute="trailing" id="FGa-aN-7V1"/>
-                            <constraint firstItem="mYZ-xs-OrO" firstAttribute="trailing" secondItem="CzE-2p-SeH" secondAttribute="trailing" id="ICP-Cd-Rxy"/>
-                            <constraint firstItem="mYZ-xs-OrO" firstAttribute="bottom" secondItem="CzE-2p-SeH" secondAttribute="bottom" id="X1U-sz-0p3"/>
-                            <constraint firstItem="CzE-2p-SeH" firstAttribute="top" secondItem="mYZ-xs-OrO" secondAttribute="top" id="gJW-0V-RCh"/>
-                            <constraint firstItem="CzE-2p-SeH" firstAttribute="leading" secondItem="mYZ-xs-OrO" secondAttribute="leading" id="ifq-Oh-IxG"/>
+                            <constraint firstItem="aBF-1g-pWF" firstAttribute="bottom" secondItem="mYZ-xs-OrO" secondAttribute="bottom" id="UG6-wV-VgG"/>
+                            <constraint firstItem="mYZ-xs-OrO" firstAttribute="trailing" secondItem="aBF-1g-pWF" secondAttribute="trailing" id="dXf-pd-nFG"/>
+                            <constraint firstItem="aBF-1g-pWF" firstAttribute="leading" secondItem="mYZ-xs-OrO" secondAttribute="leading" id="gcL-HF-tXO"/>
+                            <constraint firstItem="aBF-1g-pWF" firstAttribute="top" secondItem="mYZ-xs-OrO" secondAttribute="top" id="tZ3-4f-6y4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mYZ-xs-OrO"/>
                     </view>
                     <connections>
-                        <outlet property="distanceLabel" destination="CVi-vM-Us2" id="Ujp-FH-kL5"/>
-                        <outlet property="paceLabel" destination="bkw-pu-Nvy" id="DKa-Nx-7uy"/>
-                        <outlet property="timeLabel" destination="goE-VL-BAo" id="U5q-fz-Ome"/>
+                        <outlet property="statsView" destination="dnz-ga-EZn" id="KTh-PL-b9X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yb1-gH-OxL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -640,7 +616,7 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m6d-oI-vAb">
-                                                                                <rect key="frame" x="550" y="8" width="42" height="27.5"/>
+                                                                                <rect key="frame" x="758" y="8" width="42" height="27.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>

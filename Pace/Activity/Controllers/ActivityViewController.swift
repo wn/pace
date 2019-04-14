@@ -20,9 +20,7 @@ class ActivityViewController: UIViewController {
         endRun(sender)
     }
 
-    @IBOutlet private var distanceLabel: UILabel!
-    @IBOutlet private var paceLabel: UILabel!
-    @IBOutlet private var timeLabel: UILabel!
+    @IBOutlet var runStats: RunStatsView!
     @IBOutlet private var gpsIndicator: GpsStrengthIndicator!
     @IBOutlet private var statsPanel: UIStackView!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
@@ -53,6 +51,7 @@ class ActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        statsPanel.bringSubviewToFront(gpsIndicator)
         navigationItem.title = Titles.activity
         setupLocationManager()
         googleMapView.setup(self)
@@ -77,6 +76,7 @@ class ActivityViewController: UIViewController {
         super.viewDidAppear(animated)
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
+        //TODO: Render routes
     }
 
     /// Set up location manager from CoreLocation.
@@ -106,19 +106,6 @@ class ActivityViewController: UIViewController {
             }
             self?.googleMapView.showLocation(location.coordinate)
         }
-    }
-
-    func updateDistanceTravelled() {
-        distanceLabel.text = "Distance: \(Int(distance)) metres"
-    }
-
-    func updateTimer() {
-        self.timeLabel.text = "time elapsed: \(self.stopwatch.timeElapsed) secs"
-    }
-
-    func updatePace() {
-        let paceValue = distance != 0 ? 1_000 * stopwatch.timeElapsed / distance : 0
-        paceLabel.text = "Pace: \(paceValue) seconds /km"
     }
 
     private func insertRoute(route: Route) {
@@ -203,6 +190,11 @@ class ActivityViewController: UIViewController {
         showPullUpController()
         pullUpDrawer.routeStats(route)
     }
+
+    func updateLabels() {
+        runStats.setStats(distance: 123, time: stopwatch.timeElapsed)
+    }
+}
 
     private func renderMapButton() {
         let startXPos = googleMapView.layer.frame.midX

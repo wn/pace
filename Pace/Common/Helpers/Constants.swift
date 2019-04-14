@@ -53,7 +53,7 @@ struct Identifiers {
     static let runCell = "runCell"
     static let routeCell = "routeCell"
     static let userStats = "userStatsIdentifier"
-    static let summaryViewController = "SummaryVC"
+    static let summaryViewController = "summaryVC"
     static let searchViewController = "SearchViewController"
     static let runAnalysisController = "runAnalysisController"
     static let runCollectionController = "RunCollectionController"
@@ -62,12 +62,14 @@ struct Identifiers {
 
 struct Titles {
     static let activity = "Activity"
+    static let runSummary = "Run Summary"
     static let profile = "Profile"
     static let favourites = "Favourites"
     static let run = "Run"
 }
 
 struct Xibs {
+    static let runStatsView = "RunStatsView"
     static let runCollectionViewCell = "RunCollectionViewCell"
     static let compareRunCollectionViewCell = "CompareRunCollectionViewCell"
     static let routeCollectionViewCell = "RouteCollectionViewCell"
