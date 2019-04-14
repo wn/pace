@@ -23,7 +23,7 @@ class ProfileViewController: RequireLoginController {
     private lazy var runnerPredicate = {
         return NSPredicate(format: "runner.objectId == %@", user?.objectId ?? "")
     }()
-    var notificationToken: NotificationToken?
+    private var notificationToken: NotificationToken?
 
     override func viewDidLoad() {
         super.viewDidLoad()

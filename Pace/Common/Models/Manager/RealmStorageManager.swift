@@ -25,7 +25,7 @@ protocol RealmStorageManager {
 
     /// Attempts to fetch the runs for this specific Route.
     /// - Precondition: `route` must exist in a realm.
-    func getRunsFor(route: Route, _ errorHandler: @escaping ErrorHandler)
+    func getRunsFor(route: Route)
 
     /// Attempts to fetch the runs for a specific User
     /// - Precondition: `user` must exist in a realm.
@@ -89,12 +89,9 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
-    func getRunsFor(route: Route, _ errorHandler: @escaping ErrorHandler) {
+    func getRunsFor(route: Route) {
         storageAPI.fetchRunsForRoute(route) { runs, error in
-            guard error == nil, let runs = runs else {
-                if let error = error {
-                    errorHandler(error)
-                }
+            guard let runs = runs, error == nil else {
                 return
             }
             try! route.realm!.write {
