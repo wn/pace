@@ -64,7 +64,7 @@ class PaceFirebaseAPI: PaceStorageAPI {
 
     func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
         let query = PaceFirebaseAPI.runsRef.order(by: "dateCreated", descending: true)
-            .whereField("runnerId", isEqualTo: "3FAEDBA4-2D9B-4B74-8C9C-4D148FF9607D")
+            .whereField("runnerId", isEqualTo: user.objectId)
         query.getDocuments { snapshot, err in
             guard err == nil else {
                 completion(nil, err)
@@ -126,12 +126,14 @@ class PaceFirebaseAPI: PaceStorageAPI {
     func incrementAreaRoutesCount(areaCode: String, _ completion: ((Error?) -> Void)?) {
         let areaDoc = PaceFirebaseAPI.areasRef.document(areaCode)
         areaDoc.getDocument { snapshot, error in
-            snapshot.map {
-                if $0.exists {
-                    areaDoc.setData(["count": 0], merge: true)
-                } else {
-                    areaDoc.updateData(["count": FieldValue.increment(Double(1))])
-                }
+            guard let snapshot = snapshot, error == nil else {
+                completion?(error)
+                return
+            }
+            if snapshot.exists {
+                areaDoc.updateData(["count": FieldValue.increment(Double(1))], completion: completion)
+            } else {
+                areaDoc.setData(["count": 0], merge: true, completion: completion)
             }
         }
     }

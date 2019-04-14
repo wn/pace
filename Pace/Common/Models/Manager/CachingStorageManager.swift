@@ -180,4 +180,41 @@ class CachingStorageManager: RealmStorageManager {
             }
         }, completion: uploadCompletion)
     }
+
+    func retrieveAreaCount(areaCodes: [String]) {
+        areaCodes.forEach { areaCode in
+            storageAPI.fetchAreaRoutesCount(areaCode: areaCode) { result, error in
+                guard let result = result, error == nil else {
+                    print("Area fetch unsuccessful: \(error?.localizedDescription ?? "An unknown error occured")")
+                    return
+                }
+                do {
+                    let areaCounter = AreaCounter(geocode: areaCode, count: result)
+                    try self.inMemoryRealm.write {
+                        self.inMemoryRealm.create(AreaCounter.self, value: areaCounter, update: true)
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+
+    func incrementAreaCount(areaCodes: [String], _ completion: ErrorHandler?) {
+        areaCodes.forEach { areaCode in
+            do {
+                guard let areaCounter =
+                    self.inMemoryRealm.object(ofType: AreaCounter.self, forPrimaryKey: areaCode)
+                    else {
+                        return
+                }
+                try self.inMemoryRealm.write {
+                    areaCounter.incrementCount()
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+            storageAPI.incrementAreaRoutesCount(areaCode: areaCode, completion)
+        }
+    }
 }
