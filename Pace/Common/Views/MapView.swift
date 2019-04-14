@@ -26,7 +26,7 @@ class MapView: GMSMapView {
     /// - Parameters:
     ///   - image: Image of marker.
     ///   - position: position to plot the image.
-    internal func addMarker(_ image: String, position: CLLocationCoordinate2D) {
+    func addMarker(_ image: String, position: CLLocationCoordinate2D) {
         let marker = GMSMarker(position: position)
         marker.map = self
         marker.icon = UIImage(named: image)
@@ -38,7 +38,7 @@ class MapView: GMSMapView {
     func addPositionToRoute(_ position: CLLocationCoordinate2D) {
         path.add(position)
         currentMapPath?.map = nil
-        drawRoute(path)
+        currentMapPath = drawPath(path: path)
     }
 
     /// Function to prepare view to start the run.
@@ -63,26 +63,10 @@ class MapView: GMSMapView {
     func renderRoute(_ route: Route) {
         clearRoutes()
         guard let locations = route.creatorRun?.locations else {
-            print("No points exist in the route")
             return
         }
-        for point in locations {
-            path.add(point.coordinate)
-        }
-        drawRoute(path)
-    }
-
-    /// Helper function to draw the route onto the view.
-    ///
-    /// - Parameter path: the path to draw.
-    private func drawRoute(_ path: GMSMutablePath) {
-        let drawing = GMSPolyline(path: path)
-
-        drawing.strokeColor = .blue
-        drawing.strokeWidth = 5
-        drawing.map = self
-
-        currentMapPath = drawing
+        locations.forEach { path.add($0.coordinate) }
+        currentMapPath = drawPath(path: path)
     }
 
     /// Clear the route's drawing from the map view.
@@ -128,7 +112,7 @@ class MapView: GMSMapView {
 
     var gridMapManagers: [Int: GridMap] = [
         16: GridMap(width: 800, height: 800)!,
-        19: GridMap(width: 400, height: 300)!,
+        19: GridMap(width: 400, height: 400)!,
     ]
 
     func getGridManager(_ zoomLevel: Float) -> GridMap {
@@ -148,15 +132,5 @@ class MapView: GMSMapView {
             fatalError()
         }
         return result
-    }
-}
-
-extension GMSMapView {
-    var zoom: Float {
-        return camera.zoom
-    }
-
-    func zoomIn() {
-        animate(toZoom: zoom + 1)
     }
 }

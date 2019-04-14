@@ -5,26 +5,45 @@ import GoogleMaps
 /// Used for caching of markers and handling of routes in the
 /// view controller.
 class RouteMarkers: RouteMarkerHandler {
-    var routes = Set<Route>()
-    var markers: [GMSMarker] {
+    private var routes = Set<Route>()
+    private var markers: [GMSMarker] {
         return Array(routesInMarker.keys)
     }
-    var routesInMarker: [GMSMarker: Set<Route>] = [:]
-    let map: MapView
+    private var routesInMarker: [GMSMarker: Set<Route>] = [:]
+    private let map: MapView
 
     init(map: MapView) {
         self.map = map
     }
 
+    private func canSplit(_ marker: GMSMarker) -> Bool {
+        guard let routes = routesInMarker[marker] else {
+            return false
+        }
+        let arr = Array(routes)
+        for i in 0..<arr.count {
+            for j in (i + 1)..<arr.count {
+                guard
+                    let startI = arr[i].startingLocation,
+                    let startJ = arr[j].startingLocation else {
+                    return false
+                }
+                if startI.distance(from: startJ) > 75 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
     func insertRoute(_ route: Route) {
         routes.insert(route)
-        var newRoutes = Set<Route>()
-        newRoutes.insert(route)
-        generateRouteMarker(routes: newRoutes)
-        recalibrateMarkers()
     }
 
     func getRoutes(_ marker: GMSMarker) -> Set<Route>? {
+        guard !canSplit(marker) else {
+            return nil
+        }
         return routesInMarker[marker]
     }
 
@@ -33,28 +52,15 @@ class RouteMarkers: RouteMarkerHandler {
         resetMarkers()
         calibrateMarkers()
         setImage()
-        print("Recalibrated")
-    }
-
-    private func setImage() {
-        for (marker, routes) in routesInMarker {
-            let count = routes.count
-            if count < 18 {
-                marker.icon = UIImage(named: "\(routes.count)")
-            } else {
-                marker.icon = UIImage(named: Constants.startFlag)
-            }
-        }
     }
 
     private func resetMarkers() {
         derender()
-        map.clear()
         routesInMarker = [:]
     }
 
     private func calibrateMarkers() {
-        let collapseLength = map.diameter / 20
+        let collapseLength = map.diameter / 10
         for route in routes {
             if let nearestMarker = getNearestMarker(route.startingLocation!.coordinate, dist: collapseLength) {
                 routesInMarker[nearestMarker]!.insert(route)
@@ -66,7 +72,18 @@ class RouteMarkers: RouteMarkerHandler {
         }
     }
 
-    private func getNearestMarker(_ point: CLLocationCoordinate2D, dist minDist: CLLocationDegrees) -> GMSMarker? {
+    private func setImage() {
+        for (marker, markerRoutes) in routesInMarker {
+            let count = markerRoutes.count
+            if count < 18 {
+                marker.icon = UIImage(named: "\(markerRoutes.count)")
+            } else {
+                marker.icon = UIImage(named: Constants.endFlag)
+            }
+        }
+    }
+
+    private func getNearestMarker(_ point: CLLocationCoordinate2D, dist minDist: CLLocationDistance) -> GMSMarker? {
         var nearestMarker: GMSMarker? = nil
         var distance: CLLocationDegrees = Double.infinity
         for (marker, _) in routesInMarker {
@@ -85,7 +102,6 @@ class RouteMarkers: RouteMarkerHandler {
     func render() {
         recalibrateMarkers()
         markers.forEach { $0.map = map }
-        print("RENDERED \(markers.count) markers")
     }
 
     func derender() {
@@ -98,6 +114,20 @@ class RouteMarkers: RouteMarkerHandler {
         }
         let marker = GMSMarker(position: location.coordinate)
         routesInMarker[marker] = routes
+    }
+
+    private func getCentroid(routes: Set<Route>) -> CLLocationCoordinate2D {
+        var latSum: CLLocationDegrees = 0
+        var longSum: CLLocationDegrees = 0
+        for route in routes {
+            guard let startPoint = route.startingLocation?.coordinate else {
+                continue
+            }
+            latSum += startPoint.latitude
+            longSum += startPoint.longitude
+        }
+        let count = Double(routes.count)
+        return CLLocationCoordinate2D(latitude: latSum / count, longitude: longSum / count)
     }
 }
 
