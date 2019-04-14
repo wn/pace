@@ -32,8 +32,6 @@ class RealmUserSessionManager: UserSessionManager {
 
     static let `default` = RealmUserSessionManager()
 
-    private(set) var isLoading: Bool = false
-
     private(set) var storageAPI: PaceUserAPI
 
     private var storageManager: RealmStorageManager
@@ -57,13 +55,12 @@ class RealmUserSessionManager: UserSessionManager {
         guard let currentUid = uid ?? AccessToken.current?.userId else {
             return nil
         }
- 
+
         return storageManager.persistentRealm.objects(User.self)
             .filter { $0.uid == currentUid }.first
     }
 
     func findOrCreateUser(with uid: String, _ completion: @escaping UserResultsHandler) {
-        self.isLoading = true
         storageAPI.findOrCreateFirebaseUser(with: uid) { user, error in
             guard let user = user else {
                 return
@@ -71,7 +68,6 @@ class RealmUserSessionManager: UserSessionManager {
             try! self.realm.write {
                 self.realm.add(user, update: true)
             }
-            self.isLoading = false
             completion(user, error)
         }
     }

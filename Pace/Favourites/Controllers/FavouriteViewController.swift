@@ -11,7 +11,7 @@ import RealmSwift
 import CoreLocation
 
 class FavouriteViewController: RequireLoginController {
-    // MARK: - Properties
+
     private var favouriteRoutes = List<Route>()
     private var notificationToken: NotificationToken?
 

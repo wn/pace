@@ -15,6 +15,8 @@
 		5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */; };
 		5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E42D9223CCA0D00DEC2F4 /* User.swift */; };
 		5CD24196224FBFD6001AE19A /* CLLocationExtensionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */; };
+		6205EA5F2263734C006E2E83 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6205EA5E2263734C006E2E83 /* LoginView.swift */; };
+		6205EA6122637375006E2E83 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6205EA6022637375006E2E83 /* LoginView.xib */; };
 		62559671225492C90036C2B9 /* StopwatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62559670225492C90036C2B9 /* StopwatchTimer.swift */; };
 		6255967322549B2D0036C2B9 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6255967222549B2D0036C2B9 /* Formatter.swift */; };
 		625596752254AE050036C2B9 /* RouteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625596742254AE050036C2B9 /* RouteCollectionViewCell.swift */; };
@@ -104,6 +106,8 @@
 		5C8E42D5223CC85B00DEC2F4 /* CheckPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPoint.swift; sourceTree = "<group>"; };
 		5C8E42D9223CCA0D00DEC2F4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5CD24195224FBFD6001AE19A /* CLLocationExtensionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationExtensionSpec.swift; sourceTree = "<group>"; };
+		6205EA5E2263734C006E2E83 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		6205EA6022637375006E2E83 /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		62559670225492C90036C2B9 /* StopwatchTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopwatchTimer.swift; sourceTree = "<group>"; };
 		6255967222549B2D0036C2B9 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		625596742254AE050036C2B9 /* RouteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -350,6 +354,8 @@
 			children = (
 				EB22D7F72257393600D0F69D /* MapView.swift */,
 				62FAA7362257F33D00906B32 /* RunnerMarker.swift */,
+				6205EA5E2263734C006E2E83 /* LoginView.swift */,
+				6205EA6022637375006E2E83 /* LoginView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -612,6 +618,7 @@
 				EB931BC82238066500AFF868 /* Main.storyboard in Resources */,
 				62FF753022495BB6008847CC /* RunCollectionViewCell.xib in Resources */,
 				8BD4C59A2257B4BF00D0CEC7 /* GoogleService-Info.plist in Resources */,
+				6205EA6122637375006E2E83 /* LoginView.xib in Resources */,
 				62667BF0225BC8B9001561EF /* CompareRunCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -797,6 +804,7 @@
 				5C5124BD2254EE3F00B8A15C /* OngoingRun.swift in Sources */,
 				8B9E8C4B226211E60067A556 /* Observable.swift in Sources */,
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
+				6205EA5F2263734C006E2E83 /* LoginView.swift in Sources */,
 				EBF87D7C225E36F9001B4056 /* RouteMarkers.swift in Sources */,
 				8B2638DB225B979B004B52AB /* GridMap.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+TransitioningDelegate.swift in Sources */,

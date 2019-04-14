@@ -12,21 +12,24 @@ import RealmSwift
 import FacebookLogin
 import FacebookCore
 
-protocol LateUserInitializable {
-    func loadData()
-}
-
 class RequireLoginController: UIViewController, LoginButtonDelegate {
-    var fbLoginButton: LoginButton?
+
+    private lazy var loginView: LoginView? = {
+        guard let view = view else {
+            return nil
+        }
+        let loginViewFrame = view.frame
+        return LoginView(frame: loginViewFrame)
+    }()
     var user: User?
 
     /// Handles requirement for user to be logged in
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !isUserLoggedIn() {
-            renderLoginButton()
+            renderLoginView()
         } else {
-            hideLoginButton()
+            hideLoginView()
         }
     }
 
@@ -34,23 +37,19 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
         return CGRect(origin: view.center, size: CGSize(width: 100, height: 50))
     }
 
-    private func renderLoginButton() {
-        if let existingButton = fbLoginButton {
-            existingButton.removeFromSuperview()
-        }
-        fbLoginButton = LoginButton(frame: loginButtonFrame, readPermissions: [.publicProfile])
-        fbLoginButton?.delegate = self
-        guard let fbLoginButton = fbLoginButton else {
+    private func renderLoginView() {
+        guard let loginView = loginView else {
             return
         }
-        view.addSubview(fbLoginButton)
+        loginView.delegate = self
+        view.addSubview(loginView)
     }
 
-    private func hideLoginButton() {
-        guard let fbLoginButton = fbLoginButton else {
+    private func hideLoginView() {
+        guard let loginView = loginView else {
             return
         }
-        fbLoginButton.removeFromSuperview()
+        loginView.removeFromSuperview()
     }
 
     /// Checks if the user is logged in by checking for the presence of the AccessToken
@@ -88,6 +87,7 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
     }
 
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
+        renderLoginView()
     }
 
     /// To be overriden by subclass
