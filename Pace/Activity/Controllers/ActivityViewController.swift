@@ -44,7 +44,7 @@ class ActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("LOL")
+        statsPanel.bringSubviewToFront(gpsIndicator)
         navigationItem.title = Titles.activity
         setupLocationManager()
         googleMapView.setup(self)

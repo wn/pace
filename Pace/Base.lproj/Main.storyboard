@@ -421,6 +421,7 @@
                         <outlet property="googleMapView" destination="orD-GP-Arf" id="Bjl-QF-XAF"/>
                         <outlet property="gpsIndicator" destination="Ucs-du-ve9" id="cHn-MX-NSC"/>
                         <outlet property="runStats" destination="eH6-HT-w4G" id="sWR-oQ-2aQ"/>
+                        <outlet property="statsPanel" destination="CIc-JA-d14" id="Wue-Mw-F2n"/>
                         <segue destination="xC9-Rd-j1i" kind="show" id="xaX-Sn-iQB"/>
                     </connections>
                 </viewController>
