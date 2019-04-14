@@ -27,7 +27,7 @@ public struct GridMap {
             let mid = low + (high - low) / 2
             let currLocation = CLLocation(latitude: mid, longitude: 0)
             let distance = currLocation.distance(from: origin)
-            if distance - gridHeight < 0.000_1 {
+            if distance - gridHeight < 0.0000_1 {
                 return mid
             } else if distance < gridHeight {
                 low = mid
@@ -48,7 +48,7 @@ public struct GridMap {
             let mid = low + (high - low) / 2
             let currLocation = CLLocation(latitude: 0, longitude: mid)
             let distance = currLocation.distance(from: origin)
-            if distance - gridWidth < 0.000_1 {
+            if distance - gridWidth < 0.0000_1 {
                 return mid
             } else if distance < gridWidth {
                 low = mid

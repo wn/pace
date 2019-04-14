@@ -41,12 +41,13 @@ class ActivityViewController: UIViewController {
 
     // MARK: Map variables
     @IBOutlet var googleMapView: MapView!
-    var gridMapManager = Constants.defaultGridManager
-    // var routesInGrid: [GridNumber: RouteMarkerHandler] = [:] // Only for zoom level 17 and above
-    let gridNumberAtZoomLevel: [Int: [GridNumber: RouteMarkerHandler]] = Constants.zoomLevels.reduce(into: [:]) { $0[$1] = [:] }
+    var gridNumberAtZoomLevel: [Int: [GridNumber: RouteMarkerHandler]] = Constants.zoomLevels.reduce(into: [:]) { $0[$1] = [:] }
     var renderedRouteMarkers: [RouteMarkerHandler] = []
     var getRouteMarkers: [GridNumber: RouteMarkers] {
-        return gridNumberAtZoomLevel[maxZoom]! as! [GridNumber: RouteMarkers]
+        guard let result = gridNumberAtZoomLevel[maxZoom] as? [GridNumber: RouteMarkers] else {
+            return [:]
+        }
+        return result
     }
     var maxZoom = Constants.maxZoom
 
@@ -55,37 +56,25 @@ class ActivityViewController: UIViewController {
 
 
 
-
-    func getGridsNumbers(at zoomLevel: Float) -> [GridNumber: RouteMarkerHandler] {
-        guard
-            let nearestZoom = Array(gridNumberAtZoomLevel.keys).filter({ $0 >= Int(zoomLevel)}).min(),
-            let result = gridNumberAtZoomLevel[nearestZoom] else {
-            fatalError()
-        }
-        return result
-    }
-
     private func insertRoute(route: Route) {
         // we insert the route to every zoom level for aggregated viewing of routes.
         Array(gridNumberAtZoomLevel.keys).forEach { insertRouteToZoomLevel(route: route, zoomLevel: $0) }
     }
 
     private func insertRouteToZoomLevel(route: Route, zoomLevel: Int) {
-        guard
-            var routesInZoomGrids = gridNumberAtZoomLevel[zoomLevel],
-            let startPoint = route.startingLocation?.coordinate,
-            let gridManager = googleMapView.gridMapManagers[zoomLevel] else {
+        guard let startPoint = route.startingLocation?.coordinate else {
             return
         }
+        let gridManager = googleMapView.getGridManager(Float(zoomLevel))
         let gridId = gridManager.getGridId(startPoint)
-        if routesInZoomGrids[gridId] == nil {
+        if gridNumberAtZoomLevel[zoomLevel]?[gridId] == nil {
             if zoomLevel == maxZoom {
-                routesInZoomGrids[gridId] = RouteMarkers(map: googleMapView)
+                gridNumberAtZoomLevel[zoomLevel]?[gridId] = RouteMarkers(map: googleMapView)
             } else {
-                routesInZoomGrids[gridId] = RouteCounterMarkers(position: startPoint, map: googleMapView)
+                gridNumberAtZoomLevel[zoomLevel]?[gridId] = RouteCounterMarkers(position: startPoint, map: googleMapView)
             }
         }
-        guard let routeCountMarker = routesInZoomGrids[gridId] else {
+        guard let routeCountMarker = gridNumberAtZoomLevel[zoomLevel]?[gridId] else {
             fatalError("gridId must exist in routesInZoomGrids, based on above if-statement!")
         }
         routeCountMarker.insertRoute(route)
@@ -101,10 +90,6 @@ class ActivityViewController: UIViewController {
             case .initial:
                 break
             case .update(_, _, let insertions, _):
-                // For each new route
-                // 1. Get route from the index in `insertions`.
-                // 2. Insert route into the specific gridNumber
-                // 3. Create a marker for the route and insert into the specific gridNumber
                 for routeIndex in insertions {
                     guard let newRoute = self?.routes[routeIndex] else {
                         continue
@@ -204,13 +189,11 @@ class ActivityViewController: UIViewController {
     private func renderRouteMarkers(_ gridNumbers: [GridNumber]) {
         renderedRouteMarkers.forEach { $0.derender() }
         renderedRouteMarkers = []
-        let zoomLevel = googleMapView.zoom
-        let allGridNumbers = getGridsNumbers(at: zoomLevel)
+        let allGridNumbers = gridNumberAtZoomLevel[googleMapView.nearestZoom]!
         for gridNumber in gridNumbers {
             guard let routeMarker = allGridNumbers[gridNumber] else {
                 continue
             }
-            print("EXIST")
             routeMarker.render()
             renderedRouteMarkers.append(routeMarker)
         }
@@ -254,12 +237,17 @@ extension ActivityViewController: GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        let gridNumber = gridMapManager.getGridId(marker.position)
+        let gridManager = googleMapView.getGridManager(mapView.zoom)
+        let gridNumber = gridManager.getGridId(marker.position)
         guard
-            let routeMarkers = getRouteMarkers[gridNumber],
-            let routes = routeMarkers.getRoutes(marker)
+            let routeMarkers = getRouteMarkers[gridNumber]
             else {
+                print(getRouteMarkers)
                 fatalError("Created marker should be associated to a route.")
+        }
+        guard let routes = routeMarkers.getRoutes(marker) else {
+            googleMapView.zoomIn()
+            return false
         }
         renderRoutes(routes)
         return true
@@ -267,18 +255,9 @@ extension ActivityViewController: GMSMapViewDelegate {
 
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         guard !runStarted else {
-            // If run has started, we do not perform any action.
             return
         }
-        print("zoom level: \(googleMapView.zoom)")
-//        guard googleMapView.camera.zoom > Constants.minZoomToShowRoutes else {
-//            googleMapView.clear()
-//            if let drawer = currentDrawer {
-//                removePullUpController(drawer, animated: true)
-//            }
-//            print("ZOOM LEVEL: \(googleMapView.zoom) | ZOOM IN TO VIEW MARKERS")
-//            return
-//        }
+        print("zoom level: \(mapView.zoom)")
         redrawMarkers()
     }
 
@@ -286,9 +265,13 @@ extension ActivityViewController: GMSMapViewDelegate {
         guard let location = coreLocationManager.location else {
             return false
         }
-        mapView.setCameraPosition(location.coordinate)
-        mapView.animate(toZoom: Constants.initialZoom)
+        showPosition(location.coordinate)
         return true
+    }
+
+    func showPosition(_ position: CLLocationCoordinate2D) {
+        googleMapView.setCameraPosition(position)
+        googleMapView.animate(toZoom: Constants.initialZoom)
     }
 }
 

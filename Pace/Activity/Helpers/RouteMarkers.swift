@@ -58,7 +58,6 @@ class RouteMarkers: RouteMarkerHandler {
         for route in routes {
             if let nearestMarker = getNearestMarker(route.startingLocation!.coordinate, dist: collapseLength) {
                 routesInMarker[nearestMarker]!.insert(route)
-                print("YAY")
             } else {
                 var newRoutes = Set<Route>()
                 newRoutes.insert(route)
@@ -84,7 +83,9 @@ class RouteMarkers: RouteMarkerHandler {
     }
 
     func render() {
+        recalibrateMarkers()
         markers.forEach { $0.map = map }
+        print("RENDERED \(markers.count) markers")
     }
 
     func derender() {

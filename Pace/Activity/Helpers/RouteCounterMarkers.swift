@@ -21,6 +21,13 @@ class RouteCounterMarkers: RouteMarkerHandler {
 
     func render() {
         marker.map = map
+        if counter == 12 {
+            marker.icon = UIImage(named: Constants.startFlag)
+        } else if counter < 18 {
+            marker.icon = UIImage(named: Constants.startFlag)
+        } else {
+            marker.icon = UIImage(named: Constants.startFlag)
+        }
     }
 
     func derender() {

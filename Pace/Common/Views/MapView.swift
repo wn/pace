@@ -3,7 +3,7 @@ import GoogleMaps
 
 /// Subclass of GMSMapView to suit Pace's use case.
 class MapView: GMSMapView {
-    private var gridMapManager = Constants.defaultGridManager
+    // private var gridMapManager = Constants.defaultGridManager
     private var path = GMSMutablePath()
     private var currentMapPath: GMSPolyline?
 
@@ -92,17 +92,6 @@ class MapView: GMSMapView {
         currentMapPath = nil
     }
 
-    let zoomLevels = [5,8,11,14,17,20]
-
-    var viewingGrids: [GridNumber] {
-        let nearestZoom = Array(zoomLevels).filter({ $0 > Int(zoom)}).min()
-        return gridMapManagers[nearestZoom!]!.getBoundedGrid(projectedMapBound)
-    }
-
-    var zoom: Float {
-        return camera.zoom
-    }
-
     func drawPath(path: GMSPath, _ color: UIColor = .blue) -> GMSPolyline? {
         let mapPaths = GMSPolyline(path: path)
         mapPaths.strokeColor = color
@@ -138,12 +127,36 @@ class MapView: GMSMapView {
     }
 
     var gridMapManagers: [Int: GridMap] = [
-        5: GridMap(width: 10000000, height: 10000000)!,
-        8: GridMap(width: 100000, height: 100000)!,
-        11: GridMap(width: 40000, height: 40000)!,
-        14: GridMap(width: 5000, height: 5000)!,
-        17: GridMap(width: 800, height: 800)!,
-        20: GridMap(width: 400, height: 300)!,
+        16: GridMap(width: 800, height: 800)!,
+        19: GridMap(width: 400, height: 300)!,
     ]
 
+    func getGridManager(_ zoomLevel: Float) -> GridMap {
+        guard
+            let gridMapManager = gridMapManagers[nearestZoom] else {
+            fatalError("We must have a gridMap since gridMapManagers covers all range of zoom")
+        }
+        return gridMapManager
+    }
+
+    var viewingGrids: [GridNumber] {
+        return getGridManager(zoom).getBoundedGrid(projectedMapBound)
+    }
+
+    var nearestZoom: Int {
+        guard let result = Array(Constants.zoomLevels).filter({ $0 >= Int(zoom.rounded(.up))}).min() else {
+            fatalError()
+        }
+        return result
+    }
+}
+
+extension GMSMapView {
+    var zoom: Float {
+        return camera.zoom
+    }
+
+    func zoomIn() {
+        animate(toZoom: zoom + 1)
+    }
 }
