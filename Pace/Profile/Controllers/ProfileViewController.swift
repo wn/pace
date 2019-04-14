@@ -44,14 +44,6 @@ class ProfileViewController: RequireLoginController {
         CachingStorageManager.default.getRunsFor(user: user)
 
         notificationToken = runs.observe { [unowned self] _ in
-//            switch changes {
-//            case .initial(let newRuns):
-//                print("newRuns: ", newRuns)
-//            case .update(_, _, let insertions, _):
-//                print("insertions: ", insertions)
-//            case .error(let error):
-//                print("Error loading past runs: \(error)")
-//            }
             self.runHistory.reloadData()
             self.userStats.setStats(with: user)
         }
@@ -85,7 +77,6 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("runs: ", runs.count)
         let cell = collectionView
             .dequeueReusableCell(withReuseIdentifier: Identifiers.runCell, for: indexPath) as! RunCollectionViewCell
         cell.run = runs[indexPath.item]
@@ -93,7 +84,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let runAnalysis = UIStoryboard(name: "Main", bundle: nil)
+        guard let runAnalysis = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
             .instantiateViewController(withIdentifier: Identifiers.runAnalysisController)
             as? RunAnalysisController else {
             return
