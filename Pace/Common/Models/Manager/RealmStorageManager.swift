@@ -23,9 +23,13 @@ protocol RealmStorageManager {
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ errorHandler: @escaping ErrorHandler)
 
-    /// Attempts to fetch the runs for this specific route.
+    /// Attempts to fetch the runs for this specific Route.
     /// - Precondition: `route` must exist in a realm.
     func getRunsFor(route: Route, _ errorHandler: @escaping ErrorHandler)
+
+    /// Attempts to fetch the runs for a specific User
+    /// - Precondition: `user` must exist in a realm.
+    func getRunsFor(user: User)
 
     /// Saves a new route.
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?)
@@ -99,16 +103,13 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
-    func getRunsFor(user: User, _ errorHandler: @escaping ErrorHandler) {
+    func getRunsFor(user: User) {
         storageAPI.fetchRunsForUser(user) { runs, error in
-            guard error == nil, let runs = runs else {
-                if let error = error {
-                    errorHandler(error)
-                }
+            guard let runs = runs, error == nil else {
                 return
             }
-            try! self.inMemoryRealm.write {
-                self.inMemoryRealm.add(runs, update: true)
+            try! Realm.persistent.write {
+                Realm.persistent.add(runs, update: true)
             }
         }
     }

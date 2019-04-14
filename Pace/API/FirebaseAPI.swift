@@ -58,7 +58,7 @@ class PaceFirebaseAPI: PaceStorageAPI {
 
     func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
         let query = PaceFirebaseAPI.runsRef
-            .whereField("runnerId", isEqualTo: "3FAEDBA4-2D9B-4B74-8C9C-4D148FF9607D")
+            .whereField("runnerId", isEqualTo: user.objectId)
         query.getDocuments { snapshot, err in
             guard err == nil else {
                 completion(nil, err)
@@ -143,7 +143,6 @@ extension PaceFirebaseAPI: PaceUserAPI {
     }
 
     func fetchFavourites(userId: String, _ completion: @escaping RouteResultsHandler) {
-        print("searching for routes with: \(userId)")
         let query = PaceFirebaseAPI.routesRef.whereField("favouritedBy", arrayContains: userId)
 
         query.getDocuments { snapshot, error in
