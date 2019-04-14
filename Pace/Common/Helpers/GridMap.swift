@@ -168,7 +168,7 @@ public struct GridNumber: Hashable {
 
     static func encode(_ position: CLLocationCoordinate2D) -> String {
         return CLLocationCoordinate2D(latitude: position.latitude,
-                                      longitude: position.longitude).geohash(precision: .twoHundredFourtyCentimeters)
+                                      longitude: position.longitude).geohash(precision: .seventyFourMillimeters)
     }
 
     static func decode(_ str: String) -> CLLocationCoordinate2D {

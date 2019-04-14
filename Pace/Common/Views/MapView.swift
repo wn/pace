@@ -111,13 +111,14 @@ class MapView: GMSMapView {
     }
 
     var gridMapManagers: [Int: GridMap] = [
+        13: GridMap(width: 10000, height: 10000)!,
         16: GridMap(width: 800, height: 800)!,
         19: GridMap(width: 400, height: 400)!,
     ]
 
     func getGridManager(_ zoomLevel: Float) -> GridMap {
         guard
-            let gridMapManager = gridMapManagers[nearestZoom] else {
+            let gridMapManager = gridMapManagers[getNearestZoom(zoomLevel)] else {
             fatalError("We must have a gridMap since gridMapManagers covers all range of zoom")
         }
         return gridMapManager
@@ -128,7 +129,11 @@ class MapView: GMSMapView {
     }
 
     var nearestZoom: Int {
-        guard let result = Array(Constants.zoomLevels).filter({ $0 >= Int(zoom.rounded(.up))}).min() else {
+        return getNearestZoom(zoom)
+    }
+
+    func getNearestZoom(_ zoomLevel: Float) -> Int {
+        guard let result = Array(Constants.zoomLevels).filter({ $0 >= Int(zoomLevel.rounded(.up))}).min() else {
             fatalError()
         }
         return result

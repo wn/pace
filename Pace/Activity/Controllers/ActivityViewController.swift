@@ -41,12 +41,6 @@ class ActivityViewController: UIViewController {
     @IBOutlet var googleMapView: MapView!
     var gridNumberAtZoomLevel: [Int: [GridNumber: RouteMarkerHandler]] = Constants.zoomLevels.reduce(into: [:]) { $0[$1] = [:] }
     var renderedRouteMarkers: [RouteMarkerHandler] = []
-    var getRouteMarkers: [GridNumber: RouteMarkers] {
-        guard let result = gridNumberAtZoomLevel[maxZoom] as? [GridNumber: RouteMarkers] else {
-            return [:]
-        }
-        return result
-    }
     var maxZoom = Constants.maxZoom
 
     override func viewDidLoad() {
@@ -118,6 +112,8 @@ class ActivityViewController: UIViewController {
             return
         }
         let gridManager = googleMapView.getGridManager(Float(zoomLevel))
+        if zoomLevel == 16 {
+        }
         let gridId = gridManager.getGridId(startPoint)
         if gridNumberAtZoomLevel[zoomLevel]?[gridId] == nil {
             if zoomLevel == maxZoom {
@@ -194,7 +190,6 @@ class ActivityViewController: UIViewController {
     func updateLabels() {
         runStats.setStats(distance: 123, time: stopwatch.timeElapsed)
     }
-}
 
     private func renderMapButton() {
         let startXPos = googleMapView.layer.frame.midX
@@ -218,9 +213,9 @@ extension ActivityViewController: GMSMapViewDelegate {
         let gridManager = googleMapView.getGridManager(mapView.zoom)
         let gridNumber = gridManager.getGridId(marker.position)
         guard
-            let routeMarkers = getRouteMarkers[gridNumber]
+            let routeMarkers = gridNumberAtZoomLevel[googleMapView.nearestZoom]?[gridNumber]
             else {
-                fatalError("Created marker should be associated to a route.")
+                fatalError("Created marker should be associated to a routeHandler.")
         }
         guard let routes = routeMarkers.getRoutes(marker) else {
             googleMapView.zoomIn()
@@ -231,6 +226,7 @@ extension ActivityViewController: GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        print("ZOOM LEVEL IS \(mapView.zoom)")
         guard !runStarted else {
             return
         }
