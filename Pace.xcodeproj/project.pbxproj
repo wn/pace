@@ -82,6 +82,8 @@
 		EBAF2CBA22492E7C000FCE0E /* UIViewController+TransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAF2CB922492E7C000FCE0E /* UIViewController+TransitioningDelegate.swift */; };
 		EBF87D78225CE9F0001B4056 /* GPSStrengthIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF87D77225CE9F0001B4056 /* GPSStrengthIndicator.swift */; };
 		EBF87D7C225E36F9001B4056 /* RouteMarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF87D7B225E36F9001B4056 /* RouteMarkers.swift */; };
+		EBFE112522638B0300B06109 /* RunStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBFE112322638B0200B06109 /* RunStatsView.xib */; };
+		EBFE112822638B6300B06109 /* RunStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFE112722638B6300B06109 /* RunStatsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +186,8 @@
 		EBAF2CB922492E7C000FCE0E /* UIViewController+TransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+TransitioningDelegate.swift"; sourceTree = "<group>"; };
 		EBF87D77225CE9F0001B4056 /* GPSStrengthIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSStrengthIndicator.swift; sourceTree = "<group>"; };
 		EBF87D7B225E36F9001B4056 /* RouteMarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMarkers.swift; sourceTree = "<group>"; };
+		EBFE112322638B0200B06109 /* RunStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunStatsView.xib; sourceTree = "<group>"; };
+		EBFE112722638B6300B06109 /* RunStatsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunStatsView.swift; sourceTree = "<group>"; };
 		FCEF38FC04B5DDA627F3D935 /* Pods-Pace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pace.debug.xcconfig"; path = "Target Support Files/Pods-Pace/Pods-Pace.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -222,6 +226,8 @@
 		62E626C32261B97E009079F5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EBFE112322638B0200B06109 /* RunStatsView.xib */,
+				EBFE112722638B6300B06109 /* RunStatsView.swift */,
 				EBF87D77225CE9F0001B4056 /* GPSStrengthIndicator.swift */,
 				EB22D7F522564FC300D0F69D /* RunnerTableViewCell.swift */,
 			);
@@ -432,7 +438,6 @@
 				8BD4C595225680C600D0CEC7 /* RealmCLLocation+Firebase.swift */,
 				8BD4C5932256808000D0CEC7 /* Route+Firebase.swift */,
 				8B9E8C2522606E790067A556 /* StorageAPI.swift */,
-				8B9E8C2A226074D70067A556 /* User+Firebase.swift */,
 				8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */,
 			);
 			name = "Recovered References";
@@ -611,6 +616,7 @@
 				625596772254AE200036C2B9 /* RouteCollectionViewCell.xib in Resources */,
 				62A7C5C2224F6041009585D3 /* UserStatsView.xib in Resources */,
 				EB931BC82238066500AFF868 /* Main.storyboard in Resources */,
+				EBFE112522638B0300B06109 /* RunStatsView.xib in Resources */,
 				62FF753022495BB6008847CC /* RunCollectionViewCell.xib in Resources */,
 				8BD4C59A2257B4BF00D0CEC7 /* GoogleService-Info.plist in Resources */,
 				62667BF0225BC8B9001561EF /* CompareRunCollectionViewCell.xib in Resources */,
@@ -792,6 +798,7 @@
 				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
 				EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */,
 				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
+				EBFE112822638B6300B06109 /* RunStatsView.swift in Sources */,
 				EB408D3B2244AD1100F9C561 /* VoiceAssistant.swift in Sources */,
 				8B9E8C452261EB2D0067A556 /* UserReference.swift in Sources */,
 				8B9E8C472261F66F0067A556 /* StorageAPI.swift in Sources */,
@@ -827,7 +834,6 @@
 				62FAA7372257F33D00906B32 /* RunnerMarker.swift in Sources */,
 				EBF87D78225CE9F0001B4056 /* GPSStrengthIndicator.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
-				8B9E8C2B226074D70067A556 /* User+FIrebase.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
 				62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */,
 				8B2638D9225B978F004B52AB /* GeoHash.swift in Sources */,
@@ -1006,7 +1012,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P4SYV2WJ27;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1027,7 +1033,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P4SYV2WJ27;
+				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
