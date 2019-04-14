@@ -21,11 +21,11 @@ class RouteMarkers: RouteMarkerHandler {
             return false
         }
         let arr = Array(routes)
-        for i in 0..<arr.count {
-            for j in (i + 1)..<arr.count {
+        for indexI in 0..<arr.count {
+            for indexJ in (indexI + 1)..<arr.count {
                 guard
-                    let startI = arr[i].startingLocation,
-                    let startJ = arr[j].startingLocation else {
+                    let startI = arr[indexI].startingLocation,
+                    let startJ = arr[indexJ].startingLocation else {
                     return false
                 }
                 if startI.distance(from: startJ) > 75 {

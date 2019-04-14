@@ -85,16 +85,27 @@ class ActivityViewController: UIViewController {
         coreLocationManager.requestAlwaysAuthorization()
         coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         coreLocationManager.requestLocation()
-        while coreLocationManager.location == nil {
-            // Wait 1 second and check if location has been loaded.
-            // If location cannot be loaded, code here will never terminate
-            // TODO: FIX ABOVE
-            sleep(1)
+
+        let alert = UIAlertController(title: nil, message: "Fetching your location. Please wait.", preferredStyle: .alert)
+
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.gray
+        loadingIndicator.startAnimating();
+
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+
+        DispatchQueue.main.async { [weak self] in
+            alert.dismiss(animated: false, completion: nil)
+            while self?.coreLocationManager.location == nil {
+                sleep(1)
+            }
+            guard let location = self?.coreLocationManager.location else {
+                fatalError("While loop should have captured nil value!")
+            }
+            self?.googleMapView.showLocation(location.coordinate)
         }
-        guard let location = coreLocationManager.location else {
-            fatalError("While loop should have captured nil value!")
-        }
-        googleMapView.setCameraPosition(location.coordinate)
     }
 
     func updateDistanceTravelled() {
