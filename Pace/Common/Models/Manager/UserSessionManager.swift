@@ -73,7 +73,7 @@ class RealmUserSessionManager: UserSessionManager {
     }
 
     func getFavouriteRoutes(of user: User) {
-        storageAPI.fetchFavourites(userId: user.objectId) { routes, error in
+        storageAPI.fetchFavourites(userId: user.objectId) { routes, _ in
             guard let routes = routes else {
                 return
             }

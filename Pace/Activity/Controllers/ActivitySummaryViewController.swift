@@ -17,7 +17,6 @@ class ActivitySummaryViewController: UIViewController {
     var routesManager: RealmStorageManager?
     @IBOutlet var statsView: RunStatsView!
 
-
     @IBAction func saveRun(_ sender: UIButton) {
         // TODO: Check that we have sufficient distance to save!!
         guard distance >= Constants.checkPointDistanceInterval else {

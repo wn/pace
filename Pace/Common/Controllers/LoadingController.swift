@@ -20,7 +20,7 @@ class LoadingController: UIViewController {
     }
 
     func didStartLoading() {
-        
+
     }
 
     func didCompleteLoading() {
