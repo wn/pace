@@ -20,9 +20,7 @@ class ActivityViewController: UIViewController {
         endRun(sender)
     }
 
-    @IBOutlet private var distanceLabel: UILabel!
-    @IBOutlet private var paceLabel: UILabel!
-    @IBOutlet private var timeLabel: UILabel!
+    @IBOutlet var runStats: RunStatsView!
     @IBOutlet private var gpsIndicator: GpsStrengthIndicator!
     @IBOutlet private var statsPanel: UIStackView!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
@@ -46,6 +44,7 @@ class ActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("LOL")
         navigationItem.title = Titles.activity
         setupLocationManager()
         googleMapView.setup(self)
@@ -88,6 +87,7 @@ class ActivityViewController: UIViewController {
         super.viewDidAppear(animated)
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
+        //TODO: Render routes
     }
 
     private func renderRoute(_ routes: Set<Route>) {
@@ -114,19 +114,6 @@ class ActivityViewController: UIViewController {
             fatalError("While loop should have captured nil value!")
         }
         googleMapView.setCameraPosition(location.coordinate)
-    }
-
-    func updateDistanceTravelled() {
-        distanceLabel.text = "Distance: \(Int(distance)) metres"
-    }
-
-    func updateTimer() {
-        self.timeLabel.text = "time elapsed: \(self.stopwatch.timeElapsed) secs"
-    }
-
-    func updatePace() {
-        let paceValue = distance != 0 ? 1_000 * stopwatch.timeElapsed / distance : 0
-        paceLabel.text = "Pace: \(paceValue) seconds /km"
     }
 
     private func redrawMarkers() {
@@ -158,6 +145,10 @@ class ActivityViewController: UIViewController {
             }
             routeMarker.renderMarkers()
         }
+    }
+
+    func updateLabels() {
+        runStats.setStats(distance: 123, time: stopwatch.timeElapsed)
     }
 }
 
