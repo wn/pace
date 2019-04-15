@@ -23,6 +23,10 @@ class OngoingRun {
     var coveredPacePoints: Set<CheckPoint>?
     // check this property for the deviating status.
     var isDeviated = false
+    // to be rendered in views
+    var distanceSoFar: Double? {
+        return checkpoints.last?.actualDistance
+    }
 
     /// Constructs an OngoingRun with the given runner, startingLocation and paceRun.
     /// When the OngoingRun is not following any Run, the paceRun is nil (and it's nil by default).

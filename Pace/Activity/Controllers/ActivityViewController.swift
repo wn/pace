@@ -241,7 +241,6 @@ extension ActivityViewController: CLLocationManagerDelegate {
         coreLocationManager.requestAlwaysAuthorization()
     }
 
-
     /// Function from CLLocationManagerDelegate.
     /// Used to update run location for ongoingRun
     ///

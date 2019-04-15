@@ -90,12 +90,15 @@ extension ActivityViewController {
             return
         }
         updateLabels()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             self.updateValues()
         }
     }
 
     func updateLabels() {
-        runStats.setStats(distance: -1, time: stopwatch.timeElapsed)
+        guard let distanceSoFar = ongoingRun?.distanceSoFar else {
+            return
+        }
+        runStats.setStats(distance: distanceSoFar, time: stopwatch.timeElapsed)
     }
 }
