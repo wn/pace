@@ -20,7 +20,9 @@ struct Constants {
     static let guardAccuracy: CLLocationDistance = 25
     static let minZoom: Int = 12
     static let maxZoom: Int = 19
-    static let zoomLevels = [13, 16, Constants.maxZoom]
+    static var zoomLevels: [Int] {
+        return Array(gridMaps.keys)
+    }
 
     // MARK: - Run constants
     static let startFlag = "start-flag.png"

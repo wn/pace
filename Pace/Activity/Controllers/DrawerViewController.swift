@@ -133,11 +133,11 @@ extension DrawerViewController {
         }
 
         viewingRoute = route
-
-        startPoint.text = "START: \(stats.startingLocation.coordinate)"
-        endPoint.text = "END: \(stats.endingLocation.coordinate)"
-        createdBy.text = "Created by: \(route.creator?.name ?? "NO NAME SET!")"
-        distance.text = "Distance: \(stats.totalDistance)"
+        // TODO: set legit start and end point
+        startPoint.text = "Start Point: Apple Infinite Loop" //"\(stats.startingLocation.coordinate)"
+        endPoint.text = "End Point: Meritt Drive"// "\(stats.endingLocation.coordinate)"
+        createdBy.text = "Created by: \(route.creator?.name ?? "")"
+        distance.text = String(format: "Distance: %.2fkm", arguments: [stats.totalDistance / 1_000])
 
         paces = route.paces.sorted { $0.timeSpent < $1.timeSpent }
         numOfRunners.text = "\(paces.count) 🏃🏻‍♂️"

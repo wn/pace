@@ -10,20 +10,26 @@ class ActivityViewController: UIViewController {
     let routesManager = CachingStorageManager.default
     let routes = CachingStorageManager.default.inMemoryRealm.objects(Route.self)
     var notificationToken: NotificationToken?
-    var isConnectedToInternet = true
 
     // MARK: Drawer variable
     var originalPullUpControllerViewSize: CGSize = .zero
 
     // MARK: UIVariable
-    @IBAction private func endRunButton(_ sender: UIButton) {
-        endRun(sender)
-    }
-
     @IBOutlet var runStats: RunStatsView!
     @IBOutlet private var gpsIndicator: GpsStrengthIndicator!
     @IBOutlet private var statsPanel: UIStackView!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
+    @IBAction private func endRunButton(_ sender: UIButton) {
+        endRun(sender)
+    }
+
+    // MARK: Internet variable
+    @IBOutlet var internetIndicator: UIImageView!
+    var isConnectedToInternet = true {
+        didSet {
+            internetIndicator.tintColor = isConnectedToInternet ? .green : .red
+        }
+    }
 
     // MARK: Running variables
     var lastMarkedPosition: CLLocation?
@@ -49,6 +55,7 @@ class ActivityViewController: UIViewController {
         statsPanel.bringSubviewToFront(gpsIndicator)
         navigationItem.title = Titles.activity
         setupLocationManager()
+        setupWifiImage()
         googleMapView.setup(self)
         notificationToken = routes.observe { [unowned self]changes in
             switch changes {
@@ -56,10 +63,19 @@ class ActivityViewController: UIViewController {
                 break
             case .update(_, _, let insertions, _):
                 insertions.forEach { self.insertRoute(route: self.routes[$0]) }
+                self.isConnectedToInternet = true
             case .error:
-                print("No internet!")
+                self.isConnectedToInternet = false
             }
         }
+    }
+
+    func setupWifiImage() {
+        let origImage = UIImage(named: "wifi.png")
+        let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+        internetIndicator.image = tintedImage
+        internetIndicator.tintColor = UIColor.green
+        statsPanel.bringSubviewToFront(internetIndicator)
     }
 
     override func viewDidAppear(_ animated: Bool) {
