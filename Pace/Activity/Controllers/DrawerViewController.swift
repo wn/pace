@@ -63,7 +63,7 @@ class DrawerViewController: PullUpController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        userSession = RealmUserSessionManager.forDefaultRealm
+        userSession = RealmUserSessionManager.default
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
                               height: min(UIScreen.main.bounds.height - 75, expandedView.frame.maxY))
     }
@@ -203,7 +203,7 @@ extension DrawerViewController: FaveButtonDelegate {
         guard let currentRoute = viewingRoute else {
             return
         }
-        guard let user = userSession?.currentUser else {
+        guard let user = userSession?.getRealmUser(nil) else {
             let alert = UIAlertController(
                 title: "Not logged in",
                 message: "You need to be logged in to favourite a route.",

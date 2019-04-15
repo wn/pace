@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 import GoogleMaps
 
 class RunAnalysisController: UIViewController, GMSMapViewDelegate {
@@ -59,15 +60,15 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     }
 
     private func setupPullupController() {
-        let puvc: RunCollectionController = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
+        let rcc: RunCollectionController = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
             .instantiateViewController(withIdentifier: Identifiers.runCollectionController) as! RunCollectionController
-//        puvc.route = run?.route
-//        puvc.currentRun = run
-        _ = puvc.view
+        /// - TODO: Fix missing route link in each run.
+        // rcc.route = run?.route
+        _ = rcc.view
         let tabBarHeight = tabBarController?.tabBar.frame.height ?? 0
-        puvc.height = UIScreen.main.bounds.height - googleMapView.frame.height
-        puvc.delegate = self
-        addPullUpController(puvc, initialStickyPointOffset: puvc.initialHeight + tabBarHeight, animated: true)
+        rcc.height = UIScreen.main.bounds.height - googleMapView.frame.height
+        rcc.delegate = self
+        addPullUpController(rcc, initialStickyPointOffset: rcc.initialHeight + tabBarHeight, animated: true)
     }
 }
 
