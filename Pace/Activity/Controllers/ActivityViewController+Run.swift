@@ -90,7 +90,7 @@ extension ActivityViewController {
             return
         }
         updateLabels()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.updateValues()
         }
     }

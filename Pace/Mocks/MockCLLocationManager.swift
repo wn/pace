@@ -11,7 +11,7 @@ import Foundation
 import CoreLocation
 
 struct MockLocationConfiguration {
-    static var updateInterval = 10.0
+    static var updateInterval = 1.0
     static var GpxFileName: String?
 }
 
