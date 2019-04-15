@@ -73,15 +73,12 @@ extension ActivityViewController {
     }
 
     func showSummary() {
-        guard let ongoingRun = ongoingRun else {
-                return
-        }
         let storyBoard: UIStoryboard = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
         let summaryVC =
             storyBoard.instantiateViewController(
                 withIdentifier: Identifiers.summaryViewController)
                 as! ActivitySummaryViewController
-        summaryVC.setStats(createdRun: ongoingRun, distance: -1, time: stopwatch.timeElapsed)
+        summaryVC.setRun(as: ongoingRun)
         self.navigationController?.pushViewController(summaryVC, animated: true)
     }
 
