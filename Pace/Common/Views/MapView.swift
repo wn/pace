@@ -6,6 +6,7 @@ class MapView: GMSMapView {
     // private var gridMapManager = Constants.defaultGridManager
     private var path = GMSMutablePath()
     private var currentMapPath: GMSPolyline?
+    private let gridMapManager = GridMapManager.default
 
     /// Setup the view
     ///
@@ -110,32 +111,11 @@ class MapView: GMSMapView {
         return projectedMapBound.diameter
     }
 
-    var gridMapManagers: [Int: GridMap] = [
-        13: GridMap(width: 10000, height: 10000)!,
-        16: GridMap(width: 800, height: 800)!,
-        19: GridMap(width: 400, height: 400)!,
-    ]
-
-    func getGridManager(_ zoomLevel: Float) -> GridMap {
-        guard
-            let gridMapManager = gridMapManagers[getNearestZoom(zoomLevel)] else {
-            fatalError("We must have a gridMap since gridMapManagers covers all range of zoom")
-        }
-        return gridMapManager
-    }
-
     var viewingGrids: [GridNumber] {
-        return getGridManager(zoom).getBoundedGrid(projectedMapBound)
+        return gridMapManager.getGridManager(zoom).getBoundedGrid(projectedMapBound)
     }
 
     var nearestZoom: Int {
-        return getNearestZoom(zoom)
-    }
-
-    func getNearestZoom(_ zoomLevel: Float) -> Int {
-        guard let result = Array(Constants.zoomLevels).filter({ $0 >= Int(zoomLevel.rounded(.up))}).min() else {
-            fatalError()
-        }
-        return result
+        return gridMapManager.getNearestZoom(zoom)
     }
 }

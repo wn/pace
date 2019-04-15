@@ -74,6 +74,8 @@
 		EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42DD2253CF4A00A60207 /* PullUpController.swift */; };
 		EB5E42E12255015A00A60207 /* ActivityViewController+Drawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */; };
 		EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */; };
+		EB5F4483226477AB00D73BE6 /* GridMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5F4482226477AB00D73BE6 /* GridMapManager.swift */; };
+		EB5F448522647CB200D73BE6 /* ActivityViewController+GMSMapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5F448422647CB200D73BE6 /* ActivityViewController+GMSMapDelegate.swift */; };
 		EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB931BC22238066500AFF868 /* AppDelegate.swift */; };
 		EB931BC82238066500AFF868 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB931BC62238066500AFF868 /* Main.storyboard */; };
 		EB931BCD2238066800AFF868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB931BCC2238066800AFF868 /* Assets.xcassets */; };
@@ -175,6 +177,8 @@
 		EB5E42DD2253CF4A00A60207 /* PullUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUpController.swift; sourceTree = "<group>"; };
 		EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityViewController+Drawer.swift"; sourceTree = "<group>"; };
 		EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityViewController+Run.swift"; sourceTree = "<group>"; };
+		EB5F4482226477AB00D73BE6 /* GridMapManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridMapManager.swift; sourceTree = "<group>"; };
+		EB5F448422647CB200D73BE6 /* ActivityViewController+GMSMapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityViewController+GMSMapDelegate.swift"; sourceTree = "<group>"; };
 		EB931BBF2238066500AFF868 /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB931BC22238066500AFF868 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB931BC72238066500AFF868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				EB29FAEB224BA4A100DF2CE6 /* ActivityViewController.swift */,
+				EB5F448422647CB200D73BE6 /* ActivityViewController+GMSMapDelegate.swift */,
 				EB5E42E02255015900A60207 /* ActivityViewController+Drawer.swift */,
 				EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */,
 				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
@@ -260,6 +265,7 @@
 		62E626C62261BA58009079F5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EB5F4482226477AB00D73BE6 /* GridMapManager.swift */,
 				8B9E8C4A226211E60067A556 /* Observable.swift */,
 				62FF753122495E36008847CC /* ViewDelegate.swift */,
 				5C751F0D223CD7650082BC93 /* Constants.swift */,
@@ -811,6 +817,7 @@
 				62FF75262244CE8F008847CC /* ProfileViewController.swift in Sources */,
 				EBF87D7C225E36F9001B4056 /* RouteMarkers.swift in Sources */,
 				8B2638DB225B979B004B52AB /* GridMap.swift in Sources */,
+				EB5F4483226477AB00D73BE6 /* GridMapManager.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+TransitioningDelegate.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */,
@@ -821,6 +828,7 @@
 				8B9E8C3B2261E3FE0067A556 /* FirebaseStorable.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
 				EB5E42DC2253CEF400A60207 /* DrawerViewController.swift in Sources */,
+				EB5F448522647CB200D73BE6 /* ActivityViewController+GMSMapDelegate.swift in Sources */,
 				62FAA73122579C3B00906B32 /* UIView+Extensions.swift in Sources */,
 				62FF75272244CE8F008847CC /* FavouriteViewController.swift in Sources */,
 				8B9E8C3A2261E3FE0067A556 /* Route+Firebase.swift in Sources */,

@@ -19,7 +19,6 @@ class ActivitySummaryViewController: UIViewController {
 
 
     @IBAction func saveRun(_ sender: UIButton) {
-        // TODO: Check that we have sufficient distance to save!!
         guard distance >= Constants.checkPointDistanceInterval else {
             print("CANT SAVE THIS SHIT cause distance not long enuff")
             return
@@ -49,9 +48,5 @@ class ActivitySummaryViewController: UIViewController {
         VoiceAssistant.say("Distance: \(Int(distance)) meters")
         VoiceAssistant.say("Duration: \(Int(time)) seconds")
         VoiceAssistant.say("Pace: \(Int(pace)) seconds per kilometer")
-    }
-
-    @IBAction private func exit(_ sender: UIButton) {
-        derenderChildController()
     }
 }

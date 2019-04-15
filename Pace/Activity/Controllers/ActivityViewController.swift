@@ -27,7 +27,6 @@ class ActivityViewController: UIViewController {
 
     // MARK: Running variables
     var lastMarkedPosition: CLLocation?
-    var distance: CLLocationDistance = 0 // TODO: REMOVE
     let stopwatch = StopwatchTimer() // TODO: REMOVE
     var ongoingRun: OngoingRun?
     var runStarted: Bool {
@@ -39,7 +38,9 @@ class ActivityViewController: UIViewController {
 
     // MARK: Map variables
     @IBOutlet var googleMapView: MapView!
-    var gridNumberAtZoomLevel: [Int: [GridNumber: RouteMarkerHandler]] = Constants.zoomLevels.reduce(into: [:]) { $0[$1] = [:] }
+    let gridMapManager = GridMapManager.default
+    var gridNumberAtZoomLevel: [Int: [GridNumber: RouteMarkerHandler]] =
+        Constants.zoomLevels.reduce(into: [:]) { $0[$1] = [:] }
     var renderedRouteMarkers: [RouteMarkerHandler] = []
     var maxZoom = Constants.maxZoom
 
@@ -49,19 +50,14 @@ class ActivityViewController: UIViewController {
         navigationItem.title = Titles.activity
         setupLocationManager()
         googleMapView.setup(self)
-        notificationToken = routes.observe { [weak self]changes in
+        notificationToken = routes.observe { [unowned self]changes in
             switch changes {
             case .initial:
                 break
             case .update(_, _, let insertions, _):
-                for routeIndex in insertions {
-                    guard let newRoute = self?.routes[routeIndex] else {
-                        continue
-                    }
-                    self?.insertRoute(route: newRoute)
-                }
+                insertions.forEach { self.insertRoute(route: self.routes[$0]) }
             case .error:
-                print("FUCKING ERROR")
+                print("No internet!")
             }
         }
     }
@@ -70,7 +66,6 @@ class ActivityViewController: UIViewController {
         super.viewDidAppear(animated)
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
-        //TODO: Render routes
     }
 
     /// Set up location manager from CoreLocation.
@@ -80,7 +75,10 @@ class ActivityViewController: UIViewController {
         coreLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         coreLocationManager.requestLocation()
 
-        let alert = UIAlertController(title: nil, message: "Fetching your location. Please wait.", preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: nil,
+            message: "Fetching your location. Please wait.",
+            preferredStyle: .alert)
 
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
@@ -90,30 +88,29 @@ class ActivityViewController: UIViewController {
         alert.view.addSubview(loadingIndicator)
         present(alert, animated: true, completion: nil)
 
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.async { [unowned self] in
             alert.dismiss(animated: false, completion: nil)
-            while self?.coreLocationManager.location == nil {
+            while self.coreLocationManager.location == nil {
                 sleep(1)
             }
-            guard let location = self?.coreLocationManager.location else {
+            guard let location = self.coreLocationManager.location else {
                 fatalError("While loop should have captured nil value!")
             }
-            self?.googleMapView.showLocation(location.coordinate)
+            self.googleMapView.showLocation(location.coordinate)
         }
     }
 
     private func insertRoute(route: Route) {
         // we insert the route to every zoom level for aggregated viewing of routes.
         Array(gridNumberAtZoomLevel.keys).forEach { insertRouteToZoomLevel(route: route, zoomLevel: $0) }
+        refreshMapRoutes()
     }
 
     private func insertRouteToZoomLevel(route: Route, zoomLevel: Int) {
         guard let startPoint = route.startingLocation?.coordinate else {
             return
         }
-        let gridManager = googleMapView.getGridManager(Float(zoomLevel))
-        if zoomLevel == 16 {
-        }
+        let gridManager = gridMapManager.getGridManager(Float(zoomLevel))
         let gridId = gridManager.getGridId(startPoint)
         if gridNumberAtZoomLevel[zoomLevel]?[gridId] == nil {
             if zoomLevel == maxZoom {
@@ -128,7 +125,7 @@ class ActivityViewController: UIViewController {
         routeCountMarker.insertRoute(route)
     }
 
-    private func redrawMarkers() {
+    func redrawMarkers() {
         let grids = googleMapView.viewingGrids
         renderRouteMarkers(grids)
         fetchRoutes(grids)
@@ -137,7 +134,9 @@ class ActivityViewController: UIViewController {
     private func renderRouteMarkers(_ gridNumbers: [GridNumber]) {
         renderedRouteMarkers.forEach { $0.derender() }
         renderedRouteMarkers = []
-        let allGridNumbers = gridNumberAtZoomLevel[googleMapView.nearestZoom]!
+        guard let allGridNumbers = gridNumberAtZoomLevel[googleMapView.nearestZoom] else {
+            return
+        }
         for gridNumber in gridNumbers {
             guard let routeMarker = allGridNumbers[gridNumber] else {
                 continue
@@ -151,6 +150,11 @@ class ActivityViewController: UIViewController {
     /// We should not request for routes below our zoom level as it will bloat our
     /// memory when we zoom out to the whole world.
     private func fetchRoutes(_ gridNumbers: [GridNumber]) {
+        // TODO:
+        // 1. If zoom level < routes threshold, we fetch the 'nearest zoom' table.
+        // 2. Else, we fetch the routes based on the bounds of the gridnumbers.
+        //
+        // However, when we create a new route, we need to save the gridNumber and zoomLevel to the database.
         routesManager.fetchRoutesWithin(
             latitudeMin: -90,
             latitudeMax: 90,
@@ -160,7 +164,6 @@ class ActivityViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-
 //        for gridNumber in gridNumbers where routesInGrid[gridNumber] == nil {
 //            let bound = gridMapManager.getBounds(gridId: gridNumber)
 //            routesManager.fetchRoutesWithin(
@@ -175,7 +178,7 @@ class ActivityViewController: UIViewController {
 //        }
     }
 
-    private func renderRoutes(_ routes: Set<Route>) {
+    func renderRoutes(_ routes: Set<Route>) {
         // TODO: Render routes as a tableview
         let route = routes.first!
         renderRoute(route)
@@ -187,8 +190,8 @@ class ActivityViewController: UIViewController {
         pullUpDrawer.routeStats(route)
     }
 
-    func updateLabels() {
-        runStats.setStats(distance: 123, time: stopwatch.timeElapsed)
+    private func refreshMapRoutes() {
+        renderedRouteMarkers.forEach { $0.render() }
     }
 
     private func renderMapButton() {
@@ -207,41 +210,6 @@ class ActivityViewController: UIViewController {
     }
 }
 
-// MARK: - GMSMapViewDelegate
-extension ActivityViewController: GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        let gridManager = googleMapView.getGridManager(mapView.zoom)
-        let gridNumber = gridManager.getGridId(marker.position)
-        guard
-            let routeMarkers = gridNumberAtZoomLevel[googleMapView.nearestZoom]?[gridNumber]
-            else {
-                fatalError("Created marker should be associated to a routeHandler.")
-        }
-        guard let routes = routeMarkers.getRoutes(marker) else {
-            googleMapView.zoomIn()
-            return false
-        }
-        renderRoutes(routes)
-        return true
-    }
-
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        print("ZOOM LEVEL IS \(mapView.zoom)")
-        guard !runStarted else {
-            return
-        }
-        redrawMarkers()
-    }
-
-    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        guard let location = coreLocationManager.location else {
-            return false
-        }
-        mapView.showLocation(location.coordinate)
-        return true
-    }
-}
-
 // MARK: - CLLocationManagerDelegate
 extension ActivityViewController: CLLocationManagerDelegate {
     /// Function from CLLocationManagerDelegate.
@@ -255,9 +223,16 @@ extension ActivityViewController: CLLocationManagerDelegate {
         if status == .authorizedWhenInUse {
             return
         }
-        coreLocationManager.requestWhenInUseAuthorization()
+        coreLocationManager.requestAlwaysAuthorization()
     }
 
+
+    /// Function from CLLocationManagerDelegate.
+    /// Used to update run location for ongoingRun
+    ///
+    /// - Parameters:
+    ///   - manager: The location manager for the view-controller.
+    ///   - locations: The new location.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard runStarted, let location = locations.last else {
             return

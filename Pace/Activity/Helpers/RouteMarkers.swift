@@ -1,6 +1,5 @@
 import GoogleMaps
 
-
 /// Class to handle relation between GMSMarker and Route.
 /// Used for caching of markers and handling of routes in the
 /// view controller.

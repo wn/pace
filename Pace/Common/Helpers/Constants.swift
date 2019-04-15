@@ -28,15 +28,21 @@ struct Constants {
     static let startButton = "start-icon.png"
     static let endButton = "end-icon.png"
 
-    static let gridWidth: Double = 300
-    static let gridHeight: Double = 300
-
-    // MARK: - Default objects
-    static var defaultGridManager: GridMap {
-        guard let result = GridMap(width: Constants.gridWidth, height: Constants.gridHeight) else {
-            fatalError("Width or height of grid must be greater than 0.")
+    static var gridMaps: [Int: GridMap] {
+        guard
+            let zoom13 = GridMap(width: 10000, height: 10000),
+            let zoom16 = GridMap(width: 800, height: 800),
+            let zoomMax = GridMap(width: 400, height: 400) else {
+                fatalError("We should not init GridMap with negative sides.")
         }
-        return result
+        return [13: zoom13, 16: zoom16, maxZoom: zoomMax]
+    }
+
+    static var defaultGridManager: GridMap {
+        guard let defaultGM = gridMaps[maxZoom] else {
+            fatalError("GridMaps should include a gridmap at max zoom.")
+        }
+        return defaultGM
     }
 
     // MARK: Locale variables
