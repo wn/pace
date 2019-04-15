@@ -30,8 +30,8 @@ class Run: IdentifiableObject {
         return realmCameraPosition?.asGMSCameraPosition
     }
     var routes: LinkingObjects<Route> = LinkingObjects(fromType: Route.self, property: "paces")
-    var route: Route {
-        return routes.first!
+    var route: Route? {
+        return routes.first
     }
 
     // computed properties, ignored by Realm

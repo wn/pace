@@ -27,10 +27,6 @@ protocol RealmStorageManager {
     /// - Precondition: `route` must exist in a realm.
     func getRunsFor(route: Route)
 
-    /// Attempts to fetch the runs for a specific User
-    /// - Precondition: `user` must exist in a realm.
-    func getRunsFor(user: User)
-
     /// Saves a new route.
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?)
 
@@ -96,17 +92,6 @@ class CachingStorageManager: RealmStorageManager {
             }
             try! route.realm!.write {
                 route.paces.append(objectsIn: runs)
-            }
-        }
-    }
-
-    func getRunsFor(user: User) {
-        storageAPI.fetchRunsForUser(user) { runs, error in
-            guard let runs = runs, error == nil else {
-                return
-            }
-            try! Realm.persistent.write {
-                Realm.persistent.add(runs, update: true)
             }
         }
     }
