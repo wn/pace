@@ -9,6 +9,7 @@
 import FirebaseFirestore
 import RealmSwift
 import CoreLocation
+import FacebookCore
 
 class PaceFirebaseAPI: PaceStorageAPI {
 
@@ -23,14 +24,6 @@ class PaceFirebaseAPI: PaceStorageAPI {
 
     private static func docRefFor(run: Run) -> DocumentReference {
         return runsRef.document(run.objectId)
-    }
-
-    fileprivate var persistentRealm: Realm
-    fileprivate var inMemoryRealm: Realm
-
-    init(persistentRealm: Realm, inMemoryRealm: Realm) {
-        self.persistentRealm = persistentRealm
-        self.inMemoryRealm = inMemoryRealm
     }
 
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
@@ -62,8 +55,8 @@ class PaceFirebaseAPI: PaceStorageAPI {
     }
 
     func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
-        let query = PaceFirebaseAPI.runsRef.order(by: "dateCreated", descending: true)
-            .whereField("runnerId", isEqualTo: "3FAEDBA4-2D9B-4B74-8C9C-4D148FF9607D")
+        let query = PaceFirebaseAPI.runsRef
+            .whereField("runnerId", isEqualTo: user.objectId)
         query.getDocuments { snapshot, err in
             guard err == nil else {
                 completion(nil, err)
@@ -111,23 +104,37 @@ extension PaceFirebaseAPI: PaceUserAPI {
         return usersRef.document(user.objectId)
     }
 
-    func findUser(withUID uid: String, orCreateWithName name: String, _ completion: @escaping UserResultsHandler) {
-        func createUserWith(name: String) {
-            let user = User(name: name, uid: uid)
-            PaceFirebaseAPI.usersRef.document(user.objectId).setData(user.asDictionary)
-            completion(user, nil)
-        }
+    /// Creates a user on Firebase
+    /// - Parameter uid: Unique facebook id
+    private func createFirebaseUser(with uid: String, _ completion: @escaping UserResultsHandler) {
+        GraphRequest(graphPath: "me", parameters: ["fields": "id, name"]).start({ _, result in
+            switch result {
+            case .success(let response):
+                guard let name = response.dictionaryValue?["name"] as? String else {
+                    return
+                }
+                let user = User(name: name, uid: uid)
+                PaceFirebaseAPI.usersRef.document(user.objectId).setData(user.asDictionary)
+                completion(user, nil)
+            case .failed(let error):
+                print("Graph Request failed: \(error)")
+            }
+        })
+    }
 
+    /// Searches Firebase
+    func findOrCreateFirebaseUser(with uid: String, _ completion: @escaping UserResultsHandler) {
         let query = PaceFirebaseAPI.usersRef.whereField("uid", isEqualTo: uid)
         query.getDocuments { snapshot, error in
-            guard let snapshot = snapshot, error != nil else {
+            guard let snapshot = snapshot, error == nil else {
                 completion(nil, error)
                 return
             }
             guard let userDoc = snapshot.documents.first else {
-                createUserWith(name: name)
+                self.createFirebaseUser(with: uid, completion)
                 return
             }
+            // User found from firebase
             let user = User.fromDictionary(objectId: userDoc.documentID, value: userDoc.data())
             completion(user, nil)
         }
@@ -135,6 +142,7 @@ extension PaceFirebaseAPI: PaceUserAPI {
 
     func fetchFavourites(userId: String, _ completion: @escaping RouteResultsHandler) {
         let query = PaceFirebaseAPI.routesRef.whereField("favouritedBy", arrayContains: userId)
+
         query.getDocuments { snapshot, error in
             let routes = snapshot.map {
                 $0.documents.compactMap {

@@ -6,7 +6,7 @@
 //  Copyright © 2019 nus.cs3217.pace. All rights reserved.
 //
 
-import Firebase
+import FirebaseFirestore
 
 extension Run: FirebaseStorable {
     var asDictionary: [String: Any] {

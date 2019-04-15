@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 import CoreLocation
 
 class RunCollectionController: PullUpController {
@@ -14,46 +15,28 @@ class RunCollectionController: PullUpController {
     @IBOutlet private var initialDisplay: UIView!
     @IBOutlet private var runCollectionView: UICollectionView!
     @IBOutlet private var collectionHeightConstraint: NSLayoutConstraint!
-    // To be set on instantiation of controller
     private var maxHeight: CGFloat?
     private var initOffset: CGFloat?
+    private var cellIdentifier: String = Identifiers.compareRunCell
+
+    // To be set on instantiation of controller
     var delegate: RunCollectionControllerDelegate?
-    var cellIdentifier: String = Identifiers.compareRunCell
-    //    weak var route: Route?
-//    weak var currentRun: Run?
-    var runs = [Run]()
+    var route: Route?
+    private lazy var runs: List<Run> = {
+        return route?.paces ?? List<Run>()
+    }()
+    private var notificationToken: NotificationToken?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         runCollectionView.register(CompareRunCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        var checkpoints = [CheckPoint]()
-        let cp1 = CLLocationCoordinate2D(latitude: 1.308_22, longitude: 103.773_131)
-        let loc1 = CLLocation(coordinate: cp1, altitude: 0, horizontalAccuracy: 25, verticalAccuracy: 25, course: 0, speed: 1, timestamp: Date())
-        let cp2 = CLLocationCoordinate2D(latitude: 1.307_71, longitude: 103.770_719)
-        let loc2 = CLLocation(coordinate: cp2, altitude: 0, horizontalAccuracy: 25, verticalAccuracy: 25, course: 0, speed: 4, timestamp: Date())
-        let cp3 = CLLocationCoordinate2D(latitude: 1.302_39, longitude: 103.767_35)
-        let loc3 = CLLocation(coordinate: cp3, altitude: 0, horizontalAccuracy: 25, verticalAccuracy: 25, course: 0, speed: 2, timestamp: Date())
-        let cp4 = CLLocationCoordinate2D(latitude: 1.301_296, longitude: 103.772_961)
-        let loc4 = CLLocation(coordinate: cp4, altitude: 0, horizontalAccuracy: 25, verticalAccuracy: 25, course: 0, speed: 3, timestamp: Date())
-        let cp5 = CLLocationCoordinate2D(latitude: 1.305_222, longitude: 103.773_894)
-        let loc5 = CLLocation(coordinate: cp5, altitude: 0, horizontalAccuracy: 25, verticalAccuracy: 25, course: 0, speed: 10, timestamp: Date())
-        checkpoints.append(
-            CheckPoint(location: loc1, time: 0, actualDistance: 0, routeDistance: 0))
-        checkpoints.append(
-            CheckPoint(location: loc2, time: 5, actualDistance: 274, routeDistance: 274))
-        checkpoints.append(
-            CheckPoint(location: loc3, time: 10, actualDistance: 971, routeDistance: 971))
-        checkpoints.append(
-            CheckPoint(location: loc4, time: 13, actualDistance: 1_607, routeDistance: 1_607))
-        checkpoints.append(
-            CheckPoint(location: loc5, time: 15, actualDistance: 2_100, routeDistance: 2_100))
-        let run = Run(runner: UserReference(fromUser: Dummy.user), checkpoints: checkpoints)
-        runs.append(run)
-        runs.append(run)
-        runs.append(run)
-        runs.append(run)
-        runs.append(run)
-        runCollectionView.reloadData()
+        guard let route = route else {
+            return
+        }
+        CachingStorageManager.default.getRunsFor(route: route)
+        notificationToken = runs.observe { [unowned self] _ in
+            self.runCollectionView.reloadData()
+        }
     }
 
     // Maximum height of the pullup view

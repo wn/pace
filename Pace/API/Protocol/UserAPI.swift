@@ -18,6 +18,5 @@ protocol PaceUserAPI {
     /// Fetches the run history for this user.
     func fetchHistory(userId: String, _ completion: @escaping RunResultsHandler)
     /// Finds or creates a user object on the cloud storage.
-    func findUser(withUID userId: String, orCreateWithName name: String, _ completion: @escaping UserResultsHandler)
-    /// Authenticate
+    func findOrCreateFirebaseUser(with uid: String, _ completion: @escaping UserResultsHandler)
 }

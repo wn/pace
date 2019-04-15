@@ -81,4 +81,5 @@ struct Xibs {
     static let routeCollectionViewCell = "RouteCollectionViewCell"
     static let runGraphView = "RunGraphView"
     static let userStatsView = "UserStatsView"
+    static let loginView = "LoginView"
 }

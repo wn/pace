@@ -11,8 +11,8 @@ import RealmSwift
 import CoreLocation
 
 class FavouriteViewController: RequireLoginController {
-    // MARK: - Properties
-    private var favouriteRoutes: List<Route>? = List<Route>()
+
+    private var favouriteRoutes = List<Route>()
     private var notificationToken: NotificationToken?
 
     @IBOutlet private weak var favourites: UICollectionView!
@@ -34,31 +34,21 @@ class FavouriteViewController: RequireLoginController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let user = user,
-            let routes = favouriteRoutes else {
+        self.loadData()
+    }
+
+    override func loadData() {
+        guard let user = user else {
             // Reset data
             favouriteRoutes = List<Route>()
             favourites.reloadData()
             return
         }
-        let startCp = CheckPoint(location: CLLocation(latitude: 1.308_012, longitude: 103.773_094),
-                                 time: 0,
-                                 actualDistance: 0,
-                                 routeDistance: 0)
-        let endCp = CheckPoint(location: CLLocation(latitude: 1.308_012, longitude: 103.773_094),
-                               time: 100,
-                               actualDistance: 1.2,
-                               routeDistance: 1.2)
-        for _ in 0...4 {
-            let route = Route(creator: UserReference(fromUser: user),
-                              name: "Random name",
-                              creatorRun: Run(runner: UserReference(fromUser: user), checkpoints: [startCp, endCp]))
-            routes.append(route)
+        favouriteRoutes = user.favouriteRoutes
+        RealmUserSessionManager.default.getFavouriteRoutes(of: user)
+        notificationToken = favouriteRoutes.observe { [unowned self] _ in
+            self.favourites.reloadData()
         }
-        //        notificationToken = favouriteRoutes.observe { [unowned self] _ in
-        //            self.favourites.reloadData()
-        //        }
-        self.favourites.reloadData()
     }
 }
 
@@ -66,7 +56,7 @@ class FavouriteViewController: RequireLoginController {
 extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     // Tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favouriteRoutes?.count ?? 0
+        return favouriteRoutes.count
     }
 
     func collectionView(
@@ -75,7 +65,7 @@ extension FavouriteViewController: UICollectionViewDataSource, UICollectionViewD
         ) -> UICollectionViewCell {
         let cell = collectionView
             .dequeueReusableCell(withReuseIdentifier: Identifiers.routeCell, for: indexPath) as! RouteCollectionViewCell
-        cell.route = favouriteRoutes?[indexPath.item]
+        cell.route = favouriteRoutes[indexPath.item]
         // Configure the cell
         return cell
     }
