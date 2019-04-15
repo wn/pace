@@ -102,6 +102,8 @@ class ActivityViewController: UIViewController {
 
     private func insertRoute(route: Route) {
         // we insert the route to every zoom level for aggregated viewing of routes.
+        // TODO: *****We should just insert to the lowest layer.*****
+        // For all the other layers, we should fetch in a different observer token.
         Array(gridNumberAtZoomLevel.keys).forEach { insertRouteToZoomLevel(route: route, zoomLevel: $0) }
         refreshMapRoutes()
     }
