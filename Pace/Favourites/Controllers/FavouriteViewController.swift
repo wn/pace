@@ -40,6 +40,7 @@ class FavouriteViewController: RequireLoginController {
     override func loadData() {
         guard let user = user else {
             // Reset data
+            print("reset")
             favouriteRoutes = List<Route>()
             favourites.reloadData()
             return

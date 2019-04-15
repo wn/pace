@@ -73,14 +73,17 @@ class RealmUserSessionManager: UserSessionManager {
     }
 
     func getFavouriteRoutes(of user: User) {
-        storageAPI.fetchFavourites(userId: user.objectId) { routes, _ in
+        storageAPI.fetchFavourites(userId: user.uid) { routes, _ in
             guard let routes = routes else {
                 return
             }
             try! self.realm.write {
                 self.realm.add(routes, update: true)
+                print("XXX")
+                print(user.favouriteRoutes)
                 user.favouriteRoutes.removeAll()
                 user.favouriteRoutes.append(objectsIn: routes)
+                print(user.favouriteRoutes)
             }
         }
     }

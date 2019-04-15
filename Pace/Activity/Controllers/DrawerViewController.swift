@@ -9,6 +9,8 @@
 import UIKit
 import FaveButton
 import RealmSwift
+import FacebookLogin
+import FacebookCore
 
 class DrawerViewController: PullUpController {
     var userSession: UserSessionManager?
@@ -203,7 +205,7 @@ extension DrawerViewController: FaveButtonDelegate {
         guard let currentRoute = viewingRoute else {
             return
         }
-        guard let user = userSession?.getRealmUser(nil) else {
+        guard let user = getCurrentUser else {
             let alert = UIAlertController(
                 title: "Not logged in",
                 message: "You need to be logged in to favourite a route.",
@@ -213,31 +215,22 @@ extension DrawerViewController: FaveButtonDelegate {
             faveButton.isSelected = false
             return
         }
-//        if selected {
-//            print("FAVOURITE-ED")
-//            guard user.addFavouriteRoute(currentRoute) else {
-//                let alert = UIAlertController(
-//                    title: "No connection",
-//                    message: "Can't connect to the internet now, try again later.",
-//                    preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//                present(alert, animated: true)
-//                return
-//            }
-//            print(user.containsFavouriteRoute(currentRoute))
-//        } else {
-//            // WE REMOVE FROM FAVOURITE
-//            print("UN-FAVOURITE-ED")
-//            guard user.removeFavouriteRoute(currentRoute) else {
-//                let alert = UIAlertController(
-//                    title: "No connection",
-//                    message: "Can't connect to the internet now, try again later.",
-//                    preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//                present(alert, animated: true)
-//                return
-//            }
-//            print(user.containsFavouriteRoute(currentRoute))
-//        }
+        if selected {
+            print("FAVOURITE-ED")
+            RealmUserSessionManager.default.addToFavourites(route: currentRoute, to: user, nil)
+            print(user)
+        } else {
+            // WE REMOVE FROM FAVOURITE
+            print("UN-FAVOURITE-ED")
+            RealmUserSessionManager.default.removeFromFavourites(route: currentRoute, from: user, nil)
+            print(user)
+        }
+    }
+
+    var getCurrentUser: User? {
+        guard let uid = AccessToken.current?.userId else {
+            return nil
+        }
+        return RealmUserSessionManager.default.getRealmUser(uid)
     }
 }
