@@ -54,6 +54,7 @@ struct Constants {
 /// For Development Purposes until the rest of the interface is ready
 struct Dummy {
     static let user = User(name: "angunong")
+    static let pacer = User(name: "darth vader")
 }
 
 struct Identifiers {

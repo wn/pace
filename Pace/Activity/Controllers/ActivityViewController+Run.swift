@@ -36,7 +36,7 @@ extension ActivityViewController {
     }
 
     private func startRunningSession(at location: CLLocation) {
-        VoiceAssistant.say("Starting run")
+        VoiceAssistant.say("Starting new run")
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
         // TODO: add follow run
