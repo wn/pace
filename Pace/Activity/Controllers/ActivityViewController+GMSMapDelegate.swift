@@ -27,11 +27,11 @@ extension ActivityViewController: GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        print("ZOOM LEVEL IS \(mapView.zoom)")
-        guard !runStarted else {
+        guard !runStarted, let map = mapView as? MapView else {
             return
         }
-        redrawMarkers()
+        print("ZOOM LEVEL IS \(mapView.zoom)")
+        redrawMarkers(map.viewingGrids)
     }
 
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {

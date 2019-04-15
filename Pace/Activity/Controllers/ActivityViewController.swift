@@ -121,7 +121,7 @@ class ActivityViewController: UIViewController {
         // TODO: *****We should just insert to the lowest layer.*****
         // For all the other layers, we should fetch in a different observer token.
         Array(gridNumberAtZoomLevel.keys).forEach { insertRouteToZoomLevel(route: route, zoomLevel: $0) }
-        refreshMapRoutes()
+        redrawMarkers(googleMapView.viewingGrids)
     }
 
     private func insertRouteToZoomLevel(route: Route, zoomLevel: Int) {
@@ -143,8 +143,7 @@ class ActivityViewController: UIViewController {
         routeCountMarker.insertRoute(route)
     }
 
-    func redrawMarkers() {
-        let grids = googleMapView.viewingGrids
+    func redrawMarkers(_ grids: [GridNumber]) {
         renderRouteMarkers(grids)
         fetchRoutes(grids)
     }
@@ -202,14 +201,10 @@ class ActivityViewController: UIViewController {
         renderRoute(route)
     }
 
-    private func renderRoute(_ route: Route) {
+    func renderRoute(_ route: Route) {
         googleMapView.renderRoute(route)
         showPullUpController()
         pullUpDrawer.routeStats(route)
-    }
-
-    private func refreshMapRoutes() {
-        renderedRouteMarkers.forEach { $0.render() }
     }
 
     private func renderMapButton() {
