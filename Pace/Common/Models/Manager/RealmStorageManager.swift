@@ -101,7 +101,7 @@ class CachingStorageManager: RealmStorageManager {
 
     /// Fetches runs but loads it into non-persistent memory
     func getRunsFor(routeId: String) {
-        storageAPI.fetchRunsForRoute(routeId) { runs, error in
+        storageAPI.fetchRunsForRoute(routeId) { runs, _ in
             guard let runs = runs else {
                 return
             }
@@ -110,7 +110,6 @@ class CachingStorageManager: RealmStorageManager {
             }
         }
     }
-
 
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?) {
         do {
