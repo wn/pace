@@ -13,7 +13,7 @@ extension Run: FirebaseStorable {
         return [
             "runnerId": runner?.objectId ?? "",
             "runnerName": runner?.name ?? "",
-            "routeId": route?.objectId,
+            "routeId": routeId,
             "dateCreated": Timestamp(date: dateCreated),
             "checkPoints": Array(checkpoints.map { $0.asDictionary })
         ]
@@ -25,12 +25,13 @@ extension Run: FirebaseStorable {
             let runnerName = value["runnerName"] as? String,
             let checkPoints = value["checkPoints"] as? [[String: Any]],
             let dateCreated = value["dateCreated"] as? Timestamp,
+            let routeId = value["routeId"] as? String,
             let objectId = objectId
             else {
                 return nil
         }
         let realmCheckpoints = checkPoints.compactMap { CheckPoint.fromDictionary(objectId: nil, value: $0) }
-        let run = Run(runner: UserReference(name: runnerName, id: runnerId), checkpoints: realmCheckpoints)
+        let run = Run(runner: UserReference(name: runnerName, id: runnerId), checkpoints: realmCheckpoints, routeId: routeId)
         run.dateCreated = dateCreated.dateValue()
         run.objectId = objectId
         return run

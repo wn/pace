@@ -62,13 +62,16 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     private func setupPullupController() {
         let rcc: RunCollectionController = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
             .instantiateViewController(withIdentifier: Identifiers.runCollectionController) as! RunCollectionController
-        /// - TODO: Fix missing route link in each run.
-        // rcc.route = run?.route
+        guard let routeId = run?.routeId else {
+            return
+        }
+        rcc.currentRunId = run?.objectId
+        rcc.routeId = routeId
         _ = rcc.view
-        let tabBarHeight = tabBarController?.tabBar.frame.height ?? 0
-        rcc.height = UIScreen.main.bounds.height - googleMapView.frame.height
+        let tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
+        rcc.height = UIScreen.main.bounds.height - self.googleMapView.frame.height
         rcc.delegate = self
-        addPullUpController(rcc, initialStickyPointOffset: rcc.initialHeight + tabBarHeight, animated: true)
+        self.addPullUpController(rcc, initialStickyPointOffset: rcc.initialHeight + tabBarHeight, animated: true)
     }
 }
 

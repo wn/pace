@@ -21,19 +21,24 @@ class RunCollectionController: PullUpController {
 
     // To be set on instantiation of controller
     var delegate: RunCollectionControllerDelegate?
-    var route: Route?
-    private lazy var runs: List<Run> = {
-        return route?.paces ?? List<Run>()
+    var currentRunId: String?
+    var routeId: String?
+    private lazy var runs = {
+        return Realm.inMemory.objects(Run.self).filter(self.runsToComparePredicate)
+    }()
+    private lazy var runsToComparePredicate = {
+        return NSPredicate(format: "routeId = %@ AND objectId != %@",
+                           routeId ?? "", currentRunId ?? "")
     }()
     private var notificationToken: NotificationToken?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         runCollectionView.register(CompareRunCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        guard let route = route else {
+        guard let routeId = routeId, currentRunId != nil else {
             return
         }
-        CachingStorageManager.default.getRunsFor(route: route)
+        CachingStorageManager.default.getRunsFor(routeId: routeId)
         notificationToken = runs.observe { [unowned self] _ in
             self.runCollectionView.reloadData()
         }
@@ -90,6 +95,8 @@ extension RunCollectionController: UICollectionViewDataSource, UICollectionViewD
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let clickedRun = runs[indexPath.item]
+        let cell = runCollectionView.cellForItem(at: indexPath) as! CompareRunCollectionViewCell
+        cell.toggleClicked()
         delegate?.onClickCallback(run: clickedRun)
         pullUpControllerMoveToVisiblePoint(initialHeight, animated: true, completion: nil)
     }

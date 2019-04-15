@@ -43,9 +43,9 @@ class PaceFirebaseAPI: PaceStorageAPI {
         }
     }
 
-    func fetchRunsForRoute(_ route: Route, _ completion: @escaping RunResultsHandler) {
+    func fetchRunsForRoute(_ routeId: String, _ completion: @escaping RunResultsHandler) {
         let query = PaceFirebaseAPI.runsRef
-            .whereField("routeId", isEqualTo: route.objectId)
+            .whereField("routeId", isEqualTo: routeId)
         query.getDocuments { snapshot, err in
             let runs = snapshot.map {
                 $0.documents.compactMap {
