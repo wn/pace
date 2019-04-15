@@ -20,6 +20,9 @@ private let swizzling: (AnyClass, Selector, Selector) -> () = { forClass, origin
 extension CLLocationManager: SelfAware {
     // implement to perform swizzling at runtime
     public static func awake() {
+        guard MockLocationConfiguration.isMocking else {
+            return
+        }
         let originalLocationSelector = #selector(getter: CLLocationManager.location)
         let swizzledLocationSelector = #selector(getter: swizzledLocation)
         swizzling(CLLocationManager.self, originalLocationSelector, swizzledLocationSelector)
