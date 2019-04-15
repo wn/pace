@@ -459,12 +459,22 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vkq-mQ-ZUx">
                                                 <rect key="frame" x="0.0" y="501.5" width="414" height="223.5"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WzQ-YY-sB1">
+                                                        <rect key="frame" x="87" y="43" width="241" height="43"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                        <state key="normal" title="Save New Run"/>
+                                                        <connections>
+                                                            <action selector="saveRun:" destination="xC9-Rd-j1i" eventType="touchUpInside" id="pMV-La-5Id"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="Vkq-mQ-ZUx" firstAttribute="width" secondItem="mf4-uq-zoj" secondAttribute="width" id="GqU-Ps-FKB"/>
-                                            <constraint firstItem="Vkq-mQ-ZUx" firstAttribute="centerX" secondItem="mf4-uq-zoj" secondAttribute="centerX" id="Ju5-hM-7qW"/>
                                             <constraint firstAttribute="bottom" secondItem="Vkq-mQ-ZUx" secondAttribute="bottom" id="N2B-t5-g4T"/>
                                             <constraint firstItem="dnz-ga-EZn" firstAttribute="height" secondItem="mf4-uq-zoj" secondAttribute="height" multiplier="0.3" id="WiY-gN-bg4"/>
                                             <constraint firstItem="dnz-ga-EZn" firstAttribute="width" secondItem="mf4-uq-zoj" secondAttribute="width" id="XHr-sB-Laj"/>

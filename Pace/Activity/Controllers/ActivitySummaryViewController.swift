@@ -11,26 +11,22 @@ import CoreLocation
 
 class ActivitySummaryViewController: UIViewController {
     // MARK: UI variables
-    @IBOutlet private var distanceLabel: UILabel!
-    @IBOutlet private var paceLabel: UILabel!
-    @IBOutlet private var timeLabel: UILabel!
     @IBOutlet private var statsView: RunStatsView!
 
     // MARK: Run variables
-    var createdRun: OngoingRun?
+    var finishedRun: OngoingRun?
     private var routesManager = CachingStorageManager.default
     private var isSaved = false
 
-    // MARK: Run statistics variables
-    private var distance: Double = 0
-    private var pace: Int = 0
-    private var time: Double = 0
+    /// Set the necessary information for the summary. Called when initializing the summary.
+    func setRun(as finishedRun: OngoingRun?) {
+        self.finishedRun = finishedRun
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
         showStats()
-        readStats()
     }
 
     private func setupNavigation() {
@@ -54,33 +50,33 @@ class ActivitySummaryViewController: UIViewController {
         saveRun()
     }
 
+    // This is another saving button for testing
+    @IBAction func bottomSaveButtonPressed(_ sender: UIButton) {
+        saveRun()
+    }
+
     private func saveRun() {
-        guard
-            distance >= Constants.checkPointDistanceInterval,
-            let route = createdRun?.toNewRoute()
-        else {
-            print("CANT SAVE THIS SHIT cause distance not long enuff")
+        // TODO: Check that we have sufficient distance to save!!
+        guard let distance = finishedRun?.distanceSoFar,
+            distance >= Constants.checkPointDistanceInterval else {
+            // Distance of the run is not long enough for saving
+            return
+        }
+        guard let finishedRun = finishedRun else {
+            // run was not set up properly when initializing this VC
             return
         }
         isSaved = true
-        routesManager.saveNewRoute(route, nil)
-        print("RUN SAVED")
-    }
+        routesManager.saveNewRoute(finishedRun.toNewRoute(), nil)
 
-    func setStats(createdRun: OngoingRun, distance: CLLocationDistance, time: Double) {
-        self.distance = distance
-        self.pace = distance == 0 ? 0 : Int(time / distance)
-        self.time = time
-        self.createdRun = createdRun
+        // TODO: improve the after-saving UI interaction
+        derenderChildController()
     }
 
     private func showStats() {
+        guard let distance = finishedRun?.distanceSoFar, let time = finishedRun?.timeSoFar else {
+            return
+        }
         statsView.setStats(distance: distance, time: time)
-    }
-
-    private func readStats() {
-        VoiceAssistant.say("Distance: \(Int(distance)) meters")
-        VoiceAssistant.say("Duration: \(Int(time)) seconds")
-        VoiceAssistant.say("Pace: \(Int(pace)) seconds per kilometer")
     }
 }

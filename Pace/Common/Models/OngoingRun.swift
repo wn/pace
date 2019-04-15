@@ -27,6 +27,9 @@ class OngoingRun {
     var distanceSoFar: Double? {
         return checkpoints.last?.actualDistance
     }
+    var timeSoFar: Double? {
+        return checkpoints.last?.time
+    }
 
     /// Constructs an OngoingRun with the given runner, startingLocation and paceRun.
     /// When the OngoingRun is not following any Run, the paceRun is nil (and it's nil by default).
