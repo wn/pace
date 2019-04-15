@@ -95,7 +95,7 @@ class RealmUserSessionManager: UserSessionManager {
                 print("user not found")
                 throw NSError()
             }
-            storageManager.addFavouriteRoute(route, toUser: user)
+            storageManager.addFavouriteRoute(route, toUser: user) { completion?($0 == nil) }
         } catch {
             print("Operation unsuccessful: \(error.localizedDescription)")
             success = false
@@ -110,7 +110,7 @@ class RealmUserSessionManager: UserSessionManager {
                 print("user not found")
                 throw NSError()
             }
-            storageManager.removeFavouriteRoute(route, fromUser: user)
+            storageManager.removeFavouriteRoute(route, fromUser: user) { completion?($0 == nil) }
         } catch {
             print("Operation unsuccessful: \(error.localizedDescription)")
             success = false

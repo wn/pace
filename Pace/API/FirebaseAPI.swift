@@ -93,6 +93,16 @@ class PaceFirebaseAPI: PaceStorageAPI {
         batch.updateData(["runs": FieldValue.arrayUnion([run.objectId])], forDocument: routeDocumentRef)
         batch.commit(completion: completion)
     }
+
+    func addFavourite(_ route: Route, toUser user: User, _ completion: ((Error?) -> Void)?) {
+        let route = PaceFirebaseAPI.docRefFor(route: route)
+        route.setData(["favouritedBy": FieldValue.arrayUnion([user.objectId])], merge: true, completion: completion)
+    }
+
+    func removeFavourite(_ route: Route, fromUser user: User, _ completion: ((Error?) -> Void)?) {
+        let route = PaceFirebaseAPI.docRefFor(route: route)
+        route.setData(["favouritedBy": FieldValue.arrayRemove([user.objectId])], merge: true, completion: completion)
+    }
 }
 
 extension PaceFirebaseAPI: PaceUserAPI {
