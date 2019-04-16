@@ -44,6 +44,22 @@ extension ActivityViewController {
         ongoingRun = OngoingRun(runner: Dummy.user, startingLocation: location)
     }
 
+    private func startFollowRunSession(at location: CLLocation, following paceRun: Run) {
+        VoiceAssistant.say("Starting follow run")
+        coreLocationManager.startUpdatingLocation()
+        stopwatch.start()
+        ongoingRun = OngoingRun(runner: Dummy.follower, startingLocation: location, paceRun: paceRun)
+        stopwatch.startMonitoringPace()
+    }
+
+    @objc
+    func reflectPacingStats() {
+        guard let paceStats = ongoingRun?.getPacingStats() else {
+            return
+        }
+        VoiceAssistant.reportPacing(using: paceStats)
+    }
+
     @objc
     func endRun(_ sender: UIButton) {
         guard runStarted else {
@@ -68,6 +84,7 @@ extension ActivityViewController {
 
         ongoingRun = nil
         stopwatch.reset()
+        stopwatch.stopMonitoringPace()
         coreLocationManager.stopUpdatingLocation()
         updateLabels()
     }
