@@ -32,7 +32,7 @@ class ActivitySummaryViewController: UIViewController {
 
     private func setupNavigation() {
         navigationItem.title = Titles.runSummary
-        let image = UIImage(named: "save.png")?.withRenderingMode(.alwaysOriginal)
+        let image = UIImage(named: Images.saveButton)?.withRenderingMode(.alwaysOriginal)
         let saveButton = UIButton(type: .system)
         let widthConstraint = saveButton.widthAnchor.constraint(equalToConstant: 30)
         let heightConstraint = saveButton.heightAnchor.constraint(equalToConstant: 30)

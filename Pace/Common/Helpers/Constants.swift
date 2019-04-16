@@ -86,3 +86,7 @@ struct Xibs {
     static let userStatsView = "UserStatsView"
     static let loginView = "LoginView"
 }
+
+struct Images {
+    static let saveButton = "save.png"
+}
