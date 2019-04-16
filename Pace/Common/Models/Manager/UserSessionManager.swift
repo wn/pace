@@ -19,6 +19,10 @@ protocol UserSessionManager {
     /// Finds a user with an identifies, or optionally signs up the user/
     func findOrCreateUser(with uid: String, _ completion: @escaping UserResultsHandler)
 
+    /// Attempts to fetch the runs for a specific User
+    /// - Precondition: `user` must exist in a realm.
+    func getRunsFor(user: User)
+
     func getFavouriteRoutes(of user: User)
 
     /// Adds to the favourites of the current user.
@@ -113,5 +117,16 @@ class RealmUserSessionManager: UserSessionManager {
             success = false
         }
         completion?(success)
+    }
+
+    func getRunsFor(user: User) {
+        storageAPI.fetchRunsForUser(user) { runs, error in
+            guard let runs = runs, error == nil else {
+                return
+            }
+            try! Realm.persistent.write {
+                Realm.persistent.add(runs, update: true)
+            }
+        }
     }
 }

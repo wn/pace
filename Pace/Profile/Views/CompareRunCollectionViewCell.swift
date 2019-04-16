@@ -50,9 +50,8 @@ class CompareRunCollectionViewCell: UICollectionViewCell {
         content.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
 
-    override var isSelected: Bool {
-        didSet {
-            tickImage.isHidden = !(isSelected || oldValue)
-        }
+    func toggleClicked() {
+        let oldValue = tickImage.isHidden
+        tickImage.isHidden = !oldValue
     }
 }

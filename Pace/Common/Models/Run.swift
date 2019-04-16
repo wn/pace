@@ -19,6 +19,7 @@ class Run: IdentifiableObject {
     @objc dynamic var timeSpent: Double = 0.0
     @objc dynamic var distance: Double = 0.0
     @objc dynamic var thumbnailData: Data?
+    @objc dynamic var routeId: String?
     var thumbnail: UIImage? {
         guard let thumbnailData = thumbnailData else {
             return UIImage(named: "run.jpeg")
@@ -29,9 +30,11 @@ class Run: IdentifiableObject {
     var cameraPosition: GMSCameraPosition? {
         return realmCameraPosition?.asGMSCameraPosition
     }
-    var routes: LinkingObjects<Route> = LinkingObjects(fromType: Route.self, property: "paces")
-    var route: Route {
-        return routes.first!
+    var route: Route? {
+        get {
+            return Realm.persistent.objects(Route.self)
+                .filter(NSPredicate(format: "objectId = %@", routeId ?? "")).first
+        }
     }
 
     // computed properties, ignored by Realm
@@ -53,7 +56,8 @@ class Run: IdentifiableObject {
     /// - Parameters:
     ///   - runner: The runner of this Run.
     ///   - checkpoints: The array of normalized checkpoints for this Run.
-    convenience init(runner: UserReference, checkpoints: [CheckPoint], thumbnail: Data? = nil) {
+    convenience init(runner: UserReference, checkpoints: [CheckPoint],
+                     routeId: String? = nil, thumbnail: Data? = nil) {
         self.init()
         guard let lastPoint = checkpoints.last else {
             return
@@ -66,6 +70,7 @@ class Run: IdentifiableObject {
             checkpointsList.append(objectsIn: checkpoints)
             return checkpointsList
         }()
+        self.routeId = routeId
         self.thumbnailData = thumbnail
     }
 

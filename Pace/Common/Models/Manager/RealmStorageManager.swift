@@ -27,9 +27,8 @@ protocol RealmStorageManager {
     /// - Precondition: `route` must exist in a realm.
     func getRunsFor(route: Route)
 
-    /// Attempts to fetch the runs for a specific User
-    /// - Precondition: `user` must exist in a realm.
-    func getRunsFor(user: User)
+    /// Fetches runs but loads it into non-persistent memory
+    func getRunsFor(routeId: String)
 
     /// Saves a new route.
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?)
@@ -90,7 +89,7 @@ class CachingStorageManager: RealmStorageManager {
     }
 
     func getRunsFor(route: Route) {
-        storageAPI.fetchRunsForRoute(route) { runs, error in
+        storageAPI.fetchRunsForRoute(route.objectId) { runs, error in
             guard let runs = runs, error == nil else {
                 return
             }
@@ -100,13 +99,14 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
-    func getRunsFor(user: User) {
-        storageAPI.fetchRunsForUser(user) { runs, error in
-            guard let runs = runs, error == nil else {
+    /// Fetches runs but loads it into non-persistent memory
+    func getRunsFor(routeId: String) {
+        storageAPI.fetchRunsForRoute(routeId) { runs, _ in
+            guard let runs = runs else {
                 return
             }
-            try! Realm.persistent.write {
-                Realm.persistent.add(runs, update: true)
+            try! Realm.inMemory.write {
+                Realm.inMemory.add(runs, update: true)
             }
         }
     }
