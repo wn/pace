@@ -11,7 +11,6 @@ import UIKit
 class StopwatchTimer {
     var timeElapsed = 0.0
     var timer = Timer()
-    var paceTimer = Timer()
     var isPlaying = false
 
     func start() {
@@ -42,18 +41,5 @@ class StopwatchTimer {
     @objc
     func update() {
         timeElapsed += 0.1
-    }
-
-    func startMonitoringPace(from controller: ActivityViewController) {
-        paceTimer = Timer.scheduledTimer(
-            timeInterval: 5,
-            target: controller,
-            selector: #selector(ActivityViewController.reflectPacingStats),
-            userInfo: nil,
-            repeats: true)
-    }
-
-    func stopMonitoringPace() {
-        paceTimer.invalidate()
     }
 }
