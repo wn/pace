@@ -105,7 +105,6 @@ class ActivityViewController: UIViewController {
         present(alert, animated: true, completion: nil)
 
         DispatchQueue.main.async { [unowned self] in
-            alert.dismiss(animated: false, completion: nil)
             while self.coreLocationManager.location == nil {
                 sleep(1)
             }
@@ -113,6 +112,7 @@ class ActivityViewController: UIViewController {
                 fatalError("While loop should have captured nil value!")
             }
             self.googleMapView.showLocation(location.coordinate)
+            alert.dismiss(animated: false, completion: nil)
         }
     }
 

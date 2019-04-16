@@ -42,12 +42,12 @@ class ActivitySummaryViewController: UIViewController {
         widthConstraint.isActive = true
         heightConstraint.isActive = true
         saveButton.setImage(image, for: .normal)
-        saveButton.addTarget(self, action: #selector(popupSettings), for: .allTouchEvents)
+        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .allTouchEvents)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveButton)
     }
 
     @objc
-    private func popupSettings() {
+    private func saveButtonPressed() {
         guard !isSaved else {
             return
         }
@@ -62,6 +62,7 @@ class ActivitySummaryViewController: UIViewController {
             print("CANT SAVE THIS SHIT cause distance not long enuff")
             return
         }
+        isSaved = true
         routesManager.saveNewRoute(route, nil)
         print("RUN SAVED")
     }
