@@ -15,8 +15,8 @@ protocol PaceUserAPI {
     typealias UserResultsHandler = (User?, Error?) -> Void
     /// Fetches the favourite routes for the user.
     func fetchFavourites(userId: String, _ completion: @escaping RouteResultsHandler)
-    /// Fetches the run history for this user.
-    func fetchHistory(userId: String, _ completion: @escaping RunResultsHandler)
+    /// Fetched the runs for this route.
+    func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler)
     /// Finds or creates a user object on the cloud storage.
     func findOrCreateFirebaseUser(with uid: String, _ completion: @escaping UserResultsHandler)
 }

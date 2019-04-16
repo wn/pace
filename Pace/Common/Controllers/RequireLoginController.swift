@@ -68,6 +68,9 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
     /// Makes a request to query Firebase to update
     func loadUser(with uid: String) {
         user = RealmUserSessionManager.default.getRealmUser(uid)
+        guard user == nil else {
+            return
+        }
         RealmUserSessionManager.default.findOrCreateUser(with: uid) { user, _ in
             self.user = user
             self.loadData()

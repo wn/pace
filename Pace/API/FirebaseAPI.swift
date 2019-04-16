@@ -41,9 +41,9 @@ class PaceFirebaseAPI: PaceStorageAPI {
         }
     }
 
-    func fetchRunsForRoute(_ route: Route, _ completion: @escaping RunResultsHandler) {
+    func fetchRunsForRoute(_ routeId: String, _ completion: @escaping RunResultsHandler) {
         let query = PaceFirebaseAPI.runsRef
-            .whereField("routeId", isEqualTo: route.objectId)
+            .whereField("routeId", isEqualTo: routeId)
         query.getDocuments { snapshot, err in
             let runs = snapshot.map {
                 $0.documents.compactMap {
@@ -51,22 +51,6 @@ class PaceFirebaseAPI: PaceStorageAPI {
                 }
             }
             completion(runs, err)
-        }
-    }
-
-    func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
-        let query = PaceFirebaseAPI.runsRef
-            .whereField("runnerId", isEqualTo: user.objectId)
-        query.getDocuments { snapshot, err in
-            guard err == nil else {
-                completion(nil, err)
-                return
-            }
-            let runs = snapshot?.documents
-                .compactMap {
-                    Run.fromDictionary(objectId: $0.documentID, value: $0.data())
-                }
-            completion(runs, nil)
         }
     }
 
@@ -163,15 +147,18 @@ extension PaceFirebaseAPI: PaceUserAPI {
         }
     }
 
-    func fetchHistory(userId: String, _ completion: @escaping RunResultsHandler) {
-        let query = PaceFirebaseAPI.runsRef.whereField("creator", isEqualTo: userId)
-        query.getDocuments { snapshot, error in
-            let history = snapshot.map {
-                $0.documents.compactMap {
-                    Run.fromDictionary(objectId: $0.documentID, value: $0.data())
-                }
+    func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
+        let query = PaceFirebaseAPI.runsRef
+            .whereField("runnerId", isEqualTo: user.objectId)
+        query.getDocuments { snapshot, err in
+            guard err == nil else {
+                completion(nil, err)
+                return
             }
-            completion(history, error)
+            let runs = snapshot?.documents.compactMap {
+                Run.fromDictionary(objectId: $0.documentID, value: $0.data())
+            }
+            completion(runs, nil)
         }
     }
 }

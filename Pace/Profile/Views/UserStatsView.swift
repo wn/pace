@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class UserStatsView: UIView {
 
@@ -15,6 +16,7 @@ class UserStatsView: UIView {
     @IBOutlet private var totalRuns: UILabel!
     @IBOutlet private var avgDistance: UILabel!
     @IBOutlet private var avgPace: UILabel!
+    var runs: Results<Run>?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,8 +28,24 @@ class UserStatsView: UIView {
         loadXib()
     }
 
-    func setStats(with user: User) {
-
+    func calculateStats() {
+        var totalDist: Double = 0.0
+        var totalTime: Double = 0.0
+        guard let runs = runs else {
+            return
+        }
+        for run in runs {
+            totalDist += run.distance / 1_000
+            totalTime += run.timeSpent
+        }
+        totalDistance.text = String(format: "%.2f",
+                                    arguments: [totalDist])
+        let averagePace = totalTime / (60 * totalDist)
+        avgPace.text = String(format: "%.2f",
+                                arguments: [averagePace])
+        avgDistance.text = String(format: "%.2f",
+                                  arguments: [totalDist / Double(runs.count)])
+        totalRuns.text = String(runs.count)
     }
 
     private func loadXib() {
