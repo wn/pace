@@ -3,7 +3,8 @@
 //  Pace
 //
 //  Created by Yuntong Zhang on 13/4/19.
-//  Referenced from: https://hackernoon.com/simulating-user-location-and-navigation-route-on-iphone-without-xcode-761f06905f1c
+//  Referenced from:
+//  https://hackernoon.com/simulating-user-location-and-navigation-route-on-iphone-without-xcode-761f06905f1c
 //  Copyright © 2019 nus.cs3217.pace. All rights reserved.
 //
 
@@ -40,11 +41,13 @@ extension CLLocationManager: SelfAware {
         swizzling(CLLocationManager.self, originalRequestSelector, swizzledRequestSelector)
     }
 
-    @objc var swizzledLocation: CLLocation? {
+    @objc
+    var swizzledLocation: CLLocation? {
         return MockCLLocationManager.shared.location
     }
 
-    @objc func swizzledStartLocation() {
+    @objc
+    func swizzledStartLocation() {
         if !MockCLLocationManager.shared.isRunning {
             MockCLLocationManager.shared.startMocks()
         }
@@ -52,11 +55,13 @@ extension CLLocationManager: SelfAware {
         MockCLLocationManager.shared.startUpdatingLocation()
     }
 
-    @objc func swizzledStopLocation() {
+    @objc
+    func swizzledStopLocation() {
         MockCLLocationManager.shared.stopUpdatingLocation()
     }
 
-    @objc func swizzledRequestLocation() {
+    @objc
+    func swizzledRequestLocation() {
         if !MockCLLocationManager.shared.isRunning {
             MockCLLocationManager.shared.startMocks()
         }

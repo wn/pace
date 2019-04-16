@@ -36,7 +36,6 @@ extension ActivityViewController {
             let paceRunStart = paceRun.startingLocation else {
                 return false
         }
-        // TODO: draw the paceRun on map
         guard startingLocation.isSameAs(other: paceRunStart) else {
             return false
         }
@@ -56,7 +55,6 @@ extension ActivityViewController {
         VoiceAssistant.say("Starting new run")
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
-        // TODO: allow user to run without signing in
         ongoingRun = OngoingRun(runner: userSession.currentUser, startingLocation: location)
     }
 

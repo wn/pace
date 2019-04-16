@@ -292,7 +292,9 @@ open class PullUpController: UIViewController {
         widthConstraint = view.widthAnchor.constraint(equalToConstant: pullUpControllerPreferredSize.width)
         heightConstraint = view.heightAnchor.constraint(equalToConstant: pullUpControllerPreferredSize.height)
         heightConstraint?.priority = .defaultLow
-        bottomConstraint = parentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -initialDisplayOffset)
+        bottomConstraint = parentView.bottomAnchor.constraint(
+            equalTo: view.bottomAnchor,
+            constant: -initialDisplayOffset)
 
         let constraintsToActivate = [topConstraint,
                                      leftConstraint,
@@ -496,7 +498,9 @@ extension UIViewController {
     /**
      Adds the specified pull up view controller as a child of the current view controller.
      - parameter pullUpController: the pull up controller to add as a child of the current view controller.
-     - parameter initialStickyPointOffset: The point where the provided `pullUpController`'s view will be initially placed expressed in screen units of the pull up controller coordinate system. If this value is not provided, the `pullUpController`'s view will be initially placed expressed
+     - parameter initialStickyPointOffset: The point where the provided `pullUpController`'s view will be initially
+        placed expressed in screen units of the pull up controller coordinate system. If this value is not provided,
+        the `pullUpController`'s view will be initially placed expressed
      - parameter animated: Pass true to animate the adding; otherwise, pass false.
      */
     open func addPullUpController(_ pullUpController: PullUpController,

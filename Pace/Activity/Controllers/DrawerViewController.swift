@@ -32,7 +32,7 @@ class DrawerViewController: PullUpController {
         return RealmUserSessionManager.default.getRealmUser(uid)
     }
 
-    @IBOutlet var runnersTableView: UITableView!
+    @IBOutlet private var runnersTableView: UITableView!
     var paces: [Run] = []
     let runnerCellIdentifier = "runnerCell"
 

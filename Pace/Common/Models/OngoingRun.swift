@@ -80,7 +80,11 @@ class OngoingRun {
             isDeviated = true
             newRouteDistance = lastPoint.routeDistance
         }
-        let newPoint = CheckPoint(location: location, time: time, actualDistance: newActualDistance, routeDistance: newRouteDistance)
+        let newPoint = CheckPoint(
+            location: location,
+            time: time,
+            actualDistance: newActualDistance,
+            routeDistance: newRouteDistance)
         checkpoints.append(newPoint)
     }
 

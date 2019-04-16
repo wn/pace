@@ -80,7 +80,7 @@ class ActivitySummaryViewController: UIViewController {
         let followingRun = finishedRun?.paceRun?.route != nil
         var message = ""
         if followingRun {
-            if (finishedRun?.classifiedAsFollow() ?? false) {
+            if finishedRun?.classifiedAsFollow() ?? false {
                 message = "Would you like to create a new route or add your run to this route?"
             } else {
                 message = "Unable to add your run statistics to this route as you deviated "

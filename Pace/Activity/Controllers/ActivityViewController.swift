@@ -15,7 +15,7 @@ class ActivityViewController: UIViewController {
     var originalPullUpControllerViewSize: CGSize = .zero
 
     // MARK: UIVariable
-    @IBOutlet var runStats: RunStatsView!
+    @IBOutlet private var runStats: RunStatsView!
     @IBOutlet private var gpsIndicator: GpsStrengthIndicator!
     @IBOutlet private var statsPanel: UIStackView!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
@@ -24,7 +24,7 @@ class ActivityViewController: UIViewController {
     }
 
     // MARK: Internet variable
-    @IBOutlet var internetIndicator: UIImageView!
+    @IBOutlet private var internetIndicator: UIImageView!
     var isConnectedToInternet = true {
         didSet {
             internetIndicator.tintColor = isConnectedToInternet ? .green : .red
@@ -33,7 +33,7 @@ class ActivityViewController: UIViewController {
 
     // MARK: Running variables
     var lastMarkedPosition: CLLocation?
-    let stopwatch = StopwatchTimer() // TODO: REMOVE
+    let stopwatch = StopwatchTimer()
     var ongoingRun: OngoingRun?
     var runStarted: Bool {
         return ongoingRun != nil
@@ -139,7 +139,8 @@ class ActivityViewController: UIViewController {
             if zoomLevel == maxZoom {
                 gridNumberAtZoomLevel[zoomLevel]?[gridId] = RouteMarkers(map: googleMapView)
             } else {
-                gridNumberAtZoomLevel[zoomLevel]?[gridId] = RouteCounterMarkers(position: startPoint, map: googleMapView)
+                gridNumberAtZoomLevel[zoomLevel]?[gridId] =
+                    RouteCounterMarkers(position: startPoint, map: googleMapView)
             }
         }
         guard let routeCountMarker = gridNumberAtZoomLevel[zoomLevel]?[gridId] else {
@@ -202,7 +203,9 @@ class ActivityViewController: UIViewController {
 
     func renderRoutes(_ routes: Set<Route>) {
         // TODO: Render routes as a tableview
-        let route = routes.first!
+        guard let route = routes.first else {
+            return
+        }
         renderRoute(route)
     }
 
