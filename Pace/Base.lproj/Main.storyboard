@@ -466,7 +466,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="Save New Run"/>
                                                         <connections>
-                                                            <action selector="saveRun:" destination="xC9-Rd-j1i" eventType="touchUpInside" id="pMV-La-5Id"/>
+                                                            <action selector="bottomSaveButtonPressed:" destination="xC9-Rd-j1i" eventType="touchUpInside" id="pEI-87-DBt"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
