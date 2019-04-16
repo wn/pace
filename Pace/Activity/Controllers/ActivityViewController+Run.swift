@@ -62,6 +62,15 @@ extension ActivityViewController {
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
         ongoingRun = OngoingRun(runner: Dummy.follower, startingLocation: location, paceRun: paceRun)
+        stopwatch.startMonitoringPace()
+    }
+
+    @objc
+    func reflectPacingStats() {
+        guard let paceStats = ongoingRun?.getPacingStats() else {
+            return
+        }
+        VoiceAssistant.reportPacing(using: paceStats)
     }
 
     @objc
@@ -88,6 +97,7 @@ extension ActivityViewController {
 
         ongoingRun = nil
         stopwatch.reset()
+        stopwatch.stopMonitoringPace()
         coreLocationManager.stopUpdatingLocation()
         updateLabels()
     }
