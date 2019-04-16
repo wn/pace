@@ -53,7 +53,6 @@ class ActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         statsPanel.bringSubviewToFront(gpsIndicator)
-        navigationItem.title = Titles.activity
         // Set the gpx file for MockCLLocationManager
         MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
@@ -82,6 +81,7 @@ class ActivityViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationItem.title = Titles.activity
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
     }
@@ -95,7 +95,7 @@ class ActivityViewController: UIViewController {
 
         let alert = UIAlertController(
             title: nil,
-            message: "Fetching your location. Please wait.",
+            message: "Fetching location. Please wait.",
             preferredStyle: .alert)
 
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
