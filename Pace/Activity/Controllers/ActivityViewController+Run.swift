@@ -44,6 +44,7 @@ extension ActivityViewController {
         setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         startFollowRunSession(at: startingLocation, following: paceRun)
         updateValues()
+        updatePacingStats()
     }
 
     private func initiateRunPlot(at location: CLLocation) {
@@ -64,12 +65,6 @@ extension ActivityViewController {
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
         ongoingRun = OngoingRun(runner: Dummy.follower, startingLocation: location, paceRun: paceRun)
-        stopwatch.startMonitoringPace(from: self)
-    }
-
-    @objc
-    func reflectPacingStats() {
-        VoiceAssistant.reportPacing(using: ongoingRun?.getPacingStats())
     }
 
     @objc
@@ -96,12 +91,11 @@ extension ActivityViewController {
 
         ongoingRun = nil
         stopwatch.reset()
-        stopwatch.stopMonitoringPace()
         coreLocationManager.stopUpdatingLocation()
         updateLabels()
     }
 
-    func showSummary() {
+    private func showSummary() {
         let storyBoard: UIStoryboard = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
         let summaryVC =
             storyBoard.instantiateViewController(
@@ -111,7 +105,17 @@ extension ActivityViewController {
         self.navigationController?.pushViewController(summaryVC, animated: true)
     }
 
-    func updateValues() {
+    private func updatePacingStats() {
+        guard runStarted else {
+            return
+        }
+        VoiceAssistant.reportPacing(using: ongoingRun?.getPacingStats())
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.updatePacingStats()
+        }
+    }
+
+    private func updateValues() {
         guard runStarted else {
             return
         }
@@ -121,7 +125,7 @@ extension ActivityViewController {
         }
     }
 
-    func updateLabels() {
+    private func updateLabels() {
         guard let distanceSoFar = ongoingRun?.distanceSoFar else {
             return
         }
