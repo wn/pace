@@ -84,6 +84,7 @@ class ActivityViewController: UIViewController {
         navigationItem.title = Titles.activity
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
+        navigationItem.rightBarButtonItem = nil
     }
 
     /// Set up location manager from CoreLocation.
