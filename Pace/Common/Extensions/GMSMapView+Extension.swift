@@ -9,6 +9,10 @@
 import GoogleMaps
 
 extension GMSMapView {
+    var zoom: Float {
+        return camera.zoom
+    }
+    
     /// Set the camera position of mapView
     ///
     /// - Parameter coordinate: The coordinate that mapView will be centered on.
@@ -25,5 +29,14 @@ extension GMSMapView {
             zoom: mapZoom,
             bearing: mapBearing,
             viewingAngle: mapViewAngle)
+    }
+
+    func zoomIn() {
+        animate(toZoom: zoom + 1)
+    }
+
+    func showLocation(_ position: CLLocationCoordinate2D, zoom: Float = Constants.initialZoom) {
+        setCameraPosition(position)
+        animate(toZoom: zoom)
     }
 }

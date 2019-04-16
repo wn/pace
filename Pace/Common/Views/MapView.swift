@@ -3,9 +3,10 @@ import GoogleMaps
 
 /// Subclass of GMSMapView to suit Pace's use case.
 class MapView: GMSMapView {
-    private var gridMapManager = Constants.defaultGridManager
+    // private var gridMapManager = Constants.defaultGridManager
     private var path = GMSMutablePath()
     private var currentMapPath: GMSPolyline?
+    private let gridMapManager = GridMapManager.default
 
     /// Setup the view
     ///
@@ -18,7 +19,7 @@ class MapView: GMSMapView {
         // Required to activate gestures in googleMapView
         settings.consumesGesturesInView = false
         self.delegate = delegate
-        setMinZoom(Constants.minZoom, maxZoom: Constants.maxZoom)
+        setMinZoom(Float(Constants.minZoom), maxZoom: Float(Constants.maxZoom))
     }
 
     /// Add an image to the map. Required to plot start and end flag.
@@ -26,7 +27,7 @@ class MapView: GMSMapView {
     /// - Parameters:
     ///   - image: Image of marker.
     ///   - position: position to plot the image.
-    internal func addMarker(_ image: String, position: CLLocationCoordinate2D) {
+    func addMarker(_ image: String, position: CLLocationCoordinate2D) {
         let marker = GMSMarker(position: position)
         marker.map = self
         marker.icon = UIImage(named: image)
@@ -38,7 +39,7 @@ class MapView: GMSMapView {
     func addPositionToRoute(_ position: CLLocationCoordinate2D) {
         path.add(position)
         currentMapPath?.map = nil
-        drawRoute(path)
+        currentMapPath = drawPath(path: path)
     }
 
     /// Function to prepare view to start the run.
@@ -63,26 +64,10 @@ class MapView: GMSMapView {
     func renderRoute(_ route: Route) {
         clearRoutes()
         guard let locations = route.creatorRun?.locations else {
-            print("No points exist in the route")
             return
         }
-        for point in locations {
-            path.add(point.coordinate)
-        }
-        drawRoute(path)
-    }
-
-    /// Helper function to draw the route onto the view.
-    ///
-    /// - Parameter path: the path to draw.
-    private func drawRoute(_ path: GMSMutablePath) {
-        let drawing = GMSPolyline(path: path)
-
-        drawing.strokeColor = .blue
-        drawing.strokeWidth = 5
-        drawing.map = self
-
-        currentMapPath = drawing
+        locations.forEach { path.add($0.coordinate) }
+        currentMapPath = drawPath(path: path)
     }
 
     /// Clear the route's drawing from the map view.
@@ -90,17 +75,6 @@ class MapView: GMSMapView {
         path.removeAllCoordinates()
         currentMapPath?.map = nil
         currentMapPath = nil
-    }
-
-    var viewingGrids: [GridNumber] {
-        guard zoom > Constants.minZoomToShowRoutes else {
-            return []
-        }
-        return gridMapManager.getBoundedGrid(projectedMapBound)
-    }
-
-    var zoom: Float {
-        return camera.zoom
     }
 
     func drawPath(path: GMSPath, _ color: UIColor = .blue) -> GMSPolyline? {
@@ -131,5 +105,17 @@ class MapView: GMSMapView {
         let bottomLeft = projection.visibleRegion().nearLeft
         let bottomRight = projection.visibleRegion().nearRight
         return GridBound(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
+    }
+
+    var diameter: CLLocationDistance {
+        return projectedMapBound.diameter
+    }
+
+    var viewingGrids: [GridNumber] {
+        return gridMapManager.getGridManager(zoom).getBoundedGrid(projectedMapBound)
+    }
+
+    var nearestZoom: Int {
+        return gridMapManager.getNearestZoom(zoom)
     }
 }
