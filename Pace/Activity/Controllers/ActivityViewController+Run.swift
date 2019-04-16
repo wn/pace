@@ -81,7 +81,7 @@ extension ActivityViewController {
             storyBoard.instantiateViewController(
                 withIdentifier: Identifiers.summaryViewController)
                 as! ActivitySummaryViewController
-        summaryVC.setStats(createdRun: ongoingRun, distance: distance, time: stopwatch.timeElapsed)
+        summaryVC.setStats(createdRun: ongoingRun, distance: -1, time: stopwatch.timeElapsed)
         self.navigationController?.pushViewController(summaryVC, animated: true)
     }
 
@@ -93,5 +93,9 @@ extension ActivityViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.updateValues()
         }
+    }
+
+    func updateLabels() {
+        runStats.setStats(distance: -1, time: stopwatch.timeElapsed)
     }
 }

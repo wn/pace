@@ -28,17 +28,15 @@ class PaceFirebaseAPI: PaceStorageAPI {
 
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: @escaping RouteResultsHandler) {
-        let geohash = Constants.defaultGridManager
-            .getGridId(CLLocationCoordinate2D(latitude: latitudeMin, longitude: longitudeMin)).code
-        print("getting documents for: \n longitude: \(longitudeMin), latitude: \(latitudeMin) \n geohash: \(geohash)")
-        let query = PaceFirebaseAPI.routesRef
-            .whereField("startingGeohash", isEqualTo: geohash)
-        query.getDocuments { snapshot, err in
-            let routes = snapshot.map {
-                $0.documents.compactMap {
+        PaceFirebaseAPI.routesRef.getDocuments { snapshot, err in
+            guard err == nil else {
+                completion(nil, err)
+                return
+            }
+            let routes = snapshot?.documents
+                .compactMap {
                     Route.fromDictionary(objectId: $0.documentID, value: $0.data())
                 }
-            }
             completion(routes, err)
         }
     }

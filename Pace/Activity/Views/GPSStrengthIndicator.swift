@@ -19,27 +19,20 @@ public class GpsStrengthIndicator: UIView {
     private let indicatorsCount: Int = 5
 
     // MARK: - GPS Strength
-    private var _level = Level.good
+    private var _level = Level.noSignal
     // TODO: Fix this shit code some day
     public func setStrength(_ accuracy: CLLocationAccuracy) {
         if accuracy < 0 {
             _level = .noSignal
-            setNeedsDisplay()
-            return
         } else if accuracy < 15 {
             _level = .excellent
-            setNeedsDisplay()
-            return
         } else if accuracy < 25 {
             _level = .good
-            setNeedsDisplay()
-            return
         } else if accuracy < 30 {
             _level = .low
-            setNeedsDisplay()
-            return
+        } else {
+            _level = .veryLow
         }
-        _level = .veryLow
         setNeedsDisplay()
     }
 
