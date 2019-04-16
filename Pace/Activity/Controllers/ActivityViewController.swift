@@ -151,7 +151,7 @@ class ActivityViewController: UIViewController {
 
     private func renderRouteMarkers(_ gridNumbers: [GridNumber]) {
         renderedRouteMarkers.forEach { $0.derender() }
-        renderedRouteMarkers = []
+        renderedRouteMarkers.removeAll()
         guard let allGridNumbers = gridNumberAtZoomLevel[googleMapView.nearestZoom] else {
             return
         }

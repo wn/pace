@@ -74,7 +74,7 @@ class MapView: GMSMapView {
     }
 
     /// Clear the route's drawing from the map view.
-    private func clearRoutes() {
+    func clearRoutes() {
         path.removeAllCoordinates()
         currentMapPath?.map = nil
         currentMapPath = nil
@@ -115,7 +115,8 @@ class MapView: GMSMapView {
     }
 
     var viewingGrids: [GridNumber] {
-        return gridMapManager.getGridManager(zoom).getBoundedGrid(projectedMapBound)
+        let manager = gridMapManager.getGridManager(zoom)
+        return manager.getBoundedGrid(projectedMapBound)
     }
 
     var nearestZoom: Int {

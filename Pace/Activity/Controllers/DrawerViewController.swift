@@ -25,6 +25,12 @@ class DrawerViewController: PullUpController {
     @IBOutlet private var distance: UILabel!
 
     var viewingRoute: Route?
+    var getCurrentUser: User? {
+        guard let uid = AccessToken.current?.userId else {
+            return nil
+        }
+        return RealmUserSessionManager.default.getRealmUser(uid)
+    }
 
     @IBOutlet var runnersTableView: UITableView!
     var paces: [Run] = []
@@ -68,6 +74,7 @@ class DrawerViewController: PullUpController {
         userSession = RealmUserSessionManager.default
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
                               height: min(UIScreen.main.bounds.height - 75, expandedView.frame.maxY))
+
     }
 
     override func pullUpControllerWillMove(to stickyPoint: CGFloat) {
@@ -150,12 +157,9 @@ extension DrawerViewController {
         routeStatsContainerView.addGestureRecognizer(tapGesture)
 
         runnersTableView.reloadData()
-
         // Set favourite flag
-//        guard let isFavourite = userSession?.currentUser?.containsFavouriteRoute(route) else {
-//            return
-//        }
-        favouriteButton.setSelected(selected: false, animated: false)
+        let isFavourite = getCurrentUser?.isFavouriteRoute(route) ?? false
+        favouriteButton.setSelected(selected: isFavourite, animated: false)
     }
 }
 
@@ -216,21 +220,9 @@ extension DrawerViewController: FaveButtonDelegate {
             return
         }
         if selected {
-            print("FAVOURITE-ED")
             RealmUserSessionManager.default.addToFavourites(route: currentRoute, to: user, nil)
-            print(user)
         } else {
-            // WE REMOVE FROM FAVOURITE
-            print("UN-FAVOURITE-ED")
             RealmUserSessionManager.default.removeFromFavourites(route: currentRoute, from: user, nil)
-            print(user)
         }
-    }
-
-    var getCurrentUser: User? {
-        guard let uid = AccessToken.current?.userId else {
-            return nil
-        }
-        return RealmUserSessionManager.default.getRealmUser(uid)
     }
 }
