@@ -7,8 +7,8 @@ import RealmSwift
 class ActivityViewController: UIViewController {
     // MARK: Realm variables
     let userSession = RealmUserSessionManager.default
-    let routesManager = CachingStorageManager.default
-    let routes = CachingStorageManager.default.inMemoryRealm.objects(Route.self)
+    let routesManager: RealmStorageManager = CachingStorageManager.default
+    lazy var routes = routesManager.inMemoryRealm.objects(Route.self)
     var notificationToken: NotificationToken?
 
     // MARK: Drawer variable
@@ -119,11 +119,11 @@ class ActivityViewController: UIViewController {
     }
 
     private func insertRoute(route: Route) {
+        routesManager.getRunsFor(route: route)
         // we insert the route to every zoom level for aggregated viewing of routes.
         // TODO: *****We should just insert to the lowest layer.*****
         // For all the other layers, we should fetch in a different observer token.
         Array(gridNumberAtZoomLevel.keys).forEach { insertRouteToZoomLevel(route: route, zoomLevel: $0) }
-        redrawMarkers(googleMapView.viewingGrids)
     }
 
     private func insertRouteToZoomLevel(route: Route, zoomLevel: Int) {

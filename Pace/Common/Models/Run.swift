@@ -32,7 +32,7 @@ class Run: IdentifiableObject {
     }
     var route: Route? {
         get {
-            return Realm.persistent.objects(Route.self)
+            return realm?.objects(Route.self)
                 .filter(NSPredicate(format: "objectId = %@", routeId ?? "")).first
         }
     }
