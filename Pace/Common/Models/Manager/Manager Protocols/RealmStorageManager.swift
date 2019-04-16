@@ -37,8 +37,8 @@ protocol RealmStorageManager {
     func saveNewRun(_ run: Run, toRoute: Route, _ completion: ErrorHandler?)
 
     /// Adds a route to a user's favourites
-    func addFavouriteRoute(_ route: Route, toUser user: User)
+    func addFavouriteRoute(_ route: Route, toUser user: User, _ completion: ErrorHandler?)
 
     /// Removes a route from a user
-    func removeFavouriteRoute(_ route: Route, fromUser user: User)
+    func removeFavouriteRoute(_ route: Route, fromUser user: User, _ completion: ErrorHandler?)
 }

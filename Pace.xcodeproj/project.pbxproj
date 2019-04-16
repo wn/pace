@@ -63,6 +63,9 @@
 		8B9E8C4B226211E60067A556 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C4A226211E60067A556 /* Observable.swift */; };
 		8B9F531022648B0A00AFCB7C /* RealmStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F530F22648B0A00AFCB7C /* RealmStorageManager.swift */; };
 		8B9F531222648B3100AFCB7C /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F531122648B3100AFCB7C /* UserSessionManager.swift */; };
+		8B9F531422648BC500AFCB7C /* FetchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F531322648BC500AFCB7C /* FetchHistory.swift */; };
+		8B9F531622649A5100AFCB7C /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F531522649A5000AFCB7C /* ActionHandler.swift */; };
+		8B9F53182264D65700AFCB7C /* UploadAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F53172264D65700AFCB7C /* UploadAttempt.swift */; };
 		8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */; };
 		8BD4C56F224F68BB00D0CEC7 /* List+Constructors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */; };
 		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
@@ -171,6 +174,9 @@
 		8B9E8C4A226211E60067A556 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Observable.swift; path = Pace/Common/Helpers/Observable.swift; sourceTree = SOURCE_ROOT; };
 		8B9F530F22648B0A00AFCB7C /* RealmStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorageManager.swift; sourceTree = "<group>"; };
 		8B9F531122648B3100AFCB7C /* UserSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionManager.swift; sourceTree = "<group>"; };
+		8B9F531322648BC500AFCB7C /* FetchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHistory.swift; sourceTree = "<group>"; };
+		8B9F531522649A5000AFCB7C /* ActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHandler.swift; sourceTree = "<group>"; };
+		8B9F53172264D65700AFCB7C /* UploadAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAttempt.swift; sourceTree = "<group>"; };
 		8BA19E99225CDFDF009104F2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		8BA19EA1225E5B7A009104F2 /* UserReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReference.swift; sourceTree = "<group>"; };
 		8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableObject.swift; sourceTree = "<group>"; };
@@ -455,6 +461,9 @@
 				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
 				8BD4C5812251011000D0CEC7 /* RealmUserSessionManager.swift */,
 				8BD4C57F2250FAB200D0CEC7 /* CachingStorageManager.swift */,
+				8B9F531322648BC500AFCB7C /* FetchHistory.swift */,
+				8B9F531522649A5000AFCB7C /* ActionHandler.swift */,
+				8B9F53172264D65700AFCB7C /* UploadAttempt.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -866,6 +875,7 @@
 				625596752254AE050036C2B9 /* RouteCollectionViewCell.swift in Sources */,
 				5C5124BB225316FB00B8A15C /* Stats.swift in Sources */,
 				EBAF2CB822492BD7000FCE0E /* ActivitySummaryViewController.swift in Sources */,
+				8B9F531622649A5100AFCB7C /* ActionHandler.swift in Sources */,
 				EB5E42E32255080300A60207 /* ActivityViewController+Run.swift in Sources */,
 				EB5E42DE2253CF4A00A60207 /* PullUpController.swift in Sources */,
 				EBFE112822638B6300B06109 /* RunStatsView.swift in Sources */,
@@ -880,6 +890,7 @@
 				8B2638DB225B979B004B52AB /* GridMap.swift in Sources */,
 				EB5F4483226477AB00D73BE6 /* GridMapManager.swift in Sources */,
 				5C87C4982262242D004ADD6C /* CLLocationManager+Swizzle.swift in Sources */,
+				8B9F531422648BC500AFCB7C /* FetchHistory.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+TransitioningDelegate.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */,
@@ -900,6 +911,7 @@
 				EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,
+				8B9F53182264D65700AFCB7C /* UploadAttempt.swift in Sources */,
 				62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */,
 				8B9E8C3E2261E3FE0067A556 /* CheckPoint+Firebase.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
