@@ -17,7 +17,6 @@ extension ActivityViewController {
         guard !runStarted else {
             return
         }
-        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         startingRun()
     }
 
@@ -26,6 +25,7 @@ extension ActivityViewController {
             fatalError("Should have location here.")
         }
         initiateRunPlot(at: startLocation)
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         startNewRunSession(at: startLocation)
         updateValues()
     }
@@ -41,6 +41,7 @@ extension ActivityViewController {
             return
         }
         initiateRunPlot(at: startingLocation)
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         startFollowRunSession(at: startingLocation, following: paceRun)
         updateValues()
     }
