@@ -30,21 +30,22 @@ extension ActivityViewController {
         updateValues()
     }
 
-    func startingFollowRun(with paceRun: Run) {
-        guard let startingLocation = coreLocationManager.location,
+    func startingFollowRun(with paceRun: Run) -> Bool {
+        guard
+            let startingLocation = coreLocationManager.location,
             let paceRunStart = paceRun.startingLocation else {
-                return
+                return false
         }
         // TODO: draw the paceRun on map
         guard startingLocation.isSameAs(other: paceRunStart) else {
-            // TODO: show on UI to tell user to move closer
-            return
+            return false
         }
         initiateRunPlot(at: startingLocation, following: paceRun)
         setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         startFollowRunSession(at: startingLocation, following: paceRun)
         updateValues()
         updatePacingStats()
+        return true
     }
 
     private func initiateRunPlot(at location: CLLocation, following paceRun: Run? = nil) {

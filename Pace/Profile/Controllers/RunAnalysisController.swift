@@ -22,8 +22,6 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = Titles.run
-        // Disable pop swiping as it may interfere with graph swiping.
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         googleMapView.setup(self)
         setupGestureRecognizers()
         setupPullupController()

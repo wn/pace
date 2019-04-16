@@ -110,7 +110,9 @@ class ActivitySummaryViewController: UIViewController {
             let finishedRun = finishedRun,
             let newRoute = finishedRun.toNewRoute() else {
             // run was not set up properly when initializing this VC
-                print("CANT SAVE")
+                UIAlertController.showMessage(
+                    self,
+                    msg: "There is an error saving your route. Please try again later.")
             return
         }
         routesManager.saveNewRoute(newRoute) {[unowned self] _ in
@@ -142,16 +144,5 @@ class ActivitySummaryViewController: UIViewController {
             return
         }
         statsView.setStats(distance: distance, time: time)
-    }
-}
-
-extension UIAlertController {
-    static func showMessage(_ controller: UIViewController, msg message: String) {
-        let alert = UIAlertController(
-            title: nil,
-            message: message,
-            preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        controller.present(alert, animated: true)
     }
 }
