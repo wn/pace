@@ -44,10 +44,10 @@ class StopwatchTimer {
         timeElapsed += 0.1
     }
 
-    func startMonitoringPace() {
+    func startMonitoringPace(from controller: ActivityViewController) {
         paceTimer = Timer.scheduledTimer(
-            timeInterval: 10,
-            target: self,
+            timeInterval: 5,
+            target: controller,
             selector: #selector(ActivityViewController.reflectPacingStats),
             userInfo: nil,
             repeats: true)

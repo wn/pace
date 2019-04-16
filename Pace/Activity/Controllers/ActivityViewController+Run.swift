@@ -17,6 +17,7 @@ extension ActivityViewController {
         guard !runStarted else {
             return
         }
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         startingRun()
     }
 
@@ -45,7 +46,6 @@ extension ActivityViewController {
     }
 
     private func initiateRunPlot(at location: CLLocation) {
-        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         googleMapView.startRun(at: location.coordinate)
     }
 
@@ -62,15 +62,12 @@ extension ActivityViewController {
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
         ongoingRun = OngoingRun(runner: Dummy.follower, startingLocation: location, paceRun: paceRun)
-        stopwatch.startMonitoringPace()
+        stopwatch.startMonitoringPace(from: self)
     }
 
     @objc
     func reflectPacingStats() {
-        guard let paceStats = ongoingRun?.getPacingStats() else {
-            return
-        }
-        VoiceAssistant.reportPacing(using: paceStats)
+        VoiceAssistant.reportPacing(using: ongoingRun?.getPacingStats())
     }
 
     @objc
