@@ -40,15 +40,15 @@ extension ActivityViewController {
             // TODO: show on UI to tell user to move closer
             return
         }
-        initiateRunPlot(at: startingLocation)
+        initiateRunPlot(at: startingLocation, following: paceRun)
         setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         startFollowRunSession(at: startingLocation, following: paceRun)
         updateValues()
         updatePacingStats()
     }
 
-    private func initiateRunPlot(at location: CLLocation) {
-        googleMapView.startRun(at: location.coordinate)
+    private func initiateRunPlot(at location: CLLocation, following paceRun: Run? = nil) {
+        googleMapView.startRun(at: location.coordinate, followingRun: paceRun)
     }
 
     private func startNewRunSession(at location: CLLocation) {
