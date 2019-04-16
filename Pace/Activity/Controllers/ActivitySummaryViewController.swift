@@ -48,7 +48,21 @@ class ActivitySummaryViewController: UIViewController {
         guard !isSaved else {
             return
         }
-        let followingRun = true
+
+        guard
+            let distance = finishedRun?.distanceSoFar,
+            distance >= Constants.checkPointDistanceInterval else {
+                // Distance of the run is not long enough for saving
+                let alert = UIAlertController(
+                    title: nil,
+                    message: "Distance covered is insufficient to be saved",
+                    preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(alert, animated: true)
+                return
+        }
+
+        let followingRun = finishedRun?.paceRun?.route != nil
         var message = ""
         if followingRun {
             message = "Would you like to create a new route or add your run to this route?"
@@ -60,15 +74,15 @@ class ActivitySummaryViewController: UIViewController {
             message: message,
             preferredStyle: .alert)
         if followingRun {
-            alert.addAction(UIAlertAction(title: "Add my run", style: .default) { _ in
-                print("SAVERUN")
+            alert.addAction(UIAlertAction(title: "Add my run", style: .default) { [unowned self] _ in
+                self.saveFollowRun()
             })
         }
-        alert.addAction(UIAlertAction(title: "Create new route", style: .default) { _ in
-            print("Create new route")
+        alert.addAction(UIAlertAction(title: "Create new route", style: .default) { [unowned self] _ in
+            self.saveRun()
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        saveRun()
+        present(alert, animated: true)
     }
 
     // This is another saving button for testing
@@ -77,12 +91,6 @@ class ActivitySummaryViewController: UIViewController {
     }
 
     private func saveRun() {
-        // TODO: Check that we have sufficient distance to save!!
-        guard let distance = finishedRun?.distanceSoFar,
-            distance >= Constants.checkPointDistanceInterval else {
-            // Distance of the run is not long enough for saving
-            return
-        }
         guard let finishedRun = finishedRun else {
             // run was not set up properly when initializing this VC
             return
@@ -94,16 +102,11 @@ class ActivitySummaryViewController: UIViewController {
         derenderChildController()
     }
 
-    @IBAction func saveFollowRun(_ sender: UIButton) {
-        // TODO: Check that we have sufficient distance to save!!
-        guard let distance = finishedRun?.distanceSoFar,
-            distance >= Constants.checkPointDistanceInterval else {
-                // Distance of the run is not long enough for saving
-                return
-        }
-        guard let finishedRun = finishedRun,
+    func saveFollowRun() {
+        guard
+            let finishedRun = finishedRun,
             let parentRoute = finishedRun.paceRun?.route else {
-            return
+                return
         }
 
         if finishedRun.classifiedAsFollow() { // save to the parent
