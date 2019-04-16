@@ -99,6 +99,10 @@ class OngoingRun {
             .firstIndex(where: { $0.routeDistance == lastTravelledPoint.routeDistance }) else {
             fatalError("Should be able to find a point with same routeDistance.")
         }
+        guard lastPassedPointIndex + 1 < pacePoints.endIndex else {
+            // cannot find checkpoints interval in the paceRun which contains the current point
+            return nil
+        }
         let pastPacePoint = pacePoints[lastPassedPointIndex]
         let futurePacePoint = pacePoints[lastPassedPointIndex + 1]
         guard let pastPaceLocation = pastPacePoint.location else {

@@ -19,8 +19,13 @@ class VoiceAssistant {
     }
 
     /// timeDiff is pacer time - follower time
-    static func reportPacing(using stats: PacingStats) {
+    static func reportPacing(using stats: PacingStats?) {
         var sentence: String
+        guard let stats = stats else {
+            sentence = "You are not on the original route"
+            say(sentence)
+            return
+        }
         let time = Int(stats.timeDifference)
         let pacerName = stats.pacer.name
         if time > 0 {
