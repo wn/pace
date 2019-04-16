@@ -63,11 +63,14 @@ class MapView: GMSMapView {
     /// - Parameter route: the route that will be rendered.
     func renderRoute(_ route: Route) {
         clearRoutes()
-        guard let locations = route.creatorRun?.locations else {
+        guard
+            let locations = route.creatorRun?.locations,
+            let startingLocation = route.startingLocation else {
             return
         }
         locations.forEach { path.add($0.coordinate) }
         currentMapPath = drawPath(path: path)
+        setCameraPosition(startingLocation.coordinate)
     }
 
     /// Clear the route's drawing from the map view.

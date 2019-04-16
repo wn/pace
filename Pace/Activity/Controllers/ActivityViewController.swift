@@ -104,15 +104,17 @@ class ActivityViewController: UIViewController {
         alert.view.addSubview(loadingIndicator)
         present(alert, animated: true, completion: nil)
 
-        DispatchQueue.main.async { [unowned self] in
+        DispatchQueue.global(qos: .background).async { [unowned self] in
             while self.coreLocationManager.location == nil {
                 sleep(1)
             }
             guard let location = self.coreLocationManager.location else {
                 fatalError("While loop should have captured nil value!")
             }
-            self.googleMapView.showLocation(location.coordinate)
-            alert.dismiss(animated: false, completion: nil)
+            DispatchQueue.main.async {
+                self.googleMapView.showLocation(location.coordinate)
+                alert.dismiss(animated: false, completion: nil)
+            }
         }
     }
 
@@ -121,7 +123,6 @@ class ActivityViewController: UIViewController {
         // TODO: *****We should just insert to the lowest layer.*****
         // For all the other layers, we should fetch in a different observer token.
         Array(gridNumberAtZoomLevel.keys).forEach { insertRouteToZoomLevel(route: route, zoomLevel: $0) }
-        redrawMarkers(googleMapView.viewingGrids)
     }
 
     private func insertRouteToZoomLevel(route: Route, zoomLevel: Int) {

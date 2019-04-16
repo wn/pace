@@ -30,6 +30,7 @@ class FavouriteViewController: RequireLoginController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = Titles.favourites
+        favourites.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showRoute)))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -90,5 +91,19 @@ extension FavouriteViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
+    }
+
+    @objc
+    func showRoute(sender: UITapGestureRecognizer){
+        guard let indexPath = favourites?.indexPathForItem(at: sender.location(in: favourites)) else {
+            return
+        }
+        self.tabBarController?.selectedIndex = 1
+        guard let navVC = tabBarController?.selectedViewController as? UINavigationController,
+            let activityVC = navVC.topViewController as? ActivityViewController else {
+            return
+        }
+        let _ = activityVC.view
+        activityVC.renderRoute(favouriteRoutes[indexPath.row])
     }
 }
