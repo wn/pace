@@ -51,11 +51,10 @@ extension ActivityViewController {
         googleMapView.startRun(at: location.coordinate, followingRun: paceRun)
     }
 
-    private func startRunningSession(at location: CLLocation) {
+    private func startNewRunSession(at location: CLLocation) {
         VoiceAssistant.say("Starting new run")
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
-        // TODO: add follow run
         // TODO: allow user to run without signing in
         ongoingRun = OngoingRun(runner: userSession.currentUser, startingLocation: location)
     }

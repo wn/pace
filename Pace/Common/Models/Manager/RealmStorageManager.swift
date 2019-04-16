@@ -128,6 +128,8 @@ class CachingStorageManager: RealmStorageManager {
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?) {
         do {
             try persistentRealm.write {
+                let run = route.creatorRun
+                run?.routeId = route.objectId
                 persistentRealm.add(route)
             }
             storageAPI.uploadRoute(route, completion)
