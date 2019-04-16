@@ -30,4 +30,8 @@ class User: IdentifiableObject {
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.objectId == rhs.objectId && lhs.name == rhs.name
     }
+
+    func isFavouriteRoute(_ route: Route) -> Bool {
+        return favouriteRoutes.contains { route.objectId == $0.objectId}
+    }
 }

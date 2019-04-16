@@ -24,4 +24,10 @@ protocol PaceStorageAPI {
 
     /// Adds the run upload action into the queue, and attempts it.
     func uploadRun(_ run: Run, forRoute: Route, _ completion: ((Error?) -> Void)?)
+
+    /// Adds this route to the user's favourites
+    func addFavourite(_ route: Route, toUser: User, _ completion: ((Error?) -> Void)?)
+
+    /// Remove this route from the user's favourites
+    func removeFavourite(_ route: Route, fromUser: User, _ completion: ((Error?) -> Void)?)
 }

@@ -27,7 +27,7 @@ public struct GridMap {
             let mid = low + (high - low) / 2
             let currLocation = CLLocation(latitude: mid, longitude: 0)
             let distance = currLocation.distance(from: origin)
-            if distance - gridHeight < 0.0000_1 {
+            if distance - gridHeight < 0.000_1 {
                 return mid
             } else if distance < gridHeight {
                 low = mid
@@ -48,7 +48,7 @@ public struct GridMap {
             let mid = low + (high - low) / 2
             let currLocation = CLLocation(latitude: 0, longitude: mid)
             let distance = currLocation.distance(from: origin)
-            if distance - gridWidth < 0.0000_1 {
+            if distance - gridWidth < 0.000_1 {
                 return mid
             } else if distance < gridWidth {
                 low = mid
@@ -81,19 +81,19 @@ public struct GridMap {
     }
 
     public func getBoundedGrid(_ bound: GridBound) -> [GridNumber] {
-        var result: [GridNumber] = []
+        var result = Set<GridNumber>()
         var smallLat = bound.minLat
 
         while smallLat < bound.maxLat {
             var smallLong = bound.minLong
             while smallLong < bound.maxLong {
                 let currentGridId = getGridId(CLLocationCoordinate2D(latitude: smallLat, longitude: smallLong))
-                result.append(currentGridId)
-                smallLong += longitudeLength
+                result.insert(currentGridId)
+                smallLong += longitudeLength / 2
             }
-            smallLat += latitudeLength
+            smallLat += latitudeLength / 2
         }
-        return result
+        return Array(result)
     }
 
     /// Get the bounds of a grid.
