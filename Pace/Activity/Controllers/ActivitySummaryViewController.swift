@@ -87,9 +87,9 @@ class ActivitySummaryViewController: UIViewController {
         }
 
         if finishedRun.classifiedAsFollow() { // save to the parent
-            routesManager?.saveNewRun(finishedRun.toRun(), toRoute: parentRoute, nil)
+            routesManager.saveNewRun(finishedRun.toRun(), toRoute: parentRoute, nil)
         } else { // save as new route
-            routesManager?.saveNewRoute(finishedRun.toNewRoute(), nil)
+            routesManager.saveNewRoute(finishedRun.toNewRoute(), nil)
         }
 
         derenderChildController()
