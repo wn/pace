@@ -11,8 +11,8 @@ import CoreLocation
 
 // Represents an ongoing run, should not be persisted so not following realm syntax.
 class OngoingRun {
-    // runner and points of the ongoing run.
-    let runner: User
+    let runner: User?
+    // checkpoints from the current runner
     var checkpoints: [CheckPoint]
     // the properties of the run that is being followed.
     let paceRun: Run?
@@ -37,7 +37,7 @@ class OngoingRun {
     ///   - runner: The runner of this OngoingRun.
     ///   - startingLocation: The starting location of this OngoingRun.
     ///   - paceRun: An optional of the Run that the runner is following.
-    init(runner: User, startingLocation: CLLocation, paceRun: Run? = nil) {
+    init(runner: User?, startingLocation: CLLocation, paceRun: Run? = nil) {
         self.runner = runner
         let startingPoint = CheckPoint(location: startingLocation, time: 0, actualDistance: 0, routeDistance: 0)
         self.checkpoints = [startingPoint]
@@ -137,12 +137,15 @@ class OngoingRun {
     /// - Precondition: (1) This OngoingRun is a follow run, and;
     ///                 (2) A certain amount of checkpoints in the paceRun have been covered.
     /// - Returns: The completed and normalized Run.
-    func toRun() -> Run {
+    func toRun() -> Run? {
         guard let paceRun = paceRun else {
             fatalError("This OngoingRun should be a follow run.")
         }
         guard classifiedAsFollow() else {
             fatalError("This OngoingRun should be classified as a valid follow run to the Route followed.")
+        }
+        guard let runner = runner else {
+            return nil
         }
         let normalizedPoints = paceRun.normalize(checkpoints)
         return Run(runner: UserReference(fromUser: runner), checkpoints: normalizedPoints)
@@ -152,9 +155,12 @@ class OngoingRun {
     /// - Precondition: (1) This OngoingRun does not follow an existing Route, or;
     ///                 (2) This OngoingRun does not cover the required number of checkpoints in the paceRun.
     /// - Returns: A new Route containing this completed Run.
-    func toNewRoute() -> Route {
+    func toNewRoute() -> Route? {
         guard !isFollowRun() || !classifiedAsFollow() else {
             fatalError("The run should be considered as a new run.")
+        }
+        guard let runner = runner else {
+            return nil
         }
         return Route(runner: runner, runnerRecords: checkpoints)
     }

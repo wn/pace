@@ -27,6 +27,7 @@ class ActivitySummaryViewController: UIViewController {
         super.viewDidLoad()
         setupNavigation()
         showStats()
+        // TODO: decide which button to render
     }
 
     private func setupNavigation() {
@@ -90,12 +91,18 @@ class ActivitySummaryViewController: UIViewController {
     }
 
     private func saveRun() {
-        guard let finishedRun = finishedRun else {
-            // run was not set up properly when initializing this VC
+        // TODO: Check that we have sufficient distance to save!!
+        guard let distance = finishedRun?.distanceSoFar,
+            distance >= Constants.checkPointDistanceInterval else {
+            // Distance of the run is not long enough for saving
+            return
+        }
+        guard let newRoute = finishedRun?.toNewRoute() else {
+            // user is not logged in
             return
         }
         isSaved = true
-        routesManager.saveNewRoute(finishedRun.toNewRoute(), nil)
+        routesManager.saveNewRoute(newRoute, nil)
 
         // TODO: improve the after-saving UI interaction
         derenderChildController()
@@ -109,9 +116,17 @@ class ActivitySummaryViewController: UIViewController {
         }
 
         if finishedRun.classifiedAsFollow() { // save to the parent
-            routesManager.saveNewRun(finishedRun.toRun(), toRoute: parentRoute, nil)
+            guard let newRun = finishedRun.toRun() else {
+                // user not logged in
+                return
+            }
+            routesManager.saveNewRun(newRun, toRoute: parentRoute, nil)
         } else { // save as new route
-            routesManager.saveNewRoute(finishedRun.toNewRoute(), nil)
+            guard let newRoute = finishedRun.toNewRoute() else {
+                // user not logged in
+                return
+            }
+            routesManager.saveNewRoute(newRoute, nil)
         }
 
         derenderChildController()

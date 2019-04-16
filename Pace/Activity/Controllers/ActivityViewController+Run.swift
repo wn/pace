@@ -57,14 +57,14 @@ extension ActivityViewController {
         stopwatch.start()
         // TODO: add follow run
         // TODO: allow user to run without signing in
-        ongoingRun = OngoingRun(runner: Dummy.user, startingLocation: location)
+        ongoingRun = OngoingRun(runner: userSession.currentUser, startingLocation: location)
     }
 
     private func startFollowRunSession(at location: CLLocation, following paceRun: Run) {
         VoiceAssistant.say("Starting follow run")
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
-        ongoingRun = OngoingRun(runner: Dummy.follower, startingLocation: location, paceRun: paceRun)
+        ongoingRun = OngoingRun(runner: userSession.currentUser, startingLocation: location, paceRun: paceRun)
     }
 
     @objc

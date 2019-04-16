@@ -99,7 +99,10 @@ class CachingStorageManager: RealmStorageManager {
                 return
             }
             try! route.realm!.write {
-                let newRuns = runs.map { route.realm!.create(Run.self, value: $0, update: true) }
+                let newRuns = runs.map { run -> Run in
+                    let newRun = route.realm!.create(Run.self, value: run, update: true)
+                    return newRun
+                }
                 newRuns.forEach { newRun in
                     if route.paces.contains(newRun) {
                         return
