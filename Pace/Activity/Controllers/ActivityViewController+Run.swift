@@ -17,7 +17,6 @@ extension ActivityViewController {
         guard !runStarted else {
             return
         }
-        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
         startingRun()
     }
 
@@ -26,8 +25,24 @@ extension ActivityViewController {
             fatalError("Should have location here.")
         }
         initiateRunPlot(at: startLocation)
-        startRunningSession(at: startLocation)
-        // TODO: update running stats here
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
+        startNewRunSession(at: startLocation)
+        updateValues()
+    }
+
+    func startingFollowRun(with paceRun: Run) {
+        guard let startingLocation = coreLocationManager.location,
+            let paceRunStart = paceRun.startingLocation else {
+                fatalError("Should have location here.")
+        }
+        // TODO: draw the paceRun on map
+        guard startingLocation.isSameAs(other: paceRunStart) else {
+            // TODO: show on UI to tell user to move closer
+            return
+        }
+        initiateRunPlot(at: startingLocation)
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
+        startFollowRunSession(at: startingLocation, following: paceRun)
         updateValues()
     }
 
