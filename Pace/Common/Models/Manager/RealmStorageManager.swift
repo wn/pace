@@ -82,6 +82,11 @@ class CachingStorageManager: RealmStorageManager {
             }
             routes.forEach { route in
                 try! self.inMemoryRealm.write {
+                    guard self.inMemoryRealm.object(
+                        ofType: Route.self,
+                        forPrimaryKey: route.objectId) == nil else {
+                            return
+                    }
                     self.inMemoryRealm.add(route, update: true)
                 }
             }

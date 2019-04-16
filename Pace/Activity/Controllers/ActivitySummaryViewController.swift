@@ -47,6 +47,26 @@ class ActivitySummaryViewController: UIViewController {
         guard !isSaved else {
             return
         }
+        let followingRun = true
+        var message = ""
+        if followingRun {
+            message = "Would you like to create a new route or add your run to this route?"
+        } else {
+            message = "Would you like to share the route to public?"
+        }
+        let alert = UIAlertController(
+            title: "Save run",
+            message: message,
+            preferredStyle: .alert)
+        if followingRun {
+            alert.addAction(UIAlertAction(title: "Add my run", style: .default) { _ in
+                print("SAVERUN")
+            })
+        }
+        alert.addAction(UIAlertAction(title: "Create new route", style: .default) { _ in
+            print("Create new route")
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         saveRun()
     }
 
