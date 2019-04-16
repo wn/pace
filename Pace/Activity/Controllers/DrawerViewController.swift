@@ -38,7 +38,11 @@ class DrawerViewController: PullUpController {
         // TODO: Start a run
         // Render route map, show checkpoints, etc
         closeDrawer()
-        (parent as? ActivityViewController)?.startingRun()
+        // TODO: enable choosing a different run in the route
+        guard let run = viewingRoute?.creatorRun else {
+            return
+        }
+        (parent as? ActivityViewController)?.startingFollowRun(with: run)
     }
 
     // MARK: - IBOutlets

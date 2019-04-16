@@ -11,6 +11,9 @@ import RealmSwift
 import CoreLocation
 
 class CheckPoint: Object {
+    /// Primary key for checkpoint in Realm
+    @objc dynamic var checkpointId = UUID().uuidString
+
     /// The time taken by runner to reach this checkpoint.
     @objc dynamic var time: Double = 0.0
 
@@ -34,6 +37,10 @@ class CheckPoint: Object {
         set(location) {
             realmLocation = location?.asRealmObject
         }
+    }
+
+    override static func primaryKey() -> String? {
+        return "checkpointId"
     }
 
     /// Constructs a CheckPoint with the given Location, time, actualDistance and routeDistance.

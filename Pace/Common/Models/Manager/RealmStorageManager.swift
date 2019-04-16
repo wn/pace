@@ -124,8 +124,8 @@ class CachingStorageManager: RealmStorageManager {
 
     func saveNewRun(_ run: Run, toRoute route: Route, _ completion: ErrorHandler?) {
         do {
-            try persistentRealm.write {
-                persistentRealm.add(run)
+            try route.realm?.write {
+                route.paces.append(run)
             }
             storageAPI.uploadRun(run, forRoute: route, completion)
         } catch {

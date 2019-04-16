@@ -27,6 +27,7 @@ class ActivitySummaryViewController: UIViewController {
         super.viewDidLoad()
         setupNavigation()
         showStats()
+        // decide which button to render
     }
 
     private func setupNavigation() {
@@ -70,6 +71,27 @@ class ActivitySummaryViewController: UIViewController {
         routesManager.saveNewRoute(finishedRun.toNewRoute(), nil)
 
         // TODO: improve the after-saving UI interaction
+        derenderChildController()
+    }
+
+    @IBAction func saveFollowRun(_ sender: UIButton) {
+        // TODO: Check that we have sufficient distance to save!!
+        guard let distance = finishedRun?.distanceSoFar,
+            distance >= Constants.checkPointDistanceInterval else {
+                // Distance of the run is not long enough for saving
+                return
+        }
+        guard let finishedRun = finishedRun,
+            let parentRoute = finishedRun.paceRun?.route else {
+            return
+        }
+
+        if (finishedRun.classifiedAsFollow()) { // save to the parent
+            routesManager?.saveNewRun(finishedRun.toRun(), toRoute: parentRoute, nil)
+        } else { // save as new route
+            routesManager?.saveNewRoute(finishedRun.toNewRoute(), nil)
+        }
+
         derenderChildController()
     }
 

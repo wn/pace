@@ -25,8 +25,22 @@ extension ActivityViewController {
             fatalError("Should have location here.")
         }
         initiateRunPlot(at: startLocation)
-        startRunningSession(at: startLocation)
-        // TODO: update running stats here
+        startNewRunSession(at: startLocation)
+        updateValues()
+    }
+
+    func startingFollowRun(with paceRun: Run) {
+        guard let startingLocation = coreLocationManager.location,
+            let paceRunStart = paceRun.startingLocation else {
+                fatalError("Should have location here.")
+        }
+        // TODO: draw the paceRun on map
+        guard startingLocation.isSameAs(other: paceRunStart) else {
+            // TODO: show on UI to tell user to move closer
+            return
+        }
+        initiateRunPlot(at: startingLocation)
+        startFollowRunSession(at: startingLocation, following: paceRun)
         updateValues()
     }
 
@@ -35,13 +49,19 @@ extension ActivityViewController {
         googleMapView.startRun(at: location.coordinate)
     }
 
-    private func startRunningSession(at location: CLLocation) {
+    private func startNewRunSession(at location: CLLocation) {
         VoiceAssistant.say("Starting new run")
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
-        // TODO: add follow run
         // TODO: allow user to run without signing in
         ongoingRun = OngoingRun(runner: Dummy.user, startingLocation: location)
+    }
+
+    private func startFollowRunSession(at location: CLLocation, following paceRun: Run) {
+        VoiceAssistant.say("Starting follow run")
+        coreLocationManager.startUpdatingLocation()
+        stopwatch.start()
+        ongoingRun = OngoingRun(runner: Dummy.follower, startingLocation: location, paceRun: paceRun)
     }
 
     @objc

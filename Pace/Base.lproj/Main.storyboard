@@ -469,6 +469,15 @@
                                                             <action selector="saveRun:" destination="xC9-Rd-j1i" eventType="touchUpInside" id="pMV-La-5Id"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdd-5q-Ix7">
+                                                        <rect key="frame" x="112" y="127" width="190" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                        <state key="normal" title="Save Follow Run"/>
+                                                        <connections>
+                                                            <action selector="saveFollowRun:" destination="xC9-Rd-j1i" eventType="touchUpInside" id="DfS-dq-nZ4"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
