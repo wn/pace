@@ -17,24 +17,36 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     var compareLine: GMSPolyline?
     @IBOutlet private var runGraph: RunGraphView!
     @IBOutlet private var googleMapView: MapView!
-    private var marker: GMSMarker?
+    private var marker = GMSMarker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = Titles.run
+        // Disable pop swiping as it may interfere with graph swiping.
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         googleMapView.setup(self)
         setupGestureRecognizers()
         setupPullupController()
-        if let run = run {
-            line = googleMapView.drawRun(run, runGraph.currentRunColor)
-            runGraph.currentRun = run
-            runGraph.setNeedsDisplay()
+        guard let run = run else {
+            return
         }
+        marker.map = googleMapView
+        line = googleMapView.drawRun(run, runGraph.currentRunColor)
+        runGraph.currentRun = run
+        runGraph.setNeedsDisplay()
     }
 
     private func setupGestureRecognizers() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         runGraph.addGestureRecognizer(panGestureRecognizer)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let startPoint = run?.startingLocation?.coordinate else {
+            return
+        }
+        googleMapView.showLocation(startPoint)
     }
 
     /// Moves the yLine horizontally to the point of the pan
@@ -50,13 +62,10 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
         }
         let compareCheckpoint = compareRun?.getCheckpointAt(distance: runDistance)
         runGraph.moveYLine(to: xMultiplier, currentCheckpoint: currentCheckpoint, compareCheckpoint: compareCheckpoint)
-
         guard let coordinate = currentCheckpoint.location?.coordinate else {
             return
         }
-        marker?.map = nil
-        marker = GMSMarker(position: coordinate)
-        marker?.map = googleMapView
+        marker.position = coordinate
     }
 
     private func setupPullupController() {

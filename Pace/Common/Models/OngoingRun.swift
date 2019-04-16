@@ -152,9 +152,9 @@ class OngoingRun {
     /// - Precondition: (1) This OngoingRun does not follow an existing Route, or;
     ///                 (2) This OngoingRun does not cover the required number of checkpoints in the paceRun.
     /// - Returns: A new Route containing this completed Run.
-    func toNewRoute() -> Route {
+    func toNewRoute() -> Route? {
         guard !isFollowRun() || !classifiedAsFollow() else {
-            fatalError("The run should be considered as a new run.")
+            return nil
         }
         return Route(runner: runner, runnerRecords: checkpoints)
     }
