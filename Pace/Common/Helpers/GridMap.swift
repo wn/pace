@@ -27,7 +27,7 @@ public struct GridMap {
             let mid = low + (high - low) / 2
             let currLocation = CLLocation(latitude: mid, longitude: 0)
             let distance = currLocation.distance(from: origin)
-            if distance - gridHeight < 0.000_1 {
+            if distance - gridHeight < 0.0000_1 {
                 return mid
             } else if distance < gridHeight {
                 low = mid
@@ -48,7 +48,7 @@ public struct GridMap {
             let mid = low + (high - low) / 2
             let currLocation = CLLocation(latitude: 0, longitude: mid)
             let distance = currLocation.distance(from: origin)
-            if distance - gridWidth < 0.000_1 {
+            if distance - gridWidth < 0.0000_1 {
                 return mid
             } else if distance < gridWidth {
                 low = mid
@@ -136,6 +136,16 @@ public struct GridBound {
         self.maxLat = maxLat
         self.maxLong = maxLong
     }
+
+    public var maxSide: CLLocationDegrees {
+        return max(maxLat - minLat, maxLong - minLong)
+    }
+
+    public var diameter: CLLocationDistance {
+        let pointX = CLLocationCoordinate2D(latitude: minLat, longitude: minLong)
+        let pointY = CLLocationCoordinate2D(latitude: maxLat, longitude: maxLong)
+        return pointX.distance(pointY)
+    }
 }
 
 public struct GridNumber: Hashable {
@@ -158,7 +168,7 @@ public struct GridNumber: Hashable {
 
     static func encode(_ position: CLLocationCoordinate2D) -> String {
         return CLLocationCoordinate2D(latitude: position.latitude,
-                                      longitude: position.longitude).geohash(precision: .twoHundredFourtyCentimeters)
+                                      longitude: position.longitude).geohash(precision: .seventyFourMillimeters)
     }
 
     static func decode(_ str: String) -> CLLocationCoordinate2D {
