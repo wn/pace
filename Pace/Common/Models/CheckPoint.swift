@@ -13,7 +13,7 @@ import CoreLocation
 class CheckPoint: Object {
     /// Primary key for checkpoint in Realm
     @objc dynamic var checkpointId = UUID().uuidString
-    
+
     /// The time taken by runner to reach this checkpoint.
     @objc dynamic var time: Double = 0.0
 

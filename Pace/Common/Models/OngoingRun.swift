@@ -157,7 +157,7 @@ class OngoingRun {
     /// - Returns: A new Route containing this completed Run.
     func toNewRoute() -> Route? {
         guard !isFollowRun() || !classifiedAsFollow() else {
-            fatalError("The run should be considered as a new run.")
+            return nil
         }
         guard let runner = runner else {
             return nil

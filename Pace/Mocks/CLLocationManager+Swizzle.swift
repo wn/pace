@@ -10,7 +10,7 @@
 import Foundation
 import CoreLocation
 
-private let swizzling: (AnyClass, Selector, Selector) -> () = { forClass, originalSelector, swizzledSelector in
+private let swizzling: (AnyClass, Selector, Selector) -> Void = { forClass, originalSelector, swizzledSelector in
     if let originalMethod = class_getInstanceMethod(forClass, originalSelector),
         let swizzledMethod = class_getInstanceMethod(forClass, swizzledSelector) {
         method_exchangeImplementations(originalMethod, swizzledMethod)

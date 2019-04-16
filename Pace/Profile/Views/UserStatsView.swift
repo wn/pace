@@ -44,7 +44,7 @@ class UserStatsView: UIView {
         avgPace.text = String(format: "%.2f",
                                 arguments: [averagePace])
         avgDistance.text = String(format: "%.2f",
-                                  arguments: [runs.count != 0 ? totalDist / Double(runs.count) : 0])
+                                  arguments: [!runs.isEmpty ? totalDist / Double(runs.count) : 0])
         totalRuns.text = String(runs.count)
     }
 

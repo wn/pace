@@ -23,7 +23,7 @@ class GpxParser: NSObject, XMLParserDelegate {
         super.init()
         if let content = try? String(contentsOfFile: Bundle.main.path(forResource: file, ofType: typeName)!) {
             let data = content.data(using: .utf8)
-            parser = XMLParser.init(data: data!)
+            parser = XMLParser(data: data!)
             parser?.delegate = self
         }
     }
@@ -33,13 +33,13 @@ class GpxParser: NSObject, XMLParserDelegate {
     }
 
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?,
-                qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+                qualifiedName qName: String?, attributes attributeDict: [String: String] = [:]) {
         switch elementName {
         case "trkpt":
-            if let latString =  attributeDict["lat"],
-                let lat = Double.init(latString),
+            if let latString = attributeDict["lat"],
+                let lat = Double(latString),
                 let lonString = attributeDict["lon"],
-                let lon = Double.init(lonString) {
+                let lon = Double(lonString) {
                 locations.append(CLLocation(latitude: lat, longitude: lon))
             }
         default: break

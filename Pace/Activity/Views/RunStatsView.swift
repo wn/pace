@@ -30,7 +30,7 @@ class RunStatsView: UIView {
         totalDistance.text = String(format: "%.2f", distance / 1_000)
         self.time.text = "\(Int(time))"
         calories.text = "\(Int(100 / 1_600 * distance))"
-        let pace = distance != 0 ? (time / 60) / (distance / 1000) : 0
+        let pace = distance != 0 ? (time / 60) / (distance / 1_000) : 0
         avgPace.text = String(format: "%.2f", pace)
     }
 

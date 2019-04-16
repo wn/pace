@@ -50,7 +50,7 @@ class MockCLLocationManager: CLLocationManager {
 
     override func startUpdatingLocation() {
         timer = Timer(timeInterval: updateInterval, repeats: true, block: {
-            [unowned self](_) in
+            [unowned self]_ in
             self.updateLocation()
         })
         guard let timer = timer else {

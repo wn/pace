@@ -32,6 +32,6 @@ class User: IdentifiableObject {
     }
 
     func isFavouriteRoute(_ route: Route) -> Bool {
-        return favouriteRoutes.contains { route.objectId == $0.objectId}
+        return favouriteRoutes.contains { route.objectId == $0.objectId }
     }
 }

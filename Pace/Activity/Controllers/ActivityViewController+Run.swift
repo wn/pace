@@ -22,7 +22,7 @@ extension ActivityViewController {
 
     func startingRun() {
         guard let startLocation = coreLocationManager.location else {
-            fatalError("Should have location here.")
+            return
         }
         initiateRunPlot(at: startLocation)
         setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
@@ -33,7 +33,7 @@ extension ActivityViewController {
     func startingFollowRun(with paceRun: Run) {
         guard let startingLocation = coreLocationManager.location,
             let paceRunStart = paceRun.startingLocation else {
-                fatalError("Should have location here.")
+                return
         }
         // TODO: draw the paceRun on map
         guard startingLocation.isSameAs(other: paceRunStart) else {
@@ -126,6 +126,7 @@ extension ActivityViewController {
 
     private func updateLabels() {
         guard let distanceSoFar = ongoingRun?.distanceSoFar else {
+            runStats.setStats(distance: 0, time: 0)
             return
         }
         runStats.setStats(distance: distanceSoFar, time: stopwatch.timeElapsed)

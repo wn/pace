@@ -14,20 +14,38 @@ class ActivitySummaryViewController: UIViewController {
     @IBOutlet private var statsView: RunStatsView!
 
     // MARK: Run variables
-    var finishedRun: OngoingRun?
+    private var finishedRun: OngoingRun?
+    private var finishedRoute: Route?
     private var routesManager = CachingStorageManager.default
     private var isSaved = false
 
     /// Set the necessary information for the summary. Called when initializing the summary.
     func setRun(as finishedRun: OngoingRun?) {
         self.finishedRun = finishedRun
+        finishedRoute = finishedRun?.toNewRoute()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        statsView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(analyse)))
         setupNavigation()
         showStats()
-        // TODO: decide which button to render
+        // decide which button to render
+    }
+
+    @objc
+    func analyse(_ sender: UIButton) {
+        showRunAnalysis(finishedRoute?.creatorRun, finishedRun?.paceRun)
+    }
+
+    func showRunAnalysis(_ firstRun: Run?, _ secondRun: Run? = nil) {
+        guard let runAnalysis = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
+            .instantiateViewController(withIdentifier: Identifiers.runAnalysisController)
+            as? RunAnalysisController else {
+                return
+        }
+        runAnalysis.run = firstRun
+        navigationController?.pushViewController(runAnalysis, animated: true)
     }
 
     private func setupNavigation() {
@@ -48,24 +66,26 @@ class ActivitySummaryViewController: UIViewController {
         guard !isSaved else {
             return
         }
-
+        // Guard against user whom are not logged in.
         guard
             let distance = finishedRun?.distanceSoFar,
             distance >= Constants.checkPointDistanceInterval else {
                 // Distance of the run is not long enough for saving
-                let alert = UIAlertController(
-                    title: nil,
-                    message: "Distance covered is insufficient to be saved",
-                    preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                present(alert, animated: true)
+                UIAlertController.showMessage(
+                    self,
+                    msg: "Distance covered is insufficient to be saved")
                 return
         }
 
         let followingRun = finishedRun?.paceRun?.route != nil
         var message = ""
         if followingRun {
-            message = "Would you like to create a new route or add your run to this route?"
+            if (finishedRun?.classifiedAsFollow() ?? false) {
+                message = "Would you like to create a new route or add your run to this route?"
+            } else {
+                message = "Unable to add your run statistics to this route as you deviated "
+                    + "from the suggested route too drastically."
+            }
         } else {
             message = "Would you like to share the route to public?"
         }
@@ -73,7 +93,7 @@ class ActivitySummaryViewController: UIViewController {
             title: "Save run",
             message: message,
             preferredStyle: .alert)
-        if followingRun {
+        if followingRun, (finishedRun?.classifiedAsFollow() ?? false) {
             alert.addAction(UIAlertAction(title: "Add my run", style: .default) { [unowned self] _ in
                 self.saveFollowRun()
             })
@@ -85,27 +105,18 @@ class ActivitySummaryViewController: UIViewController {
         present(alert, animated: true)
     }
 
-    // This is another saving button for testing
-    @IBAction func bottomSaveButtonPressed(_ sender: UIButton) {
-        saveRun()
-    }
-
     private func saveRun() {
-        // TODO: Check that we have sufficient distance to save!!
-        guard let distance = finishedRun?.distanceSoFar,
-            distance >= Constants.checkPointDistanceInterval else {
-            // Distance of the run is not long enough for saving
+        guard
+            let finishedRun = finishedRun,
+            let newRoute = finishedRun.toNewRoute() else {
+            // run was not set up properly when initializing this VC
+                print("CANT SAVE")
             return
         }
-        guard let newRoute = finishedRun?.toNewRoute() else {
-            // user is not logged in
-            return
+        routesManager.saveNewRoute(newRoute) {[unowned self] _ in
+            self.isSaved = true
+            UIAlertController.showMessage(self, msg: "Saved new route")
         }
-        isSaved = true
-        routesManager.saveNewRoute(newRoute, nil)
-
-        // TODO: improve the after-saving UI interaction
-        derenderChildController()
     }
 
     func saveFollowRun() {
@@ -116,20 +127,14 @@ class ActivitySummaryViewController: UIViewController {
         }
 
         if finishedRun.classifiedAsFollow() { // save to the parent
-            guard let newRun = finishedRun.toRun() else {
-                // user not logged in
+            guard let run = finishedRun.toRun() else {
                 return
             }
-            routesManager.saveNewRun(newRun, toRoute: parentRoute, nil)
-        } else { // save as new route
-            guard let newRoute = finishedRun.toNewRoute() else {
-                // user not logged in
-                return
+            routesManager.saveNewRun(run, toRoute: parentRoute) { [unowned self] _ in
+                self.isSaved = true
+                UIAlertController.showMessage(self, msg: "Added your statistics to the followed route.")
             }
-            routesManager.saveNewRoute(newRoute, nil)
         }
-
-        derenderChildController()
     }
 
     private func showStats() {
@@ -137,5 +142,16 @@ class ActivitySummaryViewController: UIViewController {
             return
         }
         statsView.setStats(distance: distance, time: time)
+    }
+}
+
+extension UIAlertController {
+    static func showMessage(_ controller: UIViewController, msg message: String) {
+        let alert = UIAlertController(
+            title: nil,
+            message: message,
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        controller.present(alert, animated: true)
     }
 }
