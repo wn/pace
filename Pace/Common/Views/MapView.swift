@@ -7,6 +7,7 @@ class MapView: GMSMapView {
     private var path = GMSMutablePath()
     private var currentMapPath: GMSPolyline?
     private let gridMapManager = GridMapManager.default
+    private var followingRoute: GMSPolyline?
 
     /// Setup the view
     ///
@@ -45,11 +46,27 @@ class MapView: GMSMapView {
     /// Function to prepare view to start the run.
     ///
     /// - Parameter position: the starting position of the run.
-    func startRun(at position: CLLocationCoordinate2D) {
+    func startRun(at position: CLLocationCoordinate2D, followingRun: Run? = nil) {
         clearRoutes()
         clear()
         path.add(position)
         addMarker(Constants.startFlag, position: position)
+        guard let followingRun = followingRun else {
+            return
+        }
+        renderFollowingRun(followingRun)
+    }
+
+    private func renderFollowingRun(_ run: Run) {
+        let checkpoints = run.checkpoints
+        let followPath = GMSMutablePath()
+        for checkpoint in checkpoints {
+            guard let position = checkpoint.location?.coordinate else {
+                continue
+            }
+            followPath.add(position)
+        }
+        followingRoute = drawPath(path: followPath, .red)
     }
 
     /// Function to prepare view to end the run.
@@ -78,6 +95,9 @@ class MapView: GMSMapView {
         path.removeAllCoordinates()
         currentMapPath?.map = nil
         currentMapPath = nil
+
+        followingRoute?.map = nil
+        followingRoute = nil
     }
 
     func drawPath(path: GMSPath, _ color: UIColor = .blue) -> GMSPolyline? {
