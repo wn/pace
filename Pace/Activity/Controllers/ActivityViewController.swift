@@ -15,7 +15,7 @@ class ActivityViewController: UIViewController {
     var originalPullUpControllerViewSize: CGSize = .zero
 
     // MARK: UIVariable
-    @IBOutlet private var runStats: RunStatsView!
+    @IBOutlet var runStats: RunStatsView!
     @IBOutlet private var gpsIndicator: GpsStrengthIndicator!
     @IBOutlet private var statsPanel: UIStackView!
     let mapButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
