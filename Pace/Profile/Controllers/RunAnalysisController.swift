@@ -64,6 +64,7 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
             return
         }
         marker.position = coordinate
+        googleMapView.setCameraPosition(coordinate)
     }
 
     private func setupPullupController() {
