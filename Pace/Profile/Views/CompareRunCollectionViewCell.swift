@@ -54,4 +54,10 @@ class CompareRunCollectionViewCell: UICollectionViewCell {
         let oldValue = tickImage.isHidden
         tickImage.isHidden = !oldValue
     }
+
+    override var isSelected: Bool {
+        willSet {
+            tickImage.isHidden = !isSelected
+        }
+    }
 }
