@@ -94,7 +94,7 @@ extension FavouriteViewController: UICollectionViewDelegateFlowLayout {
     }
 
     @objc
-    func showRoute(sender: UITapGestureRecognizer){
+    func showRoute(sender: UITapGestureRecognizer) {
         guard let indexPath = favourites?.indexPathForItem(at: sender.location(in: favourites)) else {
             return
         }
@@ -103,7 +103,7 @@ extension FavouriteViewController: UICollectionViewDelegateFlowLayout {
             let activityVC = navVC.topViewController as? ActivityViewController else {
             return
         }
-        let _ = activityVC.view
+        _ = activityVC.view
         activityVC.renderRoute(favouriteRoutes[indexPath.row])
     }
 }

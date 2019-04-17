@@ -12,7 +12,7 @@ extension GMSMapView {
     var zoom: Float {
         return camera.zoom
     }
-    
+
     /// Set the camera position of mapView
     ///
     /// - Parameter coordinate: The coordinate that mapView will be centered on.

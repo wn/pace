@@ -7,8 +7,8 @@ import RealmSwift
 class ActivityViewController: UIViewController {
     // MARK: Realm variables
     let userSession = RealmUserSessionManager.default
-    let routesManager = CachingStorageManager.default
-    let routes = CachingStorageManager.default.inMemoryRealm.objects(Route.self)
+    let routesManager: RealmStorageManager = CachingStorageManager.default
+    lazy var routes = routesManager.inMemoryRealm.objects(Route.self)
     var notificationToken: NotificationToken?
 
     // MARK: Drawer variable
@@ -24,7 +24,7 @@ class ActivityViewController: UIViewController {
     }
 
     // MARK: Internet variable
-    @IBOutlet var internetIndicator: UIImageView!
+    @IBOutlet private var internetIndicator: UIImageView!
     var isConnectedToInternet = true {
         didSet {
             internetIndicator.tintColor = isConnectedToInternet ? .green : .red
@@ -33,7 +33,7 @@ class ActivityViewController: UIViewController {
 
     // MARK: Running variables
     var lastMarkedPosition: CLLocation?
-    let stopwatch = StopwatchTimer() // TODO: REMOVE
+    let stopwatch = StopwatchTimer()
     var ongoingRun: OngoingRun?
     var runStarted: Bool {
         return ongoingRun != nil
@@ -53,7 +53,8 @@ class ActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         statsPanel.bringSubviewToFront(gpsIndicator)
-        navigationItem.title = Titles.activity
+        // Set the gpx file for MockCLLocationManager
+        MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
         setupWifiImage()
         googleMapView.setup(self)
@@ -80,8 +81,10 @@ class ActivityViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationItem.title = Titles.activity
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
+        navigationItem.rightBarButtonItem = nil
     }
 
     /// Set up location manager from CoreLocation.
@@ -93,13 +96,13 @@ class ActivityViewController: UIViewController {
 
         let alert = UIAlertController(
             title: nil,
-            message: "Fetching your location. Please wait.",
+            message: "Fetching location. Please wait.",
             preferredStyle: .alert)
 
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.style = UIActivityIndicatorView.Style.gray
-        loadingIndicator.startAnimating();
+        loadingIndicator.startAnimating()
 
         alert.view.addSubview(loadingIndicator)
         present(alert, animated: true, completion: nil)
@@ -119,6 +122,7 @@ class ActivityViewController: UIViewController {
     }
 
     private func insertRoute(route: Route) {
+        routesManager.getRunsFor(route: route)
         // we insert the route to every zoom level for aggregated viewing of routes.
         // TODO: *****We should just insert to the lowest layer.*****
         // For all the other layers, we should fetch in a different observer token.
@@ -135,7 +139,8 @@ class ActivityViewController: UIViewController {
             if zoomLevel == maxZoom {
                 gridNumberAtZoomLevel[zoomLevel]?[gridId] = RouteMarkers(map: googleMapView)
             } else {
-                gridNumberAtZoomLevel[zoomLevel]?[gridId] = RouteCounterMarkers(position: startPoint, map: googleMapView)
+                gridNumberAtZoomLevel[zoomLevel]?[gridId] =
+                    RouteCounterMarkers(position: startPoint, map: googleMapView)
             }
         }
         guard let routeCountMarker = gridNumberAtZoomLevel[zoomLevel]?[gridId] else {
@@ -198,7 +203,9 @@ class ActivityViewController: UIViewController {
 
     func renderRoutes(_ routes: Set<Route>) {
         // TODO: Render routes as a tableview
-        let route = routes.first!
+        guard let route = routes.first else {
+            return
+        }
         renderRoute(route)
     }
 
@@ -239,7 +246,6 @@ extension ActivityViewController: CLLocationManagerDelegate {
         }
         coreLocationManager.requestAlwaysAuthorization()
     }
-
 
     /// Function from CLLocationManagerDelegate.
     /// Used to update run location for ongoingRun

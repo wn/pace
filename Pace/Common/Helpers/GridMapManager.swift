@@ -21,7 +21,7 @@ class GridMapManager {
     }
 
     func getNearestZoom(_ zoomLevel: Float) -> Int {
-        guard let result = Array(Constants.zoomLevels).filter({ $0 >= Int(zoomLevel.rounded(.up))}).min() else {
+        guard let result = Array(Constants.zoomLevels).filter({ $0 >= Int(zoomLevel.rounded(.up)) }).min() else {
             fatalError("There must be a zoom layer that fits zoomLevel.")
         }
         return result

@@ -63,14 +63,6 @@ class Route: IdentifiableObject {
         self.init(creator: creator, name: Date().debugDescription, creatorRun: initialRun)
     }
 
-    /// Add a new run to this Route.
-    /// Only use this method to add a following run, but not a creator run.
-    /// - Parameter run: The new run to be added.
-    func addNewRun(_ run: Run) {
-        // TODO: check for 80% overlap
-        paces.append(run)
-    }
-
     /// Generates stats for this route.
     /// - Returns: The RouteStats if all stats can be obtained; nil otherwise.
     func generateStats() -> RouteStats? {
