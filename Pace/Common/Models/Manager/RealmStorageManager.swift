@@ -37,10 +37,10 @@ protocol RealmStorageManager {
     func saveNewRun(_ run: Run, toRoute: Route, _ completion: ErrorHandler?)
 
     /// Adds a route to a user's favourites
-    func addFavouriteRoute(_ route: Route, toUser user: User)
+    func addFavouriteRoute(_ route: Route, toUser user: User, _ completion: ErrorHandler?)
 
     /// Removes a route from a user
-    func removeFavouriteRoute(_ route: Route, fromUser user: User)
+    func removeFavouriteRoute(_ route: Route, fromUser user: User, _ completion: ErrorHandler?)
 }
 
 class CachingStorageManager: RealmStorageManager {
@@ -133,7 +133,7 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
-    func addFavouriteRoute(_ route: Route, toUser user: User) {
+    func addFavouriteRoute(_ route: Route, toUser user: User, _ completion: ErrorHandler?) {
         do {
             if user.favouriteRoutes.contains(where: { $0.objectId == route.objectId }) {
                 return
@@ -142,12 +142,13 @@ class CachingStorageManager: RealmStorageManager {
                 let newRoute = persistentRealm.create(Route.self, value: route, update: true)
                 user.favouriteRoutes.append(newRoute)
             }
+            storageAPI.addFavourite(route, toUser: user, completion)
         } catch {
             print(error.localizedDescription)
         }
     }
 
-    func removeFavouriteRoute(_ route: Route, fromUser user: User) {
+    func removeFavouriteRoute(_ route: Route, fromUser user: User, _ completion: ErrorHandler?) {
         do {
             guard let indexToRemove = user.favouriteRoutes.firstIndex(where: { $0.objectId == route.objectId }) else {
                 return
@@ -155,6 +156,7 @@ class CachingStorageManager: RealmStorageManager {
             try persistentRealm.write {
                 user.favouriteRoutes.remove(at: indexToRemove)
             }
+            storageAPI.removeFavourite(route, fromUser: user, completion)
         } catch {
             print(error.localizedDescription)
         }

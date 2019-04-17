@@ -9,6 +9,8 @@
 import UIKit
 import FaveButton
 import RealmSwift
+import FacebookLogin
+import FacebookCore
 
 class DrawerViewController: PullUpController {
     var userSession: UserSessionManager?
@@ -23,6 +25,12 @@ class DrawerViewController: PullUpController {
     @IBOutlet private var distance: UILabel!
 
     var viewingRoute: Route?
+    var getCurrentUser: User? {
+        guard let uid = AccessToken.current?.userId else {
+            return nil
+        }
+        return RealmUserSessionManager.default.getRealmUser(uid)
+    }
 
     @IBOutlet var runnersTableView: UITableView!
     var paces: [Run] = []
@@ -66,6 +74,7 @@ class DrawerViewController: PullUpController {
         userSession = RealmUserSessionManager.default
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
                               height: min(UIScreen.main.bounds.height - 75, expandedView.frame.maxY))
+
     }
 
     override func pullUpControllerWillMove(to stickyPoint: CGFloat) {
@@ -149,12 +158,9 @@ extension DrawerViewController {
         routeStatsContainerView.addGestureRecognizer(tapGesture)
 
         runnersTableView.reloadData()
-
         // Set favourite flag
-//        guard let isFavourite = userSession?.currentUser?.containsFavouriteRoute(route) else {
-//            return
-//        }
-        favouriteButton.setSelected(selected: false, animated: false)
+        let isFavourite = getCurrentUser?.isFavouriteRoute(route) ?? false
+        favouriteButton.setSelected(selected: isFavourite, animated: false)
     }
 }
 
@@ -204,7 +210,7 @@ extension DrawerViewController: FaveButtonDelegate {
         guard let currentRoute = viewingRoute else {
             return
         }
-        guard let user = userSession?.getRealmUser(nil) else {
+        guard let user = getCurrentUser else {
             let alert = UIAlertController(
                 title: "Not logged in",
                 message: "You need to be logged in to favourite a route.",
@@ -214,31 +220,10 @@ extension DrawerViewController: FaveButtonDelegate {
             faveButton.isSelected = false
             return
         }
-//        if selected {
-//            print("FAVOURITE-ED")
-//            guard user.addFavouriteRoute(currentRoute) else {
-//                let alert = UIAlertController(
-//                    title: "No connection",
-//                    message: "Can't connect to the internet now, try again later.",
-//                    preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//                present(alert, animated: true)
-//                return
-//            }
-//            print(user.containsFavouriteRoute(currentRoute))
-//        } else {
-//            // WE REMOVE FROM FAVOURITE
-//            print("UN-FAVOURITE-ED")
-//            guard user.removeFavouriteRoute(currentRoute) else {
-//                let alert = UIAlertController(
-//                    title: "No connection",
-//                    message: "Can't connect to the internet now, try again later.",
-//                    preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//                present(alert, animated: true)
-//                return
-//            }
-//            print(user.containsFavouriteRoute(currentRoute))
-//        }
+        if selected {
+            RealmUserSessionManager.default.addToFavourites(route: currentRoute, to: user, nil)
+        } else {
+            RealmUserSessionManager.default.removeFromFavourites(route: currentRoute, from: user, nil)
+        }
     }
 }

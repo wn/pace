@@ -83,8 +83,10 @@ class RealmUserSessionManager: UserSessionManager {
             }
             try! self.realm.write {
                 self.realm.add(routes, update: true)
+                print("Before update: \(user.favouriteRoutes)")
                 user.favouriteRoutes.removeAll()
                 user.favouriteRoutes.append(objectsIn: routes)
+                print("After update: \(user.favouriteRoutes)")
             }
         }
     }
@@ -96,7 +98,7 @@ class RealmUserSessionManager: UserSessionManager {
                 print("user not found")
                 throw NSError()
             }
-            storageManager.addFavouriteRoute(route, toUser: user)
+            storageManager.addFavouriteRoute(route, toUser: user) { completion?($0 == nil) }
         } catch {
             print("Operation unsuccessful: \(error.localizedDescription)")
             success = false
@@ -111,7 +113,7 @@ class RealmUserSessionManager: UserSessionManager {
                 print("user not found")
                 throw NSError()
             }
-            storageManager.removeFavouriteRoute(route, fromUser: user)
+            storageManager.removeFavouriteRoute(route, fromUser: user) { completion?($0 == nil) }
         } catch {
             print("Operation unsuccessful: \(error.localizedDescription)")
             success = false

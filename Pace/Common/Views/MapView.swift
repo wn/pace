@@ -63,15 +63,18 @@ class MapView: GMSMapView {
     /// - Parameter route: the route that will be rendered.
     func renderRoute(_ route: Route) {
         clearRoutes()
-        guard let locations = route.creatorRun?.locations else {
+        guard
+            let locations = route.creatorRun?.locations,
+            let startingLocation = route.startingLocation else {
             return
         }
         locations.forEach { path.add($0.coordinate) }
         currentMapPath = drawPath(path: path)
+        setCameraPosition(startingLocation.coordinate)
     }
 
     /// Clear the route's drawing from the map view.
-    private func clearRoutes() {
+    func clearRoutes() {
         path.removeAllCoordinates()
         currentMapPath?.map = nil
         currentMapPath = nil
@@ -112,7 +115,8 @@ class MapView: GMSMapView {
     }
 
     var viewingGrids: [GridNumber] {
-        return gridMapManager.getGridManager(zoom).getBoundedGrid(projectedMapBound)
+        let manager = gridMapManager.getGridManager(zoom)
+        return manager.getBoundedGrid(projectedMapBound)
     }
 
     var nearestZoom: Int {
