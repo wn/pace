@@ -25,7 +25,7 @@ class ActivitySummaryViewController: UIViewController {
     /// TODO: We need to be able to generate a new route whether user is logged in or not.
     func setRun(as finishedRun: OngoingRun?) {
         self.finishedRun = finishedRun
-        finishedRoute = finishedRun?.toNewRoute(user: getCurrentUser)
+        finishedRoute = finishedRun?.toNewRoute()
     }
 
     var getCurrentUser: User? {
