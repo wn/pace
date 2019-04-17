@@ -146,14 +146,15 @@ extension DrawerViewController {
         guard let stats = route.generateStats() else {
             return
         }
-
         viewingRoute = route
-        // TODO: set legit start and end point
-        startPoint.text = "Start Point: Apple Infinite Loop" //"\(stats.startingLocation.coordinate)"
-        endPoint.text = "End Point: Meritt Drive"// "\(stats.endingLocation.coordinate)"
+        stats.startingLocation.address { [unowned self] address in
+            self.startPoint.text = "Start: \(address ?? "Unknown")"
+        }
+        stats.endingLocation.address { [unowned self] address in
+            self.endPoint.text = "End: \(address ?? "Unknown")"
+        }
         createdBy.text = "Created by: \(route.creator?.name ?? "")"
         distance.text = String(format: "Distance: %.2fkm", arguments: [stats.totalDistance / 1_000])
-
         paces = route.paces.sorted { $0.timeSpent < $1.timeSpent }
         numOfRunners.text = "\(paces.count) 🏃🏻‍♂️"
 
