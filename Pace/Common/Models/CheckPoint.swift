@@ -113,9 +113,9 @@ class CheckPoint: Object {
         let leftCp = checkPoints[lowerBound]
         let rightCp = checkPoints[upperBound]
         if routeDistance < leftCp.routeDistance {
-            return (nil, leftCp)
+            return (self, leftCp)
         } else if routeDistance > rightCp.routeDistance {
-            return (rightCp, nil)
+            return (rightCp, self)
         } else {
             return (leftCp, rightCp)
         }

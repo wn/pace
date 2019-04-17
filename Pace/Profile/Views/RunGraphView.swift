@@ -23,7 +23,7 @@ class RunGraphView: UIView {
     @IBOutlet private var lowerLabel: UILabel!
 
     private var drawContext: CGContext?
-    private var comparisonMode: GraphComparisonMode = .speed
+    private var comparisonMode: GraphComparisonMode = .timeSpent
     private var upperBound: Double?
 
     var currentRun: Run?

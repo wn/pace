@@ -36,12 +36,22 @@ class GpxParser: NSObject, XMLParserDelegate {
                 qualifiedName qName: String?, attributes attributeDict: [String: String] = [:]) {
         switch elementName {
         case "trkpt":
-            if let latString = attributeDict["lat"],
+            guard let latString = attributeDict["lat"],
                 let lat = Double(latString),
                 let lonString = attributeDict["lon"],
-                let lon = Double(lonString) {
-                locations.append(CLLocation(latitude: lat, longitude: lon))
+                let lon = Double(lonString),
+                let eleString = attributeDict["ele"],
+                let ele = Double(eleString) else {
+                return
             }
+            locations.append(CLLocation(coordinate: CLLocationCoordinate2D(latitude: lat,
+                                                                           longitude: lon),
+                                        altitude: ele,
+                                        horizontalAccuracy: 0,
+                                        verticalAccuracy: 0,
+                                        course: 0,
+                                        speed: 0,
+                                        timestamp: Date()))
         default: break
         }
     }

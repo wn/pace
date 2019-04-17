@@ -22,6 +22,7 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = Titles.run
+        MockLocationConfiguration.GpxFileName = "bedok-reservior"
         googleMapView.setup(self)
         setupGestureRecognizers()
         setupPullupController()
