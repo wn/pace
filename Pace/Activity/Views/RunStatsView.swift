@@ -28,7 +28,7 @@ class RunStatsView: UIView {
 
     func setStats(distance: Double, time: Double) {
         totalDistance.text = String(format: "%.2f", distance / 1_000)
-        self.time.text = "\(Int(time))"
+        self.time.text = "\(Int(time / 60)):\(Int(time.truncatingRemainder(dividingBy: 60)))"
         calories.text = "\(Int(100 / 1_600 * distance))"
         let pace = distance != 0 ? (time / 60) / (distance / 1_000) : 0
         avgPace.text = String(format: "%.2f", pace)
