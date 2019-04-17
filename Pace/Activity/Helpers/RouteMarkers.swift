@@ -83,7 +83,7 @@ class RouteMarkers: RouteMarkerHandler {
     }
 
     private func getNearestMarker(_ point: CLLocationCoordinate2D, dist minDist: CLLocationDistance) -> GMSMarker? {
-        var nearestMarker: GMSMarker? = nil
+        var nearestMarker: GMSMarker?
         var distance: CLLocationDegrees = Double.infinity
         for (marker, _) in routesInMarker {
             let currentDistance = marker.position.distance(point)

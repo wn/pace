@@ -20,7 +20,6 @@ public class GpsStrengthIndicator: UIView {
 
     // MARK: - GPS Strength
     private var _level = Level.noSignal
-    // TODO: Fix this shit code some day
     public func setStrength(_ accuracy: CLLocationAccuracy) {
         if accuracy < 0 {
             _level = .noSignal

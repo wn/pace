@@ -13,6 +13,9 @@ protocol UserSessionManager {
     typealias BooleanHandler = (Bool) -> Void
     typealias UserResultsHandler = (User?, Error?) -> Void
 
+    /// The current user in the session
+    var currentUser: User? { get }
+
     /// Gets the user from its facebook uid
     func getRealmUser(_ uid: String?) -> User?
 
@@ -42,6 +45,13 @@ class RealmUserSessionManager: UserSessionManager {
 
     private var realm: Realm {
         return storageManager.persistentRealm
+    }
+
+    var currentUser: User? {
+        guard let uid = AccessToken.current?.userId else {
+            return nil
+        }
+        return getRealmUser(uid)
     }
 
     convenience init() {

@@ -464,7 +464,6 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="Vkq-mQ-ZUx" firstAttribute="width" secondItem="mf4-uq-zoj" secondAttribute="width" id="GqU-Ps-FKB"/>
-                                            <constraint firstItem="Vkq-mQ-ZUx" firstAttribute="centerX" secondItem="mf4-uq-zoj" secondAttribute="centerX" id="Ju5-hM-7qW"/>
                                             <constraint firstAttribute="bottom" secondItem="Vkq-mQ-ZUx" secondAttribute="bottom" id="N2B-t5-g4T"/>
                                             <constraint firstItem="dnz-ga-EZn" firstAttribute="height" secondItem="mf4-uq-zoj" secondAttribute="height" multiplier="0.3" id="WiY-gN-bg4"/>
                                             <constraint firstItem="dnz-ga-EZn" firstAttribute="width" secondItem="mf4-uq-zoj" secondAttribute="width" id="XHr-sB-Laj"/>

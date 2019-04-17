@@ -23,6 +23,6 @@ class UserReference: Object {
     }
 
     convenience init(fromUser user: User) {
-        self.init(name: user.name, id: user.uid)
+        self.init(name: user.name, id: user.objectId)
     }
 }

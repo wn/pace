@@ -32,7 +32,7 @@ struct Constants {
 
     static var gridMaps: [Int: GridMap] {
         guard
-            let zoom13 = GridMap(width: 10000, height: 10000),
+            let zoom13 = GridMap(width: 10_000, height: 10_000),
             let zoom16 = GridMap(width: 800, height: 800),
             let zoomMax = GridMap(width: 400, height: 400) else {
                 fatalError("We should not init GridMap with negative sides.")
@@ -54,6 +54,7 @@ struct Constants {
 /// For Development Purposes until the rest of the interface is ready
 struct Dummy {
     static let user = User(name: "angunong")
+    static let follower = User(name: "darth vader")
 }
 
 struct Identifiers {
@@ -84,4 +85,8 @@ struct Xibs {
     static let runGraphView = "RunGraphView"
     static let userStatsView = "UserStatsView"
     static let loginView = "LoginView"
+}
+
+struct Images {
+    static let saveButton = "save.png"
 }

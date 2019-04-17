@@ -40,11 +40,11 @@ class UserStatsView: UIView {
         }
         totalDistance.text = String(format: "%.2f",
                                     arguments: [totalDist])
-        let averagePace = totalTime / (60 * totalDist)
+        let averagePace = totalDist != 0 ? totalTime / (60 * totalDist) : 0
         avgPace.text = String(format: "%.2f",
                                 arguments: [averagePace])
         avgDistance.text = String(format: "%.2f",
-                                  arguments: [totalDist / Double(runs.count)])
+                                  arguments: [!runs.isEmpty ? totalDist / Double(runs.count) : 0])
         totalRuns.text = String(runs.count)
     }
 

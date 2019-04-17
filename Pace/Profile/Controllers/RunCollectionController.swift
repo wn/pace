@@ -20,7 +20,7 @@ class RunCollectionController: PullUpController {
     private var cellIdentifier: String = Identifiers.compareRunCell
 
     // To be set on instantiation of controller
-    var delegate: RunCollectionControllerDelegate?
+    weak var delegate: RunCollectionControllerDelegate?
     var currentRunId: String?
     var routeId: String?
     private lazy var runs = {
@@ -87,8 +87,12 @@ extension RunCollectionController: UICollectionViewDataSource, UICollectionViewD
         return runs.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = runCollectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CompareRunCollectionViewCell
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = runCollectionView.dequeueReusableCell(
+            withReuseIdentifier: cellIdentifier,
+            for: indexPath) as! CompareRunCollectionViewCell
         cell.run = runs[indexPath.item]
         return cell
     }
@@ -101,17 +105,22 @@ extension RunCollectionController: UICollectionViewDataSource, UICollectionViewD
         pullUpControllerMoveToVisiblePoint(initialHeight, animated: true, completion: nil)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: runCollectionView.bounds.width, height: 75)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 
 /// A parent controller that instantiates this controller should set implement this protocol
-protocol RunCollectionControllerDelegate {
+protocol RunCollectionControllerDelegate: class {
     /// Callback when clicking the cell of a run
     func onClickCallback(run: Run)
 }

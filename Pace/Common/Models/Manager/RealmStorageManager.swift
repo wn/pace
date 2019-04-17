@@ -82,6 +82,11 @@ class CachingStorageManager: RealmStorageManager {
             }
             routes.forEach { route in
                 try! self.inMemoryRealm.write {
+                    guard self.inMemoryRealm.object(
+                        ofType: Route.self,
+                        forPrimaryKey: route.objectId) == nil else {
+                            return
+                    }
                     self.inMemoryRealm.add(route, update: true)
                 }
             }
@@ -94,7 +99,13 @@ class CachingStorageManager: RealmStorageManager {
                 return
             }
             try! route.realm!.write {
-                route.paces.append(objectsIn: runs)
+                let newRuns = runs.map { route.realm!.create(Run.self, value: $0, update: true) }
+                newRuns.forEach { newRun in
+                    if route.paces.contains(newRun) {
+                        return
+                    }
+                    route.paces.append(newRun)
+                }
             }
         }
     }
@@ -114,6 +125,8 @@ class CachingStorageManager: RealmStorageManager {
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?) {
         do {
             try persistentRealm.write {
+                let run = route.creatorRun
+                run?.routeId = route.objectId
                 persistentRealm.add(route)
             }
             storageAPI.uploadRoute(route, completion)
@@ -124,8 +137,9 @@ class CachingStorageManager: RealmStorageManager {
 
     func saveNewRun(_ run: Run, toRoute route: Route, _ completion: ErrorHandler?) {
         do {
-            try persistentRealm.write {
-                persistentRealm.add(run)
+            try route.realm?.write {
+                run.routeId = route.objectId
+                route.paces.append(run)
             }
             storageAPI.uploadRun(run, forRoute: route, completion)
         } catch {

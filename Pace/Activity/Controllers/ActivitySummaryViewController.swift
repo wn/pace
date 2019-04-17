@@ -8,34 +8,60 @@
 
 import UIKit
 import CoreLocation
+import FacebookLogin
+import FacebookCore
 
 class ActivitySummaryViewController: UIViewController {
     // MARK: UI variables
-    @IBOutlet private var distanceLabel: UILabel!
-    @IBOutlet private var paceLabel: UILabel!
-    @IBOutlet private var timeLabel: UILabel!
     @IBOutlet private var statsView: RunStatsView!
 
     // MARK: Run variables
-    var createdRun: OngoingRun?
+    private var finishedRun: OngoingRun?
+    private var finishedRoute: Route?
     private var routesManager = CachingStorageManager.default
     private var isSaved = false
 
-    // MARK: Run statistics variables
-    private var distance: Double = 0
-    private var pace: Int = 0
-    private var time: Double = 0
+    /// Set the necessary information for the summary. Called when initializing the summary.
+    /// TODO: We need to be able to generate a new route whether user is logged in or not.
+    func setRun(as finishedRun: OngoingRun?) {
+        self.finishedRun = finishedRun
+        finishedRoute = finishedRun?.toNewRoute()
+    }
+
+    var getCurrentUser: User? {
+        guard let uid = AccessToken.current?.userId else {
+            return nil
+        }
+        return RealmUserSessionManager.default.getRealmUser(uid)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        statsView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(analyse)))
         setupNavigation()
         showStats()
-        readStats()
+        // decide which button to render
+    }
+
+    @objc
+    func analyse(_ sender: UIButton) {
+        showRunAnalysis(finishedRoute?.creatorRun, finishedRun?.paceRun)
+    }
+
+    func showRunAnalysis(_ firstRun: Run?, _ secondRun: Run? = nil) {
+        guard let runAnalysis = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
+            .instantiateViewController(withIdentifier: Identifiers.runAnalysisController)
+            as? RunAnalysisController else {
+                return
+        }
+        runAnalysis.run = firstRun
+        runAnalysis.compareRun = secondRun
+        navigationController?.pushViewController(runAnalysis, animated: true)
     }
 
     private func setupNavigation() {
         navigationItem.title = Titles.runSummary
-        let image = UIImage(named: "save.png")?.withRenderingMode(.alwaysOriginal)
+        let image = UIImage(named: Images.saveButton)?.withRenderingMode(.alwaysOriginal)
         let saveButton = UIButton(type: .system)
         let widthConstraint = saveButton.widthAnchor.constraint(equalToConstant: 30)
         let heightConstraint = saveButton.heightAnchor.constraint(equalToConstant: 30)
@@ -51,36 +77,90 @@ class ActivitySummaryViewController: UIViewController {
         guard !isSaved else {
             return
         }
-        saveRun()
+        // Guard against user whom are not logged i
+        guard let user = getCurrentUser else {
+            UIAlertController.showMessage(
+                self,
+                msg: "You need to be logged in to save your progress.")
+            return
+        }
+
+        guard
+            let distance = finishedRun?.distanceSoFar,
+            distance >= Constants.checkPointDistanceInterval else {
+                // Distance of the run is not long enough for saving
+                UIAlertController.showMessage(
+                    self,
+                    msg: "Distance covered is insufficient to be saved.")
+                return
+        }
+
+        let followingRun = finishedRun?.paceRun?.route != nil
+        var message = ""
+        if followingRun {
+            if finishedRun?.classifiedAsFollow() ?? false {
+                message = "Would you like to create a new route or add your run to this route?"
+            } else {
+                message = "Unable to add your run statistics to this route as you deviated "
+                    + "from the suggested route too drastically."
+            }
+        } else {
+            message = "Would you like to share the route to public?"
+        }
+        let alert = UIAlertController(
+            title: "Save run",
+            message: message,
+            preferredStyle: .alert)
+        if followingRun, (finishedRun?.classifiedAsFollow() ?? false) {
+            alert.addAction(UIAlertAction(title: "Add my run", style: .default) { [unowned self] _ in
+                self.saveFollowRun()
+            })
+        }
+        alert.addAction(UIAlertAction(title: "Create new route", style: .default) { [unowned self] _ in
+            self.saveRun()
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
 
     private func saveRun() {
         guard
-            distance >= Constants.checkPointDistanceInterval,
-            let route = createdRun?.toNewRoute()
-        else {
-            print("CANT SAVE THIS SHIT cause distance not long enuff")
+            let finishedRun = finishedRun,
+            let newRoute = finishedRun.toNewRoute() else {
+            // run was not set up properly when initializing this VC
+                UIAlertController.showMessage(
+                    self,
+                    msg: "There is an error saving your route. Please try again later.")
             return
         }
-        isSaved = true
-        routesManager.saveNewRoute(route, nil)
-        print("RUN SAVED")
+        routesManager.saveNewRoute(newRoute) {[unowned self] _ in
+            self.isSaved = true
+            UIAlertController.showMessage(self, msg: "Saved new route")
+        }
     }
 
-    func setStats(createdRun: OngoingRun, distance: CLLocationDistance, time: Double) {
-        self.distance = distance
-        self.pace = distance == 0 ? 0 : Int(time / distance)
-        self.time = time
-        self.createdRun = createdRun
+    func saveFollowRun() {
+        guard
+            let finishedRun = finishedRun,
+            let parentRoute = finishedRun.paceRun?.route else {
+                return
+        }
+
+        if finishedRun.classifiedAsFollow() { // save to the parent
+            guard let run = finishedRun.toRun() else {
+                return
+            }
+            routesManager.saveNewRun(run, toRoute: parentRoute) { [unowned self] _ in
+                self.isSaved = true
+                UIAlertController.showMessage(self, msg: "Added your statistics to the followed route.")
+            }
+        }
     }
 
     private func showStats() {
+        guard let distance = finishedRun?.distanceSoFar, let time = finishedRun?.timeSoFar else {
+            return
+        }
         statsView.setStats(distance: distance, time: time)
-    }
-
-    private func readStats() {
-        VoiceAssistant.say("Distance: \(Int(distance)) meters")
-        VoiceAssistant.say("Duration: \(Int(time)) seconds")
-        VoiceAssistant.say("Pace: \(Int(pace)) seconds per kilometer")
     }
 }

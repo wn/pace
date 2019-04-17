@@ -22,26 +22,47 @@ extension ActivityViewController {
 
     func startingRun() {
         guard let startLocation = coreLocationManager.location else {
-            fatalError("Should have location here.")
+            return
         }
         initiateRunPlot(at: startLocation)
-        startRunningSession(at: startLocation)
-        // TODO: update running stats here
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
+        startNewRunSession(at: startLocation)
         updateValues()
     }
 
-    private func initiateRunPlot(at location: CLLocation) {
+    func startingFollowRun(with paceRun: Run) -> Bool {
+        guard
+            let startingLocation = coreLocationManager.location,
+            let paceRunStart = paceRun.startingLocation else {
+                return false
+        }
+        guard startingLocation.isSameAs(other: paceRunStart) else {
+            return false
+        }
+        initiateRunPlot(at: startingLocation, following: paceRun)
         setMapButton(imageUrl: Constants.endButton, action: #selector(endRun(_:)))
-        googleMapView.startRun(at: location.coordinate)
+        startFollowRunSession(at: startingLocation, following: paceRun)
+        updateValues()
+        updatePacingStats()
+        return true
     }
 
-    private func startRunningSession(at location: CLLocation) {
-        VoiceAssistant.say("Starting run")
+    private func initiateRunPlot(at location: CLLocation, following paceRun: Run? = nil) {
+        googleMapView.startRun(at: location.coordinate, followingRun: paceRun)
+    }
+
+    private func startNewRunSession(at location: CLLocation) {
+        VoiceAssistant.say("Starting new run")
         coreLocationManager.startUpdatingLocation()
         stopwatch.start()
-        // TODO: add follow run
-        // TODO: allow user to run without signing in
-        ongoingRun = OngoingRun(runner: Dummy.user, startingLocation: location)
+        ongoingRun = OngoingRun(runner: userSession.currentUser, startingLocation: location)
+    }
+
+    private func startFollowRunSession(at location: CLLocation, following paceRun: Run) {
+        VoiceAssistant.say("Starting follow run")
+        coreLocationManager.startUpdatingLocation()
+        stopwatch.start()
+        ongoingRun = OngoingRun(runner: userSession.currentUser, startingLocation: location, paceRun: paceRun)
     }
 
     @objc
@@ -72,30 +93,41 @@ extension ActivityViewController {
         updateLabels()
     }
 
-    func showSummary() {
-        guard let ongoingRun = ongoingRun else {
-                return
-        }
+    private func showSummary() {
         let storyBoard: UIStoryboard = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
         let summaryVC =
             storyBoard.instantiateViewController(
                 withIdentifier: Identifiers.summaryViewController)
                 as! ActivitySummaryViewController
-        summaryVC.setStats(createdRun: ongoingRun, distance: -1, time: stopwatch.timeElapsed)
+        summaryVC.setRun(as: ongoingRun)
         self.navigationController?.pushViewController(summaryVC, animated: true)
     }
 
-    func updateValues() {
+    private func updatePacingStats() {
+        guard runStarted else {
+            return
+        }
+        VoiceAssistant.reportPacing(using: ongoingRun?.getPacingStats())
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.updatePacingStats()
+        }
+    }
+
+    private func updateValues() {
         guard runStarted else {
             return
         }
         updateLabels()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.updateValues()
         }
     }
 
-    func updateLabels() {
-        runStats.setStats(distance: -1, time: stopwatch.timeElapsed)
+    private func updateLabels() {
+        guard let distanceSoFar = ongoingRun?.distanceSoFar else {
+            runStats.setStats(distance: 0, time: 0)
+            return
+        }
+        runStats.setStats(distance: distanceSoFar, time: stopwatch.timeElapsed)
     }
 }

@@ -32,7 +32,7 @@ class DrawerViewController: PullUpController {
         return RealmUserSessionManager.default.getRealmUser(uid)
     }
 
-    @IBOutlet var runnersTableView: UITableView!
+    @IBOutlet private var runnersTableView: UITableView!
     var paces: [Run] = []
     let runnerCellIdentifier = "runnerCell"
 
@@ -43,10 +43,16 @@ class DrawerViewController: PullUpController {
 
     @objc
     func startRoute(_ sender: UITapGestureRecognizer) {
-        // TODO: Start a run
-        // Render route map, show checkpoints, etc
+        guard let run = viewingRoute?.creatorRun else {
+            return
+        }
+        guard (parent as? ActivityViewController)?.startingFollowRun(with: run) ?? false else {
+            UIAlertController.showMessage(
+                self,
+                msg: "You are too far away from the starting point of the route to start the route.")
+            return
+        }
         closeDrawer()
-        (parent as? ActivityViewController)?.startingRun()
     }
 
     // MARK: - IBOutlets
@@ -210,19 +216,17 @@ extension DrawerViewController: FaveButtonDelegate {
             return
         }
         guard let user = getCurrentUser else {
-            let alert = UIAlertController(
-                title: "Not logged in",
-                message: "You need to be logged in to favourite a route.",
-                preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true)
+            UIAlertController.showMessage(self, msg: "You need to be logged in to favourite a route.")
             faveButton.isSelected = false
             return
         }
         if selected {
-            RealmUserSessionManager.default.addToFavourites(route: currentRoute, to: user, nil)
+            RealmUserSessionManager.default.addToFavourites(route: currentRoute, to: user) { _ in
+                UIAlertController.showMessage(self, msg: "Added to favorites!")
+            }
         } else {
             RealmUserSessionManager.default.removeFromFavourites(route: currentRoute, from: user, nil)
+            UIAlertController.showMessage(self, msg: "Remove from favourites!")
         }
     }
 }
