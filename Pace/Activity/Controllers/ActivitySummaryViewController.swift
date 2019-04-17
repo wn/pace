@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreLocation
+import FacebookLogin
+import FacebookCore
 
 class ActivitySummaryViewController: UIViewController {
     // MARK: UI variables
@@ -20,9 +22,17 @@ class ActivitySummaryViewController: UIViewController {
     private var isSaved = false
 
     /// Set the necessary information for the summary. Called when initializing the summary.
+    /// TODO: We need to be able to generate a new route whether user is logged in or not.
     func setRun(as finishedRun: OngoingRun?) {
         self.finishedRun = finishedRun
-        finishedRoute = finishedRun?.toNewRoute()
+        finishedRoute = finishedRun?.toNewRoute(user: getCurrentUser)
+    }
+
+    var getCurrentUser: User? {
+        guard let uid = AccessToken.current?.userId else {
+            return nil
+        }
+        return RealmUserSessionManager.default.getRealmUser(uid)
     }
 
     override func viewDidLoad() {
@@ -45,6 +55,7 @@ class ActivitySummaryViewController: UIViewController {
                 return
         }
         runAnalysis.run = firstRun
+        runAnalysis.compareRun = secondRun
         navigationController?.pushViewController(runAnalysis, animated: true)
     }
 
@@ -66,14 +77,21 @@ class ActivitySummaryViewController: UIViewController {
         guard !isSaved else {
             return
         }
-        // Guard against user whom are not logged in.
+        // Guard against user whom are not logged i
+        guard let user = getCurrentUser else {
+            UIAlertController.showMessage(
+                self,
+                msg: "You need to be logged in to save your progress.")
+            return
+        }
+
         guard
             let distance = finishedRun?.distanceSoFar,
             distance >= Constants.checkPointDistanceInterval else {
                 // Distance of the run is not long enough for saving
                 UIAlertController.showMessage(
                     self,
-                    msg: "Distance covered is insufficient to be saved")
+                    msg: "Distance covered is insufficient to be saved.")
                 return
         }
 
