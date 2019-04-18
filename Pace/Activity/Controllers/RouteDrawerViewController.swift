@@ -17,18 +17,18 @@ class RouteDrawerViewController: PullUpController {
     var initialState: InitialState = .expanded
 
     var showingRoutes: [Route] = []
-    var _viewingRouteIndex: Int?
+    var viewingRouteIndexValue: Int?
     var viewingRouteIndex: Int? {
         get {
-            return _viewingRouteIndex
+            return viewingRouteIndexValue
         }
         set {
             guard !showingRoutes.isEmpty,
                 let val = newValue else {
-                    _viewingRouteIndex = nil
+                    viewingRouteIndexValue = nil
                     return
             }
-            _viewingRouteIndex = (val + showingRoutes.count) % showingRoutes.count
+            viewingRouteIndexValue = (val + showingRoutes.count) % showingRoutes.count
 
             renderRouteStats()
         }
