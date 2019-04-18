@@ -24,10 +24,14 @@ class ActivityViewController: UIViewController {
     }
 
     // MARK: Internet variable
-    @IBOutlet private var internetIndicator: UIImageView!
+    @IBOutlet private var internetIndicator: WifiIcon!
     var isConnectedToInternet = true {
         didSet {
-            internetIndicator.tintColor = isConnectedToInternet ? .green : .red
+            if isConnectedToInternet {
+                internetIndicator.connected()
+            } else {
+                internetIndicator.disconnected()
+            }
         }
     }
 
@@ -52,6 +56,7 @@ class ActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSoundButton()
         statsPanel.bringSubviewToFront(gpsIndicator)
         // Set the gpx file for MockCLLocationManager
         MockLocationConfiguration.GpxFileName = "bedok-reservior"
@@ -70,11 +75,30 @@ class ActivityViewController: UIViewController {
         }
     }
 
+    var soundButton: SoundButton?
+
+    private func setupSoundButton() {
+        let soundButton = SoundButton()
+        soundButton.addTarget(self, action: #selector(soundButtonPressed), for: .allTouchEvents)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: soundButton)
+        self.soundButton = soundButton
+        self.soundButton?.awakeFromNib()
+    }
+
+    @objc
+    private func soundButtonPressed() {
+        VoiceAssistant.muted = !VoiceAssistant.muted
+        if VoiceAssistant.muted {
+            soundButton?.mute()
+        } else {
+            soundButton?.unmute()
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.title = Titles.activity
         renderMapButton()
-        navigationItem.rightBarButtonItem = nil
     }
 
     /// Set up location manager from CoreLocation.

@@ -12,11 +12,19 @@ class WifiIcon: UIImageView {
     override func awakeFromNib() {
         super.awakeFromNib()
         //custom logic goes here
-        let origImage = UIImage(named: "wifi.png")
+        let origImage = UIImage(named: Images.wifiIcon)
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
         image = tintedImage
-        tintColor = UIColor.green
+        connected()
         superview?.bringSubviewToFront(self)
+    }
+
+    func connected() {
+        tintColor = .green
+    }
+
+    func disconnected() {
+        tintColor = .red
     }
 }
 
