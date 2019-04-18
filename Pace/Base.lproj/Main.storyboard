@@ -367,7 +367,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CIc-JA-d14" userLabel="Center Panel">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="217.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eha-AA-5Gj">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eha-AA-5Gj" customClass="WifiIcon" customModule="Pace" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="Btm-7t-OVr"/>
@@ -504,7 +504,7 @@
         <!--Delegate-->
         <scene sceneID="bNJ-LJ-3Qa">
             <objects>
-                <viewController storyboardIdentifier="SearchViewController" id="eT7-7X-N5l" customClass="DrawerViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchViewController" id="eT7-7X-N5l" customClass="RouteDrawerViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="rIa-bP-vpb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -573,6 +573,26 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="41" translatesAutoresizingMaskIntoConstraints="NO" id="eRz-jL-88r">
+                                                            <rect key="frame" x="283" y="60" width="107" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xzi-9Y-6te">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                                    <state key="normal" title="Left"/>
+                                                                    <connections>
+                                                                        <action selector="leftRoute:" destination="eT7-7X-N5l" eventType="touchUpInside" id="B9u-Hx-mvP"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fj-lf-G7i">
+                                                                    <rect key="frame" x="71" y="0.0" width="36" height="30"/>
+                                                                    <state key="normal" title="Right"/>
+                                                                    <connections>
+                                                                        <action selector="rightRoute:" destination="eT7-7X-N5l" eventType="touchUpInside" id="ecS-0H-2XI"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>

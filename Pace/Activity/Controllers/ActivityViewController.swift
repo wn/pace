@@ -56,7 +56,6 @@ class ActivityViewController: UIViewController {
         // Set the gpx file for MockCLLocationManager
         MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
-        setupWifiImage()
         googleMapView.setup(self)
         notificationToken = routes.observe { [unowned self]changes in
             switch changes {
@@ -71,19 +70,10 @@ class ActivityViewController: UIViewController {
         }
     }
 
-    func setupWifiImage() {
-        let origImage = UIImage(named: "wifi.png")
-        let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
-        internetIndicator.image = tintedImage
-        internetIndicator.tintColor = UIColor.green
-        statsPanel.bringSubviewToFront(internetIndicator)
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.title = Titles.activity
         renderMapButton()
-        setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
         navigationItem.rightBarButtonItem = nil
     }
 
@@ -100,7 +90,6 @@ class ActivityViewController: UIViewController {
             preferredStyle: .alert)
 
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
         loadingIndicator.style = UIActivityIndicatorView.Style.gray
         loadingIndicator.startAnimating()
 
@@ -121,6 +110,76 @@ class ActivityViewController: UIViewController {
         }
     }
 
+    private func renderMapButton() {
+        let startXPos = googleMapView.layer.frame.midX
+        let startYPos = googleMapView.frame.height - mapButton.frame.height
+        mapButton.center = CGPoint(x: startXPos, y: startYPos)
+        googleMapView.addSubview(mapButton)
+        googleMapView.bringSubviewToFront(mapButton)
+        setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
+    }
+
+    func setMapButton(imageUrl: String, action: Selector) {
+        mapButton.removeTarget(nil, action: nil, for: .allEvents)
+        let startImage = UIImage(named: imageUrl)
+        mapButton.setImage(startImage, for: .normal)
+        mapButton.addTarget(self, action: action, for: .touchUpInside)
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+extension ActivityViewController: CLLocationManagerDelegate {
+    /// Function from CLLocationManagerDelegate.
+    /// Check if there was any change to the authorization level
+    /// for location and handle the change.
+    ///
+    /// - Parameters:
+    ///   - manager: The location manager for the view-controller.
+    ///   - status: The newly set location authorization level.
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            return
+        }
+        coreLocationManager.requestAlwaysAuthorization()
+    }
+
+    /// Function from CLLocationManagerDelegate.
+    /// Used to update run location for ongoingRun
+    ///
+    /// - Parameters:
+    ///   - manager: The location manager for the view-controller.
+    ///   - locations: The new location.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard runStarted, let location = locations.last else {
+            return
+        }
+        //        if isMapLock {
+        //            // Set to current location
+        //            googleMapView.setCameraPosition(location.coordinate)
+        //            googleMapView.animate(toZoom: Constants.initialZoom)
+        //        }
+        let accuracy = location.horizontalAccuracy
+        gpsIndicator.setStrength(accuracy)
+        guard accuracy < Constants.guardAccuracy else {
+            return
+        }
+        ongoingRun?.addNewLocation(location, atTime: stopwatch.timeElapsed)
+        googleMapView.addPositionToRoute(location.coordinate)
+    }
+
+    /// Function from CLLocationManagerDelegate.
+    /// Function to handle failure in retrieving location.
+    ///
+    /// - Parameters:
+    ///   - manager: The location manager for the view-controller.
+    ///   - error: Error message.
+    func locationManager(_ manager: CLLocationManager,
+                         didFailWithError error: Error) {
+        gpsIndicator.setStrength(-1)
+    }
+}
+
+extension ActivityViewController: RouteRenderer {
     private func insertRoute(route: Route) {
         routesManager.getRunsFor(route: route)
         // we insert the route to every zoom level for aggregated viewing of routes.
@@ -183,102 +242,35 @@ class ActivityViewController: UIViewController {
             latitudeMax: 90,
             longitudeMin: -180,
             longitudeMax: 180) {
-            if let error = $0 {
-                print(error.localizedDescription)
-            }
+                if let error = $0 {
+                    print(error.localizedDescription)
+                }
         }
-//        for gridNumber in gridNumbers where routesInGrid[gridNumber] == nil {
-//            let bound = gridMapManager.getBounds(gridId: gridNumber)
-//            routesManager.fetchRoutesWithin(
-//                latitudeMin: bound.minLat,
-//                latitudeMax: bound.maxLat,
-//                longitudeMin: bound.minLong,
-//                longitudeMax: bound.maxLong) {
-//                if let error = $0 {
-//                    print(error.localizedDescription)
-//                }
-//            }
-//        }
+        //        for gridNumber in gridNumbers where routesInGrid[gridNumber] == nil {
+        //            let bound = gridMapManager.getBounds(gridId: gridNumber)
+        //            routesManager.fetchRoutesWithin(
+        //                latitudeMin: bound.minLat,
+        //                latitudeMax: bound.maxLat,
+        //                longitudeMin: bound.minLong,
+        //                longitudeMax: bound.maxLong) {
+        //                if let error = $0 {
+        //                    print(error.localizedDescription)
+        //                }
+        //            }
+        //        }
     }
 
     func renderRoutes(_ routes: Set<Route>) {
-        // TODO: Render routes as a tableview
-        guard let route = routes.first else {
-            return
-        }
-        renderRoute(route)
+        showPullUpController()
+        pullUpDrawer.setupDrawer(routes)
     }
 
     func renderRoute(_ route: Route) {
         googleMapView.renderRoute(route)
-        showPullUpController()
-        pullUpDrawer.routeStats(route)
-    }
-
-    private func renderMapButton() {
-        let startXPos = googleMapView.layer.frame.midX
-        let startYPos = googleMapView.frame.height - mapButton.frame.height
-        mapButton.center = CGPoint(x: startXPos, y: startYPos)
-        googleMapView.addSubview(mapButton)
-        googleMapView.bringSubviewToFront(mapButton)
-    }
-
-    func setMapButton(imageUrl: String, action: Selector) {
-        mapButton.removeTarget(nil, action: nil, for: .allEvents)
-        let startImage = UIImage(named: imageUrl)
-        mapButton.setImage(startImage, for: .normal)
-        mapButton.addTarget(self, action: action, for: .touchUpInside)
     }
 }
 
-// MARK: - CLLocationManagerDelegate
-extension ActivityViewController: CLLocationManagerDelegate {
-    /// Function from CLLocationManagerDelegate.
-    /// Check if there was any change to the authorization level
-    /// for location and handle the change.
-    ///
-    /// - Parameters:
-    ///   - manager: The location manager for the view-controller.
-    ///   - status: The newly set location authorization level.
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            return
-        }
-        coreLocationManager.requestAlwaysAuthorization()
-    }
 
-    /// Function from CLLocationManagerDelegate.
-    /// Used to update run location for ongoingRun
-    ///
-    /// - Parameters:
-    ///   - manager: The location manager for the view-controller.
-    ///   - locations: The new location.
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard runStarted, let location = locations.last else {
-            return
-        }
-        //        if isMapLock {
-        //            // Set to current location
-        //            googleMapView.setCameraPosition(location.coordinate)
-        //            googleMapView.animate(toZoom: Constants.initialZoom)
-        //        }
-        let accuracy = location.horizontalAccuracy
-        gpsIndicator.setStrength(accuracy)
-        guard accuracy < Constants.guardAccuracy else {
-            return
-        }
-        ongoingRun?.addNewLocation(location, atTime: stopwatch.timeElapsed)
-        googleMapView.addPositionToRoute(location.coordinate)
-    }
-
-    /// Function from CLLocationManagerDelegate.
-    /// Function to handle failure in retrieving location.
-    ///
-    /// - Parameters:
-    ///   - manager: The location manager for the view-controller.
-    ///   - error: Error message.
-    func locationManager(_ manager: CLLocationManager,
-                         didFailWithError error: Error) {
-        gpsIndicator.setStrength(-1)
-    }
+protocol RouteRenderer {
+    func renderRoute(_ route: Route)
 }

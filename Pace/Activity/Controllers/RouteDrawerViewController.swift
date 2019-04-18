@@ -12,19 +12,28 @@ import RealmSwift
 import FacebookLogin
 import FacebookCore
 
-class DrawerViewController: PullUpController {
+class RouteDrawerViewController: PullUpController {
     var userSession: UserSessionManager?
-
-    @IBOutlet private var favouriteButton: FaveButton!
-    @IBOutlet private var numOfRunners: UILabel!
     var initialState: InitialState = .expanded
 
-    @IBOutlet private var startPoint: UILabel!
-    @IBOutlet private var endPoint: UILabel!
-    @IBOutlet private var createdBy: UILabel!
-    @IBOutlet private var distance: UILabel!
+    var showingRoutes: [Route] = []
+    var _viewingRouteIndex: Int?
+    var viewingRouteIndex: Int? {
+        get {
+            return _viewingRouteIndex
+        }
+        set {
+            guard !showingRoutes.isEmpty,
+                let val = newValue else {
+                    _viewingRouteIndex = nil
+                    return
+            }
+            _viewingRouteIndex = (val + showingRoutes.count) % showingRoutes.count
 
-    var viewingRoute: Route?
+            renderRouteStats()
+        }
+    }
+
     var getCurrentUser: User? {
         guard let uid = AccessToken.current?.userId else {
             return nil
@@ -32,7 +41,6 @@ class DrawerViewController: PullUpController {
         return RealmUserSessionManager.default.getRealmUser(uid)
     }
 
-    @IBOutlet private var runnersTableView: UITableView!
     var paces: [Run] = []
     let runnerCellIdentifier = "runnerCell"
 
@@ -40,27 +48,30 @@ class DrawerViewController: PullUpController {
         case contracted
         case expanded
     }
-
-    @objc
-    func startRoute(_ sender: UITapGestureRecognizer) {
-        guard let run = viewingRoute?.creatorRun else {
+    @IBAction func rightRoute(_ sender: UIButton) {
+        guard let currentIndex = viewingRouteIndex else {
             return
         }
-        guard (parent as? ActivityViewController)?.startingFollowRun(with: run) ?? false else {
-            UIAlertController.showMessage(
-                self,
-                msg: "You are too far away from the starting point of the route to start the route.")
+        viewingRouteIndex = currentIndex + 1
+    }
+    @IBAction func leftRoute(_ sender: UIButton) {
+        guard let currentIndex = viewingRouteIndex else {
             return
         }
-        closeDrawer()
+        viewingRouteIndex = currentIndex - 1
     }
 
     // MARK: - IBOutlets
-
+    @IBOutlet private var favouriteButton: FaveButton!
+    @IBOutlet private var numOfRunners: UILabel!
+    @IBOutlet private var startPoint: UILabel!
+    @IBOutlet private var endPoint: UILabel!
+    @IBOutlet private var createdBy: UILabel!
+    @IBOutlet private var distance: UILabel!
+    @IBOutlet private var runnersTableView: UITableView!
     @IBOutlet private weak var visualEffectView: UIVisualEffectView!
     @IBOutlet private weak var routeStatsContainerView: UIView!
     @IBOutlet private weak var expandedView: UIView!
-
     @IBOutlet private weak var searchSeparatorView: UIView! {
         didSet {
             searchSeparatorView.layer.cornerRadius = searchSeparatorView.frame.height / 2
@@ -80,7 +91,8 @@ class DrawerViewController: PullUpController {
         userSession = RealmUserSessionManager.default
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
                               height: min(UIScreen.main.bounds.height - 75, expandedView.frame.maxY))
-
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(startRoute(_:)))
+        routeStatsContainerView.addGestureRecognizer(tapGesture)
     }
 
     override func pullUpControllerWillMove(to stickyPoint: CGFloat) {
@@ -141,12 +153,33 @@ class DrawerViewController: PullUpController {
     }
 }
 
-extension DrawerViewController {
-    func routeStats(_ route: Route) {
-        guard let stats = route.generateStats() else {
+extension RouteDrawerViewController {
+    func setupDrawer(_ routes: Set<Route>) {
+        showingRoutes = Array(routes)
+        viewingRouteIndex = 0
+    }
+
+    var getViewingRoute: Route? {
+        guard !showingRoutes.isEmpty,
+            let viewingRouteIndex = viewingRouteIndex else {
+                return nil
+        }
+        return showingRoutes[viewingRouteIndex]
+    }
+
+    private func renderRoute() {
+        guard let route = getViewingRoute,
+            let delegate = (parent as? ActivityViewController) else {
+                return
+        }
+        delegate.renderRoute(route)
+    }
+
+    func renderRouteStats() {
+        guard let route = getViewingRoute,
+            let stats = route.generateStats() else {
             return
         }
-        viewingRoute = route
         stats.startingLocation.address { [unowned self] address in
             self.startPoint.text = "Start: \(address ?? "Unknown")"
         }
@@ -158,20 +191,30 @@ extension DrawerViewController {
         paces = route.paces.sorted { $0.timeSpent < $1.timeSpent }
         numOfRunners.text = "\(paces.count) 🏃🏻‍♂️"
 
-        // Add tap gesture to drawer
-        routeStatsContainerView.gestureRecognizers?.removeAll()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(startRoute(_:)))
-        routeStatsContainerView.addGestureRecognizer(tapGesture)
-
         runnersTableView.reloadData()
         // Set favourite flag
         let isFavourite = getCurrentUser?.isFavouriteRoute(route) ?? false
         favouriteButton.setSelected(selected: isFavourite, animated: false)
+        renderRoute()
+    }
+
+    @objc
+    func startRoute(_ sender: UITapGestureRecognizer) {
+        guard let run = getViewingRoute?.creatorRun else {
+            return
+        }
+        guard (parent as? ActivityViewController)?.startingFollowRun(with: run) ?? false else {
+            UIAlertController.showMessage(
+                self,
+                msg: "You are too far away from the starting point of the route to start the route.")
+            return
+        }
+        closeDrawer()
     }
 }
 
 /// MARK: - Runner's table configuration
-extension DrawerViewController: UITableViewDataSource, UITableViewDelegate {
+extension RouteDrawerViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return paces.count
     }
@@ -211,9 +254,10 @@ extension DrawerViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension DrawerViewController: FaveButtonDelegate {
+extension RouteDrawerViewController: FaveButtonDelegate {
     func faveButton(_ faveButton: FaveButton, didSelected selected: Bool) {
-        guard let currentRoute = viewingRoute else {
+        guard let currentRoute = getViewingRoute else {
+            faveButton.isSelected = false
             return
         }
         guard let user = getCurrentUser else {
