@@ -59,7 +59,6 @@ class Route: IdentifiableObject {
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
         let creator = UserReference(fromUser: runner)
         let initialRun = Run(runner: creator, checkpoints: Route.initialNormalize(runnerRecords))
-        // TODO: use real name for route
         self.init(creator: creator, name: Date().debugDescription, creatorRun: initialRun)
     }
 
