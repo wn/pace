@@ -63,8 +63,6 @@ class ActivityViewController: UIViewController {
         // Set the gpx file for MockCLLocationManager
         MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
-        setupWifiImage()
-        setupNotificationCenter()
         setupPersistDelegate()
         googleMapView.setup(self)
         notificationToken = routes.observe { [unowned self]changes in

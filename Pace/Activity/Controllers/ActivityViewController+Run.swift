@@ -19,7 +19,6 @@ extension ActivityViewController {
             return
         }
         startingRun()
-        startNotifications()
     }
 
     func resumeRun(run persistedRun: OngoingRun,
