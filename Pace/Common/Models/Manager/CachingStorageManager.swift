@@ -88,6 +88,17 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
+    func getRunsFor(user: User) {
+        storageAPI.fetchRunsForUser(user) { runs, error in
+            guard let runs = runs, error == nil else {
+                return
+            }
+            try! Realm.persistent.write {
+                Realm.persistent.add(runs, update: true)
+            }
+        }
+    }
+
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?) {
         do {
             try persistentRealm.write {

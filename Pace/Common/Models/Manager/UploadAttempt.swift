@@ -88,7 +88,7 @@ class UploadAttempt: Object {
                 }
             case .newRun(let run):
                 return { storageAPI, completion in
-                    storageAPI.uploadRun(run, forRoute: run.route, completion)
+                    storageAPI.uploadRun(run, forRoute: run.route!, completion)
                 }
             case .addFavourite(let user, let route):
                 return { storageAPI, completion in
