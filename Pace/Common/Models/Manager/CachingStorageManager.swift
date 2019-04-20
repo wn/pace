@@ -163,8 +163,9 @@ class CachingStorageManager: RealmStorageManager {
 
     /// Attempts to upload all objects
     private func attemptUploads() {
-        UploadAttempt.getAllIn(realm: persistentRealm).promiseChain(callback: { uploadAttempt, completion in
-            uploadAttempt.decodeAction()?.asAction(storageAPI) {
+        let asyncQueue = AsyncQueue(elements: UploadAttempt.getAllIn(realm: persistentRealm))
+        asyncQueue.promiseChain(callback: { uploadAttempt, completion in
+            uploadAttempt.decodeAction()?.asAction(self.storageAPI) {
                 if $0 == nil {
                     try! self.persistentRealm.write {
                         self.persistentRealm.delete(uploadAttempt)
