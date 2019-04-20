@@ -35,10 +35,10 @@ class FavouriteViewController: RequireLoginController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.loadData()
+        self.userDidLoad()
     }
 
-    override func loadData() {
+    override func userDidLoad() {
         guard let user = user else {
             // Reset data
             favouriteRoutes = List<Route>()

@@ -28,7 +28,7 @@ protocol RealmStorageManager {
 
     /// Attempts to fetch the runs for a specific User
     /// - Precondition: `user` must exist in a realm.
-    func getRunsFor(user: User)
+    func getRunsFor(user: User, _ completion: CompletionHandler?)
 
     /// Saves a new route.
     func saveNewRoute(_ route: Route, _ completion: CompletionHandler?)

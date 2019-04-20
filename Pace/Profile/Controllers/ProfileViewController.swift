@@ -16,72 +16,85 @@ class ProfileViewController: RequireLoginController {
 
     @IBOutlet private var runHistory: UICollectionView!
     @IBOutlet private var userStats: UserStatsView!
+    @IBOutlet private var historyLabel: UILabel!
 
-    private lazy var runs = {
-        return Realm.persistent.objects(Run.self).filter(self.runnerPredicate)
-            .sorted(byKeyPath: "dateCreated", ascending: false)
-    }()
-    private lazy var runnerPredicate = {
+    private var runs: Results<Run>?
+
+    private var runnerPredicate: NSPredicate {
         return NSPredicate(format: "runner.objectId == %@", user?.objectId ?? "")
-    }()
-    private var notificationToken: NotificationToken?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupNavigation()
     }
+    private var notificationToken: NotificationToken?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.loadData()
+        userDidLoad()
+        setupNavigation()
     }
 
-    override func loadData() {
+    override func userDidLoad() {
         guard let user = user else {
             runHistory.reloadData()
             return
         }
+        if runs == nil {
+            runs = Realm.persistent.objects(Run.self).filter(self.runnerPredicate)
+                .sorted(byKeyPath: "dateCreated", ascending: false)
+        }
         userStats.runs = runs
         userStats.calculateStats()
-        CachingStorageManager.default.getRunsFor(user: user)
-
-        notificationToken = runs.observe { [unowned self] _ in
+        setLabel(runs?.count ?? 0)
+        setupNavigation()
+        CachingStorageManager.default.getRunsFor(user: user, nil)
+        notificationToken?.invalidate()
+        notificationToken = runs?.observe { [unowned self] changes in
             self.runHistory.reloadData()
             self.userStats.calculateStats()
+            self.setLabel(self.runs?.count ?? 0)
         }
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        notificationToken?.invalidate()
+    }
+
     @objc
-    private func popupSettings() {
+    private func logout() {
         let loginManager = LoginManager()
         loginManager.logOut()
+        viewDidLoad()
     }
 
     private func setupNavigation() {
         navigationItem.title = Titles.profile
-        let image = UIImage(named: "settings.png")?.withRenderingMode(.alwaysOriginal)
-        let settingsButton = UIButton(type: .system)
-        let widthConstraint = settingsButton.widthAnchor.constraint(equalToConstant: 30)
-        let heightConstraint = settingsButton.heightAnchor.constraint(equalToConstant: 30)
-        widthConstraint.isActive = true
-        heightConstraint.isActive = true
-        settingsButton.setImage(image, for: .normal)
-        settingsButton.addTarget(self, action: #selector(popupSettings), for: .allTouchEvents)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
+        guard let _ = user else {
+            navigationItem.rightBarButtonItem = nil
+            return
+        }
+        let logoutButton = UIBarButtonItem(title: "Log Out",
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(logout))
+        navigationItem.rightBarButtonItem = logoutButton
+    }
+
+    private func setLabel(_ numRuns: Int) {
+        let count = runs?.count ?? 0
+        historyLabel.text = "Past Runs (\(count))"
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return runs.count
+        return runs?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView
             .dequeueReusableCell(withReuseIdentifier: Identifiers.runCell, for: indexPath) as! RunCollectionViewCell
-        cell.run = runs[indexPath.item]
+        cell.run = runs?[indexPath.item]
         return cell
     }
 
@@ -91,7 +104,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
             as? RunAnalysisController else {
             return
         }
-        runAnalysis.run = runs[indexPath.item]
+        runAnalysis.run = runs?[indexPath.item]
         navigationController?.pushViewController(runAnalysis, animated: true)
 
     }

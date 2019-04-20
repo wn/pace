@@ -22,8 +22,14 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="318.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gf4-PJ-ghg">
+                                <rect key="frame" x="185.5" y="406.5" width="43.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xSb-Gd-IpN" userLabel="RunHistory">
-                                <rect key="frame" x="0.0" y="414.5" width="414" height="398.5"/>
+                                <rect key="frame" x="0.0" y="435.5" width="414" height="377.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vyW-GF-MNs">
                                     <size key="itemSize" width="375" height="50"/>
@@ -49,10 +55,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xSb-Gd-IpN" firstAttribute="top" secondItem="YWI-XE-huj" secondAttribute="bottom" constant="8" id="5wc-EJ-tuJ"/>
                             <constraint firstItem="xSb-Gd-IpN" firstAttribute="bottom" secondItem="Uum-Dv-Wrc" secondAttribute="bottom" id="AVl-8D-Bn6"/>
+                            <constraint firstItem="gf4-PJ-ghg" firstAttribute="centerX" secondItem="5c6-Th-zjA" secondAttribute="centerX" id="IEQ-ed-ivI"/>
+                            <constraint firstItem="gf4-PJ-ghg" firstAttribute="top" secondItem="YWI-XE-huj" secondAttribute="bottom" id="Rfm-k7-9Xa"/>
                             <constraint firstItem="YWI-XE-huj" firstAttribute="leading" secondItem="Uum-Dv-Wrc" secondAttribute="leading" id="V6D-N4-KyP"/>
                             <constraint firstItem="YWI-XE-huj" firstAttribute="bottom" secondItem="Uum-Dv-Wrc" secondAttribute="bottom" multiplier="0.5" id="Vn0-af-ceb"/>
+                            <constraint firstItem="xSb-Gd-IpN" firstAttribute="top" secondItem="gf4-PJ-ghg" secondAttribute="bottom" constant="8" id="b2J-ZQ-BhT"/>
                             <constraint firstItem="YWI-XE-huj" firstAttribute="top" secondItem="Uum-Dv-Wrc" secondAttribute="top" id="cNE-KC-G0Z"/>
                             <constraint firstItem="YWI-XE-huj" firstAttribute="trailing" secondItem="Uum-Dv-Wrc" secondAttribute="trailing" id="maR-8V-NQd"/>
                             <constraint firstItem="xSb-Gd-IpN" firstAttribute="leading" secondItem="Uum-Dv-Wrc" secondAttribute="leading" id="tF3-Q9-zzb"/>
@@ -63,13 +71,14 @@
                     <tabBarItem key="tabBarItem" title="Profile" image="profile-icon" landscapeImage="profile-icon" largeContentSizeImage="profile-icon" id="mcB-RP-jyX"/>
                     <navigationItem key="navigationItem" id="2fQ-T4-Vwv"/>
                     <connections>
+                        <outlet property="historyLabel" destination="gf4-PJ-ghg" id="13r-j8-uTh"/>
                         <outlet property="runHistory" destination="xSb-Gd-IpN" id="LPy-DW-6wQ"/>
                         <outlet property="userStats" destination="YWI-XE-huj" id="R42-u2-G51"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QP2-Ql-hLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="726" y="-289"/>
+            <point key="canvasLocation" x="724.63768115942037" y="-289.28571428571428"/>
         </scene>
         <!--Run Collection Controller-->
         <scene sceneID="Uqp-cX-rMJ">
