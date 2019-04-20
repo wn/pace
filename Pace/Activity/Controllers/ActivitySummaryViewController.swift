@@ -62,8 +62,9 @@ class ActivitySummaryViewController: UIViewController {
 
     private func setupSaveButton() {
         let saveButton = SaveButton()
-        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .allTouchEvents)
+        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveButton)
+        saveButton.awakeFromNib()
     }
 
     @objc

@@ -57,6 +57,7 @@ class ActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSoundButton()
+        renderMapButton()
         statsPanel.bringSubviewToFront(gpsIndicator)
         // Set the gpx file for MockCLLocationManager
         MockLocationConfiguration.GpxFileName = "bedok-reservior"
@@ -79,7 +80,7 @@ class ActivityViewController: UIViewController {
 
     private func setupSoundButton() {
         let soundButton = SoundButton()
-        soundButton.addTarget(self, action: #selector(soundButtonPressed), for: .allTouchEvents)
+        soundButton.addTarget(self, action: #selector(soundButtonPressed), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: soundButton)
         self.soundButton = soundButton
         self.soundButton?.awakeFromNib()
@@ -98,7 +99,6 @@ class ActivityViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.title = Titles.activity
-        renderMapButton()
     }
 
     /// Set up location manager from CoreLocation.
