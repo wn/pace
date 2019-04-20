@@ -172,7 +172,6 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
-
     func retrieveAreaCount(areaCodes: [(String, Int)], _ errorHandler: CompletionHandler?) {
         areaCodes.forEach { areaCodeZoomLevel in
             let areaCode = AreaCounter.generateId(areaCodeZoomLevel)
