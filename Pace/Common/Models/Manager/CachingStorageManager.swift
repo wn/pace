@@ -120,6 +120,9 @@ class CachingStorageManager: RealmStorageManager {
                 run.routeId = route.objectId
                 route.paces.append(run)
             }
+            try Realm.persistent.write {
+                Realm.persistent.create(Run.self, value: run, update: true)
+            }
             let paceAction = PaceAction.newRun(run)
             UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
             attemptUploads()

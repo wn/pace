@@ -29,9 +29,11 @@ enum PaceAction {
         case .newRun(let run):
             return "\(RequestStrings.newRun.rawValue)\(PaceAction.delimiter)\(run.objectId)"
         case .addFavourite(let user, let route):
-            return "\(RequestStrings.addFavourite.rawValue)\(PaceAction.delimiter)" + "\(user.objectId)\(PaceAction.delimiter)\(route.objectId)"
+            return "\(RequestStrings.addFavourite.rawValue)\(PaceAction.delimiter)" +
+                "\(user.objectId)\(PaceAction.delimiter)\(route.objectId)"
         case .removeFavourite(let user, let route):
-            return "\(RequestStrings.addFavourite.rawValue)\(PaceAction.delimiter)" + "\(user.objectId)\(PaceAction.delimiter)\(route.objectId)"
+            return "\(RequestStrings.removeFavourite.rawValue)\(PaceAction.delimiter)" +
+                "\(user.objectId)\(PaceAction.delimiter)\(route.objectId)"
         }
     }
 
