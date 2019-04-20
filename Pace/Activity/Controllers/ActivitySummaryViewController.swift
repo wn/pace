@@ -42,7 +42,6 @@ class ActivitySummaryViewController: UIViewController {
         statsView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(analyse)))
         setupSaveButton()
         showStats()
-        // decide which button to render
     }
 
     @objc

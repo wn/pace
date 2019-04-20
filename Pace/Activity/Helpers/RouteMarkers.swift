@@ -35,7 +35,10 @@ class RouteMarkers: RouteMarkerHandler {
         return false
     }
 
-    func insertRoute(_ route: Route) {
+    func insertRoute(_ route: Route?) {
+        guard let route = route else {
+            return
+        }
         routes.insert(route)
     }
 
@@ -75,9 +78,9 @@ class RouteMarkers: RouteMarkerHandler {
         for (marker, markerRoutes) in routesInMarker {
             let count = markerRoutes.count
             if count < 18 {
-                marker.icon = UIImage(named: "\(markerRoutes.count)")
+                marker.icon = UIImage(named: "\(count)")
             } else {
-                marker.icon = UIImage(named: Constants.endFlag)
+                marker.icon = UIImage(named: Images.asterick)
             }
         }
     }

@@ -94,4 +94,5 @@ struct Images {
     static let soundIcon = "sound.png"
     static let muteIcon = "mute.png"
     static let wifiIcon = "wifi.png"
+    static let asterick = "asterick.png"
 }
