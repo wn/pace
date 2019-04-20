@@ -88,7 +88,7 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
-    func getRunsFor(user: User) {
+    func getRunsFor(user: User, _ completion: CompletionHandler?) {
         storageAPI.fetchRunsForUser(user) { runs, error in
             guard let runs = runs, error == nil else {
                 return
@@ -96,6 +96,7 @@ class CachingStorageManager: RealmStorageManager {
             try! Realm.persistent.write {
                 Realm.persistent.add(runs, update: true)
             }
+            completion?(error)
         }
     }
 

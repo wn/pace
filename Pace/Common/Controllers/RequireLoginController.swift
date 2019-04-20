@@ -69,11 +69,12 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
     func loadUser(with uid: String) {
         user = RealmUserSessionManager.default.getRealmUser(uid)
         guard user == nil else {
+            userDidLoad()
             return
         }
         RealmUserSessionManager.default.findOrCreateUser(with: uid) { user, _ in
             self.user = user
-            self.loadData()
+            self.userDidLoad()
         }
     }
 
@@ -84,6 +85,7 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
                 return
             }
             loadUser(with: facebookId)
+            hideLoginView()
         default:
             break
         }
@@ -94,5 +96,5 @@ class RequireLoginController: UIViewController, LoginButtonDelegate {
     }
 
     /// To be overriden by subclass
-    func loadData() {}
+    func userDidLoad() {}
 }
