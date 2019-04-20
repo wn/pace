@@ -92,7 +92,7 @@ class Run: IdentifiableObject {
     /// - Parameter runnerRecords: the array of CheckPoints to be normalized.
     /// - Returns: an array of normalized CheckPoints.
     func normalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
-        return checkpoints.map { basePoint in
+        return checkpoints.compactMap { basePoint in
             basePoint.extractNormalizedPoint(from: runnerRecords)
         }
     }
