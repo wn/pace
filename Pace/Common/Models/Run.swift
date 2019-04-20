@@ -99,8 +99,8 @@ class Run: IdentifiableObject {
         guard let originalMaxDistance = checkpoints.last?.routeDistance else {
             fatalError("The checkpoints from the original Run should not be empty.")
         }
-        let outsidePoints = runnerRecords.filter { $0.routeDistance > originalMaxDistance }
-        guard let outsideStartDistance = outsidePoints.first?.routeDistance else {
+        let outsidePoints = runnerRecords.filter { $0.actualDistance > originalMaxDistance }
+        guard let outsideStartDistance = outsidePoints.first?.actualDistance else {
             // there are no outside points to be normalized
             return normalizedPoints
         }

@@ -75,7 +75,7 @@ class CheckPoint: Object {
     /// - Returns: the newly interpolated CheckPoint.
     static func interpolate(with currentDistance: Double, between left: CheckPoint,
                             and right: CheckPoint, on location: CLLocation?) -> CheckPoint {
-        let interpolateFraction = (currentDistance - left.routeDistance) / (right.routeDistance - left.routeDistance)
+        let interpolateFraction = (currentDistance - left.actualDistance) / (right.actualDistance - left.actualDistance)
         let newTime = left.time + (right.time - left.time) * interpolateFraction
         let newActualDistance = left.actualDistance + (right.actualDistance - left.actualDistance) * interpolateFraction
         if let newLocation = location {
@@ -86,7 +86,7 @@ class CheckPoint: Object {
             fatalError("Locations are uninitialised for the checkpoints.")
         }
         // location is not known, calculate it from interpolation
-        let distanceFromLeft = currentDistance - left.routeDistance
+        let distanceFromLeft = currentDistance - left.actualDistance
         let newLocation = CLLocation.interpolate(distance: distanceFromLeft,
                                                  between: leftLocation,
                                                  and: rightLocation)
