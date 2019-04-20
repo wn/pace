@@ -10,7 +10,9 @@ import UIKit
 import CoreLocation
 
 enum GraphComparisonMode: String, CaseIterable {
-    case speed, altitude, timeSpent
+    case speed = "Speed"
+    case altitude = "Altitude"
+    case timeSpent = "Duration"
 }
 
 class RunGraphView: UIView {
@@ -21,11 +23,11 @@ class RunGraphView: UIView {
     @IBOutlet private var yLineWidthConstraint: NSLayoutConstraint!
     @IBOutlet private var higherLabel: UILabel!
     @IBOutlet private var lowerLabel: UILabel!
-
+    @IBOutlet private var yAxisLabel: UILabel!
     private var drawContext: CGContext?
-    private var comparisonMode: GraphComparisonMode = .timeSpent
     private var upperBound: Double?
 
+    var comparisonMode: GraphComparisonMode = .timeSpent
     var currentRun: Run?
     var compareRun: Run?
 
@@ -113,6 +115,7 @@ class RunGraphView: UIView {
     }
 
     private func draw(run: Run?, color: UIColor, with drawContext: CGContext?) {
+        setYAxisLabel()
         // Draws the run based on the upperbound
         guard let run = run,
             let drawContext = drawContext else {
@@ -205,5 +208,16 @@ class RunGraphView: UIView {
             yMetric = "min"
         }
         return String(format: "%.2fkm, %.2f\(yMetric)", arguments: [xLabel, yLabel])
+    }
+
+    private func setYAxisLabel() {
+        switch comparisonMode {
+        case .speed:
+            yAxisLabel.text = "Speed"
+        case .altitude:
+            yAxisLabel.text = "Altitude"
+        case .timeSpent:
+            yAxisLabel.text = "Duration"
+        }
     }
 }
