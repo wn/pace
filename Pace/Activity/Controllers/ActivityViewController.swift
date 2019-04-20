@@ -149,15 +149,15 @@ class ActivityViewController: UIViewController {
         routeCountMarker.insertRoute(route)
     }
 
-    func redrawMarkers(_ grids: [GridNumber]) {
-        renderRouteMarkers(grids)
-        fetchRoutes(grids)
+    func redrawMarkers(_ grids: [GridNumber], zoomLevel: Int) {
+        renderRouteMarkers(grids, zoom: zoomLevel)
+        fetchRoutes(grids, zoom: zoomLevel)
     }
 
-    private func renderRouteMarkers(_ gridNumbers: [GridNumber]) {
+    private func renderRouteMarkers(_ gridNumbers: [GridNumber], zoom: Int) {
         renderedRouteMarkers.forEach { $0.derender() }
         renderedRouteMarkers.removeAll()
-        guard let allGridNumbers = gridNumberAtZoomLevel[googleMapView.nearestZoom] else {
+        guard let allGridNumbers = gridNumberAtZoomLevel[zoom] else {
             return
         }
         for gridNumber in gridNumbers {
@@ -172,7 +172,7 @@ class ActivityViewController: UIViewController {
     /// We only request for routes above our zoom level!
     /// We should not request for routes below our zoom level as it will bloat our
     /// memory when we zoom out to the whole world.
-    private func fetchRoutes(_ gridNumbers: [GridNumber]) {
+    private func fetchRoutes(_ gridNumbers: [GridNumber], zoom: Int) {
         // TODO:
         // 1. If zoom level < routes threshold, we fetch the 'nearest zoom' table.
         // 2. Else, we fetch the routes based on the bounds of the gridnumbers.
