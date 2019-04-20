@@ -13,7 +13,7 @@ extension Run: FirebaseStorable {
         return [
             "runnerId": runner?.objectId ?? "",
             "runnerName": runner?.name ?? "",
-            "routeId": routeId,
+            "routeId": routeId ?? "",
             "dateCreated": Timestamp(date: dateCreated),
             "checkPoints": Array(checkpoints.map { $0.asDictionary })
         ]

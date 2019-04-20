@@ -180,10 +180,10 @@
             </objects>
             <point key="canvasLocation" x="1622" y="512"/>
         </scene>
-        <!--Item-->
+        <!--Run Analysis Controller-->
         <scene sceneID="4Vz-5t-jLU">
             <objects>
-                <viewController storyboardIdentifier="runAnalysisController" id="5J6-NT-Xh0" customClass="RunAnalysisController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="runAnalysisController" id="5J6-NT-Xh0" userLabel="Run Analysis Controller" customClass="RunAnalysisController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aO0-y6-fHn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,32 +220,126 @@
             </objects>
             <point key="canvasLocation" x="725" y="512"/>
         </scene>
-        <!--GraphModePickerController-->
+        <!--GraphModeSelectController-->
         <scene sceneID="3sR-fr-05m">
             <objects>
-                <viewController id="1K2-Yv-afC" userLabel="GraphModePickerController" customClass="GraphModePickerController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GraphModeSelectController" title="Add" id="1K2-Yv-afC" userLabel="GraphModeSelectController" customClass="GraphModeSelectController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q5c-Wi-3gM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JXj-8F-HaO">
-                                <rect key="frame" x="47" y="340" width="320" height="216"/>
-                            </pickerView>
+                            <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fuj-TA-nal" userLabel="background">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2tb-JD-lCe">
+                                <rect key="frame" x="87" y="358" width="240" height="180"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="Sm9-JM-zgW"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="GBL-b3-gV7">
+                                    <size key="itemSize" width="240" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="modeViewCell" id="P9Q-53-auR" customClass="ModeViewCell" customModule="Pace" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNS-KC-RLU">
+                                                    <rect key="frame" x="99" y="14.5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jcy-AG-c34">
+                                                    <rect key="frame" x="-1" y="-1" width="242" height="51"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="jcy-AG-c34" firstAttribute="leading" secondItem="P9Q-53-auR" secondAttribute="leading" constant="-1" id="3la-v3-kwp"/>
+                                            <constraint firstItem="bNS-KC-RLU" firstAttribute="centerY" secondItem="P9Q-53-auR" secondAttribute="centerY" id="BOU-sG-W69"/>
+                                            <constraint firstItem="jcy-AG-c34" firstAttribute="trailing" secondItem="P9Q-53-auR" secondAttribute="trailing" constant="1" id="RBA-ro-RV9"/>
+                                            <constraint firstItem="jcy-AG-c34" firstAttribute="bottom" secondItem="P9Q-53-auR" secondAttribute="bottom" id="ogk-88-hgI"/>
+                                            <constraint firstItem="bNS-KC-RLU" firstAttribute="centerX" secondItem="P9Q-53-auR" secondAttribute="centerX" id="sBn-FS-f1J"/>
+                                            <constraint firstItem="jcy-AG-c34" firstAttribute="top" secondItem="P9Q-53-auR" secondAttribute="top" constant="-1" id="xcf-9u-C7m"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="border" destination="jcy-AG-c34" id="aHG-MY-bfs"/>
+                                            <outlet property="modeLabel" destination="bNS-KC-RLU" id="Phg-Xw-8ln"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="1K2-Yv-afC" id="CYO-Jf-eK0"/>
+                                    <outlet property="delegate" destination="1K2-Yv-afC" id="okL-mc-RRH"/>
+                                </connections>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5J-xV-sgA">
+                                <rect key="frame" x="87" y="546" width="240" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Udd-nz-n6P"/>
+                                </constraints>
+                                <state key="normal" title="Cancel"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="segueBack:" destination="1K2-Yv-afC" eventType="touchUpInside" id="UCE-af-XPS"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="JXj-8F-HaO" firstAttribute="centerX" secondItem="Q5c-Wi-3gM" secondAttribute="centerX" id="6c8-wm-F88"/>
-                            <constraint firstItem="JXj-8F-HaO" firstAttribute="centerY" secondItem="Q5c-Wi-3gM" secondAttribute="centerY" id="DTD-qT-W6W"/>
+                            <constraint firstItem="L5J-xV-sgA" firstAttribute="top" secondItem="2tb-JD-lCe" secondAttribute="bottom" constant="8" id="Agy-FN-C0Q"/>
+                            <constraint firstItem="BRP-cO-3hT" firstAttribute="trailing" secondItem="Fuj-TA-nal" secondAttribute="trailing" id="Ey5-Lm-iLt"/>
+                            <constraint firstItem="BRP-cO-3hT" firstAttribute="trailing" secondItem="2tb-JD-lCe" secondAttribute="trailing" constant="87" id="NdV-JS-WTC"/>
+                            <constraint firstItem="Fuj-TA-nal" firstAttribute="leading" secondItem="BRP-cO-3hT" secondAttribute="leading" id="fDp-S2-yNZ"/>
+                            <constraint firstItem="L5J-xV-sgA" firstAttribute="leading" secondItem="2tb-JD-lCe" secondAttribute="leading" id="iAY-e0-3oN"/>
+                            <constraint firstItem="2tb-JD-lCe" firstAttribute="leading" secondItem="BRP-cO-3hT" secondAttribute="leading" constant="87" id="jT7-fB-efe"/>
+                            <constraint firstItem="Fuj-TA-nal" firstAttribute="bottom" secondItem="BRP-cO-3hT" secondAttribute="bottom" id="ksK-EM-akt"/>
+                            <constraint firstItem="Fuj-TA-nal" firstAttribute="top" secondItem="BRP-cO-3hT" secondAttribute="top" id="qvt-sV-Zgt"/>
+                            <constraint firstItem="2tb-JD-lCe" firstAttribute="centerX" secondItem="Q5c-Wi-3gM" secondAttribute="centerX" id="swb-dq-hQf"/>
+                            <constraint firstItem="2tb-JD-lCe" firstAttribute="centerY" secondItem="Q5c-Wi-3gM" secondAttribute="centerY" id="vZO-8h-B5B"/>
+                            <constraint firstItem="L5J-xV-sgA" firstAttribute="trailing" secondItem="2tb-JD-lCe" secondAttribute="trailing" id="zpM-Qe-NV3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BRP-cO-3hT"/>
                     </view>
                     <connections>
-                        <outlet property="picker" destination="JXj-8F-HaO" id="Vvd-cM-gh1"/>
+                        <outlet property="cancelButton" destination="L5J-xV-sgA" id="aoF-d4-73T"/>
+                        <outlet property="optionsCollectionView" destination="2tb-JD-lCe" id="xUi-YV-lDv"/>
+                        <segue destination="U8U-2e-Oao" kind="unwind" identifier="unwindToRunAnalysisSegue" unwindAction="unwindToRunAnalysisWithSegue:" id="rpl-2J-WLH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o3S-65-Ii3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="U8U-2e-Oao" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2480" y="512"/>
+            <point key="canvasLocation" x="2479.7101449275365" y="511.60714285714283"/>
         </scene>
         <!--Favourites-->
         <scene sceneID="1S5-jh-rgF">

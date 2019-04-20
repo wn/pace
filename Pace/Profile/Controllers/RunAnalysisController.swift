@@ -22,7 +22,6 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = Titles.run
-        MockLocationConfiguration.GpxFileName = "bedok-reservior"
         googleMapView.setup(self)
         setupGestureRecognizers()
         setupPullupController()
@@ -38,6 +37,9 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
     private func setupGestureRecognizers() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         runGraph.addGestureRecognizer(panGestureRecognizer)
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        longPressGestureRecognizer.minimumPressDuration = 0.5
+        runGraph.addGestureRecognizer(longPressGestureRecognizer)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +70,21 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
         googleMapView.setCameraPosition(coordinate)
     }
 
+    @objc
+    func handleLongPress(_ recognizer: UILongPressGestureRecognizer) {
+        guard recognizer.state == .ended else {
+            return
+        }
+        let modeSelectVC = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
+            .instantiateViewController(withIdentifier: Identifiers.graphModeSelectController) as! GraphModeSelectController
+        modeSelectVC.modalPresentationStyle = .overCurrentContext
+        modeSelectVC.modalTransitionStyle = .crossDissolve
+        present(modeSelectVC, animated: true, completion: nil)
+    }
+
+    @IBAction func unwindToRunAnalysis(segue: UIStoryboardSegue) {
+    }
+
     private func setupPullupController() {
         let rcc: RunCollectionController = UIStoryboard(name: Identifiers.storyboard, bundle: nil)
             .instantiateViewController(withIdentifier: Identifiers.runCollectionController) as! RunCollectionController
@@ -81,6 +98,11 @@ class RunAnalysisController: UIViewController, GMSMapViewDelegate {
         rcc.height = UIScreen.main.bounds.height - self.googleMapView.frame.height
         rcc.delegate = self
         self.addPullUpController(rcc, initialStickyPointOffset: rcc.initialHeight + tabBarHeight, animated: true)
+    }
+
+    func changeGraphMode(_ mode: GraphComparisonMode) {
+        runGraph.mode = mode
+        runGraph.setNeedsDisplay()
     }
 }
 

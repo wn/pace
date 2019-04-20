@@ -66,6 +66,9 @@ struct Identifiers {
     static let runAnalysisController = "runAnalysisController"
     static let runCollectionController = "RunCollectionController"
     static let compareRunCell = "compareRunCell"
+    static let modeViewCell = "modeViewCell"
+    static let graphModeSelectController = "GraphModeSelectController"
+    static let unwindToRunAnalysisSegue = "unwindToRunAnalysisSegue"
 }
 
 struct Titles {
