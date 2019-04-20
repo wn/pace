@@ -51,15 +51,13 @@ extension ActivityViewController: PersistRunStateDelegate {
     }
 
     func checkForPersistedState() {
-        guard let persistedState = Realm.cache.objects(RunState.self).first else {
+        guard let persistedState = runStateManager.getPersistedState() else {
             return
         }
         // Load the persistedState
         guard let persistedRun = persistedState.ongoingRun else {
             return
         }
-
-        // TODO: Delete from cache
 
         resumeRun(run: persistedRun,
                   startedAt: persistedState.timeStarted,

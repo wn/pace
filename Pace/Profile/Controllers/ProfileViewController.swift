@@ -19,6 +19,7 @@ class ProfileViewController: RequireLoginController {
 
     private lazy var runs = {
         return Realm.persistent.objects(Run.self).filter(self.runnerPredicate)
+            .sorted(byKeyPath: "dateCreated", ascending: false)
     }()
     private lazy var runnerPredicate = {
         return NSPredicate(format: "runner.objectId == %@", user?.objectId ?? "")

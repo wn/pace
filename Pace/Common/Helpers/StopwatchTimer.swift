@@ -50,6 +50,7 @@ class StopwatchTimer {
         isPlaying = false
         timeElapsed = 0.0
         timeStarted = nil
+        offset = 0.0
     }
 
     @objc

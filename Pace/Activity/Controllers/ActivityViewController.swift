@@ -8,6 +8,7 @@ class ActivityViewController: UIViewController {
     // MARK: Realm variables
     let userSession = RealmUserSessionManager.default
     let routesManager: RealmStorageManager = CachingStorageManager.default
+    let runStateManager: RunStateManager = RealmRunStateManager.default
     lazy var routes = routesManager.inMemoryRealm.objects(Route.self)
     var notificationToken: NotificationToken?
 
@@ -54,6 +55,7 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         statsPanel.bringSubviewToFront(gpsIndicator)
         // Set the gpx file for MockCLLocationManager
+        MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
         setupWifiImage()
         setupNotificationCenter()
@@ -70,7 +72,6 @@ class ActivityViewController: UIViewController {
                 self.isConnectedToInternet = false
             }
         }
-        checkForPersistedState()
     }
 
     func setupWifiImage() {
@@ -87,6 +88,7 @@ class ActivityViewController: UIViewController {
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
         navigationItem.rightBarButtonItem = nil
+        checkForPersistedState()
     }
 
     /// Set up location manager from CoreLocation.

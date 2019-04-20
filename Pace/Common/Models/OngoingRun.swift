@@ -69,7 +69,9 @@ class OngoingRun: Object {
                                       time: time,
                                       actualDistance: newActualDistance,
                                       routeDistance: newActualDistance)
-            checkpoints.append(newPoint)
+            try! realm?.write {
+                checkpoints.append(newPoint)
+            }
             return
         }
         // handle follow run case
