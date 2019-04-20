@@ -9,10 +9,14 @@ import AVFoundation
 
 /// Voice assistant to convert text to speech.
 class VoiceAssistant {
+    static var muted = false
     static let voice = AVSpeechSynthesisVoice(language: "en-US")
     static let synth = AVSpeechSynthesizer()
 
     static func say(_ text: String) {
+        guard !muted else {
+            return
+        }
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = voice
         synth.speak(utterance)

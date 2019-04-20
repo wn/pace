@@ -43,7 +43,7 @@ class ProfileViewController: RequireLoginController {
         }
         userStats.runs = runs
         userStats.calculateStats()
-        RealmUserSessionManager.default.getRunsFor(user: user)
+        CachingStorageManager.default.getRunsFor(user: user)
 
         notificationToken = runs.observe { [unowned self] _ in
             self.runHistory.reloadData()

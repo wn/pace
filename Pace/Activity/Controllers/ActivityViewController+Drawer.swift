@@ -12,16 +12,16 @@ import GoogleMaps
 // MARK: - Extension for drawer
 extension ActivityViewController {
 
-    var currentDrawer: DrawerViewController? {
-        return children.first { $0 is DrawerViewController } as? DrawerViewController
+    var currentDrawer: RouteDrawerViewController? {
+        return children.first { $0 is RouteDrawerViewController } as? RouteDrawerViewController
     }
 
-    var pullUpDrawer: DrawerViewController {
-        let currentPullUpController = children.first { $0 is DrawerViewController } as? DrawerViewController
+    var pullUpDrawer: RouteDrawerViewController {
+        let currentPullUpController = children.first { $0 is RouteDrawerViewController } as? RouteDrawerViewController
         let pullUpController = currentPullUpController ??
             UIStoryboard(name: Identifiers.storyboard, bundle: nil)
             .instantiateViewController(withIdentifier: Identifiers.searchViewController)
-            as! DrawerViewController
+            as! RouteDrawerViewController
         if originalPullUpControllerViewSize == .zero {
             originalPullUpControllerViewSize = pullUpController.view.bounds.size
         }
@@ -29,7 +29,7 @@ extension ActivityViewController {
     }
 
     func showPullUpController() {
-        guard children.filter({ $0 is DrawerViewController }).isEmpty else {
+        guard children.filter({ $0 is RouteDrawerViewController }).isEmpty else {
             return
         }
         let pullUpController = pullUpDrawer

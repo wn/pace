@@ -15,11 +15,10 @@ struct Constants {
     // MARK: - MapView location constants
     // googleMapView constants
     static let initialZoom: Float = 17.5
-    static let mapAspectRatio: Double = 4 / 3
     // Horizontal accuracy must be greater than guardDistance for map to update
     static let guardAccuracy: CLLocationDistance = 25
     static let minZoom: Int = 12
-    static let maxZoom: Int = 19
+    static let maxZoom: Int = 18
     static var zoomLevels: [Int] {
         return Array(gridMaps.keys)
     }
@@ -33,7 +32,7 @@ struct Constants {
     static var gridMaps: [Int: GridMap] {
         guard
             let zoom13 = GridMap(width: 10_000, height: 10_000),
-            let zoom16 = GridMap(width: 800, height: 800),
+            let zoom16 = GridMap(width: 1600, height: 1600),
             let zoomMax = GridMap(width: 400, height: 400) else {
                 fatalError("We should not init GridMap with negative sides.")
         }
@@ -92,4 +91,7 @@ struct Xibs {
 
 struct Images {
     static let saveButton = "save.png"
+    static let soundIcon = "sound.png"
+    static let muteIcon = "mute.png"
+    static let wifiIcon = "wifi.png"
 }
