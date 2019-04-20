@@ -65,6 +65,7 @@
 		8B9F531222648B3100AFCB7C /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F531122648B3100AFCB7C /* UserSessionManager.swift */; };
 		8B9F531422648BC500AFCB7C /* FetchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F531322648BC500AFCB7C /* FetchHistory.swift */; };
 		8B9F53182264D65700AFCB7C /* UploadAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F53172264D65700AFCB7C /* UploadAttempt.swift */; };
+		8BD45330226AEFED00533270 /* PaceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4532F226AEFED00533270 /* PaceAction.swift */; };
 		8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */; };
 		8BD4C56F224F68BB00D0CEC7 /* List+Constructors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */; };
 		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
@@ -177,6 +178,7 @@
 		8B9F53172264D65700AFCB7C /* UploadAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAttempt.swift; sourceTree = "<group>"; };
 		8BA19E99225CDFDF009104F2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		8BA19EA1225E5B7A009104F2 /* UserReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReference.swift; sourceTree = "<group>"; };
+		8BD4532F226AEFED00533270 /* PaceAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceAction.swift; sourceTree = "<group>"; };
 		8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableObject.swift; sourceTree = "<group>"; };
 		8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+Constructors.swift"; sourceTree = "<group>"; };
 		8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				8BD4C57F2250FAB200D0CEC7 /* CachingStorageManager.swift */,
 				8B9F531322648BC500AFCB7C /* FetchHistory.swift */,
 				8B9F53172264D65700AFCB7C /* UploadAttempt.swift */,
+				8BD4532F226AEFED00533270 /* PaceAction.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -918,6 +921,7 @@
 				5C87C48B2261DF4B004ADD6C /* GpxParser.swift in Sources */,
 				8B9F531022648B0A00AFCB7C /* RealmStorageManager.swift in Sources */,
 				8B9F531222648B3100AFCB7C /* UserSessionManager.swift in Sources */,
+				8BD45330226AEFED00533270 /* PaceAction.swift in Sources */,
 				EBF87D78225CE9F0001B4056 /* GPSStrengthIndicator.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
