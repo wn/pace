@@ -12,7 +12,7 @@ import CoreLocation
 
 struct MockLocationConfiguration {
     // change the bool to toggle between fake and real location
-    static var isMocking = false
+    static var isMocking = true
     static var updateInterval = 0.5
     static var GpxFileName: String?
 }
