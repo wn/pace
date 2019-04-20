@@ -15,9 +15,9 @@ class UploadAttempt: Object {
     /// should be performed.
     @objc dynamic var attemptedAt: Double = 0
 
-    convenience init(requestType: PaceAction, attemptedAt: Date) {
+    convenience init(request: PaceAction, attemptedAt: Date) {
         self.init()
-        request = requestType.asString
+        self.request = request.asString
         self.attemptedAt = attemptedAt.timeIntervalSince1970
     }
 
@@ -30,5 +30,17 @@ class UploadAttempt: Object {
     static func getAllIn(realm: Realm) -> [UploadAttempt] {
         return Array(realm.objects(self))
             .sorted { $0.attemptedAt < $1.attemptedAt }
+    }
+
+    /// Add a new attempt
+    static func addNewAttempt(action: PaceAction, toRealm realm: Realm) {
+        let newAttempt = UploadAttempt(request: action, attemptedAt: Date(timeIntervalSinceNow: 0))
+        do {
+            try realm.write {
+                realm.add(newAttempt)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

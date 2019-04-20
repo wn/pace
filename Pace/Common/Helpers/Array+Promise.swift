@@ -19,7 +19,7 @@ extension Array {
     func promiseChain(callback: ElementCallback, errorHandler: ErrorHandler? = nil) {
         for element in self {
             let dispatchGroup = DispatchGroup()
-            var error: Error? = nil
+            var error: Error?
             dispatchGroup.enter()
             callback(element, {
                 error = $0

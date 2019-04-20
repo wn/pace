@@ -106,7 +106,9 @@ class CachingStorageManager: RealmStorageManager {
                 run?.routeId = route.objectId
                 persistentRealm.add(route)
             }
-            storageAPI.uploadRoute(route, completion)
+            let paceAction = PaceAction.newRoute(route)
+            UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            attemptUploads()
         } catch {
             print(error.localizedDescription)
         }
@@ -118,7 +120,9 @@ class CachingStorageManager: RealmStorageManager {
                 run.routeId = route.objectId
                 route.paces.append(run)
             }
-            storageAPI.uploadRun(run, forRoute: route, completion)
+            let paceAction = PaceAction.newRun(run)
+            UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            attemptUploads()
         } catch {
             print(error.localizedDescription)
         }
@@ -133,7 +137,9 @@ class CachingStorageManager: RealmStorageManager {
                 let newRoute = persistentRealm.create(Route.self, value: route, update: true)
                 user.favouriteRoutes.append(newRoute)
             }
-            storageAPI.addFavourite(route, toUser: user, completion)
+            let paceAction = PaceAction.addFavourite(user, route)
+            UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            attemptUploads()
         } catch {
             print(error.localizedDescription)
         }
@@ -147,18 +153,21 @@ class CachingStorageManager: RealmStorageManager {
             try persistentRealm.write {
                 user.favouriteRoutes.remove(at: indexToRemove)
             }
-            storageAPI.removeFavourite(route, fromUser: user, completion)
+            let paceAction = PaceAction.removeFavourite(user, route)
+            UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            attemptUploads()
         } catch {
             print(error.localizedDescription)
         }
     }
 
-    func attemptUpload() {
-        UploadAttempt.getAllIn(realm: persistentRealm).promiseChain(callback: { element, completion in
-            element.decodeAction()?.asAction(storageAPI) {
+    /// Attempts to upload all objects
+    private func attemptUploads() {
+        UploadAttempt.getAllIn(realm: persistentRealm).promiseChain(callback: { uploadAttempt, completion in
+            uploadAttempt.decodeAction()?.asAction(storageAPI) {
                 if $0 == nil {
                     try! self.persistentRealm.write {
-                        self.persistentRealm.delete(element)
+                        self.persistentRealm.delete(uploadAttempt)
                     }
                 }
                 completion($0)
