@@ -169,7 +169,7 @@ class OngoingRun: Object {
                 } else {
                     return result + [checkpoint]
                 }
-        }
+            }
         let coveredPercentage = Double(coveredPacePoints.count) / Double(uniqueDistancePoints.count)
         return coveredPercentage >= Constants.sameRoutePercentageOverlapThreshold
     }
