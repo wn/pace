@@ -153,8 +153,7 @@ class OngoingRun: Object {
     func classifiedAsFollow() -> Bool {
         guard
             let pacePoints = pacePoints,
-            let coveredPacePoints = coveredPacePoints,
-            let normalizedFollowPoints = paceRun?.normalize(checkpoints)
+            let normalizedFollowPoints = paceRun?.normalize(Array(checkpoints))
         else {
             return false
         }
