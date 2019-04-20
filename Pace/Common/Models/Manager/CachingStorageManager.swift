@@ -198,13 +198,14 @@ class CachingStorageManager: RealmStorageManager {
         areaCodes.forEach { areaCode in
             do {
                 let counterId = AreaCounter.generateId(areaCode)
-                guard let areaCounter =
-                    self.inMemoryRealm.object(ofType: AreaCounter.self, forPrimaryKey: counterId)
-                    else {
-                        return
-                }
+                var areaCounter = self.inMemoryRealm.object(ofType: AreaCounter.self, forPrimaryKey: counterId)
                 try self.inMemoryRealm.write {
-                    areaCounter.incrementCount()
+                    if areaCounter == nil {
+                        areaCounter = self.inMemoryRealm.create(AreaCounter.self,
+                                                                value: AreaCounter(geocode: counterId),
+                                                                update: true)
+                    }
+                    areaCounter?.incrementCount()
                 }
                 storageAPI.addRouteToArea(areaCode: counterId, route: route, errorHandler)
             } catch {

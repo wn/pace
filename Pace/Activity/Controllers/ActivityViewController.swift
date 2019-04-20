@@ -154,10 +154,11 @@ class ActivityViewController: UIViewController {
     }
 
     func addAreaCounter(_ areaCounter: AreaCounter) {
-        // TODO change zoomlevel and gridNumber to take from areaCounter
+        guard let zoomLevel = areaCounter.zoomLevel, let areaCode = areaCounter.geoCode else {
+            return
+        }
         let count = areaCounter.count
-        let zoomLevel = 10
-        let gridNumber = GridNumber("XXX")
+        let gridNumber = GridNumber(areaCode)
         guard var layer = gridNumberAtZoomLevel[zoomLevel] else {
             return
         }
@@ -225,7 +226,8 @@ class ActivityViewController: UIViewController {
     }
 
     private func fetchRouteCounter(_ gridNumbers: [GridNumber], zoomLevel: Int) {
-        // TODO: Request realm to fetch route counter
+        let areaCodes = gridNumbers.map { ($0.code, zoomLevel) }
+        routesManager.retrieveAreaCount(areaCodes: areaCodes, nil)
     }
 
     func renderRoutes(_ routes: Set<Route>) {

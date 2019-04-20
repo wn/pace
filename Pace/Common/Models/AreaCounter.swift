@@ -42,9 +42,7 @@ class AreaCounter: IdentifiableObject {
     }
 
     func incrementCount() {
-        try? self.realm?.write {
-            count += 1
-        }
+        count += 1
     }
 
     static func generateId(_ areaCode: (String, Int)) -> String {
