@@ -9,6 +9,7 @@
 import UIKit
 
 class StopwatchTimer {
+    var timeStarted: Date?
     var timeElapsed = 0.0
     var timer = Timer()
     var isPlaying = false
@@ -17,7 +18,7 @@ class StopwatchTimer {
         if isPlaying {
             return
         }
-
+        timeStarted = Date()
         timer = Timer.scheduledTimer(
             timeInterval: 0.1,
             target: self,
@@ -36,10 +37,14 @@ class StopwatchTimer {
         timer.invalidate()
         isPlaying = false
         timeElapsed = 0.0
+        timeStarted = nil
     }
 
     @objc
     func update() {
-        timeElapsed += 0.1
+        guard let timeStarted = timeStarted else {
+            return
+        }
+        timeElapsed = Date().timeIntervalSince(timeStarted)
     }
 }
