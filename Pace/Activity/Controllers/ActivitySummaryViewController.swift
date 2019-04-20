@@ -37,8 +37,9 @@ class ActivitySummaryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = Titles.runSummary
         statsView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(analyse)))
-        setupNavigation()
+        setupSaveButton()
         showStats()
         // decide which button to render
     }
@@ -59,17 +60,11 @@ class ActivitySummaryViewController: UIViewController {
         navigationController?.pushViewController(runAnalysis, animated: true)
     }
 
-    private func setupNavigation() {
-        navigationItem.title = Titles.runSummary
-        let image = UIImage(named: Images.saveButton)?.withRenderingMode(.alwaysOriginal)
-        let saveButton = UIButton(type: .system)
-        let widthConstraint = saveButton.widthAnchor.constraint(equalToConstant: 30)
-        let heightConstraint = saveButton.heightAnchor.constraint(equalToConstant: 30)
-        widthConstraint.isActive = true
-        heightConstraint.isActive = true
-        saveButton.setImage(image, for: .normal)
-        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .allTouchEvents)
+    private func setupSaveButton() {
+        let saveButton = SaveButton()
+        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveButton)
+        saveButton.awakeFromNib()
     }
 
     @objc
@@ -78,7 +73,7 @@ class ActivitySummaryViewController: UIViewController {
             return
         }
         // Guard against user whom are not logged i
-        guard let user = getCurrentUser else {
+        guard getCurrentUser != nil else {
             UIAlertController.showMessage(
                 self,
                 msg: "You need to be logged in to save your progress.")
