@@ -114,7 +114,7 @@ class CachingStorageManager: RealmStorageManager {
             let areaCodeZoomLevels = Constants.zoomLevels.map {
                 (GridMapManager.default.getGridManager(Float($0)).getGridId(startingLocation.coordinate).code, $0)
             }
-            self.addRouteToArea(areaCodes: areaCodeZoomLevels, route: route, errorHandler)
+            self.addRouteToArea(areaCodes: areaCodeZoomLevels, route: route, completion)
             attemptUploads()
         } catch {
             completion?(error)
@@ -215,7 +215,7 @@ class CachingStorageManager: RealmStorageManager {
     }
 
     /// Attempts to upload all objects
-    private func attemptUploads() {
+    private func attemptUploads(completion: @escaping () -> Void = {}) {
         let asyncQueue = AsyncQueue(elements: UploadAttempt.getAllIn(realm: persistentRealm))
         asyncQueue.promiseChain(callback: { uploadAttempt, completion in
             uploadAttempt.decodeAction()?.asAction(self.storageAPI) {
@@ -226,7 +226,7 @@ class CachingStorageManager: RealmStorageManager {
                 }
                 completion($0)
             }
-        })
+        }, completion: completion)
     }
 
 }
