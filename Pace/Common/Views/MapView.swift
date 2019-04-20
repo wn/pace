@@ -163,4 +163,15 @@ class MapView: GMSMapView {
     var nearestZoom: Int {
         return gridMapManager.getNearestZoom(zoom)
     }
+
+    var isMapLock = false {
+        willSet {
+            if newValue {
+                settings.setAllGesturesEnabled(false)
+                settings.zoomGestures = true
+            } else {
+                settings.setAllGesturesEnabled(true)
+            }
+        }
+    }
 }

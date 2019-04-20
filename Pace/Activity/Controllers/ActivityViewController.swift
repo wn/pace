@@ -23,6 +23,12 @@ class ActivityViewController: UIViewController {
     @IBAction private func endRunButton(_ sender: UIButton) {
         endRun(sender)
     }
+    @IBAction func lockMap(_ sender: UIButton) {
+        isMapLock = !isMapLock
+        if googleMapView.isMapLock, let position = coreLocationManager.location?.coordinate {
+            googleMapView.setCameraPosition(position)
+        }
+    }
 
     // MARK: Internet variable
     @IBOutlet private var internetIndicator: WifiIcon!
@@ -53,7 +59,7 @@ class ActivityViewController: UIViewController {
     var gridNumberAtZoomLevel: [Int: [GridNumber: RouteMarkerHandler]] =
         Constants.zoomLevels.reduce(into: [:]) { $0[$1] = [:] }
     var renderedRouteMarkers: [RouteMarkerHandler] = []
-    var maxZoom = Constants.maxZoom
+    @IBOutlet var lockMapButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +70,8 @@ class ActivityViewController: UIViewController {
         MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
         setupPersistDelegate()
+        setupWifiImage()
+        lockMapButton.setTitle("", for: .disabled)
         googleMapView.setup(self)
         notificationToken = routes.observe { [unowned self]changes in
             switch changes {
@@ -96,6 +104,26 @@ class ActivityViewController: UIViewController {
         } else {
             soundButton?.unmute()
         }
+    }
+
+    var isMapLock: Bool = true {
+        willSet {
+            if isMapLock {
+                googleMapView.isMapLock = true
+                lockMapButton.setTitle("Map locked", for: .normal)
+            } else {
+                googleMapView.isMapLock = false
+                lockMapButton.setTitle("Map unlocked", for: .normal)
+            }
+        }
+    }
+
+    func setupWifiImage() {
+        let origImage = UIImage(named: "wifi.png")
+        let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+        internetIndicator.image = tintedImage
+        internetIndicator.tintColor = UIColor.green
+        statsPanel.bringSubviewToFront(internetIndicator)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -225,7 +253,7 @@ extension ActivityViewController: RouteRenderer {
         let gridManager = gridMapManager.getGridManager(Float(zoomLevel))
         let gridId = gridManager.getGridId(startPoint)
         if gridNumberAtZoomLevel[zoomLevel]?[gridId] == nil {
-            if zoomLevel == maxZoom {
+            if zoomLevel == Constants.maxZoom {
                 gridNumberAtZoomLevel[zoomLevel]?[gridId] = RouteMarkers(map: googleMapView)
             } else {
                 gridNumberAtZoomLevel[zoomLevel]?[gridId] =
