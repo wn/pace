@@ -10,6 +10,26 @@ import RealmSwift
 
 class AreaCounter: IdentifiableObject {
     @objc dynamic var count: Int = 0
+    private static let delimiter: Character = "|"
+    var geoCode: String? {
+        let idStrings = objectId.split(separator: AreaCounter.delimiter,
+                                       maxSplits: 2,
+                                       omittingEmptySubsequences: true).map { String($0) }
+        guard idStrings.count == 2 else {
+            return nil
+        }
+        return idStrings[0]
+    }
+
+    var zoomLevel: Int? {
+        let idStrings = objectId.split(separator: AreaCounter.delimiter,
+                                       maxSplits: 2,
+                                       omittingEmptySubsequences: true).map { String($0) }
+        guard idStrings.count == 2, let result = Int(idStrings[1]) else {
+            return nil
+        }
+        return result
+    }
 
     convenience init(geocode: String, count: Int) {
         self.init()
@@ -28,7 +48,6 @@ class AreaCounter: IdentifiableObject {
     }
 
     static func generateId(_ areaCode: (String, Int)) -> String {
-        let delimiter = "|"
         return "\(areaCode.0)\(delimiter)\(areaCode.1)"
     }
 }

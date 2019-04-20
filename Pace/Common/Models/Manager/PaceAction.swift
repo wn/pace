@@ -43,7 +43,7 @@ enum PaceAction {
     }
 
     static func fromString(raw: String) -> PaceAction? {
-        let strings = raw.split(separator: delimiter, maxSplits: 3, omittingEmptySubsequences: true)
+        let strings = raw.split(separator: delimiter, maxSplits: 4, omittingEmptySubsequences: true)
             .map { String($0) }
         guard strings.count >= 2 else {
             return nil
@@ -110,7 +110,8 @@ enum PaceAction {
             }
         case .addRouteToArea(let areaCode, let route):
             return { storageAPI, completion in
-                storageAPI.addRouteToArea(areaCode: areaCode, route: route, completion)
+                let areaCodeString = AreaCounter.generateId(areaCode)
+                storageAPI.addRouteToArea(areaCode: areaCodeString, route: route, completion)
             }
         }
     }
