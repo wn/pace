@@ -198,19 +198,4 @@ extension PaceFirebaseAPI: PaceUserAPI {
             completion(routes, error)
         }
     }
-
-    func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
-        let query = PaceFirebaseAPI.runsRef
-            .whereField("runnerId", isEqualTo: user.objectId)
-        query.getDocuments { snapshot, err in
-            guard err == nil else {
-                completion(nil, err)
-                return
-            }
-            let runs = snapshot?.documents.compactMap {
-                Run.fromDictionary(objectId: $0.documentID, value: $0.data())
-            }
-            completion(runs, nil)
-        }
-    }
 }

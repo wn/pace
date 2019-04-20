@@ -29,7 +29,7 @@ struct Constants {
     static let startButton = "start-icon.png"
     static let endButton = "end-icon.png"
 
-    static var gridMaps: [Int: GridMap] {
+    static let gridMaps: [Int: GridMap] = {
         guard
             let zoom13 = GridMap(width: 10_000, height: 10_000),
             let zoom16 = GridMap(width: 1_600, height: 1_600),
@@ -37,7 +37,7 @@ struct Constants {
                 fatalError("We should not init GridMap with negative sides.")
         }
         return [13: zoom13, 16: zoom16, maxZoom: zoomMax]
-    }
+    }()
 
     static var defaultGridManager: GridMap {
         guard let defaultGM = gridMaps[maxZoom] else {
