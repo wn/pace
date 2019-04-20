@@ -122,6 +122,7 @@ class RouteDrawerViewController: PullUpController {
         userSession = RealmUserSessionManager.default
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
                               height: min(UIScreen.main.bounds.height - 75, expandedView.frame.maxY))
+        favouriteButton.delegate = self
         routeStatsContainerView.bringSubviewToFront(favouriteButton)
     }
 
@@ -272,7 +273,6 @@ extension RouteDrawerViewController: UITableViewDataSource, UITableViewDelegate 
 
 extension RouteDrawerViewController: FaveButtonDelegate {
     func faveButton(_ faveButton: FaveButton, didSelected selected: Bool) {
-
         guard let currentRoute = getViewingRoute else {
             faveButton.isSelected = false
             return
