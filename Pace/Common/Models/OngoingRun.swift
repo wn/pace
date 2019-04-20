@@ -8,19 +8,20 @@
 
 import Foundation
 import CoreLocation
+import RealmSwift
 
 // Represents an ongoing run, should not be persisted so not following realm syntax.
-class OngoingRun {
-    let runner: User?
+class OngoingRun: Object {
+    @objc dynamic var runner: User?
     // checkpoints from the current runner
-    var checkpoints: [CheckPoint]
+    var checkpoints = List<CheckPoint>()
     // the properties of the run that is being followed.
-    let paceRun: Run?
+    @objc dynamic var paceRun: Run?
     var pacePoints: [CheckPoint]? {
         return paceRun.map { Array($0.checkpoints) }
     }
     // keep track of the checkpoints in paceRun that are covered so far. (only for follow run)
-    var coveredPacePoints: Set<CheckPoint>?
+    var coveredPacePoints = List<CheckPoint>()
     // check this property for the deviating status.
     var isDeviated = false
     // to be rendered in views
@@ -36,13 +37,14 @@ class OngoingRun {
     /// - Parameters:
     ///   - runner: The runner of this OngoingRun.
     ///   - startingLocation: The starting location of this OngoingRun.
-    ///   - paceRun: An optional of the Run that the runner is following.
-    init(runner: User?, startingLocation: CLLocation, paceRun: Run? = nil) {
+    ///   - paceRun: An optional of the Runm that the runner is following.
+    convenience init(runner: User?, startingLocation: CLLocation, paceRun: Run? = nil) {
+        self.init()
         self.runner = runner
         let startingPoint = CheckPoint(location: startingLocation, time: 0, actualDistance: 0, routeDistance: 0)
-        self.checkpoints = [startingPoint]
+        self.checkpoints = List<CheckPoint>(contentsOf: [startingPoint])
         self.paceRun = paceRun
-        self.coveredPacePoints = paceRun.map { _ in Set<CheckPoint>() }
+        self.coveredPacePoints = List<CheckPoint>()
         markAsCovered(paceRun?.checkpoints.first)
     }
 
@@ -67,7 +69,7 @@ class OngoingRun {
                                       time: time,
                                       actualDistance: newActualDistance,
                                       routeDistance: newActualDistance)
-            checkpoints.append(newPoint)
+            addCheckpoint(newPoint)
             return
         }
         // handle follow run case
@@ -85,7 +87,27 @@ class OngoingRun {
             time: time,
             actualDistance: newActualDistance,
             routeDistance: newRouteDistance)
-        checkpoints.append(newPoint)
+        addCheckpoint(newPoint)
+    }
+
+    func addCheckpoint(_ checkpoint: CheckPoint) {
+        if let realm = realm {
+            try! realm.write {
+                checkpoints.append(checkpoint)
+            }
+        } else {
+            checkpoints.append(checkpoint)
+        }
+    }
+
+    func addCoveredPacePoint(_ pacepoint: CheckPoint) {
+        if let realm = realm {
+            try! realm.write {
+                coveredPacePoints.append(pacepoint)
+            }
+        } else {
+            coveredPacePoints.append(pacepoint)
+        }
     }
 
     /// Returns the most recent pacing stats.
@@ -124,10 +146,10 @@ class OngoingRun {
     /// - Precondition: This OngoingRun is a follow run.
     /// - Returns: true if this OngoingRun can be classified as a valid follow run.
     func classifiedAsFollow() -> Bool {
-        guard let pacePoints = pacePoints, let coveredPacePoints = coveredPacePoints else {
+        guard let pacePoints = pacePoints else {
             fatalError("This OngoingRun should be a follow run.")
         }
-        let coveredPercentage = Double(coveredPacePoints.count) / Double(pacePoints.count)
+        let coveredPercentage = Double(Set<CheckPoint>(coveredPacePoints).count) / Double(pacePoints.count)
         return coveredPercentage >= Constants.sameRoutePercentageOverlapThreshold
     }
 
@@ -141,7 +163,7 @@ class OngoingRun {
     /// - Precondition: (1) This OngoingRun is a follow run, and;
     ///                 (2) A certain amount of checkpoints in the paceRun have been covered.
     /// - Returns: The completed and normalized Run.
-    func toRun() -> Run? {
+    func toRun(_ routeId: String) -> Run? {
         guard let paceRun = paceRun else {
             fatalError("This OngoingRun should be a follow run.")
         }
@@ -151,8 +173,8 @@ class OngoingRun {
         guard let runner = runner else {
             return nil
         }
-        let normalizedPoints = paceRun.normalize(checkpoints)
-        return Run(runner: UserReference(fromUser: runner), checkpoints: normalizedPoints)
+        let normalizedPoints = paceRun.normalize(Array(checkpoints))
+        return Run(runner: UserReference(fromUser: runner), checkpoints: normalizedPoints, routeId: routeId)
     }
 
     /// Converts the OngoingRun to a new Route.
@@ -162,7 +184,7 @@ class OngoingRun {
     func toNewRoute() -> Route? {
         // If dummy is used, means user is not logged in. Route's runner should be optional
         let routeRunner = runner ?? Dummy.user
-        return Route(runner: routeRunner, runnerRecords: checkpoints)
+        return Route(runner: routeRunner, runnerRecords: Array(checkpoints))
     }
 
     /// Gets the last checkpoint passed with the newly added location.
@@ -199,6 +221,6 @@ class OngoingRun {
         guard pacePoints.contains(checkpoint) else {
             return
         }
-        coveredPacePoints?.insert(checkpoint)
+        addCoveredPacePoint(checkpoint)
     }
 }

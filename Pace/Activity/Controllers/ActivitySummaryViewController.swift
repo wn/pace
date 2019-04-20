@@ -19,6 +19,7 @@ class ActivitySummaryViewController: UIViewController {
     private var finishedRun: OngoingRun?
     private var finishedRoute: Route?
     private var routesManager = CachingStorageManager.default
+    private var runStateManager = RealmRunStateManager.default
     private var isSaved = false
 
     /// Set the necessary information for the summary. Called when initializing the summary.
@@ -77,20 +78,19 @@ class ActivitySummaryViewController: UIViewController {
             UIAlertController.showMessage(
                 self,
                 msg: "You need to be logged in to save your progress.")
+            runStateManager.clearRunState()
             return
         }
 
-        guard
-            let distance = finishedRun?.distanceSoFar,
+        guard let distance = finishedRun?.distanceSoFar,
             distance >= Constants.checkPointDistanceInterval else {
-                // Distance of the run is not long enough for saving
-                UIAlertController.showMessage(
-                    self,
-                    msg: "Distance covered is insufficient to be saved.")
-                return
+            // Distance of the run is not long enough for saving
+            UIAlertController.showMessage(self, msg: "Distance covered is insufficient to be saved.")
+            runStateManager.clearRunState()
+            return
         }
 
-        let followingRun = finishedRun?.paceRun?.route != nil
+        let followingRun = finishedRun?.paceRun?.routeId != nil
         var message = ""
         if followingRun {
             if finishedRun?.classifiedAsFollow() ?? false {
@@ -119,15 +119,16 @@ class ActivitySummaryViewController: UIViewController {
     }
 
     private func saveRun() {
-        guard
-            let finishedRun = finishedRun,
+        guard let finishedRun = finishedRun,
             let newRoute = finishedRun.toNewRoute() else {
             // run was not set up properly when initializing this VC
-                UIAlertController.showMessage(
-                    self,
-                    msg: "There is an error saving your route. Please try again later.")
+            UIAlertController.showMessage(self, msg: "There is an error saving your route. Please try again later.")
             return
         }
+
+        // Ensure that any persisted states are removed once the new route is created
+        runStateManager.clearRunState()
+
         routesManager.saveNewRoute(newRoute) {[unowned self] _ in
             self.isSaved = true
             UIAlertController.showMessage(self, msg: "Saved new route")
@@ -135,14 +136,15 @@ class ActivitySummaryViewController: UIViewController {
     }
 
     func saveFollowRun() {
-        guard
-            let finishedRun = finishedRun,
+        guard let finishedRun = finishedRun,
+            let parentRouteId = finishedRun.paceRun?.routeId,
             let parentRoute = finishedRun.paceRun?.route else {
-                return
+            runStateManager.clearRunState()
+            return
         }
 
         if finishedRun.classifiedAsFollow() { // save to the parent
-            guard let run = finishedRun.toRun() else {
+            guard let run = finishedRun.toRun(parentRouteId) else {
                 return
             }
             routesManager.saveNewRun(run, toRoute: parentRoute) { [unowned self] _ in

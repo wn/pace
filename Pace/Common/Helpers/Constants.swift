@@ -32,7 +32,7 @@ struct Constants {
     static var gridMaps: [Int: GridMap] {
         guard
             let zoom13 = GridMap(width: 10_000, height: 10_000),
-            let zoom16 = GridMap(width: 1600, height: 1600),
+            let zoom16 = GridMap(width: 1_600, height: 1_600),
             let zoomMax = GridMap(width: 400, height: 400) else {
                 fatalError("We should not init GridMap with negative sides.")
         }

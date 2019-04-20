@@ -65,13 +65,13 @@ class PaceFirebaseAPI: PaceStorageAPI {
         batch.commit(completion: completion)
     }
 
-    func uploadRun(_ run: Run, forRoute route: Route, _ completion: ((Error?) -> Void)?) {
+    func uploadRun(_ run: Run, forRouteId routeId: String, _ completion: ((Error?) -> Void)?) {
         let batch = PaceFirebaseAPI.rootRef.batch()
         // Set the data for the new run.
         let runDocumentRef = PaceFirebaseAPI.runsRef.document(run.objectId)
         batch.setData(run.asDictionary, forDocument: runDocumentRef, merge: true)
         // Add the pace into the route.
-        let routeDocumentRef = PaceFirebaseAPI.routesRef.document(route.objectId)
+        let routeDocumentRef = PaceFirebaseAPI.routesRef.document(routeId)
         batch.updateData(["runs": FieldValue.arrayUnion([run.objectId])], forDocument: routeDocumentRef)
         batch.commit(completion: completion)
     }

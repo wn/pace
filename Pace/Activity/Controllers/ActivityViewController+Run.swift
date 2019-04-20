@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import GoogleMaps
+import UserNotifications
 
 // MARK: - Running methods
 extension ActivityViewController {
@@ -18,6 +19,27 @@ extension ActivityViewController {
             return
         }
         startingRun()
+    }
+
+    func resumeRun(run persistedRun: OngoingRun,
+                   startedAt timeStarted: Date,
+                   interruptedAt timeInterrupted: Date,
+                   persistedOffset: Double) {
+        ongoingRun = persistedRun
+        guard let ongoingRun = ongoingRun else {
+            return
+        }
+        let offset = timeInterrupted.timeIntervalSince(timeStarted)
+        VoiceAssistant.say("Continuing Run")
+        coreLocationManager.startUpdatingLocation()
+        stopwatch.resume(with: persistedOffset + offset)
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun))
+        googleMapView.startRun(with: ongoingRun)
+        updateValues()
+        // If the terminated run was followin3g
+        if let _ = ongoingRun.paceRun {
+            updatePacingStats()
+        }
     }
 
     func startingRun() {
@@ -36,7 +58,7 @@ extension ActivityViewController {
             let paceRunStart = paceRun.startingLocation else {
                 return false
         }
-        guard startingLocation.isSameAs(other: paceRunStart) else {
+        guard startingLocation.isNear(paceRunStart, within: 25) else {
             return false
         }
         initiateRunPlot(at: startingLocation, following: paceRun)
@@ -88,6 +110,7 @@ extension ActivityViewController {
         showSummary()
 
         ongoingRun = nil
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         stopwatch.reset()
         coreLocationManager.stopUpdatingLocation()
         updateLabels()

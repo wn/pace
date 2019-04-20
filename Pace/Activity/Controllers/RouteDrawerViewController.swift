@@ -51,7 +51,6 @@ class RouteDrawerViewController: PullUpController {
     @IBOutlet var prevRoute: UIButton!
     @IBOutlet var rightRoute: UIButton!
 
-
     var getCurrentUser: User? {
         guard let uid = AccessToken.current?.userId else {
             return nil
@@ -107,7 +106,6 @@ class RouteDrawerViewController: PullUpController {
         }
         closeDrawer()
     }
-
 
     var initialPointOffset: CGFloat {
         return routeStatsContainerView.frame.maxY

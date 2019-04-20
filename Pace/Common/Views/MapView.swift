@@ -57,6 +57,27 @@ class MapView: GMSMapView {
         renderFollowingRun(followingRun)
     }
 
+    /// Function to prepare view to resume the run
+    ///
+    /// - Parameter run: the existing run
+    func startRun(with run: OngoingRun) {
+        clearRoutes()
+        clear()
+        if let firstPos = run.checkpoints.first?.location?.coordinate {
+            addMarker(Constants.startFlag, position: firstPos)
+        }
+        for checkpoint in run.checkpoints {
+            guard let coordinate = checkpoint.location?.coordinate else {
+                continue
+            }
+            path.add(coordinate)
+        }
+        guard let followingRun = run.paceRun else {
+            return
+        }
+        renderFollowingRun(followingRun)
+    }
+
     private func renderFollowingRun(_ run: Run) {
         let checkpoints = run.checkpoints
         let followPath = GMSMutablePath()

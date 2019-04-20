@@ -8,6 +8,7 @@ class ActivityViewController: UIViewController {
     // MARK: Realm variables
     let userSession = RealmUserSessionManager.default
     let routesManager: RealmStorageManager = CachingStorageManager.default
+    let runStateManager: RunStateManager = RealmRunStateManager.default
     lazy var routes = routesManager.inMemoryRealm.objects(Route.self)
     var notificationToken: NotificationToken?
 
@@ -62,6 +63,7 @@ class ActivityViewController: UIViewController {
         // Set the gpx file for MockCLLocationManager
         MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
+        setupPersistDelegate()
         googleMapView.setup(self)
         notificationToken = routes.observe { [unowned self]changes in
             switch changes {
@@ -99,6 +101,10 @@ class ActivityViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.title = Titles.activity
+        renderMapButton()
+        setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
+        navigationItem.rightBarButtonItem = nil
+        checkForPersistedState()
     }
 
     /// Set up location manager from CoreLocation.
@@ -293,7 +299,6 @@ extension ActivityViewController: RouteRenderer {
         googleMapView.renderRoute(route)
     }
 }
-
 
 protocol RouteRenderer {
     func renderRoute(_ route: Route)

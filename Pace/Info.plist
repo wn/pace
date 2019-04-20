@@ -53,6 +53,7 @@
 	<string>For tracking user's lcoation</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
 		<string>fetch</string>
 		<string>location</string>
 		<string>remote-notification</string>
