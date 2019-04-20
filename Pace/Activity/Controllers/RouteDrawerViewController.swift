@@ -77,6 +77,19 @@ class RouteDrawerViewController: PullUpController {
             searchSeparatorView.layer.cornerRadius = searchSeparatorView.frame.height / 2
         }
     }
+    @IBAction func follow(_ sender: UIButton) {
+        guard let run = getViewingRoute?.creatorRun else {
+            return
+        }
+        guard (parent as? ActivityViewController)?.startingFollowRun(with: run) ?? false else {
+            UIAlertController.showMessage(
+                self,
+                msg: "You are too far away from the starting point of the route to start the route.")
+            return
+        }
+        closeDrawer()
+    }
+
 
     var initialPointOffset: CGFloat {
         return routeStatsContainerView.frame.maxY
@@ -91,8 +104,7 @@ class RouteDrawerViewController: PullUpController {
         userSession = RealmUserSessionManager.default
         portraitSize = CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
                               height: min(UIScreen.main.bounds.height - 75, expandedView.frame.maxY))
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(startRoute(_:)))
-        routeStatsContainerView.addGestureRecognizer(tapGesture)
+        routeStatsContainerView.bringSubviewToFront(favouriteButton)
     }
 
     override func pullUpControllerWillMove(to stickyPoint: CGFloat) {
@@ -197,20 +209,6 @@ extension RouteDrawerViewController {
         favouriteButton.setSelected(selected: isFavourite, animated: false)
         renderRoute()
     }
-
-    @objc
-    func startRoute(_ sender: UITapGestureRecognizer) {
-        guard let run = getViewingRoute?.creatorRun else {
-            return
-        }
-        guard (parent as? ActivityViewController)?.startingFollowRun(with: run) ?? false else {
-            UIAlertController.showMessage(
-                self,
-                msg: "You are too far away from the starting point of the route to start the route.")
-            return
-        }
-        closeDrawer()
-    }
 }
 
 /// MARK: - Runner's table configuration
@@ -256,6 +254,7 @@ extension RouteDrawerViewController: UITableViewDataSource, UITableViewDelegate 
 
 extension RouteDrawerViewController: FaveButtonDelegate {
     func faveButton(_ faveButton: FaveButton, didSelected selected: Bool) {
+
         guard let currentRoute = getViewingRoute else {
             faveButton.isSelected = false
             return
