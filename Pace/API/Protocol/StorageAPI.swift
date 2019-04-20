@@ -19,6 +19,9 @@ protocol PaceStorageAPI {
     /// Fetched the runs with the specific routeId
     func fetchRunsForRoute(_ routeId: String, _ completion: @escaping RunResultsHandler)
 
+    /// Fetched the runs for this route.
+    func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler)
+
     /// Adds the route upload action into the queue, and attempts it.
     func uploadRoute(_ route: Route, _ completion: ((Error?) -> Void)?)
 

@@ -9,32 +9,6 @@
 import RealmSwift
 import FacebookCore
 
-protocol UserSessionManager {
-    typealias BooleanHandler = (Bool) -> Void
-    typealias UserResultsHandler = (User?, Error?) -> Void
-
-    /// The current user in the session
-    var currentUser: User? { get }
-
-    /// Gets the user from its facebook uid
-    func getRealmUser(_ uid: String?) -> User?
-
-    /// Finds a user with an identifies, or optionally signs up the user/
-    func findOrCreateUser(with uid: String, _ completion: @escaping UserResultsHandler)
-
-    /// Attempts to fetch the runs for a specific User
-    /// - Precondition: `user` must exist in a realm.
-    func getRunsFor(user: User)
-
-    func getFavouriteRoutes(of user: User)
-
-    /// Adds to the favourites of the current user.
-    func addToFavourites(route: Route, to user: User?, _ completion: BooleanHandler?)
-
-    /// Removes the favourites from the current user.
-    func removeFromFavourites(route: Route, from user: User?, _ completion: BooleanHandler?)
-}
-
 class RealmUserSessionManager: UserSessionManager {
 
     static let `default` = RealmUserSessionManager()
@@ -129,16 +103,5 @@ class RealmUserSessionManager: UserSessionManager {
             success = false
         }
         completion?(success)
-    }
-
-    func getRunsFor(user: User) {
-        storageAPI.fetchRunsForUser(user) { runs, error in
-            guard let runs = runs, error == nil else {
-                return
-            }
-            try! Realm.persistent.write {
-                Realm.persistent.add(runs, update: true)
-            }
-        }
     }
 }
