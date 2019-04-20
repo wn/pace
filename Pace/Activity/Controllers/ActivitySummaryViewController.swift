@@ -29,7 +29,7 @@ class ActivitySummaryViewController: UIViewController {
         finishedRoute = finishedRun?.toNewRoute()
     }
 
-    var getCurrentUser: User? {
+    var currentUser: User? {
         guard let uid = AccessToken.current?.userId else {
             return nil
         }
@@ -44,6 +44,14 @@ class ActivitySummaryViewController: UIViewController {
         showStats()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let currentUser = currentUser else {
+            return
+        }
+        finishedRun?.runner = currentUser
+        finishedRoute?.creator = UserReference(fromUser: currentUser)
+    }
     @objc
     func analyse(_ sender: UIButton) {
         showRunAnalysis(finishedRoute?.creatorRun, finishedRun?.paceRun)
@@ -73,7 +81,7 @@ class ActivitySummaryViewController: UIViewController {
             return
         }
         // Guard against user whom are not logged i
-        guard getCurrentUser != nil else {
+        guard currentUser != nil else {
             UIAlertController.showMessage(
                 self,
                 msg: "You need to be logged in to save your progress.")
