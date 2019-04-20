@@ -80,12 +80,16 @@ class Route: IdentifiableObject {
                           fastestTime: paces.min(ofProperty: "timeSpent"))
     }
 
-    static private func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
+    static func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
+        return normalizeFrom(distance: 0, for: runnerRecords)
+    }
+
+    static func normalizeFrom(distance currentDistance: Double, for runnerRecords: [CheckPoint]) -> [CheckPoint] {
         guard runnerRecords.count >= 2 else {
             // empty or only has one point recorded
             return runnerRecords
         }
-        var currentDistance: Double = 0
+        var currentDistance = currentDistance
         var leftPointIndex = 0
         var rightPointIndex = 1
         var normalizedCheckPoints = [CheckPoint]()
