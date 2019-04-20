@@ -62,7 +62,7 @@ class ProfileViewController: RequireLoginController {
     private func logout() {
         let loginManager = LoginManager()
         loginManager.logOut()
-        viewDidLoad()
+        viewWillAppear(true)
     }
 
     private func setupNavigation() {
