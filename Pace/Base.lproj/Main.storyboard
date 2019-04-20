@@ -575,9 +575,8 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="41" translatesAutoresizingMaskIntoConstraints="NO" id="eRz-jL-88r">
-                                                            <rect key="frame" x="283" y="60" width="107" height="30"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="41" translatesAutoresizingMaskIntoConstraints="NO" id="eRz-jL-88r">
+                                                            <rect key="frame" x="307" y="60" width="107" height="30"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xzi-9Y-6te">
                                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -601,9 +600,11 @@
                                                         <constraint firstItem="Evt-yl-RQt" firstAttribute="top" secondItem="oCz-U9-wRg" secondAttribute="bottom" id="2I5-Sl-YoK"/>
                                                         <constraint firstAttribute="bottom" secondItem="JmM-Sp-qVN" secondAttribute="bottom" id="5R1-5i-xJF"/>
                                                         <constraint firstAttribute="bottom" secondItem="knQ-vB-DCA" secondAttribute="bottom" id="Akb-Cp-KGf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="eRz-jL-88r" secondAttribute="trailing" id="I59-db-eAx"/>
                                                         <constraint firstItem="JmM-Sp-qVN" firstAttribute="top" secondItem="MGB-Om-BVt" secondAttribute="top" id="Ni9-yF-KNz"/>
                                                         <constraint firstAttribute="trailing" secondItem="knQ-vB-DCA" secondAttribute="trailing" id="Oh5-aa-Evc"/>
                                                         <constraint firstAttribute="trailing" secondItem="Evt-yl-RQt" secondAttribute="trailing" id="c2n-lZ-vpe"/>
+                                                        <constraint firstItem="eRz-jL-88r" firstAttribute="centerY" secondItem="MGB-Om-BVt" secondAttribute="centerY" id="kf9-LP-9lH"/>
                                                         <constraint firstAttribute="height" constant="150" id="n1r-3e-t3a"/>
                                                         <constraint firstItem="oCz-U9-wRg" firstAttribute="top" secondItem="MGB-Om-BVt" secondAttribute="top" id="s4O-iE-4jP"/>
                                                         <constraint firstItem="JmM-Sp-qVN" firstAttribute="leading" secondItem="MGB-Om-BVt" secondAttribute="leading" id="xjx-Aa-5vs"/>
