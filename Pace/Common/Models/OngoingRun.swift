@@ -53,8 +53,9 @@ class OngoingRun: Object {
     ///   - location: The location to be added.
     ///   - time: The time when the location should be added.
     func addNewLocation(_ location: CLLocation, atTime time: Double) {
-        guard let lastPoint = checkpoints.last, let lastLocation = lastPoint.location else {
-            fatalError("There should already be exisiting location in this ongoing run.")
+        guard let lastPoint = checkpoints.last,
+            let lastLocation = lastPoint.location else {
+            return
         }
         let distanceApart = location.distance(from: lastLocation)
         guard distanceApart > 0 else {
@@ -90,7 +91,7 @@ class OngoingRun: Object {
         addCheckpoint(newPoint)
     }
 
-    func addCheckpoint(_ checkpoint: CheckPoint) {
+    private func addCheckpoint(_ checkpoint: CheckPoint) {
         if let realm = realm {
             try! realm.write {
                 checkpoints.append(checkpoint)
@@ -100,7 +101,7 @@ class OngoingRun: Object {
         }
     }
 
-    func addCoveredPacePoint(_ pacepoint: CheckPoint) {
+    private func addCoveredPacePoint(_ pacepoint: CheckPoint) {
         if let realm = realm {
             try! realm.write {
                 coveredPacePoints.append(pacepoint)
@@ -114,16 +115,19 @@ class OngoingRun: Object {
     /// - Precondition: This is a follow run and this run is not deviating.
     /// - Returns: The most recent pacing stats; nil if the run is a new run or the run is deviating.
     func getPacingStats() -> PacingStats? {
-        guard let pacer = paceRun?.runner, let pacePoints = pacePoints, !isDeviated else {
+        guard let pacer = paceRun?.runner,
+            let pacePoints = pacePoints,
+            !isDeviated else {
             return nil
         }
-        guard let lastTravelledPoint = checkpoints.last, let lastTravelledLocation = lastTravelledPoint.location else {
-            fatalError("There should be existing points travelled.")
+        guard let lastTravelledPoint = checkpoints.last,
+            let lastTravelledLocation = lastTravelledPoint.location else {
+            return nil
         }
         // interpolate from the most recent pace point and its next point
-        guard let lastPassedPointIndex = pacePoints
-            .firstIndex(where: { $0.routeDistance == lastTravelledPoint.routeDistance }) else {
-            fatalError("Should be able to find a point with same routeDistance.")
+        guard let lastPassedPointIndex = pacePoints.firstIndex(where: {
+            $0.routeDistance == lastTravelledPoint.routeDistance }) else {
+            return nil
         }
         guard lastPassedPointIndex + 1 < pacePoints.endIndex else {
             // cannot find checkpoints interval in the paceRun which contains the current point
@@ -132,7 +136,7 @@ class OngoingRun: Object {
         let pastPacePoint = pacePoints[lastPassedPointIndex]
         let futurePacePoint = pacePoints[lastPassedPointIndex + 1]
         guard let pastPaceLocation = pastPacePoint.location else {
-            fatalError("The point should have an associated location.")
+            return nil
         }
         let currentDistance = pastPacePoint.routeDistance + lastTravelledLocation.distance(from: pastPaceLocation)
         let interpolatedPoint = CheckPoint.interpolate(with: currentDistance,
@@ -147,7 +151,7 @@ class OngoingRun: Object {
     /// - Returns: true if this OngoingRun can be classified as a valid follow run.
     func classifiedAsFollow() -> Bool {
         guard let pacePoints = pacePoints else {
-            fatalError("This OngoingRun should be a follow run.")
+            return false
         }
         let coveredPercentage = Double(Set<CheckPoint>(coveredPacePoints).count) / Double(pacePoints.count)
         return coveredPercentage >= Constants.sameRoutePercentageOverlapThreshold
@@ -164,13 +168,9 @@ class OngoingRun: Object {
     ///                 (2) A certain amount of checkpoints in the paceRun have been covered.
     /// - Returns: The completed and normalized Run.
     func toRun(_ routeId: String) -> Run? {
-        guard let paceRun = paceRun else {
-            fatalError("This OngoingRun should be a follow run.")
-        }
-        guard classifiedAsFollow() else {
-            fatalError("This OngoingRun should be classified as a valid follow run to the Route followed.")
-        }
-        guard let runner = runner else {
+        // Pace run should exist and checks the validity of the run
+        guard let paceRun = paceRun, classifiedAsFollow(),
+            let runner = runner else {
             return nil
         }
         let normalizedPoints = paceRun.normalize(Array(checkpoints))
@@ -193,14 +193,15 @@ class OngoingRun: Object {
     /// - Returns: The checkpoint passed by the new location with the largest routeDistance.
     ///            Nil if the new location does not pass the current point and any point further. (deviating)
     private func getLastCheckpointPassed(with newLocation: CLLocation) -> CheckPoint? {
-        guard let pacePoints = pacePoints, let lastTravelledPoint = checkpoints.last else {
-            fatalError("This run should be a follow run.")
+        guard let pacePoints = pacePoints,
+            let lastTravelledPoint = checkpoints.last else {
+            return nil
         }
         var lastPointPassed: CheckPoint?
         // loop through the last passed and yet passted pacePoints
         for baselinePoint in pacePoints where baselinePoint.routeDistance >= lastTravelledPoint.routeDistance {
             guard let baselineLocation = baselinePoint.location else {
-                fatalError("Baseline checkpoints should have a location.")
+                continue
             }
             // TODO: adjust the threshold here for detecting nearby location
             if newLocation.isNear(baselineLocation, within: Constants.checkPointDistanceInterval) {

@@ -69,7 +69,7 @@ class Route: IdentifiableObject {
         var runners = Set<UserReference>()
         for run in paces {
             guard let runner = run.runner else {
-                fatalError("A run should have a runner.")
+                continue
             }
             runners.insert(runner)
         }
