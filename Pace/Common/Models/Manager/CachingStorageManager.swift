@@ -152,4 +152,17 @@ class CachingStorageManager: RealmStorageManager {
             print(error.localizedDescription)
         }
     }
+
+    func attemptUpload() {
+        UploadAttempt.getAllIn(realm: persistentRealm).promiseChain(callback: { element, completion in
+            element.decodeAction()?.asAction(storageAPI) {
+                if $0 == nil {
+                    try! self.persistentRealm.write {
+                        self.persistentRealm.delete(element)
+                    }
+                }
+                completion($0)
+            }
+        })
+    }
 }
