@@ -47,7 +47,6 @@ class Run: IdentifiableObject {
     var totalDistance: Double? {
         return checkpoints.last?.routeDistance
     }
-    // TODO: test map and compactMap for Realm List
     var locations: [CLLocation] {
         return checkpoints.compactMap { $0.location }
     }

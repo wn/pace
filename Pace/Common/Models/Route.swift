@@ -59,7 +59,6 @@ class Route: IdentifiableObject {
     convenience init(runner: User, runnerRecords: [CheckPoint]) {
         let creator = UserReference(fromUser: runner)
         let initialRun = Run(runner: creator, checkpoints: Route.initialNormalize(runnerRecords))
-        // TODO: use real name for route
         self.init(creator: creator, name: Date().debugDescription, creatorRun: initialRun)
     }
 
@@ -69,7 +68,7 @@ class Route: IdentifiableObject {
         var runners = Set<UserReference>()
         for run in paces {
             guard let runner = run.runner else {
-                fatalError("A run should have a runner.")
+                continue
             }
             runners.insert(runner)
         }

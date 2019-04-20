@@ -10,7 +10,7 @@ import RealmSwift
 
 protocol RealmStorageManager {
     /// A Typealias for handling errors.
-    typealias ErrorHandler = (Error?) -> Void
+    typealias CompletionHandler = (Error?) -> Void
 
     /// The default (persistent) realm for this manager.
     var persistentRealm: Realm { get }
@@ -20,7 +20,7 @@ protocol RealmStorageManager {
 
     /// Attempts to fetch a route within this area.
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                           _ errorHandler: @escaping ErrorHandler)
+                           _ errorHandler: @escaping CompletionHandler)
 
     /// Attempts to fetch the runs for this specific Route.
     /// - Precondition: `route` must exist in a realm.
@@ -31,14 +31,14 @@ protocol RealmStorageManager {
     func getRunsFor(user: User)
 
     /// Saves a new route.
-    func saveNewRoute(_ route: Route, _ completion: ErrorHandler?)
+    func saveNewRoute(_ route: Route, _ completion: CompletionHandler?)
 
     /// Saves a new run.
-    func saveNewRun(_ run: Run, toRoute: Route, _ completion: ErrorHandler?)
+    func saveNewRun(_ run: Run, toRoute: Route, _ completion: CompletionHandler?)
 
     /// Adds a route to a user's favourites
-    func addFavouriteRoute(_ route: Route, toUser user: User, _ completion: ErrorHandler?)
+    func addFavouriteRoute(_ route: Route, toUser user: User, _ completion: CompletionHandler?)
 
     /// Removes a route from a user
-    func removeFavouriteRoute(_ route: Route, fromUser user: User, _ completion: ErrorHandler?)
+    func removeFavouriteRoute(_ route: Route, fromUser user: User, _ completion: CompletionHandler?)
 }

@@ -58,10 +58,8 @@ class CheckPoint: Object {
     /// - Returns: a normalized CheckPoint based on this CheckPoint.
     func extractNormalizedPoint(from samplePoints: [CheckPoint]) -> CheckPoint {
         let boundaryPoints = findAdjacentPoints(from: samplePoints)
-        guard let leftCp = boundaryPoints.0,
-            let rightCp = boundaryPoints.1 else {
-                fatalError("The sample points should contain this point in terms of routeDistance.")
-        }
+        let leftCp = boundaryPoints.0
+        let rightCp = boundaryPoints.1
         return CheckPoint.interpolate(with: self.routeDistance, between: leftCp, and: rightCp, on: self.location)
     }
 
@@ -98,7 +96,7 @@ class CheckPoint: Object {
     /// (by route distance) with smallest distance from the given array of CheckPoints.
     /// - Parameter checkPoints: the array of CheckPoints to choose from.
     /// - Returns: a tuple of two Optional CheckPoints. A CheckPoint in the tuple is nil if that bound cannot be found.
-    private func findAdjacentPoints(from checkPoints: [CheckPoint]) -> (CheckPoint?, CheckPoint?) {
+    private func findAdjacentPoints(from checkPoints: [CheckPoint]) -> (CheckPoint, CheckPoint) {
         var lowerBound = 0
         var upperBound = checkPoints.count - 1
         while upperBound - lowerBound > 1 {
