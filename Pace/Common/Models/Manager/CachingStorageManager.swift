@@ -33,7 +33,6 @@ class CachingStorageManager: RealmStorageManager {
                   storageAPI: PaceFirebaseAPI())
     }
 
-    // TODO: complete the implementation
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: @escaping CompletionHandler) {
         storageAPI.fetchRoutesWithin(latitudeMin: latitudeMin,
@@ -173,20 +172,6 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
-    /// Attempts to upload all objects
-    private func attemptUploads(_ uploadCompletion: @escaping () -> Void = {}) {
-        let asyncQueue = AsyncQueue(elements: UploadAttempt.getAllIn(realm: persistentRealm))
-        asyncQueue.promiseChain(callback: { uploadAttempt, completion in
-            uploadAttempt.decodeAction()?.asAction(self.storageAPI) {
-                if $0 == nil {
-                    try! self.persistentRealm.write {
-                        self.persistentRealm.delete(uploadAttempt)
-                    }
-                }
-                completion($0)
-            }
-        }, completion: uploadCompletion)
-    }
 
     func retrieveAreaCount(areaCodes: [(String, Int)], _ errorHandler: CompletionHandler?) {
         areaCodes.forEach { areaCodeZoomLevel in
@@ -227,4 +212,20 @@ class CachingStorageManager: RealmStorageManager {
             }
         }
     }
+
+    /// Attempts to upload all objects
+    private func attemptUploads() {
+        let asyncQueue = AsyncQueue(elements: UploadAttempt.getAllIn(realm: persistentRealm))
+        asyncQueue.promiseChain(callback: { uploadAttempt, completion in
+            uploadAttempt.decodeAction()?.asAction(self.storageAPI) {
+                if $0 == nil {
+                    try! self.persistentRealm.write {
+                        self.persistentRealm.delete(uploadAttempt)
+                    }
+                }
+                completion($0)
+            }
+        })
+    }
+
 }
