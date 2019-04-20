@@ -177,21 +177,6 @@ public struct GridNumber: Hashable {
                                       longitude: result.longitude.roundTo(places: 4))
     }
 }
-//    public static func test() -> Bool {
-//        let latitude: CLLocationDegrees = 23.123
-//        let longitude: CLLocationDegrees = 123.4567
-//
-//        for i in 0..<10000 {
-//            let newlat = latitude + 0.0001 * Double(i)
-//            let newlong = longitude + 0.0001 * Double(i)
-//            let gn = GridNumber(latitude: newlat, longitude: newlong)
-//            let result = GridNumber.decode(gn.encode())
-//            if result.latitude != gn.latitude.roundTo(places: 4) {
-//                print("WRONG: \(gn.latitude.roundTo(places: 4)), \(result.latitude)")
-//            }
-//        }
-//        return true
-//    }
 
 extension Double {
     func roundTo(places: Int) -> Double {

@@ -35,14 +35,14 @@ class CachingStorageManager: RealmStorageManager {
 
     // TODO: complete the implementation
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                           _ errorHandler: @escaping ErrorHandler) {
+                           _ completion: @escaping CompletionHandler) {
         storageAPI.fetchRoutesWithin(latitudeMin: latitudeMin,
                                      latitudeMax: latitudeMax,
                                      longitudeMin: longitudeMin,
                                      longitudeMax: longitudeMax) { routes, error in
             guard error == nil, let routes = routes else {
                 if let error = error {
-                    errorHandler(error)
+                    completion(error)
                 }
                 return
             }
@@ -99,7 +99,7 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
-    func saveNewRoute(_ route: Route, _ completion: ErrorHandler?) {
+    func saveNewRoute(_ route: Route, _ completion: CompletionHandler?) {
         do {
             try persistentRealm.write {
                 let run = route.creatorRun
@@ -110,11 +110,11 @@ class CachingStorageManager: RealmStorageManager {
             UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
             attemptUploads()
         } catch {
-            print(error.localizedDescription)
+            completion?(error)
         }
     }
 
-    func saveNewRun(_ run: Run, toRoute route: Route, _ completion: ErrorHandler?) {
+    func saveNewRun(_ run: Run, toRoute route: Route, _ completion: CompletionHandler?) {
         do {
             try route.realm?.write {
                 route.paces.append(run)
@@ -128,11 +128,11 @@ class CachingStorageManager: RealmStorageManager {
                 completion?(nil)
             }
         } catch {
-            print(error.localizedDescription)
+            completion?(error)
         }
     }
 
-    func addFavouriteRoute(_ route: Route, toUser user: User, _ completion: ErrorHandler?) {
+    func addFavouriteRoute(_ route: Route, toUser user: User, _ completion: CompletionHandler?) {
         do {
             if user.favouriteRoutes.contains(where: { $0.objectId == route.objectId }) {
                 return
@@ -145,11 +145,11 @@ class CachingStorageManager: RealmStorageManager {
             UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
             attemptUploads()
         } catch {
-            print(error.localizedDescription)
+            completion?(error)
         }
     }
 
-    func removeFavouriteRoute(_ route: Route, fromUser user: User, _ completion: ErrorHandler?) {
+    func removeFavouriteRoute(_ route: Route, fromUser user: User, _ completion: CompletionHandler?) {
         do {
             guard let indexToRemove = user.favouriteRoutes.firstIndex(where: { $0.objectId == route.objectId }) else {
                 return
@@ -161,7 +161,7 @@ class CachingStorageManager: RealmStorageManager {
             UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
             attemptUploads()
         } catch {
-            print(error.localizedDescription)
+            completion?(error)
         }
     }
 

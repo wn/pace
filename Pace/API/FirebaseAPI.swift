@@ -110,8 +110,8 @@ extension PaceFirebaseAPI: PaceUserAPI {
                 let user = User(name: name, uid: uid)
                 PaceFirebaseAPI.usersRef.document(user.objectId).setData(user.asDictionary)
                 completion(user, nil)
-            case .failed(let error):
-                print("Graph Request failed: \(error)")
+            default:
+                break
             }
         })
     }

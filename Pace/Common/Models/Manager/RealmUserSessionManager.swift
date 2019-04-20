@@ -67,41 +67,27 @@ class RealmUserSessionManager: UserSessionManager {
             }
             try! self.realm.write {
                 self.realm.add(routes, update: true)
-                print("Before update: \(user.favouriteRoutes)")
                 user.favouriteRoutes.removeAll()
                 user.favouriteRoutes.append(objectsIn: routes)
-                print("After update: \(user.favouriteRoutes)")
             }
         }
     }
 
     func addToFavourites(route: Route, to user: User?, _ completion: BooleanHandler?) {
-        var success = true
-        do {
-            guard let user = user else {
-                print("user not found")
-                throw NSError()
-            }
-            storageManager.addFavouriteRoute(route, toUser: user) { completion?($0 == nil) }
-        } catch {
-            print("Operation unsuccessful: \(error.localizedDescription)")
-            success = false
+        guard let user = user else {
+            return
         }
-        completion?(success)
+        storageManager.addFavouriteRoute(route, toUser: user) { error in
+            completion?(error == nil)
+        }
     }
 
     func removeFromFavourites(route: Route, from user: User?, _ completion: BooleanHandler?) {
-        var success = true
-        do {
-            guard let user = user else {
-                print("user not found")
-                throw NSError()
-            }
-            storageManager.removeFavouriteRoute(route, fromUser: user) { completion?($0 == nil) }
-        } catch {
-            print("Operation unsuccessful: \(error.localizedDescription)")
-            success = false
+        guard let user = user else {
+            return
         }
-        completion?(success)
+        storageManager.removeFavouriteRoute(route, fromUser: user) { error in
+            completion?(error == nil)
+        }
     }
 }
