@@ -207,7 +207,7 @@ class CachingStorageManager: RealmStorageManager {
                     }
                     areaCounter?.incrementCount()
                 }
-                storageAPI.addRouteToArea(areaCode: counterId, route: route, errorHandler)
+                UploadAttempt.addNewAttempt(action: .addRouteToArea(areaCode, route), toRealm: persistentRealm)
             } catch {
                 errorHandler?(error)
             }
