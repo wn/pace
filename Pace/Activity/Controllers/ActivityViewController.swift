@@ -54,9 +54,10 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         statsPanel.bringSubviewToFront(gpsIndicator)
         // Set the gpx file for MockCLLocationManager
-//        MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
         setupWifiImage()
+        setupNotificationCenter()
+        setupPersistDelegate()
         googleMapView.setup(self)
         notificationToken = routes.observe { [unowned self]changes in
             switch changes {
@@ -69,6 +70,7 @@ class ActivityViewController: UIViewController {
                 self.isConnectedToInternet = false
             }
         }
+        checkForPersistedState()
     }
 
     func setupWifiImage() {

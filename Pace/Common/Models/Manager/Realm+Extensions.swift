@@ -10,6 +10,13 @@ import RealmSwift
 
 extension Realm {
     static var persistent = try! Realm()
+
+    private static var cacheConfig: Configuration {
+        var config = Realm.Configuration()
+        config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("cache.realm")
+        return config
+    }
+    static var cache = try! Realm(configuration: cacheConfig)
     static var inMemory: Realm = {
         let configuration = Realm.Configuration(inMemoryIdentifier: "temp")
         return try! Realm(configuration: configuration)

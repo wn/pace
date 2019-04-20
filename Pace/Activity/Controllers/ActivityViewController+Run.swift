@@ -20,6 +20,23 @@ extension ActivityViewController {
         startingRun()
     }
 
+    func resumeRun(run persistedRun: OngoingRun,
+                   startedAt timeStarted: Date,
+                   interruptedAt timeInterrupted: Date,
+                   persistedOffset: Double) {
+        ongoingRun = persistedRun
+        let offset = timeInterrupted.timeIntervalSince(timeStarted)
+        VoiceAssistant.say("Continuing Run")
+        coreLocationManager.startUpdatingLocation()
+        stopwatch.resume(with: persistedOffset + offset)
+        setMapButton(imageUrl: Constants.endButton, action: #selector(endRun))
+        updateValues()
+        // If the terminated run was followin3g
+        if let _ = ongoingRun?.paceRun {
+            updatePacingStats()
+        }
+    }
+
     func startingRun() {
         guard let startLocation = coreLocationManager.location else {
             return

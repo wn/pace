@@ -18,6 +18,7 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var persistRunStateDelegate: PersistRunStateDelegate?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -70,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+        self.persistRunState()
     }
 
     // MARK: - Core Data stack
@@ -119,4 +121,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    func persistRunState() {
+        guard let state = persistRunStateDelegate?.generateRunState(),
+            let ongoingRun = state.ongoingRun else {
+            return
+        }
+
+        // Ensure that there is only one state after the new state is added
+        let existingStates = Realm.cache.objects(RunState.self)
+        try! Realm.cache.write {
+            Realm.cache.delete(existingStates)
+            Realm.cache.add(state)
+        }
+    }
 }

@@ -35,6 +35,7 @@
 		62A7C5C2224F6041009585D3 /* UserStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62A7C5C1224F6041009585D3 /* UserStatsView.xib */; };
 		62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7C5C3224F6053009585D3 /* UserStatsView.swift */; };
 		62BEC25E226A630A00EB0997 /* GraphModeSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BEC25D226A630A00EB0997 /* GraphModeSelectController.swift */; };
+		62BEC262226B219700EB0997 /* ActivityViewController+PersistRunStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BEC261226B219700EB0997 /* ActivityViewController+PersistRunStateController.swift */; };
 		62F9DD8B2255167300B5E1B5 /* RequireLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */; };
 		62FAA72D2257548D00906B32 /* RunGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FAA72C2257548D00906B32 /* RunGraphView.swift */; };
 		62FAA72F225754B300906B32 /* RunGraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62FAA72E225754B300906B32 /* RunGraphView.xib */; };
@@ -138,6 +139,7 @@
 		62A7C5C1224F6041009585D3 /* UserStatsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserStatsView.xib; sourceTree = "<group>"; };
 		62A7C5C3224F6053009585D3 /* UserStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatsView.swift; sourceTree = "<group>"; };
 		62BEC25D226A630A00EB0997 /* GraphModeSelectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphModeSelectController.swift; sourceTree = "<group>"; };
+		62BEC261226B219700EB0997 /* ActivityViewController+PersistRunStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityViewController+PersistRunStateController.swift"; sourceTree = "<group>"; };
 		62F9DD8A2255167300B5E1B5 /* RequireLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequireLoginController.swift; sourceTree = "<group>"; };
 		62FAA72C2257548D00906B32 /* RunGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunGraphView.swift; sourceTree = "<group>"; };
 		62FAA72E225754B300906B32 /* RunGraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RunGraphView.xib; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				EB5E42E22255080300A60207 /* ActivityViewController+Run.swift */,
 				EB5E42DB2253CEF400A60207 /* DrawerViewController.swift */,
 				EBAF2CB722492BD6000FCE0E /* ActivitySummaryViewController.swift */,
+				62BEC261226B219700EB0997 /* ActivityViewController+PersistRunStateController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -875,6 +878,7 @@
 				62667BEA225B4FE6001561EF /* RunCollectionController.swift in Sources */,
 				8B9E8C3B2261E3FE0067A556 /* FirebaseStorable.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
+				62BEC262226B219700EB0997 /* ActivityViewController+PersistRunStateController.swift in Sources */,
 				EB5E42DC2253CEF400A60207 /* DrawerViewController.swift in Sources */,
 				EB5F448522647CB200D73BE6 /* ActivityViewController+GMSMapDelegate.swift in Sources */,
 				62FAA73122579C3B00906B32 /* UIView+Extensions.swift in Sources */,

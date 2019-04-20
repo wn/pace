@@ -8,14 +8,15 @@
 
 import Foundation
 import CoreLocation
+import RealmSwift
 
 // Represents an ongoing run, should not be persisted so not following realm syntax.
-class OngoingRun {
-    let runner: User?
+class OngoingRun: Object {
+    var runner: User?
     // checkpoints from the current runner
-    var checkpoints: [CheckPoint]
+    var checkpoints = List<CheckPoint>()
     // the properties of the run that is being followed.
-    let paceRun: Run?
+    var paceRun: Run?
     var pacePoints: [CheckPoint]? {
         return paceRun.map { Array($0.checkpoints) }
     }
@@ -36,11 +37,12 @@ class OngoingRun {
     /// - Parameters:
     ///   - runner: The runner of this OngoingRun.
     ///   - startingLocation: The starting location of this OngoingRun.
-    ///   - paceRun: An optional of the Run that the runner is following.
-    init(runner: User?, startingLocation: CLLocation, paceRun: Run? = nil) {
+    ///   - paceRun: An optional of the Runm that the runner is following.
+    convenience init(runner: User?, startingLocation: CLLocation, paceRun: Run? = nil) {
+        self.init()
         self.runner = runner
         let startingPoint = CheckPoint(location: startingLocation, time: 0, actualDistance: 0, routeDistance: 0)
-        self.checkpoints = [startingPoint]
+        self.checkpoints = List<CheckPoint>(contentsOf: [startingPoint])
         self.paceRun = paceRun
         self.coveredPacePoints = paceRun.map { _ in Set<CheckPoint>() }
         markAsCovered(paceRun?.checkpoints.first)
@@ -151,7 +153,7 @@ class OngoingRun {
         guard let runner = runner else {
             return nil
         }
-        let normalizedPoints = paceRun.normalize(checkpoints)
+        let normalizedPoints = paceRun.normalize(Array(checkpoints))
         return Run(runner: UserReference(fromUser: runner), checkpoints: normalizedPoints)
     }
 
@@ -162,7 +164,7 @@ class OngoingRun {
     func toNewRoute() -> Route? {
         // If dummy is used, means user is not logged in. Route's runner should be optional
         let routeRunner = runner ?? Dummy.user
-        return Route(runner: routeRunner, runnerRecords: checkpoints)
+        return Route(runner: routeRunner, runnerRecords: Array(checkpoints))
     }
 
     /// Gets the last checkpoint passed with the newly added location.
