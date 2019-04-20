@@ -28,11 +28,29 @@ class RouteDrawerViewController: PullUpController {
                     viewingRouteIndexValue = nil
                     return
             }
-            viewingRouteIndexValue = (val + showingRoutes.count) % showingRoutes.count
-
+            let currIndex = (val + showingRoutes.count) % showingRoutes.count
+            viewingRouteIndexValue = currIndex
+            if viewingRouteIndexValue == 0 {
+                prevRoute.isEnabled = false
+                prevRoute.setTitle("<", for: .disabled)
+            } else {
+                prevRoute.isEnabled = true
+                prevRoute.setTitle("\(currIndex) <", for: .normal)
+            }
+            if viewingRouteIndexValue == showingRoutes.count - 1 {
+                rightRoute.isEnabled = false
+                rightRoute.setTitle(">", for: .disabled)
+            } else {
+                rightRoute.isEnabled = true
+                rightRoute.setTitle("> \(showingRoutes.count - currIndex - 1)", for: .normal)
+            }
             renderRouteStats()
         }
     }
+
+    @IBOutlet var prevRoute: UIButton!
+    @IBOutlet var rightRoute: UIButton!
+
 
     var getCurrentUser: User? {
         guard let uid = AccessToken.current?.userId else {

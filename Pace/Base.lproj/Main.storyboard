@@ -721,6 +721,8 @@
                         <outlet property="expandedView" destination="fo6-Up-uuL" id="Unp-em-oaO"/>
                         <outlet property="favouriteButton" destination="Evt-yl-RQt" id="IgP-Y1-k0J"/>
                         <outlet property="numOfRunners" destination="knQ-vB-DCA" id="XVe-yo-5Rk"/>
+                        <outlet property="prevRoute" destination="xzi-9Y-6te" id="JGb-5b-1N8"/>
+                        <outlet property="rightRoute" destination="8fj-lf-G7i" id="ZDl-Iu-h2T"/>
                         <outlet property="routeStatsContainerView" destination="MGB-Om-BVt" id="gat-Ae-Pex"/>
                         <outlet property="runnersTableView" destination="yQq-Ql-Jyt" id="rn9-mI-tRI"/>
                         <outlet property="searchSeparatorView" destination="oCz-U9-wRg" id="86I-Gy-w8Q"/>
