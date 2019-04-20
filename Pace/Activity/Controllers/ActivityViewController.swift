@@ -217,8 +217,8 @@ class ActivityViewController: UIViewController {
                 latitudeMax: bound.maxLat,
                 longitudeMin: bound.minLong,
                 longitudeMax: bound.maxLong) {
-                if let error = $0 {
-                    print(error.localizedDescription)
+                    if $0 != nil {
+                    self.isConnectedToInternet = false
                 }
             }
         }
