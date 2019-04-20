@@ -31,7 +31,7 @@ class RealmRunStateManager: RunStateManager {
         // Ensure that there are no other 
         clearRunState()
         try! cacheRealm.write {
-            Realm.cache.add(state)
+            Realm.cache.create(RunState.self, value: state, update: true)
         }
     }
 

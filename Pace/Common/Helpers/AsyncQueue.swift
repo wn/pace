@@ -24,15 +24,19 @@ struct AsyncQueue<Element> {
     }
 
     /// Chains promises on this array of elements. Breaks once a promise returns an error
-    func promiseChain(callback: @escaping ElementCallback, errorHandler: ErrorHandler? = nil) {
-        recursiveChaining(index: 0, asyncCall: callback, errorHandler: errorHandler)
+    func promiseChain(callback: @escaping ElementCallback,
+                      errorHandler: ErrorHandler? = nil,
+                      completion: @escaping () -> Void) {
+        recursiveChaining(index: 0, asyncCall: callback, errorHandler: errorHandler, completion: completion)
     }
 
     /// Recursively adds and chains callbacks to this array of actions.
     private func recursiveChaining(index: Int,
                                    asyncCall: @escaping ElementCallback,
-                                   errorHandler: ErrorHandler?) {
+                                   errorHandler: ErrorHandler?,
+                                   completion: @escaping () -> Void) {
         guard elements.indices.contains(index) else {
+            completion()
             return
         }
         asyncCall(elements[index]) { error in
@@ -40,7 +44,10 @@ struct AsyncQueue<Element> {
                 errorHandler?(error)
                 return
             }
-            self.recursiveChaining(index: index + 1, asyncCall: asyncCall, errorHandler: errorHandler)
+            self.recursiveChaining(index: index + 1,
+                                   asyncCall: asyncCall,
+                                   errorHandler: errorHandler,
+                                   completion: completion)
         }
     }
 }

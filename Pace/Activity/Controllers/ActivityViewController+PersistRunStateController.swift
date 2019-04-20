@@ -14,7 +14,7 @@ protocol PersistRunStateDelegate {
     func generateRunState() -> RunState?
 }
 
-class RunState: Object {
+class RunState: IdentifiableObject {
     @objc dynamic var ongoingRun: OngoingRun?
     @objc dynamic var timeStarted = Date()
     @objc dynamic var timeInterrupted = Date()

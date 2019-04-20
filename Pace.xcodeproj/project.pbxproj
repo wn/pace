@@ -476,8 +476,6 @@
 			children = (
 				8B9F530E22648AEE00AFCB7C /* Manager Protocols */,
 				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
-				8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */,
-				8BD4C57F2250FAB200D0CEC7 /* RealmStorageManager.swift */,
 				62FF311D226B627900847F2A /* RunStateManager.swift */,
 				8BD4C5812251011000D0CEC7 /* RealmUserSessionManager.swift */,
 				8BD4C57F2250FAB200D0CEC7 /* CachingStorageManager.swift */,

@@ -90,7 +90,7 @@ class ActivitySummaryViewController: UIViewController {
             return
         }
 
-        let followingRun = finishedRun?.paceRun?.route != nil
+        let followingRun = finishedRun?.paceRun?.routeId != nil
         var message = ""
         if followingRun {
             if finishedRun?.classifiedAsFollow() ?? false {
@@ -137,13 +137,14 @@ class ActivitySummaryViewController: UIViewController {
 
     func saveFollowRun() {
         guard let finishedRun = finishedRun,
+            let parentRouteId = finishedRun.paceRun?.routeId,
             let parentRoute = finishedRun.paceRun?.route else {
             runStateManager.clearRunState()
             return
         }
 
         if finishedRun.classifiedAsFollow() { // save to the parent
-            guard let run = finishedRun.toRun() else {
+            guard let run = finishedRun.toRun(parentRouteId) else {
                 return
             }
             routesManager.saveNewRun(run, toRoute: parentRoute) { [unowned self] _ in

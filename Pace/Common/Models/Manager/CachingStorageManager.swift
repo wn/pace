@@ -117,7 +117,6 @@ class CachingStorageManager: RealmStorageManager {
     func saveNewRun(_ run: Run, toRoute route: Route, _ completion: ErrorHandler?) {
         do {
             try route.realm?.write {
-                run.routeId = route.objectId
                 route.paces.append(run)
             }
             try Realm.persistent.write {
@@ -125,7 +124,9 @@ class CachingStorageManager: RealmStorageManager {
             }
             let paceAction = PaceAction.newRun(run)
             UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
-            attemptUploads()
+            attemptUploads() {
+                completion?(nil)
+            }
         } catch {
             print(error.localizedDescription)
         }
@@ -165,7 +166,7 @@ class CachingStorageManager: RealmStorageManager {
     }
 
     /// Attempts to upload all objects
-    private func attemptUploads() {
+    private func attemptUploads(_ uploadCompletion: @escaping () -> Void = {}) {
         let asyncQueue = AsyncQueue(elements: UploadAttempt.getAllIn(realm: persistentRealm))
         asyncQueue.promiseChain(callback: { uploadAttempt, completion in
             uploadAttempt.decodeAction()?.asAction(self.storageAPI) {
@@ -176,6 +177,6 @@ class CachingStorageManager: RealmStorageManager {
                 }
                 completion($0)
             }
-        })
+        }, completion: uploadCompletion)
     }
 }

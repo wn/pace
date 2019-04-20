@@ -58,7 +58,7 @@ extension ActivityViewController {
             let paceRunStart = paceRun.startingLocation else {
                 return false
         }
-        guard startingLocation.isSameAs(other: paceRunStart) else {
+        guard startingLocation.isNear(paceRunStart, within: 25) else {
             return false
         }
         initiateRunPlot(at: startingLocation, following: paceRun)
