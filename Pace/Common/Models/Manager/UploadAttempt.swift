@@ -34,7 +34,7 @@ class UploadAttempt: Object {
 
     /// Add a new attempt
     static func addNewAttempt(action: PaceAction, toRealm realm: Realm) {
-        let newAttempt = UploadAttempt(request: action, attemptedAt: Date(timeIntervalSinceNow: 0))
+        let newAttempt = UploadAttempt(request: action, attemptedAt: Date())
         do {
             try realm.write {
                 realm.add(newAttempt)
