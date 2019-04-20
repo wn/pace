@@ -22,6 +22,13 @@ class AreaCounter: IdentifiableObject {
     }
 
     func incrementCount() {
-        count += 1
+        try? self.realm?.write {
+            count += 1
+        }
+    }
+
+    static func generateId(_ areaCode: (String, Int)) -> String {
+        let delimiter = "|"
+        return "\(areaCode.0)\(delimiter)\(areaCode.1)"
     }
 }

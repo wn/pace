@@ -102,6 +102,9 @@ class CachingStorageManager: RealmStorageManager {
 
     func saveNewRoute(_ route: Route, _ completion: CompletionHandler?) {
         do {
+            guard let startingLocation = route.startingLocation else {
+                return
+            }
             try persistentRealm.write {
                 let run = route.creatorRun
                 run?.routeId = route.objectId
@@ -109,6 +112,10 @@ class CachingStorageManager: RealmStorageManager {
             }
             let paceAction = PaceAction.newRoute(route)
             UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            let areaCodeZoomLevels = Constants.zoomLevels.map {
+                (GridMapManager.default.getGridManager(Float($0)).getGridId(startingLocation.coordinate).code, $0)
+            }
+            self.incrementAreaCount(areaCodes: areaCodeZoomLevels, errorHandler)
             attemptUploads()
         } catch {
             completion?(error)
@@ -181,11 +188,12 @@ class CachingStorageManager: RealmStorageManager {
         }, completion: uploadCompletion)
     }
 
-    func retrieveAreaCount(areaCodes: [String]) {
-        areaCodes.forEach { areaCode in
+    func retrieveAreaCount(areaCodes: [(String, Int)], _ errorHandler: CompletionHandler?) {
+        areaCodes.forEach { areaCodeZoomLevel in
+            let areaCode = AreaCounter.generateId(areaCodeZoomLevel)
             storageAPI.fetchAreaRoutesCount(areaCode: areaCode) { result, error in
                 guard let result = result, error == nil else {
-                    print("Area fetch unsuccessful: \(error?.localizedDescription ?? "An unknown error occured")")
+                    errorHandler?(error)
                     return
                 }
                 do {
@@ -200,21 +208,23 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
-    func incrementAreaCount(areaCodes: [String], _ completion: ErrorHandler?) {
+    /// Increments the area count for an area code. This is done when
+    private func incrementAreaCount(areaCodes: [(String, Int)], _ errorHandler: CompletionHandler?) {
         areaCodes.forEach { areaCode in
             do {
+                let counterId = AreaCounter.generateId(areaCode)
                 guard let areaCounter =
-                    self.inMemoryRealm.object(ofType: AreaCounter.self, forPrimaryKey: areaCode)
+                    self.inMemoryRealm.object(ofType: AreaCounter.self, forPrimaryKey: counterId)
                     else {
                         return
                 }
                 try self.inMemoryRealm.write {
                     areaCounter.incrementCount()
                 }
+                storageAPI.incrementAreaRoutesCount(areaCode: counterId, errorHandler)
             } catch {
-                print(error.localizedDescription)
+                errorHandler?(error)
             }
-            storageAPI.incrementAreaRoutesCount(areaCode: areaCode, completion)
         }
     }
 }
