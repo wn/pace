@@ -115,7 +115,7 @@ class CachingStorageManager: RealmStorageManager {
             let areaCodeZoomLevels = Constants.zoomLevels.map {
                 (GridMapManager.default.getGridManager(Float($0)).getGridId(startingLocation.coordinate).code, $0)
             }
-            self.incrementAreaCount(areaCodes: areaCodeZoomLevels, errorHandler)
+            self.addRouteToArea(areaCodes: areaCodeZoomLevels, route: route, errorHandler)
             attemptUploads()
         } catch {
             completion?(error)
@@ -209,7 +209,7 @@ class CachingStorageManager: RealmStorageManager {
     }
 
     /// Increments the area count for an area code. This is done when
-    private func incrementAreaCount(areaCodes: [(String, Int)], _ errorHandler: CompletionHandler?) {
+    private func addRouteToArea(areaCodes: [(String, Int)], route: Route, _ errorHandler: CompletionHandler?) {
         areaCodes.forEach { areaCode in
             do {
                 let counterId = AreaCounter.generateId(areaCode)
@@ -221,7 +221,7 @@ class CachingStorageManager: RealmStorageManager {
                 try self.inMemoryRealm.write {
                     areaCounter.incrementCount()
                 }
-                storageAPI.incrementAreaRoutesCount(areaCode: counterId, errorHandler)
+                storageAPI.addRouteToArea(areaCode: counterId, route: route, errorHandler)
             } catch {
                 errorHandler?(error)
             }

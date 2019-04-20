@@ -85,7 +85,7 @@ class PaceFirebaseAPI: PaceStorageAPI {
                 guard snap.exists else {
                     return 0
                 }
-                return snap.data()?["count"] as? Int? ?? nil
+                return (snap.data()?["routes"] as? [String])?.count
             }
             completion(result ?? nil, error)
         }
@@ -123,7 +123,7 @@ class PaceFirebaseAPI: PaceStorageAPI {
         route.setData(["favouritedBy": FieldValue.arrayRemove([user.objectId])], merge: true, completion: completion)
     }
 
-    func incrementAreaRoutesCount(areaCode: String, _ completion: ((Error?) -> Void)?) {
+    func addRouteToArea(areaCode: String, route: Route, _ completion: ((Error?) -> Void)?) {
         let areaDoc = PaceFirebaseAPI.areasRef.document(areaCode)
         areaDoc.getDocument { snapshot, error in
             guard let snapshot = snapshot, error == nil else {
@@ -131,9 +131,9 @@ class PaceFirebaseAPI: PaceStorageAPI {
                 return
             }
             if snapshot.exists {
-                areaDoc.updateData(["count": FieldValue.increment(Double(1))], completion: completion)
+                areaDoc.updateData(["routes": FieldValue.arrayUnion([route.objectId])], completion: completion)
             } else {
-                areaDoc.setData(["count": 0], merge: true, completion: completion)
+                areaDoc.setData(["routes": [route.objectId]], merge: true, completion: completion)
             }
         }
     }

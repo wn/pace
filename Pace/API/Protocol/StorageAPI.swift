@@ -40,5 +40,5 @@ protocol PaceStorageAPI {
     func removeFavourite(_ route: Route, fromUser: User, _ completion: ((Error?) -> Void)?)
 
     /// Increments the count of runs in this area.
-    func incrementAreaRoutesCount(areaCode: String, _ completion: ((Error?) -> Void)?)
+    func addRouteToArea(areaCode: String, route: Route, _ completion: ((Error?) -> Void)?)
 }
