@@ -124,7 +124,7 @@ class CachingStorageManager: RealmStorageManager {
             }
             let paceAction = PaceAction.newRun(run)
             UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
-            attemptUploads() {
+            attemptUploads {
                 completion?(nil)
             }
         } catch {

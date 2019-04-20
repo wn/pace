@@ -300,7 +300,6 @@ extension ActivityViewController: RouteRenderer {
     }
 }
 
-
 protocol RouteRenderer {
     func renderRoute(_ route: Route)
 }
