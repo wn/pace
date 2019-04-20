@@ -46,7 +46,7 @@ class ProfileViewController: RequireLoginController {
         setupNavigation()
         CachingStorageManager.default.getRunsFor(user: user, nil)
         notificationToken?.invalidate()
-        notificationToken = runs?.observe { [unowned self] changes in
+        notificationToken = runs?.observe { [unowned self] _ in
             self.runHistory.reloadData()
             self.userStats.calculateStats()
             self.setLabel(self.runs?.count ?? 0)
