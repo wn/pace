@@ -9,40 +9,6 @@
 import RealmSwift
 import CoreLocation
 
-protocol RealmStorageManager {
-    /// A Typealias for handling errors.
-    typealias ErrorHandler = (Error?) -> Void
-
-    /// The default (persistent) realm for this manager.
-    var persistentRealm: Realm { get }
-
-    /// The default in-memory realm for this manager.
-    var inMemoryRealm: Realm { get }
-
-    /// Attempts to fetch a route within this area.
-    func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
-                           _ errorHandler: @escaping ErrorHandler)
-
-    /// Attempts to fetch the runs for this specific Route.
-    /// - Precondition: `route` must exist in a realm.
-    func getRunsFor(route: Route)
-
-    /// Fetches runs but loads it into non-persistent memory
-    func getRunsFor(routeId: String)
-
-    /// Saves a new route.
-    func saveNewRoute(_ route: Route, _ completion: ErrorHandler?)
-
-    /// Saves a new run.
-    func saveNewRun(_ run: Run, toRoute: Route, _ completion: ErrorHandler?)
-
-    /// Adds a route to a user's favourites
-    func addFavouriteRoute(_ route: Route, toUser user: User, _ completion: ErrorHandler?)
-
-    /// Removes a route from a user
-    func removeFavouriteRoute(_ route: Route, fromUser user: User, _ completion: ErrorHandler?)
-}
-
 class CachingStorageManager: RealmStorageManager {
 
     /// The default RealmStorageManager
@@ -122,6 +88,17 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
+    func getRunsFor(user: User) {
+        storageAPI.fetchRunsForUser(user) { runs, error in
+            guard let runs = runs, error == nil else {
+                return
+            }
+            try! Realm.persistent.write {
+                Realm.persistent.add(runs, update: true)
+            }
+        }
+    }
+
     func saveNewRoute(_ route: Route, _ completion: ErrorHandler?) {
         do {
             try persistentRealm.write {
@@ -129,7 +106,9 @@ class CachingStorageManager: RealmStorageManager {
                 run?.routeId = route.objectId
                 persistentRealm.add(route)
             }
-            storageAPI.uploadRoute(route, completion)
+            let paceAction = PaceAction.newRoute(route)
+            UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            attemptUploads()
         } catch {
             print(error.localizedDescription)
         }
@@ -141,7 +120,12 @@ class CachingStorageManager: RealmStorageManager {
                 run.routeId = route.objectId
                 route.paces.append(run)
             }
-            storageAPI.uploadRun(run, forRoute: route, completion)
+            try Realm.persistent.write {
+                Realm.persistent.create(Run.self, value: run, update: true)
+            }
+            let paceAction = PaceAction.newRun(run)
+            UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            attemptUploads()
         } catch {
             print(error.localizedDescription)
         }
@@ -156,7 +140,9 @@ class CachingStorageManager: RealmStorageManager {
                 let newRoute = persistentRealm.create(Route.self, value: route, update: true)
                 user.favouriteRoutes.append(newRoute)
             }
-            storageAPI.addFavourite(route, toUser: user, completion)
+            let paceAction = PaceAction.addFavourite(user, route)
+            UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            attemptUploads()
         } catch {
             print(error.localizedDescription)
         }
@@ -170,9 +156,26 @@ class CachingStorageManager: RealmStorageManager {
             try persistentRealm.write {
                 user.favouriteRoutes.remove(at: indexToRemove)
             }
-            storageAPI.removeFavourite(route, fromUser: user, completion)
+            let paceAction = PaceAction.removeFavourite(user, route)
+            UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            attemptUploads()
         } catch {
             print(error.localizedDescription)
         }
+    }
+
+    /// Attempts to upload all objects
+    private func attemptUploads() {
+        let asyncQueue = AsyncQueue(elements: UploadAttempt.getAllIn(realm: persistentRealm))
+        asyncQueue.promiseChain(callback: { uploadAttempt, completion in
+            uploadAttempt.decodeAction()?.asAction(self.storageAPI) {
+                if $0 == nil {
+                    try! self.persistentRealm.write {
+                        self.persistentRealm.delete(uploadAttempt)
+                    }
+                }
+                completion($0)
+            }
+        })
     }
 }

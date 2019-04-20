@@ -60,7 +60,7 @@ class ActivityViewController: UIViewController {
         renderMapButton()
         statsPanel.bringSubviewToFront(gpsIndicator)
         // Set the gpx file for MockCLLocationManager
-//        MockLocationConfiguration.GpxFileName = "bedok-reservior"
+        MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()
         googleMapView.setup(self)
         notificationToken = routes.observe { [unowned self]changes in

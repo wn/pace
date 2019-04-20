@@ -61,11 +61,17 @@
 		8B9E8C472261F66F0067A556 /* StorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C462261F66F0067A556 /* StorageAPI.swift */; };
 		8B9E8C49226210A30067A556 /* User+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C48226210A30067A556 /* User+Firebase.swift */; };
 		8B9E8C4B226211E60067A556 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9E8C4A226211E60067A556 /* Observable.swift */; };
+		8B9F531022648B0A00AFCB7C /* RealmStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F530F22648B0A00AFCB7C /* RealmStorageManager.swift */; };
+		8B9F531222648B3100AFCB7C /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F531122648B3100AFCB7C /* UserSessionManager.swift */; };
+		8B9F531422648BC500AFCB7C /* FetchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F531322648BC500AFCB7C /* FetchHistory.swift */; };
+		8B9F53182264D65700AFCB7C /* UploadAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9F53172264D65700AFCB7C /* UploadAttempt.swift */; };
+		8BD45330226AEFED00533270 /* PaceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4532F226AEFED00533270 /* PaceAction.swift */; };
+		8BD45332226AF80F00533270 /* AsyncQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD45331226AF80F00533270 /* AsyncQueue.swift */; };
 		8BD4C56D224F618800D0CEC7 /* IdentifiableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */; };
 		8BD4C56F224F68BB00D0CEC7 /* List+Constructors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */; };
 		8BD4C573224F7AA800D0CEC7 /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */; };
-		8BD4C5802250FAB200D0CEC7 /* RealmStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C57F2250FAB200D0CEC7 /* RealmStorageManager.swift */; };
-		8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */; };
+		8BD4C5802250FAB200D0CEC7 /* CachingStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C57F2250FAB200D0CEC7 /* CachingStorageManager.swift */; };
+		8BD4C5822251011000D0CEC7 /* RealmUserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C5812251011000D0CEC7 /* RealmUserSessionManager.swift */; };
 		8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */; };
 		8BD4C59A2257B4BF00D0CEC7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BD4C5992257B4BF00D0CEC7 /* GoogleService-Info.plist */; };
 		8BDFFF88224F482000F3BB3A /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDFFF87224F482000F3BB3A /* Run.swift */; };
@@ -170,13 +176,19 @@
 		8B9E8C462261F66F0067A556 /* StorageAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAPI.swift; sourceTree = "<group>"; };
 		8B9E8C48226210A30067A556 /* User+Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+Firebase.swift"; path = "Pace/API/User+Firebase.swift"; sourceTree = SOURCE_ROOT; };
 		8B9E8C4A226211E60067A556 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Observable.swift; path = Pace/Common/Helpers/Observable.swift; sourceTree = SOURCE_ROOT; };
+		8B9F530F22648B0A00AFCB7C /* RealmStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorageManager.swift; sourceTree = "<group>"; };
+		8B9F531122648B3100AFCB7C /* UserSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionManager.swift; sourceTree = "<group>"; };
+		8B9F531322648BC500AFCB7C /* FetchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHistory.swift; sourceTree = "<group>"; };
+		8B9F53172264D65700AFCB7C /* UploadAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAttempt.swift; sourceTree = "<group>"; };
 		8BA19E99225CDFDF009104F2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		8BA19EA1225E5B7A009104F2 /* UserReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReference.swift; sourceTree = "<group>"; };
+		8BD4532F226AEFED00533270 /* PaceAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceAction.swift; sourceTree = "<group>"; };
+		8BD45331226AF80F00533270 /* AsyncQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncQueue.swift; sourceTree = "<group>"; };
 		8BD4C56C224F618800D0CEC7 /* IdentifiableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableObject.swift; sourceTree = "<group>"; };
 		8BD4C56E224F68BB00D0CEC7 /* List+Constructors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+Constructors.swift"; sourceTree = "<group>"; };
 		8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
-		8BD4C57F2250FAB200D0CEC7 /* RealmStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorageManager.swift; sourceTree = "<group>"; };
-		8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSessionManager.swift; sourceTree = "<group>"; };
+		8BD4C57F2250FAB200D0CEC7 /* CachingStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingStorageManager.swift; sourceTree = "<group>"; };
+		8BD4C5812251011000D0CEC7 /* RealmUserSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmUserSessionManager.swift; sourceTree = "<group>"; };
 		8BD4C58B2255051700D0CEC7 /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
 		8BD4C58D2255213D00D0CEC7 /* FirebaseStorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorable.swift; sourceTree = "<group>"; };
 		8BD4C58F2256802100D0CEC7 /* Run+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Run+Firebase.swift"; sourceTree = "<group>"; };
@@ -321,6 +333,7 @@
 				8B2638DA225B979B004B52AB /* GridMap.swift */,
 				8B2638D8225B978F004B52AB /* GeoHash.swift */,
 				62559670225492C90036C2B9 /* StopwatchTimer.swift */,
+				8BD45331226AF80F00533270 /* AsyncQueue.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -456,9 +469,13 @@
 		62E626D42261BD60009079F5 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				8B9F530E22648AEE00AFCB7C /* Manager Protocols */,
 				8BD4C572224F7AA800D0CEC7 /* Realm+Extensions.swift */,
-				8BD4C5812251011000D0CEC7 /* UserSessionManager.swift */,
-				8BD4C57F2250FAB200D0CEC7 /* RealmStorageManager.swift */,
+				8BD4C5812251011000D0CEC7 /* RealmUserSessionManager.swift */,
+				8BD4C57F2250FAB200D0CEC7 /* CachingStorageManager.swift */,
+				8B9F531322648BC500AFCB7C /* FetchHistory.swift */,
+				8B9F53172264D65700AFCB7C /* UploadAttempt.swift */,
+				8BD4532F226AEFED00533270 /* PaceAction.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -509,6 +526,15 @@
 				8B9E8C412261E4C40067A556 /* UserAPI.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		8B9F530E22648AEE00AFCB7C /* Manager Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8B9F530F22648B0A00AFCB7C /* RealmStorageManager.swift */,
+				8B9F531122648B3100AFCB7C /* UserSessionManager.swift */,
+			);
+			path = "Manager Protocols";
 			sourceTree = "<group>";
 		};
 		B43B53A6159F85956675C522 /* Frameworks */ = {
@@ -876,13 +902,14 @@
 				8B2638DB225B979B004B52AB /* GridMap.swift in Sources */,
 				EB5F4483226477AB00D73BE6 /* GridMapManager.swift in Sources */,
 				5C87C4982262242D004ADD6C /* CLLocationManager+Swizzle.swift in Sources */,
+				8B9F531422648BC500AFCB7C /* FetchHistory.swift in Sources */,
 				EBAF2CBA22492E7C000FCE0E /* UIViewController+TransitioningDelegate.swift in Sources */,
 				EB931BC32238066500AFF868 /* AppDelegate.swift in Sources */,
 				8BD4C58C2255051700D0CEC7 /* FirebaseAPI.swift in Sources */,
 				8B9E8C49226210A30067A556 /* User+Firebase.swift in Sources */,
-				8BD4C5802250FAB200D0CEC7 /* RealmStorageManager.swift in Sources */,
-				8BD4C5822251011000D0CEC7 /* UserSessionManager.swift in Sources */,
 				EBDA78952268E83900A3B55A /* SaveButton.swift in Sources */,
+				8BD4C5802250FAB200D0CEC7 /* CachingStorageManager.swift in Sources */,
+				8BD4C5822251011000D0CEC7 /* RealmUserSessionManager.swift in Sources */,
 				62667BEA225B4FE6001561EF /* RunCollectionController.swift in Sources */,
 				8B9E8C3B2261E3FE0067A556 /* FirebaseStorable.swift in Sources */,
 				8BDFFF88224F482000F3BB3A /* Run.swift in Sources */,
@@ -897,6 +924,7 @@
 				EB29FAEE224BC72B00DF2CE6 /* GMSMapView+Extension.swift in Sources */,
 				62FF750C22413F73008847CC /* CLLocation+Extension.swift in Sources */,
 				5C751F0E223CD7650082BC93 /* Constants.swift in Sources */,
+				8B9F53182264D65700AFCB7C /* UploadAttempt.swift in Sources */,
 				62A7C5C4224F6053009585D3 /* UserStatsView.swift in Sources */,
 				8B9E8C3E2261E3FE0067A556 /* CheckPoint+Firebase.swift in Sources */,
 				5C8E42DA223CCA0D00DEC2F4 /* User.swift in Sources */,
@@ -905,6 +933,9 @@
 				62FAA7372257F33D00906B32 /* RunnerMarker.swift in Sources */,
 				6205EA652263AD43006E2E83 /* LoadingController.swift in Sources */,
 				5C87C48B2261DF4B004ADD6C /* GpxParser.swift in Sources */,
+				8B9F531022648B0A00AFCB7C /* RealmStorageManager.swift in Sources */,
+				8B9F531222648B3100AFCB7C /* UserSessionManager.swift in Sources */,
+				8BD45330226AEFED00533270 /* PaceAction.swift in Sources */,
 				EBF87D78225CE9F0001B4056 /* GPSStrengthIndicator.swift in Sources */,
 				EB29FAEC224BA4A100DF2CE6 /* ActivityViewController.swift in Sources */,
 				5C8E42D6223CC85B00DEC2F4 /* CheckPoint.swift in Sources */,
@@ -922,6 +953,7 @@
 				6255967322549B2D0036C2B9 /* Formatter.swift in Sources */,
 				62667BEE225BC8AA001561EF /* CompareRunCollectionViewCell.swift in Sources */,
 				62FAA7392258797200906B32 /* GMSCameraPosition+Extension.swift in Sources */,
+				8BD45332226AF80F00533270 /* AsyncQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,7 +1120,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1109,7 +1141,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = P4SYV2WJ27;
 				INFOPLIST_FILE = Pace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
