@@ -206,11 +206,11 @@ extension RouteDrawerViewController {
             let stats = route.generateStats() else {
             return
         }
-        stats.startingLocation.address { [unowned self] address in
-            self.startPoint.text = "Start: \(address ?? "Unknown")"
+        stats.startingLocation.address { [weak self] address in
+            self?.startPoint.text = "Start: \(address ?? "Unknown")"
         }
-        stats.endingLocation.address { [unowned self] address in
-            self.endPoint.text = "End: \(address ?? "Unknown")"
+        stats.endingLocation.address { [weak self] address in
+            self?.endPoint.text = "End: \(address ?? "Unknown")"
         }
         createdBy.text = "Created by: \(route.creator?.name ?? "")"
         distance.text = String(format: "Distance: %.2fkm", arguments: [stats.totalDistance / 1_000])

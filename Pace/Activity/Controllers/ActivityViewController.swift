@@ -106,8 +106,8 @@ class ActivityViewController: UIViewController {
         let soundButton = SoundButton()
         soundButton.addTarget(self, action: #selector(soundButtonPressed), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: soundButton)
+        soundButton.awakeFromNib()
         self.soundButton = soundButton
-        self.soundButton?.awakeFromNib()
     }
 
     @objc
@@ -145,7 +145,6 @@ class ActivityViewController: UIViewController {
         navigationItem.title = Titles.activity
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
-        navigationItem.rightBarButtonItem = nil
         checkForPersistedState()
     }
 
@@ -168,15 +167,15 @@ class ActivityViewController: UIViewController {
         alert.view.addSubview(loadingIndicator)
         present(alert, animated: true, completion: nil)
 
-        DispatchQueue.global(qos: .background).async { [unowned self] in
-            while self.coreLocationManager.location == nil {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            while self?.coreLocationManager.location == nil {
                 sleep(1)
             }
-            guard let location = self.coreLocationManager.location else {
+            guard let location = self?.coreLocationManager.location else {
                 fatalError("While loop should have captured nil value!")
             }
             DispatchQueue.main.async {
-                self.googleMapView.showLocation(location.coordinate)
+                self?.googleMapView.showLocation(location.coordinate)
                 alert.dismiss(animated: false, completion: nil)
             }
         }
