@@ -12,19 +12,27 @@ import CoreLocation
 import FacebookCore
 
 class PaceFirebaseAPI: PaceStorageAPI {
-
+    /// The reference to the root Firestore reference.
     fileprivate static let rootRef = Firestore.firestore()
+
+    /// The collection reference to the routes Firestore reference.
     fileprivate static let routesRef = rootRef.collection("pace_routes")
 
+    /// The document reference for this route.
     private static func docRefFor(route: Route) -> DocumentReference {
         return routesRef.document(route.objectId)
     }
 
+    /// The collection reference for runs.
     fileprivate static let runsRef = rootRef.collection("pace_runs")
 
+    /// The document reference for this run.
     private static func docRefFor(run: Run) -> DocumentReference {
         return runsRef.document(run.objectId)
     }
+
+    /// The collection reference to the areas Firestore reference.
+    private static let areasRef = rootRef.collection("pace_areas")
 
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: @escaping RouteResultsHandler) {
@@ -51,6 +59,35 @@ class PaceFirebaseAPI: PaceStorageAPI {
                 }
             }
             completion(runs, err)
+        }
+    }
+
+    func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
+        let query = PaceFirebaseAPI.runsRef.order(by: "dateCreated", descending: true)
+            .whereField("runnerId", isEqualTo: user.objectId)
+        query.getDocuments { snapshot, err in
+            guard err == nil else {
+                completion(nil, err)
+                return
+            }
+            let runs = snapshot?.documents
+                .compactMap {
+                    Run.fromDictionary(objectId: $0.documentID, value: $0.data())
+                }
+            completion(runs, nil)
+        }
+    }
+
+    func fetchAreaRoutesCount(areaCode: String, _ completion: @escaping (Int?, Error?) -> Void) {
+        let query = PaceFirebaseAPI.areasRef.document(areaCode)
+        query.getDocument { snapshot, error in
+            let result = snapshot.map { snap -> Int? in
+                guard snap.exists else {
+                    return 0
+                }
+                return (snap.data()?["routes"] as? [String])?.count
+            }
+            completion(result ?? nil, error)
         }
     }
 
@@ -84,6 +121,21 @@ class PaceFirebaseAPI: PaceStorageAPI {
     func removeFavourite(_ route: Route, fromUser user: User, _ completion: ((Error?) -> Void)?) {
         let route = PaceFirebaseAPI.docRefFor(route: route)
         route.setData(["favouritedBy": FieldValue.arrayRemove([user.objectId])], merge: true, completion: completion)
+    }
+
+    func addRouteToArea(areaCode: String, route: Route, _ completion: ((Error?) -> Void)?) {
+        let areaDoc = PaceFirebaseAPI.areasRef.document(areaCode)
+        areaDoc.getDocument { snapshot, error in
+            guard let snapshot = snapshot, error == nil else {
+                completion?(error)
+                return
+            }
+            if snapshot.exists {
+                areaDoc.updateData(["routes": FieldValue.arrayUnion([route.objectId])], completion: completion)
+            } else {
+                areaDoc.setData(["routes": [route.objectId]], merge: true, completion: completion)
+            }
+        }
     }
 }
 
@@ -144,21 +196,6 @@ extension PaceFirebaseAPI: PaceUserAPI {
                 }
             }
             completion(routes, error)
-        }
-    }
-
-    func fetchRunsForUser(_ user: User, _ completion: @escaping RunResultsHandler) {
-        let query = PaceFirebaseAPI.runsRef
-            .whereField("runnerId", isEqualTo: user.objectId)
-        query.getDocuments { snapshot, err in
-            guard err == nil else {
-                completion(nil, err)
-                return
-            }
-            let runs = snapshot?.documents.compactMap {
-                Run.fromDictionary(objectId: $0.documentID, value: $0.data())
-            }
-            completion(runs, nil)
         }
     }
 }

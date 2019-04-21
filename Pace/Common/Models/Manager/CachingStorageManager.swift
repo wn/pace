@@ -33,7 +33,6 @@ class CachingStorageManager: RealmStorageManager {
                   storageAPI: PaceFirebaseAPI())
     }
 
-    // TODO: complete the implementation
     func fetchRoutesWithin(latitudeMin: Double, latitudeMax: Double, longitudeMin: Double, longitudeMax: Double,
                            _ completion: @escaping CompletionHandler) {
         storageAPI.fetchRoutesWithin(latitudeMin: latitudeMin,
@@ -102,6 +101,9 @@ class CachingStorageManager: RealmStorageManager {
 
     func saveNewRoute(_ route: Route, _ completion: CompletionHandler?) {
         do {
+            guard let startingLocation = route.startingLocation else {
+                return
+            }
             try persistentRealm.write {
                 let run = route.creatorRun
                 run?.routeId = route.objectId
@@ -109,6 +111,10 @@ class CachingStorageManager: RealmStorageManager {
             }
             let paceAction = PaceAction.newRoute(route)
             UploadAttempt.addNewAttempt(action: paceAction, toRealm: persistentRealm)
+            let areaCodeZoomLevels = Constants.zoomLevels.map {
+                (GridMapManager.default.getGridManager(Float($0)).getGridId(startingLocation.coordinate).code, $0)
+            }
+            self.addRouteToArea(areaCodes: areaCodeZoomLevels, route: route, completion)
             attemptUploads()
         } catch {
             completion?(error)
@@ -166,8 +172,49 @@ class CachingStorageManager: RealmStorageManager {
         }
     }
 
+    func retrieveAreaCount(areaCodes: [(String, Int)], _ errorHandler: CompletionHandler?) {
+        areaCodes.forEach { areaCodeZoomLevel in
+            let areaCode = AreaCounter.generateId(areaCodeZoomLevel)
+            storageAPI.fetchAreaRoutesCount(areaCode: areaCode) { result, error in
+                guard let result = result, error == nil else {
+                    errorHandler?(error)
+                    return
+                }
+                do {
+                    let areaCounter = AreaCounter(geocode: areaCode, count: result)
+                    try self.inMemoryRealm.write {
+                        self.inMemoryRealm.create(AreaCounter.self, value: areaCounter, update: true)
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+
+    /// Increments the area count for an area code. This is done when
+    private func addRouteToArea(areaCodes: [(String, Int)], route: Route, _ errorHandler: CompletionHandler?) {
+        areaCodes.forEach { areaCode in
+            do {
+                let counterId = AreaCounter.generateId(areaCode)
+                var areaCounter = self.inMemoryRealm.object(ofType: AreaCounter.self, forPrimaryKey: counterId)
+                try self.inMemoryRealm.write {
+                    if areaCounter == nil {
+                        areaCounter = self.inMemoryRealm.create(AreaCounter.self,
+                                                                value: AreaCounter(geocode: counterId),
+                                                                update: true)
+                    }
+                    areaCounter?.incrementCount()
+                }
+                UploadAttempt.addNewAttempt(action: .addRouteToArea(areaCode, route), toRealm: persistentRealm)
+            } catch {
+                errorHandler?(error)
+            }
+        }
+    }
+
     /// Attempts to upload all objects
-    private func attemptUploads(_ uploadCompletion: @escaping () -> Void = {}) {
+    private func attemptUploads(completion: @escaping () -> Void = {}) {
         let asyncQueue = AsyncQueue(elements: UploadAttempt.getAllIn(realm: persistentRealm))
         asyncQueue.promiseChain(callback: { uploadAttempt, completion in
             uploadAttempt.decodeAction()?.asAction(self.storageAPI) {
@@ -178,6 +225,7 @@ class CachingStorageManager: RealmStorageManager {
                 }
                 completion($0)
             }
-        }, completion: uploadCompletion)
+        }, completion: completion)
     }
+
 }

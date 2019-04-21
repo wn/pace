@@ -6,27 +6,29 @@ class RouteCounterMarkers: RouteMarkerHandler {
     var counter = 0
     var map: MapView
 
-    init(position: CLLocationCoordinate2D, map: MapView) {
+    init(position: CLLocationCoordinate2D, map: MapView, count: Int = 0) {
         marker = GMSMarker(position: position)
         self.map = map
+        counter = count
     }
 
     func getRoutes(_: GMSMarker) -> Set<Route>? {
         return nil
     }
 
-    func insertRoute(_ route: Route) {
+    func insertRoute(_ route: Route? = nil) {
         counter += 1
     }
 
     func render() {
+        guard counter > 0 else {
+            return
+        }
         marker.map = map
-        if counter == 12 {
-            marker.icon = UIImage(named: Constants.startFlag)
-        } else if counter < 18 {
+        if counter < 18 {
             marker.icon = UIImage(named: "\(counter)")
         } else {
-            marker.icon = UIImage(named: Constants.startFlag)
+            marker.icon = UIImage(named: Images.asterick)
         }
     }
 
@@ -38,6 +40,6 @@ class RouteCounterMarkers: RouteMarkerHandler {
 protocol RouteMarkerHandler {
     func render()
     func derender()
-    func insertRoute(_ route: Route)
+    func insertRoute(_ route: Route?)
     func getRoutes(_: GMSMarker) -> Set<Route>?
 }

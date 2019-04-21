@@ -41,4 +41,7 @@ protocol RealmStorageManager {
 
     /// Removes a route from a user
     func removeFavouriteRoute(_ route: Route, fromUser user: User, _ completion: CompletionHandler?)
+
+    /// Retrieves the area counts for an area code.
+    func retrieveAreaCount(areaCodes: [(String, Int)], _ errorHandler: CompletionHandler?)
 }
