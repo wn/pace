@@ -136,9 +136,12 @@ class ActivitySummaryViewController: UIViewController {
         // Ensure that any persisted states are removed once the new route is created
         runStateManager.clearRunState()
 
-        routesManager.saveNewRoute(newRoute) {[unowned self] _ in
-            self.isSaved = true
-            UIAlertController.showMessage(self, msg: "Saved new route")
+        routesManager.saveNewRoute(newRoute) {[weak self] _ in
+            guard let currentVC = self else {
+                return
+            }
+            currentVC.isSaved = true
+            UIAlertController.showMessage(currentVC, msg: "Saved new route")
         }
     }
 
@@ -154,9 +157,12 @@ class ActivitySummaryViewController: UIViewController {
             guard let run = finishedRun.toRun(parentRouteId) else {
                 return
             }
-            routesManager.saveNewRun(run, toRoute: parentRoute) { [unowned self] _ in
-                self.isSaved = true
-                UIAlertController.showMessage(self, msg: "Added your statistics to the followed route.")
+            routesManager.saveNewRun(run, toRoute: parentRoute) { [weak self] _ in
+                guard let currentVC = self else {
+                    return
+                }
+                currentVC.isSaved = true
+                UIAlertController.showMessage(currentVC, msg: "Added your statistics to the followed route.")
             }
         }
     }

@@ -168,15 +168,15 @@ class ActivityViewController: UIViewController {
         alert.view.addSubview(loadingIndicator)
         present(alert, animated: true, completion: nil)
 
-        DispatchQueue.global(qos: .background).async { [unowned self] in
-            while self.coreLocationManager.location == nil {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            while self?.coreLocationManager.location == nil {
                 sleep(1)
             }
-            guard let location = self.coreLocationManager.location else {
+            guard let location = self?.coreLocationManager.location else {
                 fatalError("While loop should have captured nil value!")
             }
             DispatchQueue.main.async {
-                self.googleMapView.showLocation(location.coordinate)
+                self?.googleMapView.showLocation(location.coordinate)
                 alert.dismiss(animated: false, completion: nil)
             }
         }
