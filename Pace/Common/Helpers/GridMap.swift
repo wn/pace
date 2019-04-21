@@ -107,6 +107,12 @@ public struct GridMap {
         let maxLong = gridId.longitude + longitudeLength
         return GridBound(minLat: minLat, minLong: minLong, maxLat: maxLat, maxLong: maxLong)
     }
+
+    func center(bottomLeft: CLLocationCoordinate2D) -> CLLocationCoordinate2D {
+        let midLat = bottomLeft.latitude + latitudeLength
+        let midLong = bottomLeft.longitude + longitudeLength
+        return CLLocationCoordinate2D(latitude: midLat, longitude: midLong)
+    }
 }
 
 public struct GridBound {

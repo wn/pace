@@ -157,15 +157,15 @@ class ActivityViewController: UIViewController {
         guard let zoomLevel = areaCounter.zoomLevel, let areaCode = areaCounter.geoCode else {
             return
         }
+
         let count = areaCounter.count
         let gridNumber = GridNumber(areaCode)
-        guard var layer = gridNumberAtZoomLevel[zoomLevel] else {
-            return
-        }
-        if let routeCountMarker = layer[gridNumber] {
+        if let routeCountMarker = gridNumberAtZoomLevel[zoomLevel]?[gridNumber] {
             routeCountMarker.derender()
         }
-        layer[gridNumber] = RouteCounterMarkers(position: gridNumber.point, map: googleMapView, count: count)
+        let manager = GridMapManager.default.getGridManager(Float(zoomLevel))
+        let center = manager.center(bottomLeft: gridNumber.point)
+        gridNumberAtZoomLevel[zoomLevel]?[gridNumber] = RouteCounterMarkers(position: center, map: googleMapView, count: count)
     }
 
     private func renderMapButton() {
@@ -298,6 +298,7 @@ extension ActivityViewController: RouteRenderer {
     private func fetchRouteCounter(_ gridNumbers: [GridNumber], zoomLevel: Int) {
         let areaCodes = gridNumbers.map { ($0.code, zoomLevel) }
         routesManager.retrieveAreaCount(areaCodes: areaCodes, nil)
+
     }
 
     func renderRoutes(_ routes: Set<Route>) {

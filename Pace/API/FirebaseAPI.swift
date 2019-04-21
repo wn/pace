@@ -87,7 +87,7 @@ class PaceFirebaseAPI: PaceStorageAPI {
                 }
                 return (snap.data()?["routes"] as? [String])?.count
             }
-            completion(result, error)
+            completion(result ?? nil, error)
         }
     }
 

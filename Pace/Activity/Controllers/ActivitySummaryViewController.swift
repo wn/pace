@@ -78,6 +78,7 @@ class ActivitySummaryViewController: UIViewController {
     @objc
     private func saveButtonPressed() {
         guard !isSaved else {
+
             return
         }
         // Guard against user whom are not logged i
