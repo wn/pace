@@ -66,6 +66,7 @@ class ActivityViewController: UIViewController {
         setupSoundButton()
         renderMapButton()
         statsPanel.bringSubviewToFront(gpsIndicator)
+        googleMapView.bringSubviewToFront(lockMapButton)
         // Set the gpx file for MockCLLocationManager
         MockLocationConfiguration.GpxFileName = "bedok-reservior"
         setupLocationManager()

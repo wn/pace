@@ -489,8 +489,24 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="217.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="eha-AA-5Gj" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="7ue-D1-j7a"/>
+                                            <constraint firstItem="eha-AA-5Gj" firstAttribute="leading" secondItem="CIc-JA-d14" secondAttribute="leading" id="9as-1E-7RV"/>
+                                            <constraint firstItem="eH6-HT-w4G" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="CiB-Sh-9gt"/>
+                                            <constraint firstItem="eH6-HT-w4G" firstAttribute="leading" secondItem="CIc-JA-d14" secondAttribute="leading" id="Dti-B7-2HX"/>
+                                            <constraint firstAttribute="bottom" secondItem="eH6-HT-w4G" secondAttribute="bottom" id="Lhi-fV-fqR"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ucs-du-ve9" secondAttribute="trailing" id="Pqi-9U-eji"/>
+                                            <constraint firstItem="Ucs-du-ve9" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="Uwq-ua-pkZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="eH6-HT-w4G" secondAttribute="trailing" id="hug-T9-7N8"/>
+                                        </constraints>
+                                    </view>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orD-GP-Arf" customClass="MapView" customModule="Pace" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="217.5" width="414" height="507.5"/>
+                                        <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc2-Hi-2Cm" userLabel="lockMap">
-                                                <rect key="frame" x="347" y="187.5" width="67" height="30"/>
+                                                <rect key="frame" x="347" y="0.0" width="67" height="30"/>
                                                 <state key="normal" title="Lock Map">
                                                     <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -501,21 +517,9 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="eha-AA-5Gj" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="7ue-D1-j7a"/>
-                                            <constraint firstItem="eha-AA-5Gj" firstAttribute="leading" secondItem="CIc-JA-d14" secondAttribute="leading" id="9as-1E-7RV"/>
-                                            <constraint firstItem="eH6-HT-w4G" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="CiB-Sh-9gt"/>
-                                            <constraint firstItem="eH6-HT-w4G" firstAttribute="leading" secondItem="CIc-JA-d14" secondAttribute="leading" id="Dti-B7-2HX"/>
-                                            <constraint firstAttribute="bottom" secondItem="eH6-HT-w4G" secondAttribute="bottom" id="Lhi-fV-fqR"/>
-                                            <constraint firstAttribute="trailing" secondItem="Hc2-Hi-2Cm" secondAttribute="trailing" id="MEs-Mj-0aJ"/>
-                                            <constraint firstAttribute="bottom" secondItem="Hc2-Hi-2Cm" secondAttribute="bottom" id="NFl-6I-pka"/>
-                                            <constraint firstAttribute="trailing" secondItem="Ucs-du-ve9" secondAttribute="trailing" id="Pqi-9U-eji"/>
-                                            <constraint firstItem="Ucs-du-ve9" firstAttribute="top" secondItem="CIc-JA-d14" secondAttribute="top" id="Uwq-ua-pkZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="eH6-HT-w4G" secondAttribute="trailing" id="hug-T9-7N8"/>
+                                            <constraint firstAttribute="trailing" secondItem="Hc2-Hi-2Cm" secondAttribute="trailing" id="M1M-bJ-8ze"/>
+                                            <constraint firstItem="Hc2-Hi-2Cm" firstAttribute="top" secondItem="orD-GP-Arf" secondAttribute="top" id="v5s-ip-Yfb"/>
                                         </constraints>
-                                    </view>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orD-GP-Arf" customClass="MapView" customModule="Pace" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="217.5" width="414" height="507.5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
                                 <constraints>
