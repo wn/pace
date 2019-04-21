@@ -25,8 +25,6 @@ class CheckPoint: Object {
     @objc dynamic var actualDistance: Double = 0.0
 
     /// The cumulative distance with relation to checkpoints in the route.
-    ///
-    /// TODO: @yuntongzhang please document how this is stored.
     @objc dynamic var routeDistance: Double = 0.0
 
     /// The location represented by this checkpoint.

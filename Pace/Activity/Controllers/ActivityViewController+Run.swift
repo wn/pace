@@ -96,14 +96,6 @@ extension ActivityViewController {
         }
         VoiceAssistant.say("Run completed")
 
-        // TODO: ALL OUR ENDRUN LOGIC SHOULD BE DONE HERE
-        // 1. Start loading animation
-        // 2. Perform normalisation shit here
-        // 3. Add end flag
-        // 4. Rerender the normalized-map and take a screenshot
-        // 5. Show the map in the summary page. Cannot just be screenshot
-        //    because of runAnalysis.
-        // 6. When we press "exit summary", clean up flag drawings.
         googleMapView.addMarker(Constants.endFlag, position: coreLocationManager.location!.coordinate)
         googleMapView.completeRun()
 

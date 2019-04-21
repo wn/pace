@@ -220,7 +220,6 @@ class OngoingRun: Object {
             guard let baselineLocation = baselinePoint.location else {
                 continue
             }
-            // TODO: adjust the threshold here for detecting nearby location
             if newLocation.isNear(baselineLocation, within: Constants.checkPointDistanceInterval) {
                 markAsCovered(baselinePoint)
                 lastPointPassed = baselinePoint

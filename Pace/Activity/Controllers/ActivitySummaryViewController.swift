@@ -23,7 +23,6 @@ class ActivitySummaryViewController: UIViewController {
     private var isSaved = false
 
     /// Set the necessary information for the summary. Called when initializing the summary.
-    /// TODO: We need to be able to generate a new route whether user is logged in or not.
     func setRun(as finishedRun: OngoingRun?) {
         self.finishedRun = finishedRun
         finishedRoute = finishedRun?.toNewRoute()
