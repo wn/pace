@@ -504,7 +504,22 @@
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orD-GP-Arf" customClass="MapView" customModule="Pace" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="217.5" width="414" height="507.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc2-Hi-2Cm" userLabel="lockMap">
+                                                <rect key="frame" x="317" y="0.0" width="97" height="30"/>
+                                                <state key="normal" title="Map unlocked">
+                                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="lockMap:" destination="oWb-lV-tEy" eventType="touchUpInside" id="E2z-vz-zKB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Hc2-Hi-2Cm" secondAttribute="trailing" id="M1M-bJ-8ze"/>
+                                            <constraint firstItem="Hc2-Hi-2Cm" firstAttribute="top" secondItem="orD-GP-Arf" secondAttribute="top" id="v5s-ip-Yfb"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -533,6 +548,7 @@
                         <outlet property="googleMapView" destination="orD-GP-Arf" id="Bjl-QF-XAF"/>
                         <outlet property="gpsIndicator" destination="Ucs-du-ve9" id="cHn-MX-NSC"/>
                         <outlet property="internetIndicator" destination="eha-AA-5Gj" id="K5r-ST-nQY"/>
+                        <outlet property="lockMapButton" destination="Hc2-Hi-2Cm" id="qfR-nd-y6q"/>
                         <outlet property="runStats" destination="eH6-HT-w4G" id="sWR-oQ-2aQ"/>
                         <outlet property="statsPanel" destination="CIc-JA-d14" id="Wue-Mw-F2n"/>
                         <segue destination="xC9-Rd-j1i" kind="show" id="xaX-Sn-iQB"/>

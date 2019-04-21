@@ -76,6 +76,7 @@ extension ActivityViewController {
     private func startNewRunSession(at location: CLLocation) {
         VoiceAssistant.say("Starting new run")
         coreLocationManager.startUpdatingLocation()
+        lockMapButton.isEnabled = true
         stopwatch.start()
         ongoingRun = OngoingRun(runner: userSession.currentUser, startingLocation: location)
     }
@@ -83,6 +84,7 @@ extension ActivityViewController {
     private func startFollowRunSession(at location: CLLocation, following paceRun: Run) {
         VoiceAssistant.say("Starting follow run")
         coreLocationManager.startUpdatingLocation()
+        lockMapButton.isEnabled = true
         stopwatch.start()
         ongoingRun = OngoingRun(runner: userSession.currentUser, startingLocation: location, paceRun: paceRun)
     }
@@ -113,6 +115,8 @@ extension ActivityViewController {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         stopwatch.reset()
         coreLocationManager.stopUpdatingLocation()
+        isMapLock = false
+        lockMapButton.isEnabled = false
         updateLabels()
     }
 
