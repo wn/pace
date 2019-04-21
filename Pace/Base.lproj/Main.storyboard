@@ -506,8 +506,8 @@
                                         <rect key="frame" x="0.0" y="217.5" width="414" height="507.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc2-Hi-2Cm" userLabel="lockMap">
-                                                <rect key="frame" x="347" y="0.0" width="67" height="30"/>
-                                                <state key="normal" title="Lock Map">
+                                                <rect key="frame" x="317" y="0.0" width="97" height="30"/>
+                                                <state key="normal" title="Map unlocked">
                                                     <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>

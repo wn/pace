@@ -107,9 +107,9 @@ class ActivityViewController: UIViewController {
         }
     }
 
-    var isMapLock: Bool = true {
+    var isMapLock: Bool = false {
         willSet {
-            if isMapLock {
+            if newValue {
                 googleMapView.isMapLock = true
                 lockMapButton.setTitle("Map locked", for: .normal)
             } else {
@@ -212,11 +212,9 @@ extension ActivityViewController: CLLocationManagerDelegate {
         guard runStarted, let location = locations.last else {
             return
         }
-        //        if isMapLock {
-        //            // Set to current location
-        //            googleMapView.setCameraPosition(location.coordinate)
-        //            googleMapView.animate(toZoom: Constants.initialZoom)
-        //        }
+        if isMapLock {
+            googleMapView.setCameraPosition(location.coordinate)
+        }
         let accuracy = location.horizontalAccuracy
         gpsIndicator.setStrength(accuracy)
         guard accuracy < Constants.guardAccuracy else {
