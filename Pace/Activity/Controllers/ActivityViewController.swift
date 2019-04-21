@@ -106,8 +106,8 @@ class ActivityViewController: UIViewController {
         let soundButton = SoundButton()
         soundButton.addTarget(self, action: #selector(soundButtonPressed), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: soundButton)
+        soundButton.awakeFromNib()
         self.soundButton = soundButton
-        self.soundButton?.awakeFromNib()
     }
 
     @objc
@@ -145,7 +145,6 @@ class ActivityViewController: UIViewController {
         navigationItem.title = Titles.activity
         renderMapButton()
         setMapButton(imageUrl: Constants.startButton, action: #selector(startRun(_:)))
-        navigationItem.rightBarButtonItem = nil
         checkForPersistedState()
     }
 
