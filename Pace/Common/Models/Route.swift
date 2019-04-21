@@ -80,12 +80,16 @@ class Route: IdentifiableObject {
                           fastestTime: paces.min(ofProperty: "timeSpent"))
     }
 
-    static private func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
+    static func initialNormalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
+        return normalizeFrom(distance: 0, for: runnerRecords)
+    }
+
+    static func normalizeFrom(distance currentDistance: Double, for runnerRecords: [CheckPoint]) -> [CheckPoint] {
         guard runnerRecords.count >= 2 else {
             // empty or only has one point recorded
             return runnerRecords
         }
-        var currentDistance: Double = 0
+        var currentDistance = currentDistance
         var leftPointIndex = 0
         var rightPointIndex = 1
         var normalizedCheckPoints = [CheckPoint]()
@@ -93,12 +97,12 @@ class Route: IdentifiableObject {
         while rightPointIndex < runnerRecords.endIndex {
             let leftPoint = runnerRecords[leftPointIndex]
             let rightPoint = runnerRecords[rightPointIndex]
-            if currentDistance > rightPoint.routeDistance {
+            if currentDistance > rightPoint.actualDistance {
                 // impossible to find more points in the current interval, move the window
                 leftPointIndex += 1
                 rightPointIndex += 1
             }
-            if currentDistance >= leftPoint.routeDistance && currentDistance <= rightPoint.routeDistance {
+            if currentDistance >= leftPoint.actualDistance && currentDistance <= rightPoint.actualDistance {
                 // current distance falls inside the current interval
                 let normalizedPoint = CheckPoint.interpolate(with: currentDistance, between: leftPoint,
                                                              and: rightPoint, on: nil)

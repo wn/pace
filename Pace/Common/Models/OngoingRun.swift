@@ -147,13 +147,30 @@ class OngoingRun: Object {
     }
 
     /// Checks whether this OngoingRun can be classified as a run in the Route followed.
+    /// The passing criteria is AnB/AUB >= 80%.
     /// - Precondition: This OngoingRun is a follow run.
     /// - Returns: true if this OngoingRun can be classified as a valid follow run.
     func classifiedAsFollow() -> Bool {
-        guard let pacePoints = pacePoints else {
+        guard
+            let pacePoints = pacePoints,
+            let normalizedFollowPoints = paceRun?.normalize(Array(checkpoints))
+        else {
             return false
         }
-        let coveredPercentage = Double(Set<CheckPoint>(coveredPacePoints).count) / Double(pacePoints.count)
+        // coveredPacePoints represents AnB, uniqueDistancePoints represents AUB
+        let uniqueDistancePoints = (pacePoints + normalizedFollowPoints)
+            .sorted { $0.routeDistance < $1.routeDistance }
+            .reduce([CheckPoint]()) { result, checkpoint in
+                guard let lastPoint = result.last else {
+                    return result + [checkpoint]
+                }
+                if lastPoint.routeDistance == checkpoint.routeDistance {
+                    return result
+                } else {
+                    return result + [checkpoint]
+                }
+            }
+        let coveredPercentage = Double(coveredPacePoints.count) / Double(uniqueDistancePoints.count)
         return coveredPercentage >= Constants.sameRoutePercentageOverlapThreshold
     }
 
