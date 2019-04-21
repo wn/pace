@@ -92,9 +92,22 @@ class Run: IdentifiableObject {
     /// - Parameter runnerRecords: the array of CheckPoints to be normalized.
     /// - Returns: an array of normalized CheckPoints.
     func normalize(_ runnerRecords: [CheckPoint]) -> [CheckPoint] {
-        return checkpoints.map { basePoint in
+        // normalize the records which are within the original run.
+        var normalizedPoints: [CheckPoint] = checkpoints.compactMap { basePoint in
             basePoint.extractNormalizedPoint(from: runnerRecords)
         }
+        guard let originalMaxDistance = checkpoints.last?.routeDistance else {
+            fatalError("The checkpoints from the original Run should not be empty.")
+        }
+        let outsidePoints = runnerRecords.filter { $0.actualDistance > originalMaxDistance }
+        guard let outsideStartDistance = outsidePoints.first?.actualDistance else {
+            // there are no outside points to be normalized
+            return normalizedPoints
+        }
+        // normalize the records outside the original run range based on routeDistance
+        let initialNormalizedPoints = Route.normalizeFrom(distance: outsideStartDistance, for: outsidePoints)
+        normalizedPoints.append(contentsOf: initialNormalizedPoints)
+        return normalizedPoints
     }
 
     /// Gets the Checkpoint of the runner based on the distance run by the runner
